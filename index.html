@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillMap Azerbaijan – Əmək Bazarı və Bacarıq Qərar Dəstəyi Platforması</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12'
+                        },
+                        slate: {
+                            850: '#152033',
+                            900: '#0f172a',
+                            950: '#020617'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- 1. ÜST NAVİQASİYA (Header & Navigation) -->
+    <header class="sticky top-0 z-50 glass-nav border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="app.switchTab('overview')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white font-black text-xl shadow-md orange-glow">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-black text-xl text-slate-900 tracking-tight">SkillMap</span>
+                            <span class="text-xs font-black px-1.5 py-0.5 rounded bg-orange-100 text-orange-700">AZ</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 font-semibold tracking-tight">Əmək Bazarı & Bacarıq İntellekti</p>
+                    </div>
+                </div>
+
+                <!-- Naviqasiya Linkləri (Həmişə Görünən Əsas Menyu) -->
+                <nav class="flex items-center gap-1 overflow-x-auto">
+                    <button onclick="app.switchTab('overview')" data-tab-btn="overview" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-orange-700 bg-orange-50 font-bold whitespace-nowrap">
+                        <i class="fas fa-home mr-1 text-slate-400"></i>Ana Səhifə
+                    </button>
+                    <button onclick="app.switchTab('student-gap')" data-tab-btn="student-gap" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-id-card mr-1 text-slate-400"></i>Şəxsi Kabinet
+                    </button>
+                    <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-briefcase mr-1 text-slate-400"></i>Canlı Vakansiyalar
+                    </button>
+                    <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-map-location-dot mr-1 text-slate-400"></i>Bakı Xəritəsi
+                    </button>
+                    <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-chart-line mr-1 text-slate-400"></i>Analitika
+                    </button>
+                    <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-university mr-1 text-slate-400"></i>Universitetlər
+                    </button>
+                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-landmark mr-1 text-slate-400"></i>Dövlət / Siyasət
+                    </button>
+                    <button onclick="app.switchTab('nlp-sandbox')" data-tab-btn="nlp-sandbox" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-microchip mr-1 text-slate-400"></i>NLP Simulyatoru
+                    </button>
+                    <button onclick="app.switchTab('methodology')" data-tab-btn="methodology" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition-all text-slate-700 hover:text-orange-600 hover:bg-orange-50/50 whitespace-nowrap">
+                        <i class="fas fa-book-bookmark mr-1 text-slate-400"></i>Metodologiya
+                    </button>
+                </nav>
+
+                <!-- Sağ düymələr: Giriş/Profil, Dil və Data Yüklə -->
+                <div class="flex items-center gap-2.5 flex-shrink-0">
+                    <!-- Dinamik Giriş / Profil Konteyneri -->
+                    <div id="header-auth-container">
+                        <!-- JavaScript ilə doldurulacaq -->
+                    </div>
+
+                    <!-- Dil Seçimi -->
+                    <button id="lang-toggle-btn" onclick="app.toggleLanguage()" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition-all flex items-center gap-1.5" title="Dili Dəyiş / Switch Language">
+                        <span class="text-sm">🇦🇿</span> <span class="font-bold">AZ</span>
+                    </button>
+                    
+                    <button onclick="app.openDataModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 transition-all">
+                        <i class="fas fa-database text-orange-600"></i>
+                        <span class="hidden sm:inline">Data Yüklə</span>
+                    </button>
+                    <button onclick="window.print()" class="no-print inline-flex items-center p-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 border border-slate-200" title="Hesabatı Çap Et / PDF">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ƏSAS MƏZMUN -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ======================================================== -->
+        <!-- TAB 1: ANA SƏHİFƏ (OVERVIEW & HERO) -->
+        <!-- ======================================================== -->
+        <section id="tab-overview" class="tab-content active space-y-8">
+            <!-- Hero Banner (Sunset Orange & Navy) -->
+            <div class="gradient-orange-banner text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/20 backdrop-blur-md border border-orange-400/30 text-orange-200 text-xs font-bold mb-4">
+                        <i class="fas fa-shield-halved text-amber-300"></i>
+                        <span>Rəsmi Təhsil & Əmək Bazarı Qərar Dəstəyi Sistemi</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4">
+                        Bacarıqlarınızı Real Əmək Bazarı ilə <span class="text-amber-400 underline decoration-orange-500 decoration-wavy decoration-2">Müqayisə Edin</span>.
+                    </h1>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-8">
+                        Azərbaycanın aparıcı şirkətlərinin (PAŞA Bank, ABB, SOCAR, Azercell) 8 450+ vakansiya tələbləri ilə öz biliklərinizi test edin, çatışmayan bacarıqlarınızı və fərdi inkişaf planınızı əldə edin.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button onclick="app.openAuthModal('register')" class="gradient-orange-btn px-6 py-3.5 rounded-xl text-white font-black text-sm shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fas fa-id-card text-amber-200"></i>Fərdi Kabinet Yarat & Daxil Ol
+                        </button>
+                        <button onclick="app.switchTab('live-vacancies')" class="px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2">
+                            <i class="fas fa-briefcase"></i>Canlı Vakansiyaları Aç
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tərəfdaş və Etibarlılıq Lövhəsi (Trust Bar) -->
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 font-medium">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="font-bold text-slate-800">Məlumat Bazası:</span>
+                    <span class="text-emerald-700 font-bold">420 Real Vakansiya (Jobsearch.az)</span>
+                    <span class="text-slate-400">| Genişlənən Baza: 8 000+</span>
+                </div>
+                <div class="flex items-center gap-4 text-[11px] text-slate-400">
+                    <span>Mənbələr: Jobsearch.az (Aktiv), DMA, Boss.az, HelloJob, LinkedIn</span>
+                    <span>•</span>
+                    <span class="text-orange-600 font-bold cursor-pointer hover:underline" onclick="app.switchTab('methodology')">Metodologiya sənədi ➔</span>
+                </div>
+            </div>
+
+            <!-- Makro Göstəricilər Kartları -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">Təhlil Edilən Real Baza</span>
+                        <div class="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                            <i class="fas fa-briefcase text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-black text-slate-900" id="stat-total-vacancies">420</div>
+                    <p class="text-[11px] text-emerald-600 font-medium mt-1">
+                        <i class="fas fa-check-circle mr-0.5"></i>Jobsearch.az Açıq Vakansiyaları
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">Orta Bazar Uyğunluğu</span>
+                        <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                            <i class="fas fa-chart-pie text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-black text-slate-900" id="stat-avg-match">58.4%</div>
+                    <p class="text-[11px] text-slate-400 font-medium mt-1">
+                        <i class="fas fa-info-circle mr-0.5"></i>Demo kalibrasiya göstəricisi
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">Ən Tələb Olunan Skill</span>
+                        <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-black text-slate-900">İngilis dili & Excel</div>
+                    <p class="text-[11px] text-slate-500 font-medium mt-1">
+                        74% və 68% vakansiyada zəruri
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">Ən Çox Artan Bacarıq</span>
+                        <div class="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                            <i class="fas fa-robot text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="text-2xl font-black text-orange-600">+142%</div>
+                    <p class="text-[11px] text-slate-500 font-medium mt-1">
+                        AI Alətləri & Power BI (2026)
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3 İstifadəçi Portalı Kartı -->
+            <div>
+                <h2 class="text-xl font-bold text-slate-900 mb-4">Kimlər Üçün Nəzərdə Tutulub?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">🎓 Tələbə və Məzunlar</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                “Bacarıqlarım əmək bazarına nə qədər uyğundur?” sualına cavab tapın, çatışmayan bacarıqlarınızı (Skill Gap) və fərdi inkişaf planınızı əldə edin.
+                            </p>
+                        </div>
+                        <button onclick="app.openAuthModal('register')" class="w-full py-2.5 rounded-xl bg-orange-50 text-orange-700 font-bold text-xs hover:bg-orange-600 hover:text-white transition-all">
+                            Profil Yarat & Gap-i Ölç
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">🏛 Ali Təhsil Müəssisələri</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                “Tələbələrimizə hansı praktiki bacarıqları öyrətməliyik?” Kurrikulumların bazar tələbatına uyğunlaşdırılması üçün AI tövsiyələri.
+                            </p>
+                        </div>
+                        <button onclick="app.switchTab('university-dash')" class="w-full py-2.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all">
+                            Universitet Panelini Aç
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">📊 Dövlət və Tədqiqat Qurumları</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                “Əmək bazarında hansı struktur disbalans var?” Regionlar və sektorlar üzrə strateji məşğulluq və subsidiyalaşdırma qərarları üçün məlumat bazası.
+                            </p>
+                        </div>
+                        <button onclick="app.switchTab('policy-gov')" class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-800 hover:text-white transition-all">
+                            Siyasət Panelini Aç
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 2: TƏLƏBƏ / MƏZUN "SKİLL GAP" VƏ FƏRDİ ŞƏXSİ KABİNET (ENTERPRISE HUB) -->
+        <!-- ======================================================== -->
+        <section id="tab-student-gap" class="tab-content space-y-6">
+            
+            <!-- 1. Yüksək Səviyyəli Şəxsi Profil Lövhəsi (Executive Header) -->
+            <div class="gradient-orange-banner text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl">
+                <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                    
+                    <!-- Sol Tərəf: İstifadəçi Şəxsi Məlumatları və Status -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl font-black shadow-lg border-2 border-white/20 flex-shrink-0" id="student-avatar-badge">
+                            NƏ
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold flex items-center gap-1">
+                                    <i class="fas fa-check-circle"></i> Təsdiqlənmiş Tələbə Profili
+                                </span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-mono" id="student-id-display">ID: AZ-UNEC-2026-8492</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-black text-white" id="student-profile-name-display">Nurlan Əliyev 👋</h2>
+                            <div id="student-profile-meta-display" class="flex flex-wrap gap-2 text-xs text-slate-200">
+                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-university text-orange-400 mr-1.5"></i>UNEC – Maliyyə və Rəqəmsal İqtisadiyyat</span>
+                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-star text-amber-400 mr-1.5"></i>ÜOMG (GPA): 88.4</span>
+                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-language text-orange-400 mr-1.5"></i>İngilis dili: B2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sağ Tərəf: Skor və Maaş Potensialı -->
+                    <div class="flex items-center gap-3 w-full lg:w-auto">
+                        <!-- Uyğunluq Skoru -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl text-center min-w-[120px] flex-1 lg:flex-initial">
+                            <div class="text-3xl font-black text-orange-400" id="result-match-score">0%</div>
+                            <div class="text-[10px] uppercase font-bold text-slate-300 mt-0.5">Bazar Uyğunluğu</div>
+                        </div>
+
+                        <!-- Maaş Potensialı -->
+                        <div class="bg-gradient-to-tr from-orange-600 to-amber-500 p-4 rounded-2xl text-center min-w-[170px] shadow-lg orange-glow flex-1 lg:flex-initial">
+                            <div class="text-[10px] uppercase font-bold text-orange-100">Bazar Dəyəri Potensialı</div>
+                            <div class="text-lg font-black text-white mt-0.5" id="result-salary-text">1 400 ➔ 2 200 AZN</div>
+                            <div class="text-[10px] text-amber-200 font-semibold" id="result-salary-growth">+57% Gəlir Artımı</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. Çoxmərhələli Karyera Yol Xəritəsi (Roadmap Pipeline) -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-route text-orange-600"></i>Strateji Karyera İnkişaf Trayektoriyanız
+                    </h3>
+                    <div class="flex items-center gap-2">
+                        <span id="traj-status-badge" class="text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
+                            2-ci Mərhələdəsiniz (Skill Gap)
+                        </span>
+                        <button onclick="window.print()" class="text-xs text-slate-500 hover:text-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 font-medium">
+                            <i class="fas fa-download mr-1"></i>Pasportu Endir
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <div id="traj-stage1-card" class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span id="traj-stage1-icon" class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">✓</span>
+                            <span id="traj-stage1-status" class="text-[10px] font-bold text-emerald-700 uppercase">Tamamlandı</span>
+                        </div>
+                        <h4 id="traj-stage1-title" class="font-bold text-slate-900 text-xs">1. Nəzəri Baza</h4>
+                        <p id="traj-stage1-desc" class="text-[11px] text-slate-500">Maliyyə və İqtisadiyyat üzrə ali təhsil.</p>
+                    </div>
+
+                    <div id="traj-stage2-card" class="p-3.5 rounded-2xl bg-orange-50 border-2 border-orange-500 shadow-sm space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span id="traj-stage2-icon" class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">2</span>
+                            <span id="traj-stage2-status" class="text-[10px] font-bold text-orange-700 uppercase animate-pulse">Aktiv Mərhələ</span>
+                        </div>
+                        <h4 id="traj-stage2-title" class="font-bold text-slate-900 text-xs">2. SQL & Power BI Gap</h4>
+                        <p id="traj-stage2-desc" class="text-[11px] text-slate-600">Bazarın tələb etdiyi 2 kritik bacarığı artırmaq.</p>
+                    </div>
+
+                    <div id="traj-stage3-card" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1 opacity-75">
+                        <div class="flex items-center justify-between">
+                            <span id="traj-stage3-icon" class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs font-bold">3</span>
+                            <span id="traj-stage3-status" class="text-[10px] font-bold text-slate-400 uppercase">Növbəti</span>
+                        </div>
+                        <h4 id="traj-stage3-title" class="font-bold text-slate-900 text-xs">3. Real Portfel Layihəsi</h4>
+                        <p id="traj-stage3-desc" class="text-[11px] text-slate-500">3 praktiki dashboard qurub GitHub-a yükləmək.</p>
+                    </div>
+
+                    <div id="traj-stage4-card" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1 opacity-75">
+                        <div class="flex items-center justify-between">
+                            <span id="traj-stage4-icon" class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs font-bold">4</span>
+                            <span id="traj-stage4-status" class="text-[10px] font-bold text-slate-400 uppercase">Hədəf</span>
+                        </div>
+                        <h4 id="traj-stage4-title" class="font-bold text-slate-900 text-xs">4. İş Təklifi (Job Offer)</h4>
+                        <p id="traj-stage4-desc" class="text-[11px] text-slate-500">PAŞA Bank və ya ABB-də Data Analyst vəzifəsi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Profil Tənzimləmələri və Nəticə Paneli -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Sol: Hədəf Vəzifə və Səriştə Sliderləri (5 Sütun) -->
+                <div class="lg:col-span-5 space-y-5">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-sliders text-orange-600"></i>Hədəf Vəzifə və Bacarıqlar
+                            </h3>
+                            <div class="flex items-center gap-1">
+                                <button onclick="app.loadPreset('finance')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-orange-50 hover:bg-orange-100 text-orange-700">Maliyyə</button>
+                                <button onclick="app.loadPreset('data')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-orange-50 hover:bg-orange-100 text-orange-700">Data</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Hədəflədiyiniz Vəzifə</label>
+                            <select id="student-target-role" onchange="app.handleRoleChange()" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Təhsil Müəssisəsi</label>
+                            <select id="student-field" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                                <option>UNEC – Maliyyə və Rəqəmsal İqtisadiyyat</option>
+                                <option>BANM – İnformasiya Təhlükəsizliyi</option>
+                                <option>BDU – Tətbiqi Riyaziyyat və Kibernetika</option>
+                                <option>ADA – Kompüter Elmləri / Biznes</option>
+                                <option>AzTU / BMU – Mühəndislik</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-100">
+                            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center justify-between">
+                                <span><i class="fas fa-brain text-orange-600 mr-1.5"></i>Bilik Səviyyələriniz</span>
+                                <span class="text-[10px] text-slate-400 font-normal">Dəyişdikcə avtomatik saxlanılır</span>
+                            </h3>
+                            
+                            <div id="skills-slider-container" class="space-y-4 max-h-[360px] overflow-y-auto pr-2">
+                            </div>
+                        </div>
+
+                        <button onclick="app.runSkillGapCalculation()" class="w-full py-3.5 rounded-xl gradient-orange-btn text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-calculator"></i>Analizi Yenilə & Yadda Saxla
+                        </button>
+                    </div>
+
+                    <!-- Profilə Ən Uyğun Şirkətlər Bloku -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
+                        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fas fa-building text-orange-600"></i>Profilinizə Ən Uyğun 3 Şirkət
+                        </h3>
+                        <div class="space-y-2.5 text-xs">
+                            <div class="p-3 rounded-2xl bg-orange-50/60 border border-orange-200 flex items-center justify-between">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-xs">PB</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">PAŞA Bank</h4>
+                                        <p class="text-[10px] text-slate-500">Data Analytics Departamenti</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-black text-orange-700 bg-white px-2 py-1 rounded-lg border border-orange-200">91% Uyğunluq</span>
+                            </div>
+
+                            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-blue-900 text-white flex items-center justify-center font-bold text-xs">ABB</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">ABB (Azərbaycan Beynəlxalq Bankı)</h4>
+                                        <p class="text-[10px] text-slate-500">Maliyyə və Risk Təhlili</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-black text-emerald-700 bg-white px-2 py-1 rounded-lg border border-slate-200">86% Uyğunluq</span>
+                            </div>
+
+                            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-purple-900 text-white flex items-center justify-center font-bold text-xs">AC</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">Azercell Telecom</h4>
+                                        <p class="text-[10px] text-slate-500">Biznes İntellekti (BI)</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-black text-slate-700 bg-white px-2 py-1 rounded-lg border border-slate-200">82% Uyğunluq</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sağ: Radar Qrafiki, Gap Cədvəli və 3 Aylıq Sprint (7 Sütun) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Vəzifə İcmalı -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">Hədəf Standart</span>
+                            <span class="text-xs text-slate-500 font-medium" id="result-role-title">Data Analitik</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed" id="result-role-desc">Yüklənir...</p>
+                    </div>
+
+                    <!-- Radar Qrafiki -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+                            <span><i class="fas fa-chart-pie mr-1.5 text-orange-600"></i>Bacarıq Uyğunluğu Radar Qrafiki (Spider Chart)</span>
+                            <span class="text-[10px] text-slate-400">Sən vs Əmək Bazarı Standartı</span>
+                        </h4>
+                        <div class="h-64 sm:h-72 flex items-center justify-center">
+                            <canvas id="chart-student-radar"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Skill Gap Cədvəli -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
+                            <span><i class="fas fa-table-columns mr-1.5 text-orange-600"></i><span data-i18n="gap_table_title">Bacarıqlar üzrə Təfərrüatlı Gap Analizi</span></span>
+                            <span class="text-[10px] text-slate-400 font-normal">🟢 Uyğun | 🟠 Kritik Boşluq</span>
+                        </h4>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-100 text-slate-500 font-semibold">
+                                        <th class="pb-2">Bacarıq</th>
+                                        <th class="pb-2 text-center">Səndə</th>
+                                        <th class="pb-2 text-center">Bazarda Tələb</th>
+                                        <th class="pb-2 text-center">Boşluq (Gap)</th>
+                                        <th class="pb-2 text-right">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gap-table-body" class="divide-y divide-slate-100">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 3 Aylıq Karyera Sprint Planı (Actionable Sprint) -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
+                            <span><i class="fas fa-bullseye mr-1.5 text-orange-600"></i>Fərdi 3 Aylıq Karyera İnkişaf Planınız</span>
+                            <span class="text-[10px] text-orange-700 font-bold bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">100% Pulsuz Təlimlər</span>
+                        </h4>
+                        <div id="top-recommendations-list" class="space-y-3">
+                        </div>
+                    </div>
+
+                    <!-- Alternativ Karyera Tövsiyələri -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
+                            <i class="fas fa-trophy mr-1.5 text-amber-500"></i><span data-i18n="career_alternatives">Mövcud Bacarıqlarınıza Əsasən Digər Uyğun Vəzifələr</span>
+                        </h4>
+                        <div id="career-alternatives-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 3: CANLI VAKANSİYA KATALOQU -->
+        <!-- ======================================================== -->
+        <section id="tab-live-vacancies" class="tab-content space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900" data-i18n="vacancies_title">📋 Canlı Vakansiyalar və Şəxsi Uyğunluq</h2>
+                    <p class="text-xs text-slate-500">Vakansiya elanlarını axtarın. Sistem sizin yığdığınız bacarıq profilinizə əsasən hər elan üçün fərdi uyğunluq faizinizi hesablayır.</p>
+                </div>
+
+                <div class="w-full sm:w-80">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="vacancy-search-input" oninput="app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya skill axtarın (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <div id="live-vacancies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 4: BAKI VƏ REGİONLAR İNTERAKTİV ƏMƏK XƏRİTƏSİ -->
+        <!-- ======================================================== -->
+        <section id="tab-interactive-map" class="tab-content space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+                <h2 class="text-2xl font-black text-slate-900">🗺️ Bakı və Regionların İnteraktiv Əmək Xəritəsi</h2>
+                <p class="text-xs text-slate-500">Rayon və ya regionu seçərək həmin ərazidəki aktiv vakansiya sayını, ən çox axtarılan bacarıqları və orta əməkhaqqı göstəricilərini araşdırın.</p>
+                <div class="mt-3 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
+                    <i class="fas fa-triangle-exclamation text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
+                    <div class="space-y-0.5">
+                        <span class="font-bold text-amber-950">⚠️ Bu bölmə hazırda NÜMUNƏ (DEMO) datadır.</span>
+                        <p class="text-[11px] text-amber-800 leading-relaxed">
+                            420 real vakansiyadan yalnız 4-ündə konkret rayon adı göstərilib (əksəriyyəti sadəcə 'Bakı' yazır), ona görə hazırda rayon üzrə dəqiq bölgü mümkün deyil. Gələcək fazada ünvan çıxarma texnologiyası (məs. Google Maps Geocoding API) əlavə edildikdə bu bölmə real dataya keçəcək.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="map-regions-grid">
+            </div>
+
+            <div id="map-region-detail-card">
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 5: VAKANSİYA VƏ ƏMƏK BAZARI ANALİTİKASI -->
+        <!-- ======================================================== -->
+        <section id="tab-vacancy-analytics" class="tab-content space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+                <h2 class="text-2xl font-black text-slate-900">📊 Vakansiya və Bacarıq Tələbatı Analitikası (2026)</h2>
+                <p class="text-xs text-slate-500">Azərbaycan üzrə toplanmış vakansiyaların sektorlar, tələb olunan top bacarıqlar və gələcək trendlər üzrə analitik bölgüsü.</p>
+                <div class="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200 text-[11px] font-semibold text-orange-800">
+                    <i class="fas fa-circle-info text-orange-600"></i>
+                    <span>Analitika hazırda toplanmış Jobsearch.az vakansiya datasına əsaslanır (n=420 real vakansiya).</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-fire text-orange-600"></i>Azərbaycan Əmək Bazarında Top 8 Bacarıq (% tələb)
+                    </h3>
+                    <div class="h-64">
+                        <canvas id="chart-top-skills"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-pie-chart text-orange-500"></i>Sektorlar üzrə Vakansiya Bölgüsü
+                    </h3>
+                    <div class="h-64 flex items-center justify-center">
+                        <canvas id="chart-sectors"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-3xl p-6 border border-emerald-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-arrow-trend-up text-emerald-600"></i>🚀 2026-da Ən Sürətlə Yüksələn Bacarıqlar
+                    </h3>
+                    <div class="space-y-3" id="rising-skills-list">
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-rose-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-rose-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-arrow-trend-down text-rose-600"></i>📉 Tələbatı Azalan Ənənəvi Bacarıqlar
+                    </h3>
+                    <div class="space-y-3" id="declining-skills-list">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 6: UNİVERSİTET DASHBOARD-U -->
+        <!-- ======================================================== -->
+        <section id="tab-university-dash" class="tab-content space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-slate-200 gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">🏛 Universitet İdarəetmə və Kurrikulum Paneli</h2>
+                    <p class="text-xs text-slate-500">Google Forms tələbə sorğu nəticələri, real əmək bazarı müqayisəsi və AI kurrikulum tövsiyələri.</p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-slate-700">Universitet:</label>
+                        <select id="university-selector" onchange="app.renderUniversityView()" class="text-xs font-bold p-2 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                            <option value="all">Bütün Universitetlər (Ümumi)</option>
+                            <option value="unec">UNEC (İqtisad Universiteti)</option>
+                            <option value="bdu">BDU (Bakı Dövlət Universiteti)</option>
+                            <option value="azii">ADNSU (Neft və Sənaye Universiteti)</option>
+                            <option value="banm">BANM (Bakı Ali Neft Məktəbi)</option>
+                            <option value="ada">ADA Universiteti</option>
+                        </select>
+                    </div>
+
+                    <button onclick="app.openSurveyImportModal()" class="px-3.5 py-2 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-sm flex items-center gap-1.5 hover:shadow-md transition-all">
+                        <i class="fas fa-file-csv"></i>
+                        <span>Import Student Survey Data</span>
+                    </button>
+
+                    <button onclick="app.exportSurveyAnalyticsCSV()" class="px-3 py-2 text-xs font-semibold rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 shadow-2xs flex items-center gap-1.5">
+                        <i class="fas fa-download text-slate-500"></i>
+                        <span>CSV Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Minimum Threshold Xəbərdarlığı (Dinamik) -->
+            <div id="uni-threshold-alert" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3">
+                <i class="fas fa-triangle-exclamation text-amber-600 text-base mt-0.5"></i>
+                <div class="space-y-1">
+                    <div class="font-bold">Statistik Nümunə Kifayət Deyil (<span id="threshold-curr-count">0</span> / 30 respondent)</div>
+                    <p class="text-amber-800 leading-relaxed text-[11px]">
+                        Rəsmi reprezentativ nəticələr üçün hər ali təhsil müəssisəsi üzrə minimum 30 respondent tələb olunur. Hazırkı məlumatlar yalnız ilkin müşahidə xarakteri daşıyır.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tələbə Sorğusu Xülasə Kartları -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
+                        <span>Sorğu Respondentləri</span>
+                        <span id="survey-data-badge-1" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
+                    </div>
+                    <div class="text-2xl font-black text-slate-900" id="survey-total-respondents">120 respondent</div>
+                    <p class="text-[10px] text-slate-400">Google Forms / Sheets vasitəsilə toplanan cavablar</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
+                        <span>Aktiv İş Axtaranlar</span>
+                        <span id="survey-data-badge-2" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
+                    </div>
+                    <div class="text-2xl font-black text-orange-600" id="survey-job-search-pct">68.5%</div>
+                    <p class="text-[10px] text-slate-400">Məzun və ya sonuncu kurs tələbələri</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
+                        <span>İngilis Dili (B2+)</span>
+                        <span id="survey-data-badge-3" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
+                    </div>
+                    <div class="text-2xl font-black text-emerald-600" id="survey-english-pct">54.2%</div>
+                    <p class="text-[10px] text-slate-400">Sərbəst və ya yaxşı səviyyədə bilənlər</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
+                        <span>Ən Çox Hədəflənən Sektor</span>
+                        <span id="survey-data-badge-4" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
+                    </div>
+                    <div class="text-xl font-black text-slate-800 line-clamp-1" id="survey-top-sector">IT & Maliyyə</div>
+                    <p class="text-[10px] text-slate-400">Karyera hədəflərində 1-ci yerdə</p>
+                </div>
+            </div>
+
+            <!-- ƏMƏK BAZARI TƏLƏBİ VS TƏLƏBƏ BACARIQLARI (MARKET VS STUDENT) -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2">
+                    <div>
+                        <h3 class="text-base font-black text-slate-900 flex items-center gap-2">
+                            <i class="fas fa-scale-balanced text-orange-600"></i>
+                            <span>Əmək Bazarı Tələbi vs Tələbə Bacarıq Təklifi (Market Demand vs Student Skills)</span>
+                        </h3>
+                        <p class="text-xs text-slate-500">420 real vakansiyadakı tələbat faizi ilə tələbələrin bacarıq səviyyələrinin (Intermediate+) müqayisəsi.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] font-bold">
+                        <span class="inline-flex items-center gap-1 text-orange-600 bg-orange-50 px-2 py-1 rounded-lg border border-orange-200">
+                            <span class="w-2 h-2 rounded-full bg-orange-600"></span>Bazar Tələbi (%)
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-slate-700 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
+                            <span class="w-2 h-2 rounded-full bg-slate-700"></span>Tələbə Təklifi (%)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- DEMO Məlumatı Xəbərdarlıq Banneri -->
+                <div id="market-student-demo-banner" class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
+                    <i class="fas fa-triangle-exclamation text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
+                    <div class="space-y-0.5">
+                        <span class="font-bold text-amber-950">⚠️ Bu müqayisə hələ DEMO tələbə datası ilə aparılır (real respondent: <span id="market-real-respondents-count">0</span>).</span>
+                        <p class="text-[11px] text-amber-800 leading-relaxed">
+                            Nəticələr yalnız sistemin necə işləyəcəyini göstərir, real bazar ehtiyacını əks etdirmir. Real Google Forms sorğu nəticələri yükləndikdən və 30 respondent həddi keçildikdən sonra rəsmi təchizat statusu aktivləşəcəkdir.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-1">
+                    <div class="lg:col-span-6 h-80">
+                        <canvas id="chart-market-vs-student"></canvas>
+                    </div>
+
+                    <div class="lg:col-span-6 overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-200 text-slate-500 font-bold">
+                                    <th class="pb-2.5">Bacarıq</th>
+                                    <th class="pb-2.5 text-center">Bazar Tələbi</th>
+                                    <th class="pb-2.5 text-center">Tələbə Təklifi</th>
+                                    <th class="pb-2.5 text-center">Boşluq (Gap)</th>
+                                    <th class="pb-2.5 text-right">Təchizat Statusu</th>
+                                </tr>
+                            </thead>
+                            <tbody id="market-vs-student-tbody" class="divide-y divide-slate-100">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="university-details-container" class="space-y-6">
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 7: DÖVLƏT VƏ MƏŞĞULLUQ SİYASƏTİ PANENİ -->
+        <!-- ======================================================== -->
+        <section id="tab-policy-gov" class="tab-content space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+                <h2 class="text-2xl font-black text-slate-900">📊 Dövlət və Strateji Məşğulluq Siyasəti Paneli</h2>
+                <p class="text-xs text-slate-500">Əmək bazarı disbalansı, gənclərin hazırlıq səviyyəsi və dövlət peşə hazırlığı subsidiyaları üçün qərar dəstək modulu.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Milli Gənc Məşğulluq İndeksi</span>
+                    <div class="text-3xl font-black text-orange-600 mt-2">64.2 / 100</div>
+                    <p class="text-xs text-slate-500 mt-2">Ali təhsil məzunlarının ilk 6 ayda ixtisası üzrə iş tapma potensialı.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Ən Yüksək Struktur Çatışmazlıq</span>
+                    <div class="text-3xl font-black text-rose-600 mt-2">Data & SQL (-52%)</div>
+                    <p class="text-xs text-slate-500 mt-2">İqtisadiyyat və idarəetmə məzunları arasında data savadlılığı çatışmazlığı.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Tövsiyə Olunan Təlim Büdcəsi</span>
+                    <div class="text-3xl font-black text-emerald-600 mt-2">2.4 Milyon AZN</div>
+                    <p class="text-xs text-slate-500 mt-2">DMA və Gənclər Fondu vasitəsilə IT və Data analitika qrantları üçün optimal həcm.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fas fa-clipboard-check text-orange-600"></i>Strateji Dövlət Müdaxilə Təklifləri
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">1</span>
+                            Universitetlərdə "Data Literacy" Məcburi Fənn Modulu
+                        </div>
+                        <p class="text-slate-600 leading-relaxed">
+                            Bütün qeyri-texniki (maliyyə, iqtisadiyyat, marketinq) fakültələrin tədris proqramına baza SQL və Power BI laboratoriyalarının inteqrasiyası.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-900 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">2</span>
+                            Regional Əmək Mərkəzləri Subsidiyası
+                        </div>
+                        <p class="text-slate-600 leading-relaxed">
+                            Gəncə və Sumqayıt sənaye mərkəzlərində gənclər üçün praktiki proqramlaşdırma və 1C ERP təlimlərinin dövlət tərəfindən maliyyələşdirilməsi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 8: NLP SIMULATORU -->
+        <!-- ======================================================== -->
+        <section id="tab-nlp-sandbox" class="tab-content space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+                <h2 class="text-2xl font-black text-slate-900">⚙️ NLP və Bacarıq Çıxarışı Simulyatoru</h2>
+                <p class="text-xs text-slate-500">Sistemin vakansiya mətnlərini necə oxuduğunu, Təbii Dil Emalı (NLP) ilə bacarıqları necə ayırıb standartlaşdırdığını canlı sınaqdan keçirin.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 uppercase">Vakansiya Mətnini Daxil Edin</label>
+                            <div class="flex items-center gap-1">
+                                <span class="text-[11px] text-slate-500">Nümunə:</span>
+                                <button onclick="app.loadSampleNLP(0)" class="text-[11px] text-orange-600 font-semibold hover:underline">Data</button>
+                                <span class="text-slate-300">•</span>
+                                <button onclick="app.loadSampleNLP(1)" class="text-[11px] text-orange-600 font-semibold hover:underline">Maliyyə</button>
+                                <span class="text-slate-300">•</span>
+                                <button onclick="app.loadSampleNLP(2)" class="text-[11px] text-orange-600 font-semibold hover:underline">Frontend</button>
+                            </div>
+                        </div>
+
+                        <textarea id="nlp-input-text" rows="10" class="w-full text-xs font-mono p-3.5 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Vakansiya mətnini bura yapışdırın..."></textarea>
+
+                        <button onclick="app.runNLPAnalysis()" class="w-full py-3.5 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-wand-magic-sparkles"></i>NLP ilə Analiz Et və Bacarıqları Çıxar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider pb-3 border-b border-slate-100 flex items-center justify-between">
+                            <span><i class="fas fa-tags text-orange-600 mr-1.5"></i>Aşkar Edilən Tələblər & Teqlər</span>
+                            <span class="text-[11px] text-slate-400 font-normal" id="nlp-detection-count">0 bacarıq tapıldı</span>
+                        </h3>
+
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-[11px] font-bold text-orange-700 block mb-1.5">Texniki Bacarıqlar:</span>
+                                <div id="nlp-tech-tags" class="flex flex-wrap gap-1.5">
+                                    <span class="text-xs text-slate-400 italic">Mətn daxil edib 'Analiz Et' düyməsinə basın</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-[11px] font-bold text-emerald-700 block mb-1.5">Şəxsi Bacarıqlar (Soft Skills):</span>
+                                <div id="nlp-soft-tags" class="flex flex-wrap gap-1.5">
+                                    <span class="text-xs text-slate-400 italic">-</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-[11px] font-bold text-amber-700 block mb-1.5">Dil və Təcrübə Tələbləri:</span>
+                                <div id="nlp-lang-tags" class="flex flex-wrap gap-1.5">
+                                    <span class="text-xs text-slate-400 italic">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-100">
+                            <span class="text-[11px] font-bold text-slate-600 block mb-1.5">Standartlaşdırılmış JSON Formatı (Skill Dictionary):</span>
+                            <pre id="nlp-json-output" class="bg-slate-900 text-slate-200 p-3 rounded-xl text-[11px] font-mono overflow-x-auto max-h-48">{}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- TAB 9: METODOLOGİYA VƏ MƏNBƏLƏR -->
+        <!-- ======================================================== -->
+        <section id="tab-methodology" class="tab-content space-y-6">
+            <div class="pb-4 border-b border-slate-200">
+                <h2 class="text-2xl font-black text-slate-900">📚 Tədqiqat Metodologiyası və Data Mənbələri</h2>
+                <p class="text-xs text-slate-500">SkillMap Azerbaijan platformasında istifadə olunan bütün statistik göstəricilərin, alqoritmlərin və data mənbələrinin rəsmi elmi əsaslandırması.</p>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fas fa-database text-orange-600"></i>Əsas İstinad və Məlumat Mənbələri
+                </h3>
+                <div id="methodology-sources-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fas fa-square-root-variable text-orange-600"></i>Riyazi və Alqoritmik Hesablama Modelləri
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                        <span class="font-bold text-slate-900 block">1. Uyğunluq Faizi (Match Score)</span>
+                        <code class="text-[11px] text-orange-600 bg-white p-1 rounded border border-slate-200 block">Match = (Σ min(U, W) / Σ W) * 100</code>
+                        <p class="text-slate-500 text-[11px] mt-1">İstifadəçinin bilik səviyyəsi ($U$) ilə bazarın çəkili tələb indeksinin ($W$) nisbəti.</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                        <span class="font-bold text-slate-900 block">2. Səriştə Boşluğu (Skill Gap)</span>
+                        <code class="text-[11px] text-rose-600 bg-white p-1 rounded border border-slate-200 block">Gap = Max(0, Tələb - Mövcud_Bilik)</code>
+                        <p class="text-slate-500 text-[11px] mt-1">Namizədin vakansiya tələbindən geri qaldığı fərdi səviyyə xalı.</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                        <span class="font-bold text-slate-900 block">3. Bazar Dəyəri (Salary Predictor)</span>
+                        <code class="text-[11px] text-emerald-600 bg-white p-1 rounded border border-slate-200 block">Salary = Base * (0.6 + Match * 0.7)</code>
+                        <p class="text-slate-500 text-[11px] mt-1">Bazarın baza əməkhaqqı və namizədin səriştə indeksinin inteqrasiyası.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 3. TƏHLÜKƏSİZ ŞİFRƏLİ AUTH & PROFİL MODALI (LOGIN & REGISTER) -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn relative">
+            
+            <!-- Modal Başlıq və Bağla -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-bold shadow-md">
+                        <i class="fas fa-user-lock"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-900 text-lg">Fərdi Karyera Kabineti</h3>
+                        <p class="text-[11px] text-slate-500">Təhlükəsiz giriş və fərdi profil idarəetməsi</p>
+                    </div>
+                </div>
+                <button onclick="app.closeAuthModal()" class="text-slate-400 hover:text-slate-700 p-2 rounded-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Xəta Mesajı Paneli -->
+            <div id="auth-error-banner" class="hidden p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
+                <i class="fas fa-circle-exclamation flex-shrink-0"></i>
+                <span id="auth-error-text">Xəta baş verdi</span>
+            </div>
+
+            <!-- Tablar: Giriş vs Qeydiyyat -->
+            <div class="flex rounded-xl bg-slate-100 p-1">
+                <button id="auth-tab-login-btn" onclick="app.switchAuthMode('login')" class="flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all">
+                    <i class="fas fa-right-to-bracket mr-1.5 text-orange-600"></i>Daxil Ol
+                </button>
+                <button id="auth-tab-reg-btn" onclick="app.switchAuthMode('register')" class="flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all">
+                    <i class="fas fa-user-plus mr-1.5 text-orange-600"></i>Yeni Qeydiyyat
+                </button>
+            </div>
+
+            <!-- 1. GİRİŞ FORMASI (LOGIN) -->
+            <form id="form-login" onsubmit="app.handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">E-poçt Ünvanı</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="email" id="login-email" required placeholder="ad@domain.com" class="w-full text-xs pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Şifrə</label>
+                    <div class="relative">
+                        <i class="fas fa-lock absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="password" id="login-password" required placeholder="Şifrənizi daxil edin" class="w-full text-xs pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <button type="button" onclick="app.togglePasswordVisibility('login-password')" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                    <label class="flex items-center gap-1.5 text-slate-600 cursor-pointer">
+                        <input type="checkbox" checked class="rounded text-orange-600 focus:ring-orange-500">
+                        <span>Məni yadda saxla</span>
+                    </label>
+                    <a href="javascript:void(0)" onclick="app.fillDemoCredentials()" class="text-orange-600 font-bold hover:underline">
+                        ⚡ Demo Hesabı Doldur
+                    </a>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+                    <i class="fas fa-right-to-bracket"></i>Kabinetə Daxil Ol
+                </button>
+            </form>
+
+            <!-- 2. QEYDİYYAT FORMASI (REGISTER) -->
+            <form id="form-register" onsubmit="app.handleRegisterSubmit(event)" class="space-y-3.5 hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Adınız və Soyadınız</label>
+                        <input type="text" id="reg-name" required placeholder="məs: Nurlan Əliyev" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">E-poçt Ünvanı</label>
+                        <input type="email" id="reg-email" required placeholder="nurlan@gmail.com" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Şifrə (ən azı 6 simvol)</label>
+                    <div class="relative">
+                        <input type="password" id="reg-password" required minlength="6" placeholder="Güclü şifrə təyin edin" class="w-full text-xs p-2.5 pr-10 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <button type="button" onclick="app.togglePasswordVisibility('reg-password')" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Universitet</label>
+                        <select id="reg-university" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                            <option value="UNEC">UNEC (İqtisad Univ.)</option>
+                            <option value="BANM">BANM (Bakı Ali Neft Məktəbi)</option>
+                            <option value="BDU">BDU (Bakı Dövlət Univ.)</option>
+                            <option value="ADA">ADA Universiteti</option>
+                            <option value="AzTU">AzTU (Texniki Univ.)</option>
+                            <option value="BMU">BMU (Mühəndislik Univ.)</option>
+                            <option value="Digər">Digər Təhsil Müəssisəsi</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Təhsil Səviyyəsi</label>
+                        <select id="reg-degree" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                            <option value="Bakalavr">Bakalavr (Tələbə)</option>
+                            <option value="Magistr">Magistr</option>
+                            <option value="Məzun">Məzun (Gənc Mütəxəssis)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">İxtisas / Fakültə</label>
+                    <input type="text" id="reg-faculty" placeholder="məs: Maliyyə və Mühasibat" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Hədəf Vəzifə</label>
+                        <select id="reg-target-role" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                            <option value="data_analyst">Data Analitik</option>
+                            <option value="financial_analyst">Maliyyə Analitiki</option>
+                            <option value="business_analyst">Biznes Analitik</option>
+                            <option value="frontend_developer">Frontend Developer</option>
+                            <option value="digital_marketer">Rəqəmsal Marketinq</option>
+                            <option value="hr_specialist">İnsan Resursları (HR)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">İngilis Dili</label>
+                        <select id="reg-english" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                            <option value="B1">B1 (Orta)</option>
+                            <option value="B2" selected>B2 (Yaxşı)</option>
+                            <option value="C1">C1 (Sərbəst)</option>
+                            <option value="A2">A2 (Baza)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+                    <i class="fas fa-check"></i>Profilimi Yarat & Giriş Et
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- 4. DATA İDXAL / YÜKLƏMƏ MODALI -->
+    <div id="data-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">Real Data İdxal və İdarəetmə Paneli</h3>
+                        <p class="text-[11px] text-slate-500">Öz topladığınız və emal etdiyiniz vakansiya/əmək datasını bura yükləyin</p>
+                    </div>
+                </div>
+                <button onclick="app.closeDataModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Siz internetdən və ya şirkətlərdən çəkdiyiniz 5,000–10,000 vakansiya məlumatlarını təmizləyib JSON formatında bu sistemə yükləyə bilərsiniz. Sayt anında bütün qrafikləri və hesablamaları yeni datanıza uyğunlaşdıracaq.
+                </p>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">JSON Məlumatını Yapışdırın və ya Fayldan Seçin</label>
+                    <textarea id="import-json-text" rows="8" class="w-full text-xs font-mono p-3 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Məsələn: { jobRolesBenchmark: [...], regionsMapData: [...] }"></textarea>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                <button onclick="app.exportCurrentData()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">
+                    <i class="fas fa-download mr-1.5"></i>Hazırkı Datanı Endir (JSON)
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="app.closeDataModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">Bağla</button>
+                    <button onclick="app.importCustomData()" class="px-5 py-2 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-md">
+                        <i class="fas fa-check mr-1.5"></i>Datanı Tətbiq Et
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4.5. GOOGLE FORMS SURVEY İDXAL MODALI -->
+    <div id="modal-survey-import" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-lg">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">Google Forms / Sheets Tələbə Sorğusu İdxalı</h3>
+                        <p class="text-[11px] text-slate-500">Google Forms-dan ixrac olunmuş CSV/XLSX cavab faylını SkillMap-ə inteqrasiya edin</p>
+                    </div>
+                </div>
+                <button onclick="app.closeSurveyImportModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Anonimlik və Məxfilik Qeydi -->
+            <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-start gap-2.5">
+                <i class="fas fa-shield-halved text-emerald-600 text-sm mt-0.5"></i>
+                <div class="space-y-0.5">
+                    <div class="font-bold text-emerald-950">100% Anonimlik və Data Məxfiliyi Zəmanəti</div>
+                    <p class="text-[11px] text-emerald-800 leading-relaxed">
+                        Sistem fayldakı ad, soyad, e-poçt və telefon kimi bütün fərdi məlumatları avtomatik silir. Yalnız analitik göstəricilər (universitet, ixtisas, bacarıqlar) anonim <code>RESP-XXXXXX</code> identifikatoru ilə qeyd olunur.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fayl Seçimi & CSV Mətn Paneli -->
+            <div class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5">Fayldan Yükləyin (.csv və ya .xlsx):</label>
+                    <input type="file" id="survey-file-input" accept=".csv, .xlsx" onchange="app.handleSurveyFileUpload(event)" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-600 file:text-white hover:file:bg-orange-700">
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase">və ya birbaşa CSV mətnini yapışdırın</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="font-bold text-slate-700">CSV Məlumatı (Başlıqlar + Sətirlər):</label>
+                        <button type="button" onclick="app.fillSampleSurveyCSV()" class="text-[10px] text-orange-600 hover:underline font-bold">
+                            <i class="fas fa-magic mr-1"></i>Nümunə Google Forms Datasını Doldur
+                        </button>
+                    </div>
+                    <textarea id="survey-csv-text" oninput="app.previewSurveyMapping()" rows="5" class="w-full font-mono text-[11px] p-3 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Universitet,İxtisas,İş təcrübəsi,İngilis dili,Excel səviyyəsi,SQL səviyyəsi&#10;UNEC,Maliyyə,Təcrübəsiz,B2,4,2&#10;BDU,Kompüter Elmləri,1 il,B1,3,4"></textarea>
+                </div>
+
+                <!-- Sütun Mapping Önizləməsi -->
+                <div id="survey-mapping-preview" class="space-y-2">
+                    <div class="font-bold text-slate-800 flex items-center justify-between text-xs">
+                        <span>Aşkarlanan Sütunlar və Daxili Data Mapping:</span>
+                        <span id="mapping-detected-count" class="text-[10px] text-slate-400">0 sütun</span>
+                    </div>
+                    <div id="mapping-tags-container" class="flex flex-wrap gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200 min-h-[42px] items-center text-[11px]">
+                        <span class="text-slate-400 italic">CSV məlumatı daxil edildikdən sonra sütunlar avtomatik map olunacaq.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Düymələr -->
+            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                <button onclick="app.closeSurveyImportModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">Bağla</button>
+                <button onclick="app.executeSurveyImport()" class="px-5 py-2.5 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-md flex items-center gap-1.5 hover:shadow-lg transition-all">
+                    <i class="fas fa-file-import"></i>
+                    <span>Sorğu Məlumatlarını İdxal Et</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <div class="flex items-center justify-center gap-2 font-bold text-slate-800">
+                <i class="fas fa-bolt text-orange-600"></i>
+                <span>SkillMap Azerbaijan</span>
+            </div>
+            <p>Gənclər, Universitetlər və Dövlət üçün Data Əsaslı Karyera və Əmək Bazarı Qərar Dəstəyi Platforması</p>
+            <p class="text-[11px] text-slate-400">Metodologiya: Dövlət Məşğulluq Agentliyi, Açıq Mənbələr və WEF standartları əsasında kalibrasiya edilmişdir.</p>
+        </div>
+    </footer>
+
+    <!-- JS Skriptlər -->
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/skillGapEngine.js"></script>
+    <script src="js/mapModule.js"></script>
+    <script src="js/nlpSimulator.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
