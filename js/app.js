@@ -547,8 +547,9 @@ class SkillMapApp {
                     <button onclick="app.openAuthModal('login')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-[11px] font-bold transition-all">
                         <i class="fas fa-lock text-[9px] text-slate-400 mr-1"></i>Uyğunluq üçün daxil olun
                     </button>
-                    <a href="${job.source_url || job.url || 'https://jobsearch.az'}" target="_blank" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
-                        Vakansiyaya bax
+                    <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all flex items-center gap-1">
+                        <span>Vakansiyaya bax</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
                     </a>
                 </div>
             `;
@@ -714,9 +715,10 @@ class SkillMapApp {
                     <span class="px-2.5 py-1 rounded-full ${scoreBadgeColor} border text-xs font-black">
                         ${score}% uyğunluq
                     </span>
-                    <button onclick="app.viewVacancyInLiveTab('${(job.title || '').replace(/'/g, "\'")}', '${(job.company || '').replace(/'/g, "\'")}');" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
-                        Vakansiyaya bax
-                    </button>
+                    <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all flex items-center gap-1 shadow-2xs">
+                        <span>Vakansiyaya bax</span>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+                    </a>
                 </div>
             `;
             container.appendChild(div);
@@ -1031,10 +1033,10 @@ class SkillMapApp {
 
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                     <span class="font-bold text-slate-700">${job.salary || "1200 - 2000 AZN"}</span>
-                    <button onclick="app.viewVacancyInLiveTab('${(job.title || '').replace(/'/g, "\'")}', '${(job.company || '').replace(/'/g, "\'")}');" class="px-3 py-1.5 rounded-full btn-saas-primary font-bold text-[11px] shadow-sm flex items-center gap-1">
+                    <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-full btn-saas-primary font-bold text-[11px] shadow-sm flex items-center gap-1">
                         <span>Vakansiyaya Bax</span>
-                        <i class="fas fa-arrow-right text-[9px]"></i>
-                    </button>
+                        <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+                    </a>
                 </div>
             `;
             container.appendChild(div);

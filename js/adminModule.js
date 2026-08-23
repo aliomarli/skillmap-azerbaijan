@@ -723,17 +723,23 @@ class AdminModule {
                 if (score < 50) scoreColor = "text-rose-600";
                 else if (score < 70) scoreColor = "text-amber-600";
 
+                const directVacUrl = job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`;
                 div.innerHTML = `
-                    <div class="flex items-center gap-2.5 min-w-0">
-                        <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 font-bold text-[10px] flex items-center justify-center flex-shrink-0">
-                            ${idx + 1}
-                        </span>
-                        <div class="min-w-0">
-                            <h5 class="font-bold text-slate-900 text-xs truncate">${job.title}</h5>
-                            <p class="text-[10px] text-slate-400 truncate">${job.company || "Şirkət"}</p>
+                    <a href="${directVacUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2 w-full group/vac">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 font-bold text-[10px] flex items-center justify-center flex-shrink-0">
+                                ${idx + 1}
+                            </span>
+                            <div class="min-w-0">
+                                <h5 class="font-bold text-slate-900 text-xs truncate group-hover/vac:text-indigo-600 transition-colors">${job.title}</h5>
+                                <p class="text-[10px] text-slate-400 truncate">${job.company || "Şirkət"}</p>
+                            </div>
                         </div>
-                    </div>
-                    <span class="font-black text-xs ${scoreColor} flex-shrink-0">${score}%</span>
+                        <div class="flex items-center gap-1.5 flex-shrink-0">
+                            <span class="font-black text-xs ${scoreColor}">${score}%</span>
+                            <i class="fas fa-arrow-up-right-from-square text-[9px] text-slate-400 group-hover/vac:text-indigo-600 transition-colors"></i>
+                        </div>
+                    </a>
                 `;
                 vacContainer.appendChild(div);
             });
