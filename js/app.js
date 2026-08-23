@@ -797,60 +797,75 @@ class SkillMapApp {
             const langs = vac.extracted_languages || [];
             const langPills = langs.map(l => `<span class="text-[10px] bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded font-medium"><i class="fas fa-language mr-1"></i>${l.language_az || l.language} (${l.level})</span>`).join(" ");
 
+            // Company initials or icon
+            const compName = vac.company || "Açıq Vakansiya";
+            const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
+
             return `
-                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 flex flex-col justify-between space-y-3">
+                <div class="job-card flex flex-col justify-between space-y-3.5 group">
                     <div>
-                        <div class="flex items-start justify-between gap-2 mb-1.5">
-                            <div>
-                                <span class="text-[11px] font-bold text-orange-600">${vac.company || "Şirkət qeyd olunmayıb"}</span>
-                                <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug">${vac.title}</h4>
+                        <!-- Card Header: Company Logo, Title, Match Score -->
+                        <div class="flex items-start justify-between gap-3 mb-2.5">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
+                                    ${compInitials}
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors">${compName}</span>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-900 transition-colors line-clamp-1">${vac.title}</h4>
+                                </div>
                             </div>
-                            <div class="flex flex-col items-end gap-1">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} flex-shrink-0 shadow-sm">
+                            <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs">
                                     <i class="fas fa-bolt mr-1 text-[10px]"></i>${matchInfo.matchScore}% Uyğun
                                 </span>
-                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full ${qBadgeColor}" title="Data Tamlığı və Keyfiyyət İndeksi">
+                                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${qBadgeColor}" title="Data Tamlığı və Keyfiyyət İndeksi">
                                     Keyfiyyət: ${qScore}/100
                                 </span>
                             </div>
                         </div>
 
-                        <!-- Sektor və Məkan -->
-                        <div class="flex items-center gap-2 text-[11px] text-slate-500 mb-2">
-                            <span><i class="fas fa-folder mr-1 text-slate-400"></i>${vac.sector || "Digər"}</span>
-                            <span>•</span>
-                            <span><i class="fas fa-location-dot mr-1 text-slate-400"></i>${vac.district || vac.location || "Azərbaycan"}</span>
+                        <!-- Meta: Sektor, Məkan, Təcrübə -->
+                        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 mb-3">
+                            <span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg">
+                                <i class="fas fa-folder text-slate-400 text-[10px]"></i>${vac.sector || "Digər"}
+                            </span>
+                            <span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg">
+                                <i class="fas fa-location-dot text-slate-400 text-[10px]"></i>${vac.district || vac.location || "Bakı"}
+                            </span>
+                            ${expText !== 'Qeyd olunmayıb' ? `<span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg"><i class="fas fa-clock text-slate-400 text-[10px]"></i>${expText}</span>` : ''}
                         </div>
 
-                        <p class="text-xs text-slate-600 line-clamp-2 mb-3 leading-relaxed">${vac.description || "Təsvir qeyd olunmayıb."}</p>
+                        <p class="text-xs text-slate-600 line-clamp-2 mb-3.5 leading-relaxed">${vac.description || "Təsvir qeyd olunmayıb."}</p>
 
                         <!-- NLP Skills Section -->
-                        <div class="space-y-1.5 mb-2">
-                            <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold">
-                                <span><i class="fas fa-microchip text-orange-500 mr-1"></i>NLP Çıxarılmış Bacarıqlar:</span>
-                                <span class="text-emerald-600 font-bold">NLP detected</span>
+                        <div class="space-y-1.5 mb-2 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100">
+                            <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold mb-1">
+                                <span class="flex items-center gap-1"><i class="fas fa-microchip text-indigo-500"></i>NLP Çıxarılmış Bacarıqlar:</span>
+                                <span class="text-emerald-600 font-bold">✓ Standartlaşdırılıb</span>
                             </div>
                             <div class="flex flex-wrap gap-1">
                                 ${tagsHtml}
                             </div>
                         </div>
 
-                        <!-- Dil, Təcrübə, Təhsil Metadatası -->
+                        <!-- Dil və Təhsil Metadatası -->
+                        ${(langPills || eduText !== 'Qeyd olunmayıb') ? `
                         <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600">
-                            ${expText !== 'Qeyd olunmayıb' ? `<span class="bg-slate-100 px-1.5 py-0.5 rounded text-[10px] text-slate-700 font-medium"><i class="fas fa-clock mr-1 text-slate-400"></i>${expText}</span>` : ''}
                             ${eduText !== 'Qeyd olunmayıb' ? `<span class="bg-slate-100 px-1.5 py-0.5 rounded text-[10px] text-slate-700 font-medium"><i class="fas fa-graduation-cap mr-1 text-slate-400"></i>${eduText}</span>` : ''}
                             ${langPills}
-                        </div>
+                        </div>` : ''}
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                    <!-- Card Footer: Salary & Apply Button -->
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <div>
-                            <span class="text-slate-400 block text-[10px]">Maaş:</span>
-                            <span class="font-bold text-slate-900">${vac.salary || "Razılaşma yolu ilə"}</span>
+                            <span class="text-slate-400 block text-[10px] font-medium">Maaş (Net/Gross):</span>
+                            <span class="font-bold text-slate-900 text-sm">${vac.salary || "Razılaşma yolu ilə"}</span>
                         </div>
-                        <a href="${vac.applyUrl || '#'}" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-600 hover:text-white font-bold text-orange-700 text-xs transition-all flex items-center gap-1.5 border border-orange-200">
+                        <a href="${vac.applyUrl || '#'}" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm group-hover:shadow-md">
                             <span>Elana Bax</span>
-                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            <i class="fas fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:opacity-100"></i>
                         </a>
                     </div>
                 </div>
