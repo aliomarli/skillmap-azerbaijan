@@ -450,9 +450,7 @@
                                     <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition-all">
                                         <i class="fas fa-user-plus mr-1"></i>Qeydiyyatdan Keç
                                     </button>
-                                    <button onclick="app.loadDemoProfile()" class="px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold transition-all">
-                                        <i class="fas fa-eye mr-1"></i>Demo Rejimini Sına
-                                    </button>
+                                    
                                 </div>
                             </div>
 
@@ -560,7 +558,7 @@
                                                     <span class="text-xs text-slate-500 block mb-3">Bacarıqlarınızın əmək bazarı ilə müqayisəsini görmək üçün daxil olun.</span>
                                                     <div class="flex items-center justify-center gap-2">
                                                         <button onclick="app.openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold">Daxil Ol</button>
-                                                        <button onclick="app.loadDemoProfile()" class="px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Demo Nümunə</button>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -660,7 +658,7 @@
                                     <p class="text-[11px] text-slate-400 leading-relaxed">
                                         Skill Passport-unuzu PDF formatında yükləyin və CV-nizə əlavə edin.
                                     </p>
-                                    <button onclick="if(app.auth.isLoggedIn() || app.isDemoMode) app.exportSkillPassport(); else app.openAuthModal('login');" class="w-full py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all">
+                                    <button onclick="if(app.auth.isLoggedIn()) app.exportSkillPassport(); else app.openAuthModal('login');" class="w-full py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all">
                                         <i class="fas fa-download"></i>
                                         <span>PDF yüklə</span>
                                     </button>
@@ -811,7 +809,7 @@
                                     <h3 class="text-lg font-black text-slate-900">Rəsmi Rəqəmsal Skill Pasportu</h3>
                                     <p class="text-xs text-slate-500">İşəgötürənlərə və universitetlərə təqdim edilə bilən rəsmi bacarıq sertifikatı.</p>
                                 </div>
-                                <button onclick="if(app.auth.isLoggedIn() || app.isDemoMode) app.exportSkillPassport(); else app.openAuthModal('login');" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md flex items-center gap-2">
+                                <button onclick="if(app.auth.isLoggedIn()) app.exportSkillPassport(); else app.openAuthModal('login');" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md flex items-center gap-2">
                                     <i class="fas fa-download"></i>PDF Formatında Endir
                                 </button>
                             </div>
@@ -866,7 +864,7 @@
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="pb-4 border-b border-slate-100">
                                 <h3 class="text-lg font-black text-slate-900">Tənzimləmələr və Məlumat Məxfiliyi</h3>
-                                <p class="text-xs text-slate-500">Hesab parametrləri, CV fayllarının silinməsi və demo rejimi idarəetməsi.</p>
+                                <p class="text-xs text-slate-500">Hesab parametrləri, CV fayllarının silinməsi və hesab idarəetməsi.</p>
                             </div>
 
                             <div class="space-y-4 max-w-xl">
@@ -1382,9 +1380,7 @@
                         <input type="checkbox" checked class="rounded text-indigo-600 focus:ring-indigo-500">
                         <span>Məni yadda saxla</span>
                     </label>
-                    <a href="javascript:void(0)" onclick="app.fillDemoCredentials()" class="text-indigo-600 font-bold hover:underline">
-                        ⚡ Demo Hesabı Doldur
-                    </a>
+                    <span class="text-slate-400 text-[11px]">Təhlükəsiz Şifrəli Giriş</span>
                 </div>
 
                 <button type="submit" class="w-full py-3 rounded-full btn-saas-primary font-bold text-xs shadow-md flex items-center justify-center gap-2">

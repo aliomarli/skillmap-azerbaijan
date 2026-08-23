@@ -13,50 +13,11 @@ class AuthManager {
 
     initDatabase() {
         let db = this.getDatabase();
-        if (!db || Object.keys(db).length === 0) {
-            // Standart demo istifadəçi yaradılır
-            db = {
-                'demo.student@unec.edu.az': {
-                    id: 'std_unec_101',
-                    email: 'demo.student@unec.edu.az',
-                    password: 'password123',
-                    name: 'Demo Tələbə',
-                    university: 'UNEC',
-                    faculty: 'Maliyyə və İqtisadiyyat',
-                    degree: 'Bakalavr',
-                    graduationYear: '2026',
-                    experience_years: 1,
-                    employmentStatus: 'Tələbə / Təcrübəçi',
-                    englishLevel: 'B2',
-                    otherLanguages: 'Azərbaycan dili (Ana dili), Rus dili',
-                    targetSector: 'Bank & Maliyyə',
-                    targetRole: 'financial_analyst',
-                    gpa: '88.4',
-                    studentId: 'AZ-DEMO-2026',
-                    isVerified: true,
-                    joinedDate: '20 May 2026',
-                    savedSkills: {
-                        'excel': 4,
-                        'financial_analysis': 4,
-                        'sql': 2,
-                        'powerbi': 1,
-                        'financial_modeling': 2,
-                        'presentation_skills': 4
-                    },
-                    skillSources: {
-                        'excel': 'cv-derived',
-                        'financial_analysis': 'cv-derived',
-                        'sql': 'user-added',
-                        'powerbi': 'user-added',
-                        'financial_modeling': 'user-added',
-                        'presentation_skills': 'cv-derived'
-                    },
-                    uploadedCV: null,
-                    cvVersions: []
-                }
-            };
+        if (!db) {
+            db = {};
             localStorage.setItem(this.DB_KEY, JSON.stringify(db));
         }
+    }
     }
 
     getDatabase() {

@@ -214,10 +214,7 @@ class SkillMapApp {
         }
     }
 
-    fillDemoCredentials() {
-        document.getElementById("login-email").value = "demo@unec.edu.az";
-        document.getElementById("login-password").value = "password123";
-    }
+    
 
     handleLoginSubmit(event) {
         if (event) event.preventDefault();
@@ -263,7 +260,7 @@ class SkillMapApp {
 
     handleLogout() {
         this.auth.logout();
-        this.isDemoMode = false;
+        
         this.currentSkills = {};
         this.updateAuthUI();
         this.renderStudentCabinet();
@@ -286,7 +283,7 @@ class SkillMapApp {
 
     renderStudentCabinet() {
         const isLoggedIn = this.auth && this.auth.isLoggedIn();
-        const user = isLoggedIn ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : null);
+        const user = (isLoggedIn && this.auth.currentUser) ? this.auth.currentUser : null;
 
         const topName = document.getElementById("cab-top-username");
         const topAvatar = document.getElementById("cab-top-avatar");
@@ -318,9 +315,7 @@ class SkillMapApp {
                     <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition-all">
                         <i class="fas fa-user-plus mr-1"></i>Qeydiyyatdan Keç
                     </button>
-                    <button onclick="app.loadDemoProfile()" class="px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold transition-all">
-                        <i class="fas fa-eye mr-1"></i>Demo Rejimini Sına
-                    </button>
+                    
                 `;
             }
 
@@ -357,7 +352,7 @@ class SkillMapApp {
                             <span class="text-xs text-slate-500 block mb-3">Bacarıqlarınızın əmək bazarı ilə müqayisəsini görmək üçün daxil olun.</span>
                             <div class="flex items-center justify-center gap-2">
                                 <button onclick="app.openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold">Daxil Ol</button>
-                                <button onclick="app.loadDemoProfile()" class="px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Demo Nümunə</button>
+                                
                             </div>
                         </td>
                     </tr>
@@ -417,12 +412,8 @@ class SkillMapApp {
         }
 
         if (welcomeTitle) {
-            if (this.isDemoMode) {
-                welcomeTitle.innerHTML = `Salam, Tələbə! 👋 <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">DEMO REJİMİ</span>`;
-            } else {
-                const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
-                welcomeTitle.innerHTML = `Salam, ${firstName}! 👋`;
-            }
+            const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
+        welcomeTitle.textContent = `Salam, ${firstName}! 👋`;
         }
 
         const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
@@ -493,39 +484,9 @@ class SkillMapApp {
         this.renderCVBuilderSubView(user, targetRoleId);
     }
 
-    getDemoUserData() {
-        return {
-            name: "Demo Tələbə",
-            email: "demo.student@unec.edu.az",
-            university: "UNEC",
-            faculty: "Maliyyə və İqtisadiyyat",
-            degree: "Bakalavr",
-            experience_years: 1,
-            employmentStatus: "Tələbə / Təcrübəçi",
-            englishLevel: "B2",
-            targetRole: "financial_analyst",
-            studentId: "AZ-DEMO-2026-8492",
-            savedSkills: {
-                "excel": 4,
-                "financial_analysis": 4,
-                "sql": 2,
-                "powerbi": 1,
-                "financial_modeling": 2,
-                "presentation_skills": 4
-            }
-        };
-    }
+    
 
-    loadDemoProfile() {
-        this.isDemoMode = true;
-        this.currentSkills = {
-            "excel": 4,
-            "financial_analysis": 4,
-            "sql": 2,
-            "powerbi": 1,
-            "financial_modeling": 2,
-            "presentation_skills": 4
-        };
+    ;
         this.renderStudentCabinet();
         this.renderLiveVacancies();
         alert("Demo Rejimi aktivləşdirildi. Siz nümunə tələbə profilinin analitikasını görürsünüz.");
@@ -1120,7 +1081,8 @@ class SkillMapApp {
     }
 
     downloadBuiltCV(lang = "az") {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Demo Tələbə", email: "demo@example.com" });
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : null;
+        if (!user) { this.openAuthModal("login"); return; }
         const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === user.targetRole) : null;
         const roleTitle = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
 
@@ -1130,7 +1092,8 @@ class SkillMapApp {
     }
 
     exportSkillPassport() {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Demo Tələbə", university: "UNEC", studentId: "AZ-DEMO-2026" });
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : null;
+        if (!user) { this.openAuthModal("login"); return; }
         if (window.skillPassportGenerator) {
             window.skillPassportGenerator.exportPassportPDF(user, this.lastMatchResult);
         }
@@ -1146,7 +1109,7 @@ class SkillMapApp {
 
     handleLogout() {
         this.auth.logout();
-        this.isDemoMode = false;
+        
         this.currentSkills = {};
         this.updateAuthUI();
         this.renderStudentCabinet();
@@ -1687,7 +1650,7 @@ class SkillMapApp {
             return;
         }
 
-        const isLoggedIn = (this.auth && this.auth.isLoggedIn()) || this.isDemoMode;
+        const isLoggedIn = this.auth && this.auth.isLoggedIn();
         const userSkills = (this.auth && this.auth.isLoggedIn() && this.auth.currentUser) ? this.auth.currentUser.savedSkills : this.currentSkills;
 
         container.innerHTML = filtered.map(vac => {
