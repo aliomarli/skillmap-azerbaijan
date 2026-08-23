@@ -16,11 +16,11 @@ class AuthManager {
         if (!db || Object.keys(db).length === 0) {
             // Standart demo istifadəçi yaradılır
             db = {
-                'ali.omarli@example.com': {
+                'demo.student@unec.edu.az': {
                     id: 'std_unec_101',
-                    email: 'ali.omarli@example.com',
+                    email: 'demo.student@unec.edu.az',
                     password: 'password123',
-                    name: 'Əli Ömərli',
+                    name: 'Demo Tələbə',
                     university: 'UNEC',
                     faculty: 'Maliyyə və İqtisadiyyat',
                     degree: 'Bakalavr',
@@ -32,7 +32,7 @@ class AuthManager {
                     targetSector: 'Bank & Maliyyə',
                     targetRole: 'financial_analyst',
                     gpa: '88.4',
-                    studentId: 'AZ-UNEC-2026-8492',
+                    studentId: 'AZ-DEMO-2026',
                     isVerified: true,
                     joinedDate: '20 May 2026',
                     savedSkills: {

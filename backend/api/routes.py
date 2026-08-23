@@ -268,8 +268,8 @@ class ApiHandler:
                 "file_name": file_name,
                 "confidence_score": 92,
                 "personal_info": {
-                    "name": "Əli Ömərli",
-                    "email": "ali.omarli@example.com",
+                    "name": "Demo Tələbə",
+                    "email": "demo.student@unec.edu.az",
                     "phone": "+994 50 123 45 67",
                     "location": "Bakı, Azərbaycan"
                 },

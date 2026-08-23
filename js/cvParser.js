@@ -203,8 +203,8 @@ class CVParserEngine {
             parsedDate: new Date().toLocaleDateString("az-AZ"),
             confidenceScore: Math.min(96, Math.max(70, 60 + Object.keys(extractedSkills).length * 4)),
             personalInfo: {
-                name: name || "Əli Ömərli",
-                email: email || "ali.omarli@example.com",
+                name: name || "Namizəd",
+                email: email || "namized@example.com",
                 phone: phone || "+994 50 123 45 67",
                 location: lowerText.includes("bakı") || lowerText.includes("baku") ? "Bakı, Azərbaycan" : "Bakı, Azərbaycan",
                 linkedin: lowerText.includes("linkedin.com") ? "linkedin.com/in/profile" : "linkedin.com/in/aliomarli"

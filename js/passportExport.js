@@ -12,7 +12,7 @@ class SkillPassportGenerator {
      * @param {Object} matchResult 
      */
     exportPassportPDF(user, matchResult) {
-        const u = user || { name: "Əli Ömərli", university: "UNEC", faculty: "Maliyyə ixtisası", studentId: "AZ-UNEC-2026-8492" };
+        const u = user || { name: "Demo Tələbə", university: "UNEC", faculty: "Maliyyə ixtisası", studentId: "AZ-UNEC-2026-8492" };
         const res = matchResult || { matchScore: 74, matchPercentage: 74, roleTitle: "Financial Analyst", breakdown: [] };
 
         const score = res.matchPercentage !== undefined ? res.matchPercentage : (res.matchScore || 74);

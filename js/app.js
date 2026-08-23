@@ -417,9 +417,12 @@ class SkillMapApp {
         }
 
         if (welcomeTitle) {
-            const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
-            const demoBadge = this.isDemoMode ? ` <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">DEMO REJİMİ</span>` : "";
-            welcomeTitle.innerHTML = `Salam, ${firstName}! 👋${demoBadge}`;
+            if (this.isDemoMode) {
+                welcomeTitle.innerHTML = `Salam, Tələbə! 👋 <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">DEMO REJİMİ</span>`;
+            } else {
+                const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
+                welcomeTitle.innerHTML = `Salam, ${firstName}! 👋`;
+            }
         }
 
         const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
@@ -492,8 +495,8 @@ class SkillMapApp {
 
     getDemoUserData() {
         return {
-            name: "Əli Ömərli (Demo)",
-            email: "ali.demo@unec.edu.az",
+            name: "Demo Tələbə",
+            email: "demo.student@unec.edu.az",
             university: "UNEC",
             faculty: "Maliyyə və İqtisadiyyat",
             degree: "Bakalavr",
@@ -789,7 +792,7 @@ class SkillMapApp {
             return;
         }
 
-        if (passName) passName.textContent = user.name || "Əli Ömərli";
+        if (passName) passName.textContent = user.name || "Demo Tələbə";
         if (passAvatar) passAvatar.textContent = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2) : "ƏÖ";
         if (passUni) passUni.textContent = `${user.university || "UNEC"} · ${user.faculty || "Maliyyə ixtisası"}`;
         if (passRole) passRole.textContent = `Hədəf vəzifə: ${matchResult && matchResult.role ? matchResult.role.title : "Financial Analyst"}`;
@@ -945,8 +948,8 @@ class SkillMapApp {
 
     saveProfileChanges() {
         const updated = {
-            name: document.getElementById("prof-input-name")?.value || "Əli Ömərli",
-            email: document.getElementById("prof-input-email")?.value || "ali.omarli@example.com",
+            name: document.getElementById("prof-input-name")?.value || "İstifadəçi",
+            email: document.getElementById("prof-input-email")?.value || "user@example.com",
             university: document.getElementById("prof-input-uni")?.value || "UNEC",
             faculty: document.getElementById("prof-input-faculty")?.value || "Maliyyə və İqtisadiyyat",
             degree: document.getElementById("prof-input-degree")?.value || "Bakalavr",
@@ -1100,7 +1103,7 @@ class SkillMapApp {
         preview.innerHTML = `
             <div class="space-y-3">
                 <div class="text-center pb-3 border-b border-slate-200">
-                    <div class="font-bold text-base text-slate-900">${(user && user.name) || "Əli Ömərli"}</div>
+                    <div class="font-bold text-base text-slate-900">${(user && user.name) || "Demo Tələbə"}</div>
                     <div class="text-xs text-blue-600 font-semibold">${roleTitle}</div>
                     <div class="text-[11px] text-slate-500">${(user && user.email) || "ali@example.com"} • +994 50 123 45 67 • Bakı, Azərbaycan</div>
                 </div>
@@ -1117,7 +1120,7 @@ class SkillMapApp {
     }
 
     downloadBuiltCV(lang = "az") {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Əli Ömərli", email: "ali.omarli@example.com" });
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Demo Tələbə", email: "demo@example.com" });
         const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === user.targetRole) : null;
         const roleTitle = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
 
@@ -1127,7 +1130,7 @@ class SkillMapApp {
     }
 
     exportSkillPassport() {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Əli Ömərli", university: "UNEC", studentId: "AZ-UNEC-2026-8492" });
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Demo Tələbə", university: "UNEC", studentId: "AZ-DEMO-2026" });
         if (window.skillPassportGenerator) {
             window.skillPassportGenerator.exportPassportPDF(user, this.lastMatchResult);
         }
