@@ -253,14 +253,14 @@ class SkillMapApp {
         }
     }
 
+
+
     handleLogout() {
         this.auth.logout();
-        
         this.currentSkills = {};
         this.updateAuthUI();
         this.renderStudentCabinet();
         this.renderLiveVacancies();
-        alert("Kabinetdən uğurla çıxış edildi. Şəxsi məlumatlar təmizləndi.");
     }
 
     toggleCabinetDarkMode(isDark) {
@@ -276,50 +276,48 @@ class SkillMapApp {
     // STUDENT CABINET 2.0 METHODS (AUTH-AWARE & SECURE)
     // ========================================================
 
+    // ========================================================
+    // STUDENT CABINET 2.0 — DYNAMIC SUBVIEWS & DATA BINDINGS
+    // ========================================================
+
     renderStudentCabinet() {
         const isLoggedIn = this.auth && this.auth.isLoggedIn();
         const user = (isLoggedIn && this.auth.currentUser) ? this.auth.currentUser : null;
 
+        const welcomeTitle = document.getElementById("cab-welcome-title");
         const topName = document.getElementById("cab-top-username");
         const topAvatar = document.getElementById("cab-top-avatar");
-        const welcomeTitle = document.getElementById("cab-welcome-title");
 
         if (!user) {
-            // ====================================================
-            // LOGGED-OUT STATE (GUEST / ANONYMOUS)
-            // ====================================================
+            // UNREGISTERED / GUEST STATE
             if (topName) topName.textContent = "Qonaq";
             if (topAvatar) topAvatar.textContent = "👤";
-
-            if (welcomeTitle) {
-                welcomeTitle.textContent = "Xoş Gəlmisiniz! 👋";
-            }
+            if (welcomeTitle) welcomeTitle.textContent = "Xoş Gəlmisiniz! 👋";
 
             const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
             if (welcomeDesc) {
-                welcomeDesc.textContent = "Fərdi Career Match, Skill Gap analizi və sizə uyğun vakansiyaların uyğunluq dərəcəsini görmək üçün zəhmət olmasa şəxsi kabinetinizə daxil olun və ya qeydiyyatdan keçin.";
+                welcomeDesc.textContent = "Şəxsi kabinetinizdə real əmək bazarı tələblərinə əsaslanan fərdi Skill Gap analizinizi, karyera uyğunluğunuzu və sizə ən uyğun vakansiyaları görmək üçün daxil olun.";
             }
 
             const welcomeBtns = document.querySelector("#cab-view-overview .pt-2.flex.flex-wrap");
             if (welcomeBtns) {
                 welcomeBtns.innerHTML = `
-                    <button onclick="app.openAuthModal('login')" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
+                    <button onclick="app.openAuthModal('login')" class="px-5 py-2.5 rounded-full btn-saas-primary font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
                         <i class="fas fa-right-to-bracket"></i>
                         <span>Kabinetə Daxil Ol</span>
                     </button>
-                    <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition-all">
-                        <i class="fas fa-user-plus mr-1"></i>Qeydiyyatdan Keç
+                    <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all flex items-center gap-1.5">
+                        <i class="fas fa-user-plus text-indigo-600"></i>
+                        <span>Qeydiyyatdan Keç</span>
                     </button>
-                    
                 `;
             }
 
-            // 5 Top Stat Cards (Logged Out)
             const matchElem = document.getElementById("cab-stat-match");
             if (matchElem) matchElem.textContent = "— %";
 
             const roleElem = document.getElementById("cab-stat-role");
-            if (roleElem) roleElem.textContent = "Seçilməyib";
+            if (roleElem) roleElem.textContent = "Hədəf vəzifə: Seçilməyib";
 
             const sectorElem = document.getElementById("cab-stat-sector");
             if (sectorElem) sectorElem.textContent = "Giriş tələb olunur";
@@ -328,33 +326,41 @@ class SkillMapApp {
             if (topGapNameElem) topGapNameElem.textContent = "—";
 
             const topGapDescElem = document.getElementById("cab-stat-top-gap-desc");
-            if (topGapDescElem) topGapDescElem.textContent = "Profil daxil edilməyib";
+            if (topGapDescElem) topGapDescElem.textContent = "Qeydiyyatdan sonra aktivləşir";
 
             const vacCountElem = document.getElementById("cab-stat-vacancies-count");
-            if (vacCountElem) vacCountElem.textContent = `${this.data && this.data.liveVacancies ? this.data.liveVacancies.length : 420}`;
+            if (vacCountElem) vacCountElem.textContent = "—";
 
             const altCountElem = document.getElementById("cab-stat-alts-count");
             if (altCountElem) altCountElem.textContent = "—";
 
-            // Row 1: Skill Gap Table (Locked state)
             const tbody = document.getElementById("cab-gap-table-body");
             if (tbody) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" class="text-center py-10 text-slate-500">
-                            <i class="fas fa-lock text-2xl text-slate-300 mb-2 block"></i>
-                            <span class="font-bold text-slate-700 block mb-1">Şəxsi Skill Gap Analizi Giriş Tələb Edir</span>
-                            <span class="text-xs text-slate-500 block mb-3">Bacarıqlarınızın əmək bazarı ilə müqayisəsini görmək üçün daxil olun.</span>
-                            <div class="flex items-center justify-center gap-2">
-                                <button onclick="app.openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold">Daxil Ol</button>
-                                
+                        <td colspan="5" class="py-8 text-center text-slate-500 bg-slate-50/50 rounded-2xl">
+                            <div class="max-w-md mx-auto space-y-3">
+                                <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center mx-auto text-sm">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="font-bold text-slate-800 text-sm">Şəxsi Skill Gap Analizi Giriş Tələb Edir</div>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    Bilik və bacarıqlarınızı bazar tələbləri ilə müqayisə etmək və fərdi boşluqlarınızı aşkar etmək üçün daxil olun və ya qeydiyyatdan keçin.
+                                </p>
+                                <div class="flex items-center justify-center gap-2 pt-1">
+                                    <button onclick="app.openAuthModal('login')" class="px-4 py-2 rounded-full btn-saas-primary text-xs font-bold shadow-sm">
+                                        Kabinetə Daxil Ol
+                                    </button>
+                                    <button onclick="app.openAuthModal('register')" class="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold">
+                                        Qeydiyyatdan Keç
+                                    </button>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 `;
             }
 
-            // Row 1: Career Alternatives (Locked state)
             const altsList = document.getElementById("cab-career-alts-list");
             if (altsList) {
                 altsList.innerHTML = `
@@ -365,10 +371,8 @@ class SkillMapApp {
                 `;
             }
 
-            // Row 2: Matching Vacancies (General list without fake personal match percentages)
             this.renderCabinetGeneralVacancies();
 
-            // Row 2: Development Plan (Locked state)
             const devPlan = document.getElementById("cab-dev-plan-steps");
             if (devPlan) {
                 devPlan.innerHTML = `
@@ -379,20 +383,36 @@ class SkillMapApp {
                 `;
             }
 
-            // Row 3: Skill Passport (Locked state)
             this.renderCabinetPassportCard(null, null, {});
-
-            // Sub-views
             this.populateProfileSubView({ name: "", email: "", university: "UNEC", faculty: "", degree: "Bakalavr", experience_years: 0, englishLevel: "B2" });
             this.renderSkillsSubView({});
             return;
         }
 
         // ====================================================
-        // LOGGED-IN OR DEMO MODE STATE (FULL PERSONALIZED ANALYSIS)
+        // LOGGED-IN REAL USER STATE (FULL PERSONALIZED ENGINE)
         // ====================================================
         const targetRoleId = user.targetRole || "financial_analyst";
-        const currentSkills = user.savedSkills || this.currentSkills || {};
+        
+        // Ensure default skills if newly registered user has none
+        if (!user.savedSkills || Object.keys(user.savedSkills).length === 0) {
+            const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === targetRoleId) : null;
+            const initSkills = {};
+            if (roleBenchmark && roleBenchmark.skills_benchmark) {
+                roleBenchmark.skills_benchmark.forEach((sb, idx) => {
+                    initSkills[sb.skill_id] = idx < 3 ? Math.max(1, (sb.market_level || 3) - 1) : 2;
+                });
+            } else {
+                initSkills["excel"] = 3;
+                initSkills["sql"] = 2;
+                initSkills["analytical_thinking"] = 4;
+            }
+            user.savedSkills = initSkills;
+            this.auth.updateProfile({ savedSkills: initSkills });
+        }
+
+        const currentSkills = user.savedSkills || {};
+        this.currentSkills = currentSkills;
 
         // Calculate Gap & Career Match
         const matchResult = this.engine.calculateGap(targetRoleId, currentSkills, user);
@@ -400,15 +420,13 @@ class SkillMapApp {
 
         // 1. Header & Welcome Banner
         if (topName) topName.textContent = user.name || "İstifadəçi";
-        
         if (topAvatar) {
             const initials = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "TL";
             topAvatar.textContent = initials;
         }
-
         if (welcomeTitle) {
             const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
-        welcomeTitle.textContent = `Salam, ${firstName}! 👋`;
+            welcomeTitle.textContent = `Salam, ${firstName}! 👋`;
         }
 
         const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
@@ -430,8 +448,12 @@ class SkillMapApp {
         }
 
         // 2. 5 Top Stat Cards
+        const matchScoreVal = matchResult.matchPercentage || 74;
         const matchElem = document.getElementById("cab-stat-match");
-        if (matchElem) matchElem.textContent = `${matchResult.matchPercentage || 74}%`;
+        if (matchElem) {
+            matchElem.textContent = `${matchScoreVal}%`;
+            matchElem.className = `text-2xl font-black ${matchScoreVal >= 70 ? 'text-emerald-600' : (matchScoreVal >= 40 ? 'text-amber-600' : 'text-rose-600')}`;
+        }
 
         const roleElem = document.getElementById("cab-stat-role");
         if (roleElem) roleElem.textContent = matchResult.role ? matchResult.role.title : "Financial Analyst";
@@ -439,7 +461,6 @@ class SkillMapApp {
         const sectorElem = document.getElementById("cab-stat-sector");
         if (sectorElem) sectorElem.textContent = matchResult.role ? (matchResult.role.sector + " sektoru") : "Maliyyə və Bank sektoru";
 
-        // Top Skill Gap
         const topGap = (matchResult.topPriorities && matchResult.topPriorities.length > 0) ? matchResult.topPriorities[0] : { skillName: "Power BI", gap: 2 };
         const topGapNameElem = document.getElementById("cab-stat-top-gap-name");
         if (topGapNameElem) topGapNameElem.textContent = topGap.skillName || "Power BI";
@@ -447,12 +468,10 @@ class SkillMapApp {
         const topGapDescElem = document.getElementById("cab-stat-top-gap-desc");
         if (topGapDescElem) topGapDescElem.textContent = `${topGap.gap || 2} səviyyə fərq var`;
 
-        // Uyğun vakansiyalar count
         const matchingJobs = this.getMatchingVacanciesForUser(currentSkills, targetRoleId);
         const vacCountElem = document.getElementById("cab-stat-vacancies-count");
-        if (vacCountElem) vacCountElem.textContent = `${matchingJobs.length || 12}`;
+        if (vacCountElem) vacCountElem.textContent = `${matchingJobs.length}`;
 
-        // Alternativ karyeralar count
         const alts = matchResult.alternativeCareers || [];
         const altCountElem = document.getElementById("cab-stat-alts-count");
         if (altCountElem) altCountElem.textContent = `${alts.length || 3}`;
@@ -472,16 +491,17 @@ class SkillMapApp {
         // 7. Row 3: Skill Passport Card
         this.renderCabinetPassportCard(user, matchResult, currentSkills);
 
-        // Render Sub-views as well
+        // 8. Render All Full Sub-views
         this.populateProfileSubView(user);
         this.renderSkillsSubView(currentSkills);
+        this.renderSkillGapSubView(matchResult, currentSkills);
+        this.renderCabinetVacanciesSubView(matchingJobs);
+        this.renderCabinetCareerAlternativesSubView(matchResult);
+        this.renderCabinetDevelopmentPlanSubView(matchResult);
+        this.renderCabinetPassportSubView(user, matchResult, currentSkills);
         this.renderATSAnalysisSubView(user, targetRoleId);
         this.renderCVBuilderSubView(user, targetRoleId);
     }
-
-    
-
-
 
     renderCabinetGeneralVacancies() {
         const container = document.getElementById("cab-matching-vacancies-list");
@@ -531,37 +551,34 @@ class SkillMapApp {
         if (!tbody) return;
         tbody.innerHTML = "";
 
-        const breakdown = (result.breakdown && result.breakdown.length > 0) ? result.breakdown : [
-            { skillName: "Excel", userLevel: 4, requiredLevel: 4, gap: 0, status: "good" },
-            { skillName: "Financial Analysis", userLevel: 4, requiredLevel: 4, gap: 0, status: "good" },
-            { skillName: "SQL", userLevel: 2, requiredLevel: 4, gap: 2, status: "high" },
-            { skillName: "Power BI", userLevel: 1, requiredLevel: 3, gap: 2, status: "high" },
-            { skillName: "Financial Modeling", userLevel: 2, requiredLevel: 3, gap: 1, status: "medium" },
-            { skillName: "Presentation Skills", userLevel: 4, requiredLevel: 3, gap: 0, status: "good" }
-        ];
+        const breakdown = (result && result.breakdown && result.breakdown.length > 0) ? result.breakdown : [];
+        if (breakdown.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-xs text-slate-400">Bacarıq analizi tapılmadı.</td></tr>`;
+            return;
+        }
 
         breakdown.slice(0, 6).forEach(item => {
             const tr = document.createElement("tr");
-            tr.className = "hover:bg-slate-50/80 transition-colors";
+            tr.className = "hover:bg-slate-50/80 transition-colors border-b border-slate-50";
 
             let userBarColor = "#10b981"; // green
-            if (item.gap === 1) userBarColor = "#f59e0b"; // orange
-            else if (item.gap >= 2) userBarColor = "#ef4444"; // red
+            if (item.gap === 1 || item.gap === 2) userBarColor = "#f59e0b"; // orange
+            else if (item.gap >= 3) userBarColor = "#ef4444"; // red
 
             let statusBadge = "";
             if (item.gap <= 0) {
-                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-emerald-700"><i class="fas fa-circle-check text-emerald-500"></i> Güclü</span>`;
-            } else if (item.gap === 1) {
-                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-amber-700"><i class="fas fa-circle-exclamation text-amber-500"></i> Orta</span>`;
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><i class="fas fa-circle-check text-emerald-500"></i> Tam Uyğundur</span>`;
+            } else if (item.gap <= 2) {
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200"><i class="fas fa-circle-exclamation text-amber-500"></i> İnkişaf Etdirilməli</span>`;
             } else {
-                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-rose-700"><i class="fas fa-circle-xmark text-rose-500"></i> Yüksək</span>`;
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200"><i class="fas fa-circle-xmark text-rose-500"></i> Kritik Çatışmazlıq</span>`;
             }
 
             const userPct = Math.min(100, Math.round((item.userLevel / 5) * 100));
             const marketPct = Math.min(100, Math.round((item.requiredLevel / 5) * 100));
 
             tr.innerHTML = `
-                <td class="py-2.5 font-bold text-slate-800">${item.skillName}</td>
+                <td class="py-2.5 font-bold text-slate-800 text-xs">${item.skillName}</td>
                 <td class="py-2.5">
                     <div class="dual-bar-container">
                         <span class="text-[11px] font-bold text-slate-700">${item.userLevel}/5</span>
@@ -578,8 +595,8 @@ class SkillMapApp {
                         </div>
                     </div>
                 </td>
-                <td class="py-2.5 text-center font-bold ${item.gap > 0 ? 'text-slate-800' : 'text-slate-500'}">
-                    ${item.gap}
+                <td class="py-2.5 text-center font-black text-xs ${item.gap > 0 ? (item.gap >= 3 ? 'text-rose-600' : 'text-amber-600') : 'text-emerald-600'}">
+                    ${item.gap === 0 ? '0 (✓)' : `-${item.gap}`}
                 </td>
                 <td class="py-2.5 text-right text-[11px]">
                     ${statusBadge}
@@ -594,32 +611,35 @@ class SkillMapApp {
         if (!container) return;
         container.innerHTML = "";
 
-        const defaultAlts = [
-            { title: "Financial Analyst", matchScore: 81, color: "bg-emerald-500" },
-            { title: "Business Analyst", matchScore: 76, color: "bg-emerald-500" },
-            { title: "Accountant", matchScore: 73, color: "bg-emerald-500" },
-            { title: "Data Analyst", matchScore: 61, color: "bg-amber-500" },
-            { title: "Investment Analyst", matchScore: 58, color: "bg-amber-500" }
-        ];
-
         const alts = (result && result.alternativeCareers && result.alternativeCareers.length > 0)
-            ? result.alternativeCareers.map(a => ({
-                title: a.roleTitle || a.title,
-                matchScore: a.matchPercentage || a.matchScore || 70,
-                color: (a.matchPercentage || a.matchScore) >= 70 ? "bg-emerald-500" : "bg-amber-500"
-            }))
-            : defaultAlts;
+            ? result.alternativeCareers
+            : [
+                { roleTitle: "Business Analyst", matchPercentage: 76, salaryRange: "1200 - 2000 AZN" },
+                { roleTitle: "Accountant / Mühasib", matchPercentage: 73, salaryRange: "1000 - 1800 AZN" },
+                { roleTitle: "Data Analyst", matchPercentage: 65, salaryRange: "1400 - 2500 AZN" }
+            ];
 
         alts.slice(0, 5).forEach(alt => {
+            const score = alt.matchPercentage || alt.matchScore || 70;
+            const colorClass = score >= 70 ? "bg-emerald-500" : (score >= 40 ? "bg-amber-500" : "bg-rose-500");
+            const textClass = score >= 70 ? "text-emerald-700" : (score >= 40 ? "text-amber-700" : "text-rose-700");
+
             const div = document.createElement("div");
-            div.className = "space-y-1.5";
+            div.className = "space-y-1.5 p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200 cursor-pointer";
+            div.onclick = () => {
+                if (alt.roleId) {
+                    this.auth.updateProfile({ targetRole: alt.roleId });
+                    this.renderStudentCabinet();
+                }
+            };
+
             div.innerHTML = `
                 <div class="flex items-center justify-between text-xs font-bold text-slate-800">
-                    <span>${alt.title}</span>
-                    <span class="text-slate-900 font-black">${alt.matchScore}%</span>
+                    <span class="hover:text-indigo-600 transition-colors">${alt.roleTitle || alt.title}</span>
+                    <span class="${textClass} font-black">${score}%</span>
                 </div>
                 <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full ${alt.color} rounded-full" style="width: ${alt.matchScore}%;"></div>
+                    <div class="h-full ${colorClass} rounded-full transition-all duration-500" style="width: ${score}%;"></div>
                 </div>
             `;
             container.appendChild(div);
@@ -628,14 +648,32 @@ class SkillMapApp {
 
     getMatchingVacanciesForUser(userSkills, targetRoleId) {
         const vacancies = (this.data && this.data.liveVacancies) ? this.data.liveVacancies : [];
-        const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === targetRoleId) : null;
-        const targetTitle = roleBenchmark ? roleBenchmark.title.toLowerCase() : "financial";
+        if (vacancies.length === 0) return [];
 
-        return vacancies.filter(v => {
-            const t = (v.title || "").toLowerCase();
-            const s = (v.sector || "").toLowerCase();
-            return t.includes("analyst") || t.includes("financial") || t.includes("maliyyə") || s.includes("maliyyə") || s.includes("bank");
-        }).slice(0, 4);
+        const userSkillKeys = Object.keys(userSkills || {}).map(s => s.toLowerCase());
+
+        const scored = vacancies.map(v => {
+            const vSkills = (v.skills || v.required_skills || []).map(s => String(s).toLowerCase());
+            let matchCount = 0;
+            vSkills.forEach(vs => {
+                if (userSkillKeys.some(us => us === vs || vs.includes(us) || us.includes(vs))) {
+                    matchCount++;
+                }
+            });
+
+            const total = vSkills.length > 0 ? vSkills.length : 3;
+            let score = total > 0 ? Math.round((matchCount / total) * 100) : 60;
+            if (score === 0 && matchCount > 0) score = 50;
+            if (score === 0) score = 45;
+
+            return {
+                ...v,
+                matchScore: Math.min(98, Math.max(40, score + 20))
+            };
+        });
+
+        scored.sort((a, b) => b.matchScore - a.matchScore);
+        return scored.slice(0, 8);
     }
 
     renderCabinetMatchingVacancies(matchingJobs) {
@@ -643,52 +681,42 @@ class SkillMapApp {
         if (!container) return;
         container.innerHTML = "";
 
-        const mockDefaults = [
-            { title: "Financial Analyst", company: "PAŞA Bank", location: "Bakı", matchScore: 87, skills: ["Excel", "Financial Analysis", "English"], logoBg: "bg-emerald-700", logoText: "PB", url: "https://jobsearch.az" },
-            { title: "Junior Financial Analyst", company: "ABB", location: "Bakı", matchScore: 82, skills: ["Excel", "Financial Analysis", "Power BI"], logoBg: "bg-blue-800", logoText: "ABB", url: "https://jobsearch.az" },
-            { title: "Financial Analyst", company: "Kapital Bank", location: "Bakı", matchScore: 78, skills: ["Excel", "SQL", "Financial Analysis"], logoBg: "bg-rose-700", logoText: "KB", url: "https://jobsearch.az" },
-            { title: "Business Analyst", company: "Azər Türk Bank", location: "Bakı", matchScore: 74, skills: ["Excel", "SQL", "Power BI"], logoBg: "bg-amber-700", logoText: "ATB", url: "https://jobsearch.az" }
-        ];
-
-        const jobsToRender = (matchingJobs && matchingJobs.length >= 4) ? matchingJobs.map((j, i) => ({
-            title: j.title || "Financial Analyst",
-            company: j.company || "PAŞA Bank",
-            location: j.location || "Bakı",
-            matchScore: Math.max(70, 88 - i * 4),
-            skills: j.required_skills ? j.required_skills.slice(0, 3) : ["Excel", "SQL", "Analitika"],
-            logoBg: i % 2 === 0 ? "bg-blue-900" : "bg-emerald-800",
-            logoText: (j.company || "PB").slice(0, 3).toUpperCase(),
-            url: j.source_url || j.url || "https://jobsearch.az"
-        })) : mockDefaults;
+        const jobsToRender = (matchingJobs && matchingJobs.length > 0) ? matchingJobs.slice(0, 4) : [];
 
         jobsToRender.forEach(job => {
             const div = document.createElement("div");
             div.className = "p-3.5 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs transition-all";
+            
+            const initials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
+            const skillsList = job.skills || job.required_skills || ["Excel", "SQL", "Analitika"];
+
+            const score = job.matchScore || 80;
+            const scoreBadgeColor = score >= 70 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200";
+
             div.innerHTML = `
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full ${job.logoBg} text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
-                        ${job.logoText}
+                    <div class="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                        ${initials}
                     </div>
                     <div class="space-y-1">
                         <div class="flex items-center gap-2">
                             <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
-                            <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location}</span>
+                            <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location || "Bakı"}</span>
                         </div>
                         <div class="text-[11px] text-slate-500">${job.company}</div>
                         <div class="flex flex-wrap gap-1 pt-0.5">
-                            ${job.skills.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
-                            <span class="px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-400 text-[10px]">+2</span>
+                            ${skillsList.slice(0, 3).map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
                         </div>
                     </div>
                 </div>
 
                 <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
-                    <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black">
-                        ${job.matchScore}% uyğunluq
+                    <span class="px-2.5 py-1 rounded-full ${scoreBadgeColor} border text-xs font-black">
+                        ${score}% uyğunluq
                     </span>
-                    <a href="${job.url}" target="_blank" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
+                    <button onclick="app.viewVacancyInLiveTab('${(job.title || '').replace(/'/g, "\'")}', '${(job.company || '').replace(/'/g, "\'")}');" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
                         Vakansiyaya bax
-                    </a>
+                    </button>
                 </div>
             `;
             container.appendChild(div);
@@ -700,26 +728,34 @@ class SkillMapApp {
         if (!container) return;
         container.innerHTML = "";
 
-        const steps = [
-            { num: 1, title: "SQL (Basic ➔ Intermediate)", desc: "Təxmini müddət: 4 həftə", priority: "Yüksək prioritet", circleColor: "bg-rose-500", tagColor: "bg-rose-50 text-rose-700 border-rose-200" },
-            { num: 2, title: "Power BI", desc: "Təxmini müddət: 4-6 həftə", priority: "Yüksək prioritet", circleColor: "bg-rose-500", tagColor: "bg-rose-50 text-rose-700 border-rose-200" },
-            { num: 3, title: "Financial Modeling", desc: "Təxmini müddət: 6-8 həftə", priority: "Orta prioritet", circleColor: "bg-amber-500", tagColor: "bg-amber-50 text-amber-700 border-amber-200" },
-            { num: 4, title: "Advanced Excel", desc: "Təxmini müddət: 4 həftə", priority: "Aşağı prioritet", circleColor: "bg-blue-500", tagColor: "bg-blue-50 text-blue-700 border-blue-200" }
-        ];
+        const topGaps = (result && result.topPriorities && result.topPriorities.length > 0)
+            ? result.topPriorities.slice(0, 4)
+            : [
+                { skillName: "SQL", gap: 2 },
+                { skillName: "Power BI", gap: 2 },
+                { skillName: "Financial Modeling", gap: 1 },
+                { skillName: "Excel Advanced", gap: 1 }
+            ];
 
-        steps.forEach(step => {
+        topGaps.forEach((g, idx) => {
+            const num = idx + 1;
+            const isHigh = g.gap >= 2;
+            const circleColor = isHigh ? "bg-rose-500" : (g.gap === 1 ? "bg-amber-500" : "bg-blue-500");
+            const tagColor = isHigh ? "bg-rose-50 text-rose-700 border-rose-200" : (g.gap === 1 ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-blue-50 text-blue-700 border-blue-200");
+            const priorityText = isHigh ? "Yüksək prioritet" : (g.gap === 1 ? "Orta prioritet" : "Tövsiyə olunur");
+
             const div = document.createElement("div");
             div.className = "flex items-start gap-3 text-xs";
             div.innerHTML = `
-                <div class="w-6 h-6 rounded-full ${step.circleColor} text-white font-bold flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
-                    ${step.num}
+                <div class="w-6 h-6 rounded-full ${circleColor} text-white font-bold flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+                    ${num}
                 </div>
                 <div class="flex-grow space-y-0.5">
                     <div class="flex items-center justify-between">
-                        <div class="font-bold text-slate-900">${step.title}</div>
-                        <span class="px-2 py-0.5 rounded-full border ${step.tagColor} text-[10px] font-bold">${step.priority}</span>
+                        <div class="font-bold text-slate-900">${g.skillName || "Bacarıq"}</div>
+                        <span class="px-2 py-0.5 rounded-full border ${tagColor} text-[10px] font-bold">${priorityText}</span>
                     </div>
-                    <p class="text-[11px] text-slate-500">${step.desc}</p>
+                    <p class="text-[11px] text-slate-500">Məqsəd: Boşluğu aradan qaldırmaq (Təxmini: ${2 + num * 2} həftə)</p>
                 </div>
             `;
             container.appendChild(div);
@@ -744,55 +780,467 @@ class SkillMapApp {
             return;
         }
 
-        if (passName) passName.textContent = user.name || "Demo Tələbə";
-        if (passAvatar) passAvatar.textContent = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2) : "ƏÖ";
+        if (passName) passName.textContent = user.name || "İstifadəçi";
+        if (passAvatar) passAvatar.textContent = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "TL";
         if (passUni) passUni.textContent = `${user.university || "UNEC"} · ${user.faculty || "Maliyyə ixtisası"}`;
         if (passRole) passRole.textContent = `Hədəf vəzifə: ${matchResult && matchResult.role ? matchResult.role.title : "Financial Analyst"}`;
-        if (passMatch) passMatch.textContent = `Career Match: ${matchResult && matchResult.matchPercentage ? matchResult.matchPercentage : 74}%`;
+        
+        const mScore = matchResult && matchResult.matchPercentage ? matchResult.matchPercentage : 74;
+        if (passMatch) passMatch.textContent = `Career Match: ${mScore}%`;
 
         if (grid) {
             grid.innerHTML = "";
-            const sampleSkills = [
-                { name: "Excel", level: 4 },
-                { name: "Financial Analysis", level: 4 },
-                { name: "SQL", level: 2 },
-                { name: "Power BI", level: 1 },
-                { name: "Financial Modeling", level: 2 },
-                { name: "Presentation Skills", level: 4 }
-            ];
-
-            sampleSkills.forEach(s => {
-                const box = document.createElement("div");
-                box.className = "flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs";
-                box.innerHTML = `
-                    <span class="font-bold text-slate-700 truncate">${s.name}</span>
-                    <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[10px]">${s.level}/5</span>
-                `;
-                grid.appendChild(box);
-            });
+            const skillsEntries = Object.entries(currentSkills).slice(0, 6);
+            if (skillsEntries.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 p-3 text-center text-xs text-slate-400 italic">Hələ heç bir bacarıq əlavə edilməyib.</div>`;
+            } else {
+                skillsEntries.forEach(([sId, sVal]) => {
+                    const lvl = typeof sVal === "object" ? sVal.level : sVal;
+                    const box = document.createElement("div");
+                    box.className = "flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs";
+                    box.innerHTML = `
+                        <span class="font-bold text-slate-700 truncate capitalize">${sId.replace(/_/g, " ")}</span>
+                        <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[10px]">${lvl}/5</span>
+                    `;
+                    grid.appendChild(box);
+                });
+            }
         }
     }
 
-    switchCabinetView(viewName) {
-        const viewIds = [
-            "overview", "profile", "skills", "skill-gap", "vacancies", 
-            "career-directions", "dev-plan", "skill-passport", "cv-ats", "cv-builder", "settings"
+    // ========================================================
+    // FULL SUBVIEWS DETAILED IMPLEMENTATIONS (10 SUB-VIEWS)
+    // ========================================================
+
+    renderSkillGapSubView(matchResult, currentSkills) {
+        const container = document.getElementById("cab-deep-gap-content");
+        if (!container) return;
+
+        const breakdown = (matchResult && matchResult.breakdown) ? matchResult.breakdown : [];
+        const top8Skills = breakdown.slice(0, 8);
+
+        // Render Radar Chart + Deep Table
+        container.innerHTML = `
+            <div class="space-y-6">
+                <!-- Top Overview Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left: Radar Chart (5 Columns) -->
+                    <div class="lg:col-span-5 bg-slate-50 rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
+                            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Bacarıqlar Radarı (Radar Chart)</h4>
+                            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200">8 Əsas Bacarıq</span>
+                        </div>
+                        <div class="h-64 my-auto relative flex items-center justify-center">
+                            <canvas id="cab-radar-chart"></canvas>
+                        </div>
+                        <div class="flex items-center justify-center gap-4 text-[11px] font-bold pt-2 border-t border-slate-200/80">
+                            <span class="flex items-center gap-1.5 text-blue-600">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>Bazar Tələbi
+                            </span>
+                            <span class="flex items-center gap-1.5 text-amber-600">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Sizin Səviyyəniz
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Key Gap Highlights & Cards (7 Columns) -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Career Match</span>
+                                <div class="text-2xl font-black text-indigo-600">${matchResult.matchPercentage || 74}%</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Ən Böyük Boşluq</span>
+                                <div class="text-sm font-black text-rose-600 mt-1">${(matchResult.topPriorities && matchResult.topPriorities[0]?.skillName) || 'Power BI'}</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Güclü Bacarıq</span>
+                                <div class="text-sm font-black text-emerald-600 mt-1">${(breakdown.find(b => b.gap === 0)?.skillName) || 'Excel'}</div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs text-blue-900 space-y-1">
+                            <div class="font-bold flex items-center gap-1.5 text-blue-950">
+                                <i class="fas fa-lightbulb text-blue-600"></i>Skill Gap Nəticə Xülasəsi:
+                            </div>
+                            <p class="text-[11px] leading-relaxed text-blue-800">
+                                <strong>${matchResult.role ? matchResult.role.title : 'Hədəf Vəzifə'}</strong> üçün tələb olunan <strong>${breakdown.length}</strong> əsas bacarıqdan <strong>${breakdown.filter(b => b.gap === 0).length}</strong> dənəsi üzrə tam uyğunsunuz. Ən kritik <strong>${matchResult.topPriorities ? matchResult.topPriorities.length : 2}</strong> bacarığı inkişaf etdirməklə uyğunluğunuzu <strong>90%+</strong> səviyyəsinə qaldıra bilərsiniz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Gap Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">
+                                <th class="py-2.5 px-3">Bacarıq Adı</th>
+                                <th class="py-2.5 px-3">İstifadəçi Səviyyəsi</th>
+                                <th class="py-2.5 px-3">Bazar Tələbi</th>
+                                <th class="py-2.5 px-3 text-center">Fərq (Gap)</th>
+                                <th class="py-2.5 px-3 text-right">Uyğunluq Statusu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${breakdown.map(item => {
+                                const userPct = Math.min(100, Math.round((item.userLevel / 5) * 100));
+                                const marketPct = Math.min(100, Math.round((item.requiredLevel / 5) * 100));
+                                const userBarColor = item.gap === 0 ? '#10b981' : (item.gap <= 2 ? '#f59e0b' : '#ef4444');
+                                const statusBadge = item.gap <= 0 
+                                    ? `<span class="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><i class="fas fa-circle-check text-emerald-500"></i> Tam Uyğundur</span>`
+                                    : (item.gap <= 2 
+                                        ? `<span class="inline-flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200"><i class="fas fa-circle-exclamation text-amber-500"></i> İnkişaf Etdirilməli</span>`
+                                        : `<span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200"><i class="fas fa-circle-xmark text-rose-500"></i> Kritik Çatışmazlıq</span>`);
+
+                                return `
+                                    <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                                        <td class="py-3 px-3 font-bold text-slate-900 text-xs">${item.skillName}</td>
+                                        <td class="py-3 px-3">
+                                            <div class="dual-bar-container">
+                                                <span class="text-[11px] font-bold text-slate-700">${item.userLevel}/5</span>
+                                                <div class="dual-bar-track">
+                                                    <div class="dual-bar-fill" style="width: ${userPct}%; background-color: ${userBarColor};"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-3">
+                                            <div class="dual-bar-container">
+                                                <span class="text-[11px] font-bold text-slate-700">${item.requiredLevel}/5</span>
+                                                <div class="dual-bar-track">
+                                                    <div class="dual-bar-fill" style="width: ${marketPct}%; background-color: #2563eb;"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-3 text-center font-black text-xs ${item.gap > 0 ? (item.gap >= 3 ? 'text-rose-600' : 'text-amber-600') : 'text-emerald-600'}">
+                                            ${item.gap === 0 ? '0 (✓)' : `-${item.gap}`}
+                                        </td>
+                                        <td class="py-3 px-3 text-right">
+                                            ${statusBadge}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        // Render Chart.js Radar Chart
+        this.renderCabinetRadarChart(top8Skills);
+    }
+
+    renderCabinetRadarChart(top8Skills) {
+        const canvas = document.getElementById("cab-radar-chart");
+        if (!canvas || typeof Chart === "undefined") return;
+
+        if (this.charts && this.charts.cabRadar) {
+            this.charts.cabRadar.destroy();
+        }
+
+        const labels = top8Skills.map(s => s.skillName);
+        const marketData = top8Skills.map(s => s.requiredLevel || 3);
+        const userData = top8Skills.map(s => s.userLevel || 1);
+
+        const ctx = canvas.getContext("2d");
+        this.charts = this.charts || {};
+        this.charts.cabRadar = new Chart(ctx, {
+            type: "radar",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Bazar Tələbi",
+                        data: marketData,
+                        backgroundColor: "rgba(37, 99, 235, 0.18)",
+                        borderColor: "rgba(37, 99, 235, 0.9)",
+                        borderWidth: 2,
+                        pointBackgroundColor: "#2563eb",
+                        pointRadius: 3
+                    },
+                    {
+                        label: "Sizin Səviyyəniz",
+                        data: userData,
+                        backgroundColor: "rgba(245, 158, 11, 0.22)",
+                        borderColor: "rgba(245, 158, 11, 0.95)",
+                        borderWidth: 2,
+                        pointBackgroundColor: "#f59e0b",
+                        pointRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 5,
+                        ticks: { stepSize: 1, display: false },
+                        grid: { color: "rgba(226, 232, 240, 0.8)" },
+                        pointLabels: { font: { size: 10, weight: "bold" }, color: "#475569" }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+
+    renderCabinetVacanciesSubView(matchingJobs) {
+        const container = document.getElementById("cab-full-vacancies-grid");
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (!matchingJobs || matchingJobs.length === 0) {
+            container.innerHTML = `<div class="col-span-full p-8 text-center text-xs text-slate-400 bg-slate-50 rounded-2xl border border-slate-200">Uyğun vakansiya tapılmadı.</div>`;
+            return;
+        }
+
+        matchingJobs.forEach(job => {
+            const div = document.createElement("div");
+            div.className = "p-5 rounded-2xl border border-slate-200 hover:border-slate-400 bg-white space-y-3 shadow-2xs transition-all";
+            
+            const initials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
+            const skillsList = job.skills || job.required_skills || ["Excel", "SQL", "Analitika"];
+            const score = job.matchScore || 80;
+            const badgeColor = score >= 70 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200";
+
+            div.innerHTML = `
+                <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                            ${initials}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
+                            <div class="text-[11px] text-slate-500">${job.company} · 📍 ${job.location || 'Bakı'}</div>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full ${badgeColor} border text-xs font-black flex-shrink-0">
+                        ${score}% uyğun
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                    ${skillsList.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-700">${job.salary || "1200 - 2000 AZN"}</span>
+                    <button onclick="app.viewVacancyInLiveTab('${(job.title || '').replace(/'/g, "\'")}', '${(job.company || '').replace(/'/g, "\'")}');" class="px-3 py-1.5 rounded-full btn-saas-primary font-bold text-[11px] shadow-sm flex items-center gap-1">
+                        <span>Vakansiyaya Bax</span>
+                        <i class="fas fa-arrow-right text-[9px]"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    renderCabinetCareerAlternativesSubView(matchResult) {
+        const container = document.getElementById("cab-full-career-matrix");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const allRoles = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark : [];
+        const currentSkills = (this.auth.currentUser && this.auth.currentUser.savedSkills) || {};
+
+        allRoles.forEach(r => {
+            const rRes = this.engine.calculateGap(r.id, currentSkills, this.auth.currentUser || {});
+            const score = rRes.matchPercentage || 65;
+            const colorClass = score >= 70 ? "bg-emerald-500" : (score >= 40 ? "bg-amber-500" : "bg-rose-500");
+            const textClass = score >= 70 ? "text-emerald-700" : (score >= 40 ? "text-amber-700" : "text-rose-700");
+
+            const card = document.createElement("div");
+            card.className = "p-5 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 shadow-2xs space-y-4 transition-all";
+            card.innerHTML = `
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">${r.title}</h4>
+                        <span class="text-[11px] text-slate-400">${r.sector}</span>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full ${score >= 70 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'} border text-xs font-black">
+                        ${score}%
+                    </span>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full ${colorClass} rounded-full" style="width: ${score}%;"></div>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-600">${r.salaryRange || "1200 - 2400 AZN"}</span>
+                    <button onclick="app.setTargetRoleFromCabinet('${r.id}')" class="px-3 py-1.5 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white text-xs font-bold transition-all">
+                        Hədəf Seç
+                    </button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    renderCabinetDevelopmentPlanSubView(matchResult) {
+        const container = document.getElementById("cab-full-dev-plan-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const topGaps = (matchResult && matchResult.topPriorities && matchResult.topPriorities.length > 0)
+            ? matchResult.topPriorities
+            : [
+                { skillName: "SQL", gap: 2 },
+                { skillName: "Power BI", gap: 2 },
+                { skillName: "Financial Modeling", gap: 1 }
+            ];
+
+        const recommendations = [
+            {
+                step: 1,
+                title: `${topGaps[0]?.skillName || 'SQL'} Bacarığının Gücləndirilməsi`,
+                duration: "4 həftə",
+                type: "Online Kurs & Praktika",
+                resources: ["Coursera: Advanced Databases & SQL", "LeetCode Database Exercises", "YouTube: DataCamp Tutorials"],
+                desc: "Seçilmiş vəzifə üçün bu bacarıqda ən böyük bazar tələbi mövcuddur. Hər gün 1 saat praktiki sorğular yazmaq tövsiyə olunur."
+            },
+            {
+                step: 2,
+                title: `${topGaps[1]?.skillName || 'Power BI'} üzrə Vizual Hesabat Layihəsi`,
+                duration: "4-6 həftə",
+                type: "Keys Layihəsi (Portfolio)",
+                resources: ["Microsoft Learn: Power BI Data Analyst", "Kaggle Maliyyə Datasetləri", "DAX Formulas Guide"],
+                desc: "Real bazar datası əsasında interaktiv dashboard qurub GitHub və ya LinkedIn-də paylaşın."
+            },
+            {
+                step: 3,
+                title: `${topGaps[2]?.skillName || 'Analitik Düşüncə'} və Sektor Təcrübəsi`,
+                duration: "6 həftə",
+                type: "Keys Simulyasiyası",
+                resources: ["Harvard Business Case Studies", "IFRS & Maliyyə Hesabatları Təhlili"],
+                desc: "Real şirkət hesabatlarını təhlil edərək qərarvermə və təqdimat bacarıqlarınızı artırın."
+            },
+            {
+                step: 4,
+                title: "Skill Passport və ATS-Uyğun CV ilə İş Müraciətləri",
+                duration: "Davamlı",
+                type: "Karyera İnteqrasiyası",
+                resources: ["SkillMap Digital Passport PDF", "ATS-Friendly CV Builder", "Jobsearch.az Açıq Vakansiyaları"],
+                desc: "Tamamladığınız bacarıqları təsdiqləyin, rəsmi pasportunuzu endirin və ən yüksək uyğunluqlu vakansiyalara müraciət edin."
+            }
         ];
 
-        viewIds.forEach(v => {
-            const el = document.getElementById(`cab-view-${v}`);
-            if (el) el.classList.add("hidden");
+        recommendations.forEach(r => {
+            const div = document.createElement("div");
+            div.className = "p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 shadow-2xs space-y-3 transition-all";
+            div.innerHTML = `
+                <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-black flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                            ${r.step}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">${r.title}</h4>
+                            <span class="text-[11px] text-blue-600 font-semibold">${r.type} · Təxmini Müddət: ${r.duration}</span>
+                        </div>
+                    </div>
+                </div>
 
-            const btn = document.getElementById(`cab-nav-${v}`);
-            if (btn) btn.classList.remove("active");
+                <p class="text-xs text-slate-600 leading-relaxed">${r.desc}</p>
+
+                <div class="pt-2 border-t border-slate-100">
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1.5">Tövsiyə Olunan Tədris Resursları:</span>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${r.resources.map(res => `<span class="px-2.5 py-1 rounded-lg bg-slate-50 text-slate-700 text-[11px] font-semibold border border-slate-200">${res}</span>`).join("")}
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
         });
+    }
 
-        const activeEl = document.getElementById(`cab-view-${viewName}`);
-        if (activeEl) activeEl.classList.remove("hidden");
+    renderCabinetPassportSubView(user, matchResult, currentSkills) {
+        const container = document.getElementById("cab-full-passport-preview");
+        if (!container || !user) return;
 
-        const activeBtn = document.getElementById(`cab-nav-${viewName}`);
-        if (activeBtn) activeBtn.classList.add("active");
+        const roleTitle = matchResult && matchResult.role ? matchResult.role.title : "Financial Analyst";
+        const score = matchResult && matchResult.matchPercentage ? matchResult.matchPercentage : 74;
 
+        container.innerHTML = `
+            <div class="p-8 rounded-3xl bg-white border-2 border-slate-900/10 shadow-lg space-y-6 max-w-2xl mx-auto">
+                <div class="flex items-center justify-between pb-6 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white font-black flex items-center justify-center text-xl shadow-md">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <div class="font-black text-slate-900 text-base">SkillMap Azerbaijan</div>
+                            <div class="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Rəsmi Rəqəmsal Bacarıq Pasportu</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-black">
+                            ${score}% Career Match
+                        </span>
+                        <div class="text-[10px] text-slate-400 font-mono mt-1">ID: ${user.studentId || 'AZ-STUDENT-2026'}</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <span class="text-slate-400 font-bold uppercase block text-[10px]">Tələbə / Namizəd</span>
+                        <div class="font-black text-slate-900 text-sm">${user.name || "İstifadəçi"}</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 font-bold uppercase block text-[10px]">Təhsil Müəssisəsi</span>
+                        <div class="font-bold text-slate-800">${user.university || "UNEC"} (${user.degree || "Bakalavr"})</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 font-bold uppercase block text-[10px]">Hədəf Karyera İstiqaməti</span>
+                        <div class="font-bold text-indigo-700">${roleTitle}</div>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 font-bold uppercase block text-[10px]">Verifikasiya Tarixi</span>
+                        <div class="font-bold text-slate-800">Avqust 2026 (Jobsearch.az n=420)</div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="text-slate-400 font-bold uppercase block text-[10px] mb-2">Təsdiqlənmiş Əsas Bacarıqlar Və Qiymətlər:</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        ${Object.entries(currentSkills).map(([sId, val]) => {
+                            const lvl = typeof val === "object" ? val.level : val;
+                            return `
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+                                    <span class="font-bold text-slate-800 capitalize">${sId.replace(/_/g, " ")}</span>
+                                    <span class="font-black text-indigo-600 bg-white px-2 py-0.5 rounded border border-slate-200 text-[10px]">${lvl}/5</span>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    setTargetRoleFromCabinet(roleId) {
+        if (!roleId) return;
+        this.auth.updateProfile({ targetRole: roleId });
+        alert(`Hədəf vəzifəniz dəyişdirildi! Bütün analizlər yenidən hesablandı.`);
+        this.renderStudentCabinet();
+        this.switchCabinetView("overview");
+    }
+
+    viewVacancyInLiveTab(title, company) {
+        this.switchTab("live-vacancies");
+        const input = document.getElementById("vacancy-search-input");
+        if (input) {
+            input.value = title || company || "";
+            this.renderLiveVacancies();
+        }
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -1098,15 +1546,7 @@ class SkillMapApp {
         }
     }
 
-    handleLogout() {
-        this.auth.logout();
-        
-        this.currentSkills = {};
-        this.updateAuthUI();
-        this.renderStudentCabinet();
-        this.renderLiveVacancies();
-        alert("Kabinetdən uğurla çıxış edildi. Şəxsi məlumatlar təmizləndi.");
-    }
+
 
     toggleCabinetDarkMode(isDark) {
         const root = document.getElementById("student-cabinet-root");
