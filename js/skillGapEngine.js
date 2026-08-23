@@ -1,24 +1,38 @@
 /**
  * SkillMap Azerbaijan - Skill Gap, Karyera və Çoxkomponentli Match Mühərriki (skillGapEngine.js)
- * 1-5 Şkalası: Beginner (1), Basic (2), Intermediate (3), Advanced (4), Expert (5)
- * Çoxkomponentli Match Score: Skills (70%) + Experience (15%) + Education (10%) + Language (5%)
+ * Enterprise Versiya: Dəqiq Bazar Tələbi Kalibrasiyası, Çoxkomponentli Vakansiya və Karyera Uyğunluğu.
+ *
+ * Şkala: Beginner (1), Basic (2), Intermediate (3), Advanced (4), Expert (5)
+ * Bazar Tələbatı Faizi (0-100%) -> Səviyyə Dönüşümü:
+ *   0-15%  -> 1/5 (Beginner / Nadir tələb)
+ *   16-35% -> 2/5 (Basic / Baza)
+ *   36-60% -> 3/5 (Intermediate / Orta)
+ *   61-80% -> 4/5 (Advanced / İrəli)
+ *   81-100%-> 5/5 (Expert / Ekspert)
  */
 
 class SkillGapEngine {
     constructor(data, configWeights = null) {
-        this.data = data || window.SkillMapData;
+        this.data = data || (typeof window !== "undefined" ? window.SkillMapData : {});
         this.weights = configWeights || {
             skills: 0.70,
             experience: 0.15,
             education: 0.10,
             language: 0.05
         };
+        this.vacancyWeights = {
+            requiredSkills: 0.50,
+            roleSimilarity: 0.20,
+            experience: 0.10,
+            education: 0.10,
+            language: 0.10
+        };
     }
 
     /**
-     * Səviyyəni standart 1-5 şkalasına çevirir
+     * Tələbənin daxil etdiyi bacarıq səviyyəsini standart 1-5 şkalasına çevirir
      */
-    normalizeLevel(val) {
+    normalizeSkillLevel(val) {
         if (typeof val === "string") {
             const v = val.toLowerCase().trim();
             const map = { "beginner": 1, "basic": 2, "intermediate": 3, "advanced": 4, "expert": 5 };
@@ -28,14 +42,30 @@ class SkillGapEngine {
             else return 2;
         }
         if (typeof val === "number") {
-            if (val <= 5) return Math.max(1, Math.min(5, Math.round(val)));
-            if (val >= 85) return 5;
-            if (val >= 65) return 4;
-            if (val >= 45) return 3;
-            if (val >= 20) return 2;
-            return 1;
+            if (val <= 5 && val >= 1) return Math.round(val);
+            if (val <= 0) return 0;
+            return this.demandPercentageToLevel(val);
         }
         return 1;
+    }
+
+    /**
+     * Bazar tələbatı faizini (0-100%) standart 1-5 tələb olunan səviyyəyə çevirir
+     */
+    demandPercentageToLevel(pct) {
+        const p = parseFloat(pct) || 0;
+        if (p <= 15) return 1;
+        if (p <= 35) return 2;
+        if (p <= 60) return 3;
+        if (p <= 80) return 4;
+        return 5;
+    }
+
+    /**
+     * Geriye uyğunluq üçün ümumi normalizasiya
+     */
+    normalizeLevel(val) {
+        return this.normalizeSkillLevel(val);
     }
 
     /**
@@ -47,7 +77,7 @@ class SkillGapEngine {
         if (!role) {
             return {
                 roleId,
-                roleTitle: roleId.replace("_", " ").toUpperCase(),
+                roleTitle: (roleId || "").replace(/_/g, " ").toUpperCase(),
                 status: "Insufficient market data",
                 matchPercentage: 0,
                 breakdown: [],
@@ -61,7 +91,7 @@ class SkillGapEngine {
         const studentSkills = userSkills || {};
         const expYears = parseFloat(userProfile.experience_years || userProfile.experience || 0) || 0;
         const degree = userProfile.degree || "Bakalavr";
-        const field = userProfile.field || "";
+        const field = userProfile.field || userProfile.faculty || "";
         const englishLevel = (userProfile.english_level || userProfile.englishLevel || "B1").toLowerCase();
 
         // 1. SKILLS SCORE & GAP BREAKDOWN
@@ -70,26 +100,31 @@ class SkillGapEngine {
         let totalWeightedAchieved = 0.0;
         let totalWeightedRequired = 0.0;
 
-        const benchmarkSkills = role.skills_benchmark || Object.entries(role.requiredSkills || {}).map(([sId, reqVal]) => ({
-            skill_id: sId,
-            canonical_name: this.findSkillInfo(sId)?.name || sId,
-            market_level: this.normalizeLevel(reqVal),
-            importance: reqVal >= 75 ? "required" : "preferred",
-            demand_percentage: reqVal >= 75 ? 80.0 : 50.0,
-            weight: 1.3
-        }));
+        const benchmarkSkills = role.skills_benchmark || Object.entries(role.requiredSkills || {}).map(([sId, reqVal]) => {
+            const demandPct = typeof reqVal === "number" ? reqVal : parseFloat(reqVal) || 50.0;
+            const marketLvl = this.demandPercentageToLevel(demandPct);
+            const importance = demandPct >= 40.0 ? "required" : "preferred";
+            return {
+                skill_id: sId,
+                canonical_name: this.findSkillInfo(sId)?.name || sId,
+                market_level: marketLvl,
+                importance: importance,
+                demand_percentage: demandPct,
+                weight: this.findSkillInfo(sId)?.weightFactor || 1.3
+            };
+        });
 
         benchmarkSkills.forEach(item => {
             const skId = item.skill_id || item.id;
             const skName = item.canonical_name || item.name || skId;
-            const marketLvl = this.normalizeLevel(item.market_level || item.required_level || 3);
-            const importance = item.importance || "required";
-            const demandPct = item.demand_percentage || 70.0;
+            const demandPct = item.demand_percentage || 50.0;
+            const marketLvl = item.market_level || this.demandPercentageToLevel(demandPct);
+            const importance = item.importance || (demandPct >= 40.0 ? "required" : "preferred");
             const weight = item.weight || (this.findSkillInfo(skId)?.weightFactor || 1.2);
             const impFactor = (importance === "required") ? 1.0 : 0.6;
 
             const rawUserVal = studentSkills[skId] !== undefined ? studentSkills[skId] : (studentSkills[skName] !== undefined ? studentSkills[skName] : 0);
-            const userLvl = (rawUserVal > 0) ? this.normalizeLevel(rawUserVal) : 0;
+            const userLvl = (rawUserVal > 0) ? this.normalizeSkillLevel(rawUserVal) : 0;
 
             const gap = Math.max(0, marketLvl - userLvl);
             const achieved = Math.min(userLvl, marketLvl);
@@ -97,18 +132,18 @@ class SkillGapEngine {
             totalWeightedAchieved += achieved * weight * impFactor;
             totalWeightedRequired += marketLvl * weight * impFactor;
 
-            // Priority Score
+            // Corrected Priority Score: Gap x Demand% x Importance
             const priorityScore = parseFloat((gap * (demandPct / 100.0) * (importance === "required" ? 1.5 : 1.0)).toFixed(2));
             let priorityLabel = "None";
             let priorityAz = "Boşluq yoxdur";
 
-            if (priorityScore >= 1.5) {
+            if (priorityScore >= 1.0) {
                 priorityLabel = "Very High";
                 priorityAz = "Çox Yüksək (Təcili)";
-            } else if (priorityScore >= 0.8) {
+            } else if (priorityScore >= 0.5) {
                 priorityLabel = "High";
                 priorityAz = "Yüksək";
-            } else if (priorityScore >= 0.3) {
+            } else if (priorityScore >= 0.2) {
                 priorityLabel = "Medium";
                 priorityAz = "Orta";
             } else if (gap > 0) {
@@ -116,21 +151,17 @@ class SkillGapEngine {
                 priorityAz = "Aşağı";
             }
 
-            let statusText = "Strong (Tam uyğundur)";
+            let statusText = "Tam Uyğundur";
             let status = "good";
             let statusColor = "emerald";
 
             if (gap >= 3) {
                 status = "critical";
-                statusText = `High Gap (${gap} səviyyə)`;
+                statusText = `${gap} səviyyə kritik kəsir`;
                 statusColor = "rose";
-            } else if (gap === 2) {
+            } else if (gap >= 1) {
                 status = "moderate";
-                statusText = `Medium Gap (${gap} səviyyə)`;
-                statusColor = "amber";
-            } else if (gap === 1) {
-                status = "moderate";
-                statusText = "Low Gap (1 səviyyə)";
+                statusText = `${gap} səviyyə çatışmazlıq`;
                 statusColor = "amber";
             }
 
@@ -175,9 +206,9 @@ class SkillGapEngine {
         const cefrLevels = { "none": 0, "a1": 1, "a2": 2, "b1": 3, "b2": 4, "c1": 5, "c2": 6 };
         const stdEng = cefrLevels[englishLevel] || 3;
         const reqEng = 4; // B2
-        let languageScore = (stdEng >= reqEng) ? 100.0 : (stdEng === reqEng - 1 ? 70.0 : 40.0);
+        const languageScore = (stdEng >= reqEng) ? 100.0 : (stdEng === reqEng - 1 ? 70.0 : 40.0);
 
-        // 5. TOTAL MATCH SCORE
+        // 5. TOTAL MATCH SCORE (Preserves 70/15/10/5 weights)
         const matchPercentage = Math.round(
             (this.weights.skills * skillsScore) +
             (this.weights.experience * experienceScore) +
@@ -185,12 +216,12 @@ class SkillGapEngine {
             (this.weights.language * languageScore)
         );
 
-        // 6. TOP DEVELOPMENT PRIORITIES
+        // 6. TOP DEVELOPMENT PRIORITIES & TOP GAPS
         const topPriorities = gapsForPriority.sort((a, b) => b.priorityScore - a.priorityScore).slice(0, 4);
         const topGaps = breakdown.filter(i => i.gap > 0).sort((a, b) => b.gap - a.gap).slice(0, 3);
 
-        // 7. ALTERNATIVE CAREERS
-        const alternativeCareers = this.getRankedCareerRecommendations(studentSkills, roleId);
+        // 7. ALTERNATIVE CAREERS (Calculated with real user profile)
+        const alternativeCareers = this.getRankedCareerRecommendations(studentSkills, roleId, userProfile);
 
         // 8. SALARY POTENTIAL ESTIMATE
         const salaryEstimate = this.estimateSalaryPotential(role, matchPercentage);
@@ -230,71 +261,206 @@ class SkillGapEngine {
     }
 
     /**
-     * Fərdi vakansiyanın istifadəçi bacarıqları ilə uyğunluq faizini hesablayır
+     * Fərdi vakansiyanın istifadəçi bacarıqları, vəzifə oxşarlığı və profili ilə real uyğunluq faizini hesablayır
+     * Weights: Required Skills (50%) + Role Similarity (20%) + Experience (10%) + Education (10%) + Language (10%)
      */
-    calculateVacancyMatch(vacancy, userSkills) {
-        if (!vacancy || !vacancy.skills || vacancy.skills.length === 0) {
-            return { matchScore: 50, matchingSkills: [], missingSkills: [] };
-        }
+    calculateVacancyMatch(vacancy, userSkills = {}, userProfile = {}, targetRoleId = "", customWeights = null) {
+        if (!vacancy) return { matchScore: 0, matchingSkills: [], missingSkills: [] };
 
-        let totalPoints = 0;
+        const weights = customWeights || this.vacancyWeights;
+
+        const targetRole = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === targetRoleId) : null;
+        const targetTitle = (targetRole ? targetRole.title : (targetRoleId || "")).toLowerCase();
+        const vacTitle = (vacancy.title || "").toLowerCase();
+        const vacSkills = vacancy.skills || vacancy.required_skills || [];
+
+        // 1. Skill Match Score (0 - 100%)
+        let totalSkillWeight = 0;
+        let achievedSkillWeight = 0;
         const matchingSkills = [];
         const missingSkills = [];
 
-        vacancy.skills.forEach(skillName => {
-            const skillObj = this.findSkillInfo(skillName);
-            const skId = skillObj ? skillObj.id : skillName.toLowerCase();
-            const userVal = (userSkills[skId] !== undefined) ? this.normalizeLevel(userSkills[skId]) : (userSkills[skillName] !== undefined ? this.normalizeLevel(userSkills[skillName]) : 0);
+        if (vacSkills.length > 0) {
+            vacSkills.forEach(sName => {
+                const sInfo = this.findSkillInfo(sName);
+                const sId = sInfo ? sInfo.id : sName.toLowerCase().replace(/[^a-z0-9_]/g, "_");
+                const rawLevel = userSkills[sId] !== undefined ? userSkills[sId] : (userSkills[sName] !== undefined ? userSkills[sName] : 0);
+                const uLvl = this.normalizeSkillLevel(rawLevel);
 
-            if (userVal >= 2) {
-                totalPoints += (userVal / 4.0);
-                matchingSkills.push({ id: skId, name: skillName, level: userVal });
-            } else {
-                missingSkills.push({ id: skId, name: skillName, level: userVal });
+                totalSkillWeight += 1.0;
+                if (uLvl >= 1) {
+                    achievedSkillWeight += Math.min(1.0, uLvl / 4.0);
+                    matchingSkills.push({ name: sName, level: uLvl });
+                } else {
+                    missingSkills.push({ name: sName, level: 0 });
+                }
+            });
+        }
+
+        const skillScore = totalSkillWeight > 0 ? (achievedSkillWeight / totalSkillWeight) * 100.0 : (matchingSkills.length > 0 ? 40.0 : 15.0);
+
+        // 2. Role Title & Semantic Similarity Score (0 - 100%)
+        let roleSimScore = 0.0;
+        
+        // Define domain clusters
+        const roleClusters = {
+            data_analyst: {
+                direct: ["data analyst", "data analitik", "data mütəxəssisi", "verilənlər analitiki", "analitik", "bi analyst", "bi mütəxəssis", "reporting analyst", "hesabatlıq analitiki"],
+                related: ["business analyst", "biznes analitik", "risk analitik", "statistika", "etl", "database developer", "sql developer", "data scientist", "maliyyə analitiki"],
+                unrelated: ["satış", "təbabət", "həkim", "aptek", "tibbi", "servis müdiri", "xadimə", "aşpaz", "mühafizə", "sürücü", "anbardar", "resepsn", "call center", "kassir"]
+            },
+            financial_analyst: {
+                direct: ["maliyyə analitik", "financial analyst", "maliyyə mütəxəssisi", "iqtisadçı", "budget analyst", "büdcə analitiki"],
+                related: ["mühasib", "accountant", "audit", "daxili audit", "risk analitik", "kredit mütəxəssisi", "xəzinədar", "data analyst", "biznes analitik"],
+                unrelated: ["satış", "təbabət", "həkim", "aptek", "tibbi", "servis müdiri", "xadimə", "aşpaz", "mühafizə", "sürücü", "anbardar", "resepsn"]
+            },
+            business_analyst: {
+                direct: ["business analyst", "biznes analitik", "biznes təhlilçi", "proses analitiki", "process analyst", "layihə meneceri"],
+                related: ["data analyst", "maliyyə analitik", "product owner", "scrum master", "keyfiyyətə nəzarət", "sistem analitiki"],
+                unrelated: ["satış", "təbabət", "həkim", "aptek", "tibbi", "servis müdiri", "xadimə", "aşpaz", "mühafizə", "sürücü", "anbardar"]
+            },
+            frontend_developer: {
+                direct: ["frontend", "front-end", "react", "web developer", "javascript developer", "ui developer", "proqramçı"],
+                related: ["full stack", "fullstack", "backend", "software engineer", "proqram mühəndisi", "mobile developer"],
+                unrelated: ["satış", "təbabət", "həkim", "aptek", "mühasib", "audit", "xadimə", "sürücü"]
+            },
+            digital_marketer: {
+                direct: ["digital marketing", "rəqəmsal marketinq", "marketinq mütəxəssisi", "smm", "seo", "media planlama"],
+                related: ["kopirayter", "məzmun meneceri", "qrafik dizayner", "pr menecer", "brend menecer", "satış meneceri"],
+                unrelated: ["proqramçı", "developer", "mühasib", "audit", "tibbi", "sürücü", "mühafizə"]
             }
-        });
+        };
 
-        const rawMatch = Math.round((totalPoints / vacancy.skills.length) * 100);
-        const matchScore = Math.min(100, Math.max(15, rawMatch));
+        const cluster = roleClusters[targetRoleId] || roleClusters["data_analyst"];
+
+        if (cluster.unrelated.some(w => vacTitle.includes(w))) {
+            roleSimScore = 5.0; // Heavy penalty for completely unrelated jobs
+        } else if (cluster.direct.some(w => vacTitle.includes(w))) {
+            roleSimScore = 95.0; // High score for direct role matches
+        } else if (cluster.related.some(w => vacTitle.includes(w))) {
+            roleSimScore = 70.0; // Moderate-high score for related domain roles
+        } else {
+            // Check generic word overlap
+            const targetWords = targetTitle.split(/\s+/).filter(w => w.length > 2);
+            let matches = 0;
+            targetWords.forEach(w => { if (vacTitle.includes(w)) matches++; });
+            roleSimScore = matches > 0 ? (35.0 + (matches / targetWords.length) * 45.0) : 20.0;
+        }
+
+        // 3. Experience Match Score (0 - 100%)
+        const expYears = parseFloat(userProfile.experience_years || userProfile.experience || 0) || 0;
+        let reqExp = 1.0;
+        if (vacTitle.includes("senior") || vacTitle.includes("aparıcı") || vacTitle.includes("rəhbər") || vacTitle.includes("baş")) reqExp = 4.0;
+        else if (vacTitle.includes("middle") || vacTitle.includes("mütəxəssis")) reqExp = 2.0;
+        else if (vacTitle.includes("junior") || vacTitle.includes("təcrübəçi") || vacTitle.includes("intern") || vacTitle.includes("kiçik")) reqExp = 0.5;
+
+        const expScore = Math.min(100.0, (expYears / Math.max(0.5, reqExp)) * 100.0);
+
+        // 4. Education Score (0 - 100%)
+        const degree = userProfile.degree || "Bakalavr";
+        const field = userProfile.field || userProfile.faculty || "";
+        let eduScore = 75.0;
+        if (degree.includes("Magistr") || degree.includes("Bakalavr")) {
+            eduScore = (field.includes("IT") || field.includes("Maliyyə") || field.includes("İqtisad") || field.includes("Biznes") || field.includes("Kompüter")) ? 100.0 : 80.0;
+        } else if (degree.includes("Kollec")) {
+            eduScore = 55.0;
+        }
+
+        // 5. Language Score (0 - 100%)
+        const cefrLevels = { "none": 0, "a1": 1, "a2": 2, "b1": 3, "b2": 4, "c1": 5, "c2": 6 };
+        const stdEng = cefrLevels[(userProfile.englishLevel || userProfile.english_level || "b1").toLowerCase()] || 3;
+        const reqEng = (vacTitle.includes("senior") || vacTitle.includes("international")) ? 4 : 3;
+        const langScore = (stdEng >= reqEng) ? 100.0 : (stdEng === reqEng - 1 ? 70.0 : 40.0);
+
+        // TOTAL GENUINE WEIGHTED VACANCY MATCH SCORE (Zero artificial bonus)
+        const matchScore = Math.round(
+            (weights.requiredSkills * skillScore) +
+            (weights.roleSimilarity * roleSimScore) +
+            (weights.experience * expScore) +
+            (weights.education * eduScore) +
+            (weights.language * langScore)
+        );
 
         return {
-            matchScore,
+            matchScore: Math.min(100, Math.max(0, matchScore)),
             matchingSkills,
-            missingSkills
+            missingSkills,
+            componentScores: {
+                skillScore: Math.round(skillScore),
+                roleSimScore: Math.round(roleSimScore),
+                expScore: Math.round(expScore),
+                eduScore: Math.round(eduScore),
+                langScore: Math.round(langScore)
+            }
         };
     }
 
-    /**
-     * Bütün digər vəzifələr üzrə alternativ uyğunluq faizlərini hesablayır
-     */
-    getRankedCareerRecommendations(userSkills, excludeRoleId = "") {
+    getRankedCareerRecommendations(userSkills, excludeRoleId = "", userProfile = {}) {
         const roles = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark : [];
         const results = [];
+
+        const expYears = parseFloat(userProfile.experience_years || userProfile.experience || 0) || 0;
+        const degree = userProfile.degree || "Bakalavr";
+        const field = userProfile.field || userProfile.faculty || "";
+        const englishLevel = (userProfile.english_level || userProfile.englishLevel || "B1").toLowerCase();
+
+        // 1. Education Score based on real profile
+        let educationScore = 75.0;
+        if (degree.includes("Magistr") || degree.includes("Bakalavr")) {
+            educationScore = (field.includes("IT") || field.includes("Maliyyə") || field.includes("İqtisad") || field.includes("Biznes")) ? 100.0 : 80.0;
+        } else if (degree.includes("Kollec")) {
+            educationScore = 55.0;
+        }
+
+        // 2. Language Score based on real profile
+        const cefrLevels = { "none": 0, "a1": 1, "a2": 2, "b1": 3, "b2": 4, "c1": 5, "c2": 6 };
+        const stdEng = cefrLevels[englishLevel] || 3;
+        const reqEng = 4; // B2
+        const languageScore = (stdEng >= reqEng) ? 100.0 : (stdEng === reqEng - 1 ? 70.0 : 40.0);
 
         roles.forEach(role => {
             if (role.id === excludeRoleId) return;
 
             let totalAchieved = 0;
             let totalRequired = 0;
-            const bSkills = role.skills_benchmark || Object.entries(role.requiredSkills || {}).map(([s, l]) => ({ skill_id: s, market_level: this.normalizeLevel(l) }));
+            const bSkills = role.skills_benchmark || Object.entries(role.requiredSkills || {}).map(([s, reqVal]) => ({
+                skill_id: s,
+                canonical_name: this.findSkillInfo(s)?.name || s,
+                market_level: this.demandPercentageToLevel(reqVal)
+            }));
 
             bSkills.forEach(item => {
                 const sId = item.skill_id || item.id;
-                const reqL = this.normalizeLevel(item.market_level || 3);
-                const uL = (userSkills[sId] !== undefined) ? this.normalizeLevel(userSkills[sId]) : (userSkills[item.canonical_name] !== undefined ? this.normalizeLevel(userSkills[item.canonical_name]) : 0);
+                const reqL = item.market_level || 3;
+                const uL = (userSkills[sId] !== undefined) ? this.normalizeSkillLevel(userSkills[sId]) : (userSkills[item.canonical_name] !== undefined ? this.normalizeSkillLevel(userSkills[item.canonical_name]) : 0);
                 totalAchieved += Math.min(uL, reqL);
                 totalRequired += reqL;
             });
 
             const skScore = totalRequired > 0 ? (totalAchieved / totalRequired) * 100 : 0;
-            const matchScore = Math.round(0.70 * skScore + 0.15 * 60 + 0.10 * 80 + 0.05 * 80);
+            
+            // 3. Experience Score for this role
+            const reqExp = role.required_experience_years || role.requiredExpYears || 1.5;
+            const experienceScore = Math.min(100.0, (expYears / Math.max(0.5, reqExp)) * 100.0);
+
+            // True weighted match score with real user profile data
+            const matchScore = Math.round(
+                (this.weights.skills * skScore) +
+                (this.weights.experience * experienceScore) +
+                (this.weights.education * educationScore) +
+                (this.weights.language * languageScore)
+            );
 
             results.push({
                 id: role.id,
+                roleId: role.id,
                 title: role.title,
+                roleTitle: role.title,
                 sector: role.sector,
-                avgSalary: role.avgSalary || `${role.base_salary || 1200} AZN`,
+                avgSalary: role.avgSalary || `${role.baseSalaryAZN || role.base_salary || 1200} AZN`,
+                salaryRange: role.avgSalary || `${role.baseSalaryAZN || role.base_salary || 1200} AZN`,
                 matchScore,
+                matchPercentage: matchScore,
                 description: role.description || `${role.title} üzrə real bazar tələbləri.`
             });
         });
@@ -305,8 +471,8 @@ class SkillGapEngine {
     generateActionRecommendations(topGaps) {
         const learningResources = {
             sql: {
-                title: "SQL & Verilənlər Bazası",
-                advice: "PostgreSQL üzərində JOIN, GROUP BY, Window Functions və CTE sorğularını real praktiki layihələrdə tətbiq edin.",
+                title: "SQL & Verilənlər Bazası Sorğuları",
+                advice: "PostgreSQL və ya MySQL üzərində JOIN, GROUP BY, Window Functions və CTE sorğularını real layihələrdə tətbiq edin.",
                 link: "Kaggle SQL & LeetCode Database"
             },
             powerbi: {
@@ -321,16 +487,38 @@ class SkillGapEngine {
             },
             excel: {
                 title: "Qabaqcıl MS Excel",
+                advice: "XLOOKUP, Dynamic Arrays, Power Query və maliyyə modelləşdirməsi funksiyalarını dərindən mənimsəyin.",
+                link: "Excel Exposure & Corporate Finance Institute"
+            },
+            financial_analysis: {
+                title: "Maliyyə Hesabatlarının Təhlili",
+                advice: "Balans, Mənfəət və Zərər, Pul Vəsaitlərinin Hərəkəti hesabatlarının horizontal və şaquli analizini aparın.",
+                link: "CFI Financial Analysis Fundamentals"
+            },
+            financial_modeling: {
+                title: "Maliyyə Modelləşdirməsi (DCF)",
+                advice: "3-Statement model, DCF və sensitivities analizlərini real şirkət dataları ilə qurun.",
+                link: "Wall Street Prep & CFI"
+            },
+            accounting_1c: {
+                title: "1C Mühasibat 8.3",
+                advice: "Kadr uçotu, əməkhaqqı hesablanması, bank çıxarışları və anbar əməliyyatlarını 1C proqramında işləyin.",
+                link: "DMA & Peşə Tədris Mərkəzi Kursları"
             },
             digital_marketing: {
                 title: "Rəqəmsal Marketinq & Performance Ads",
                 advice: "Google Ads, Meta Pixel quraşdırılması, A/B testlər və ROAS optimallaşdırmasını praktika edin.",
                 link: "Google Skillshop & Meta Blueprint"
             },
-            hr_management: {
-                title: "AR Əmək Qanunvericiliyi və Kadr Uçotu",
-                advice: "Əmək Məcəlləsinin əsas maddələri, sənədləşmə və müasir ATS (Applicant Tracking System) alətlərini araşdırın.",
-                link: "DMA Təlimləri və HR Assosiasiyası"
+            analytical_thinking: {
+                title: "Analitik Təfəkkür və Problem Həlli",
+                advice: "Strukturlaşdırılmış qərar vermə (MECE prinsipi) və biznes case-lərini təhlil edin.",
+                link: "McKinsey Case Studies & Harvard Business Review"
+            },
+            communication: {
+                title: "Biznes Kommunikasiyası və Təqdimat",
+                advice: "Mürəkkəb data nəticələrini rəhbərlik üçün vizual və anlaşılan şəkildə təqdim etməyi öyrənin.",
+                link: "Storytelling with Data (Cole Knaflic)"
             }
         };
 
@@ -359,7 +547,7 @@ class SkillGapEngine {
             ...(tax.soft || []),
             ...(tax.languages || [])
         ];
-        const found = all.find(s => s.id === skillId || (s.canonical_name && s.canonical_name.toLowerCase() === skillId.toLowerCase()));
+        const found = all.find(s => s.id === skillId || (s.canonical_name && s.canonical_name.toLowerCase() === (skillId || '').toLowerCase()));
         if (found) {
             return {
                 ...found,

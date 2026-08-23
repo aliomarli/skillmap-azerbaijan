@@ -547,7 +547,7 @@ class SkillMapApp {
         });
     }
 
-    renderCabinetGapTable(result, currentSkills) {
+        renderCabinetGapTable(result, currentSkills) {
         const tbody = document.getElementById("cab-gap-table-body");
         if (!tbody) return;
         tbody.innerHTML = "";
@@ -570,9 +570,9 @@ class SkillMapApp {
             if (item.gap <= 0) {
                 statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200"><i class="fas fa-circle-check text-emerald-500"></i> Tam Uyğundur</span>`;
             } else if (item.gap <= 2) {
-                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200"><i class="fas fa-circle-exclamation text-amber-500"></i> İnkişaf Etdirilməli</span>`;
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200"><i class="fas fa-circle-exclamation text-amber-500"></i> ${item.gap} səviyyə çatışmazlıq</span>`;
             } else {
-                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200"><i class="fas fa-circle-xmark text-rose-500"></i> Kritik Çatışmazlıq</span>`;
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200"><i class="fas fa-circle-xmark text-rose-500"></i> ${item.gap} səviyyə kritik kəsir</span>`;
             }
 
             const userPct = Math.min(100, Math.round((item.userLevel / 5) * 100));
@@ -597,7 +597,7 @@ class SkillMapApp {
                     </div>
                 </td>
                 <td class="py-2.5 text-center font-black text-xs ${item.gap > 0 ? (item.gap >= 3 ? 'text-rose-600' : 'text-amber-600') : 'text-emerald-600'}">
-                    ${item.gap === 0 ? '0 (✓)' : `-${item.gap}`}
+                    ${item.gap === 0 ? '0 (✓)' : `${item.gap}`}
                 </td>
                 <td class="py-2.5 text-right text-[11px]">
                     ${statusBadge}
@@ -647,32 +647,22 @@ class SkillMapApp {
         });
     }
 
-    getMatchingVacanciesForUser(userSkills, targetRoleId) {
+        getMatchingVacanciesForUser(userSkills, targetRoleId) {
         const vacancies = (this.data && this.data.liveVacancies) ? this.data.liveVacancies : [];
         if (vacancies.length === 0) return [];
 
-        const userSkillKeys = Object.keys(userSkills || {}).map(s => s.toLowerCase());
-
+        const userProfile = this.auth.currentUser || {};
         const scored = vacancies.map(v => {
-            const vSkills = (v.skills || v.required_skills || []).map(s => String(s).toLowerCase());
-            let matchCount = 0;
-            vSkills.forEach(vs => {
-                if (userSkillKeys.some(us => us === vs || vs.includes(us) || us.includes(vs))) {
-                    matchCount++;
-                }
-            });
-
-            const total = vSkills.length > 0 ? vSkills.length : 3;
-            let score = total > 0 ? Math.round((matchCount / total) * 100) : 60;
-            if (score === 0 && matchCount > 0) score = 50;
-            if (score === 0) score = 45;
-
+            const matchRes = this.engine.calculateVacancyMatch(v, userSkills, userProfile, targetRoleId);
             return {
                 ...v,
-                matchScore: Math.min(98, Math.max(40, score + 20))
+                matchScore: matchRes.matchScore,
+                matchingSkills: matchRes.matchingSkills,
+                missingSkills: matchRes.missingSkills
             };
         });
 
+        // Filter and sort by genuine match score (descending)
         scored.sort((a, b) => b.matchScore - a.matchScore);
         return scored.slice(0, 8);
     }
