@@ -80,7 +80,7 @@
                         <i class="fas fa-briefcase mr-1 text-slate-400"></i>Canlı Vakansiyalar
                     </button>
                     <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-map-location-dot mr-1 text-slate-400"></i>Bakı Xəritəsi
+                        <i class="fas fa-building mr-1 text-slate-400"></i>Top 10 İşəgötürən
                     </button>
                     <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-chart-line mr-1 text-slate-400"></i>Analitika
@@ -921,25 +921,82 @@
         <!-- ======================================================== -->
         <!-- TAB 4: BAKI VƏ REGİONLAR İNTERAKTİV ƏMƏK XƏRİTƏSİ -->
         <!-- ======================================================== -->
+                <!-- ======================================================== -->
+        <!-- TAB 4: TOP 10 İŞƏGÖTÜRƏNLƏR (ƏN ÇOX VAKANSİYA AÇAN ŞİRKƏTLƏR) -->
+        <!-- ======================================================== -->
         <section id="tab-interactive-map" class="tab-content space-y-6">
-            <div class="pb-4 border-b border-slate-200">
-                <h2 class="text-2xl font-black text-slate-900">🗺️ Bakı və Regionların İnteraktiv Əmək Xəritəsi</h2>
-                <p class="text-xs text-slate-500">Rayon və ya regionu seçərək həmin ərazidəki aktiv vakansiya sayını, ən çox axtarılan bacarıqları və orta əməkhaqqı göstəricilərini araşdırın.</p>
-                <div class="mt-3 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
-                    <i class="fas fa-triangle-exclamation text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
-                    <div class="space-y-0.5">
-                        <span class="font-bold text-amber-950">⚠️ Bu bölmə hazırda NÜMUNƏ (DEMO) datadır.</span>
-                        <p class="text-[11px] text-amber-800 leading-relaxed">
-                            420 real vakansiyadan yalnız 4-ündə konkret rayon adı göstərilib (əksəriyyəti sadəcə 'Bakı' yazır), ona görə hazırda rayon üzrə dəqiq bölgü mümkün deyil. Gələcək fazada ünvan çıxarma texnologiyası (məs. Google Maps Geocoding API) əlavə edildikdə bu bölmə real dataya keçəcək.
-                        </p>
+            <!-- Başlıq və Məlumat -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">🏢 Top 10 İşəgötürənlər (Ən Çox Vakansiya Açan Şirkətlər)</h2>
+                    <p class="text-xs text-slate-500">Jobsearch.az-dan 420 real vakansiya əsasında ən fəal 10 şirkət, onların tələb etdiyi top bacarıqlar və əməkhaqqı aralıqları.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold shadow-2xs">
+                        <i class="fas fa-check-circle text-emerald-600"></i>
+                        <span>420 Real Vakansiya Analitikası</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Üst Blok: Top 10 Siyahısı (Sol) və Sektor Bölgüsü Donut Qrafiki (Sağ) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Sol: A) Top 10 Şirkət Siyahısı Cədvəli (7 Sütun) -->
+                <div class="lg:col-span-8 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-2xs space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fas fa-trophy text-amber-500"></i>
+                                <span>Ən Çox Vakansiya Verən Top 10 Şirkət</span>
+                            </h3>
+                            <p class="text-[11px] text-slate-400">Şirkət profilinə baxmaq üçün üzərinə klikləyin.</p>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-semibold bg-slate-100 px-2.5 py-1 rounded-full">Jobsearch.az Bazasından</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">
+                                    <th class="py-2.5 px-3 text-center">№</th>
+                                    <th class="py-2.5 px-3">Şirkət</th>
+                                    <th class="py-2.5 px-3 text-center">Açıq Vakansiya</th>
+                                    <th class="py-2.5 px-3">Maaş Aralığı</th>
+                                    <th class="py-2.5 px-3">Top Bacarıqlar</th>
+                                    <th class="py-2.5 px-3 text-right">Əməliyyat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top-employers-table-body">
+                                <!-- JavaScript ilə doldurulacaq -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sağ: B) Şirkətlərin Sektor Bölgüsü Donut Qrafiki (4 Sütun) -->
+                <div class="lg:col-span-4 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-2xs space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 mb-1">
+                            <i class="fas fa-chart-pie text-indigo-600"></i>
+                            <span>Şirkətlərin Sektor Bölgüsü</span>
+                        </h3>
+                        <p class="text-[11px] text-slate-400">420 vakansiyanın sənaye və sektorlar üzrə faiz bölgüsü.</p>
+                    </div>
+
+                    <div class="h-64 relative flex items-center justify-center my-auto">
+                        <canvas id="chart-employers-sectors"></canvas>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                        <span>Lider Sektor: <strong class="text-slate-900">Satış & Bankçılıq</strong></span>
+                        <span class="text-indigo-600 font-bold">100% Real Baza</span>
                     </div>
                 </div>
             </div>
 
-            <div id="map-regions-grid">
-            </div>
-
-            <div id="map-region-detail-card">
+            <!-- Alt Blok: C) "ŞİRKƏT PROFİLİ" VƏ FƏRDİ BACARIQ UYĞUNLUĞU -->
+            <div id="top-employer-profile-card">
+                <!-- JavaScript ilə doldurulacaq -->
             </div>
         </section>
 
@@ -1773,7 +1830,7 @@
     <script src="js/atsEngine.js"></script>
     <script src="js/cvBuilder.js"></script>
     <script src="js/passportExport.js"></script>
-    <script src="js/mapModule.js"></script>
+    <script src="js/topEmployersModule.js"></script>
     <script src="js/nlpSimulator.js"></script>
     <script src="js/chatbot.js"></script>
     <script src="js/app.js"></script>

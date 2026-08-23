@@ -10,9 +10,9 @@ class SkillMapApp {
             : (typeof SkillMapData !== "undefined" ? SkillMapData : {});
         this.auth = new AuthManager();
         this.engine = new SkillGapEngine(this.data);
-        this.mapModule = new MapModule(this.data);
-        window.mapModuleInstance = this.mapModule;
-        this.nlpSim = new NLPSimulator(this.data);
+        this.topEmployersModule = typeof TopEmployersModule !== "undefined" ? new TopEmployersModule(this.data) : null;
+        if (this.topEmployersModule) window.topEmployersModuleInstance = this.topEmployersModule;
+        this.nlpSim = typeof NLPSimulator !== "undefined" ? new NLPSimulator(this.data) : null;
 
         this.currentLang = "az";
         this.currentSkills = {};
@@ -29,11 +29,8 @@ class SkillMapApp {
         try { this.renderStudentCabinet(); } catch (e) { console.error("Error in renderStudentCabinet:", e); }
 
         try {
-            if (this.mapModule) {
-                this.mapModule.renderMapGrid("map-regions-grid");
-                this.mapModule.renderRegionDetails("map-region-detail-card", "nerimanov");
-            }
-        } catch (e) { console.error("Error in mapModule:", e); }
+            this.renderTopEmployers();
+        } catch (e) { console.error("Error in renderTopEmployers:", e); }
 
         try { this.renderLiveVacancies(); } catch (e) { console.error("Error in renderLiveVacancies:", e); }
         try { this.renderMethodologyView(); } catch (e) { console.error("Error in renderMethodologyView:", e); }
@@ -1172,7 +1169,29 @@ class SkillMapApp {
         }
     }
 
-    switchTab(tabId, updateHistory = true) {
+    renderTopEmployers() {
+        if (!this.topEmployersModule && typeof TopEmployersModule !== "undefined") {
+            this.topEmployersModule = new TopEmployersModule(this.data);
+            window.topEmployersModuleInstance = this.topEmployersModule;
+        }
+        if (this.topEmployersModule) {
+            this.topEmployersModule.render();
+        }
+    }
+
+    selectEmployer(companyName) {
+        if (this.topEmployersModule) {
+            this.topEmployersModule.selectEmployer(companyName);
+        }
+    }
+
+    viewCompanyVacancies(companyName) {
+        if (this.topEmployersModule) {
+            this.topEmployersModule.viewCompanyVacancies(companyName);
+        }
+    }
+
+        switchTab(tabId, updateHistory = true) {
         if (!tabId) tabId = "overview";
 
         document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
