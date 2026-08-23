@@ -1378,52 +1378,440 @@ class SkillMapApp {
         this.switchCabinetView("cv-ats");
     }
 
+    // ========================================================
+    // PROFİLİM 2.0 — DYNAMIC RENDERING & CALCULATIONS
+    // ========================================================
+
     populateProfileSubView(user) {
+        const u = user || {
+            name: "Qonaq",
+            email: "",
+            city: "Bakı",
+            university: "UNEC",
+            faculty: "Maliyyə və iqtisadiyyat",
+            degree: "Bakalavr",
+            experience_years: 0,
+            englishLevel: "B2",
+            otherLanguages: "Rus dili (B1), Türk dili",
+            targetSector: "Maliyyə",
+            targetRole: "financial_analyst",
+            savedSkills: {},
+            uploadedCV: null,
+            photoUrl: null
+        };
+
+        // 1. Calculate Dynamic Completion Score
+        const completion = this.auth.calculateCompletion(u);
+        this.lastProfileCompletion = completion;
+
+        // 2. Top Profile Header Card
+        const headerName = document.getElementById("prof-header-name");
+        if (headerName) headerName.textContent = u.name || "İstifadəçi";
+
+        // Green verified checkmark: ONLY visible when completion == 100%
+        const checkIcon = document.getElementById("prof-header-check");
+        if (checkIcon) {
+            if (completion.isComplete) {
+                checkIcon.classList.remove("hidden");
+                checkIcon.title = "Profil tamamlandı (100%) ✓";
+            } else {
+                checkIcon.classList.add("hidden");
+            }
+        }
+
+        const headerUni = document.getElementById("prof-header-uni");
+        if (headerUni) headerUni.textContent = u.university || "UNEC";
+
+        const headerFac = document.getElementById("prof-header-faculty");
+        if (headerFac) headerFac.textContent = u.faculty || "Maliyyə və iqtisadiyyat";
+
+        const headerRole = document.getElementById("prof-header-target-role");
+        const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === u.targetRole) : null;
+        if (headerRole) headerRole.textContent = roleBenchmark ? roleBenchmark.title : (u.targetRole || "Financial Analyst");
+
+        // Avatar Image / Initials
+        const avatarBox = document.getElementById("prof-avatar-box");
+        const avatarImg = document.getElementById("prof-avatar-img");
+        const avatarInitials = document.getElementById("prof-avatar-initials");
+        
+        if (u.photoUrl) {
+            if (avatarImg) {
+                avatarImg.src = u.photoUrl;
+                avatarImg.classList.remove("hidden");
+            }
+            if (avatarInitials) avatarInitials.classList.add("hidden");
+        } else {
+            if (avatarImg) avatarImg.classList.add("hidden");
+            if (avatarInitials) {
+                avatarInitials.classList.remove("hidden");
+                const inits = u.name ? u.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "TL";
+                avatarInitials.textContent = inits;
+            }
+        }
+
+        // Completion % & Progress Bar
+        const pctElem = document.getElementById("prof-completion-percentage");
+        if (pctElem) pctElem.textContent = `${completion.percentage}%`;
+
+        const barElem = document.getElementById("prof-completion-progress-bar");
+        if (barElem) barElem.style.width = `${completion.percentage}%`;
+
+        const statusTextElem = document.getElementById("prof-completion-status-text");
+        if (statusTextElem) {
+            if (completion.isComplete) {
+                statusTextElem.innerHTML = `<span class="text-emerald-600 font-bold">✓ Profil tamamlandı! Bütün analizlər ən yüksək dəqiqliklə hesablanır.</span>`;
+            } else {
+                statusTextElem.textContent = `${completion.status}. Profilinizi tamamlayın və daha doğru nəticələr əldə edin.`;
+            }
+        }
+
+        // CV Card
+        const cvTitle = document.getElementById("prof-cv-box-title");
+        const cvDesc = document.getElementById("prof-cv-box-desc");
+        const cvActionContainer = document.getElementById("prof-cv-action-container");
+
+        if (u.uploadedCV) {
+            if (cvTitle) cvTitle.innerHTML = `<span class="text-emerald-700 font-black"><i class="fas fa-circle-check text-emerald-500 mr-1"></i>CV yüklənib ✓</span>`;
+            if (cvDesc) cvDesc.textContent = `Aktiv fayl: ${u.uploadedCV.fileName || 'CV.pdf'} (ATS Uyğunluq: ${u.uploadedCV.confidenceScore || 92}%)`;
+            if (cvActionContainer) {
+                cvActionContainer.innerHTML = `
+                    <div class="flex items-center gap-1.5 pt-1">
+                        <button onclick="app.openCVUploadModal()" class="flex-1 py-1.5 px-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-bold border border-blue-200 transition-all flex items-center justify-center gap-1">
+                            <i class="fas fa-arrows-rotate"></i>Yenilə
+                        </button>
+                        <button onclick="app.deleteUserCV()" class="py-1.5 px-2.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold border border-rose-200 transition-all flex items-center justify-center gap-1">
+                            <i class="fas fa-trash-can"></i>Sil
+                        </button>
+                    </div>
+                `;
+            }
+        } else {
+            if (cvTitle) cvTitle.textContent = "CV-niz var?";
+            if (cvDesc) cvDesc.textContent = "CV-ni yükləyin, məlumatlarınızı avtomatik əlavə edək və ATS uyğunluğunu analiz edək.";
+            if (cvActionContainer) {
+                cvActionContainer.innerHTML = `
+                    <button id="prof-cv-action-btn" onclick="app.openCVUploadModal()" class="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm shadow-blue-500/20 flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fas fa-arrow-up-from-bracket"></i>
+                        <span>CV yüklə</span>
+                    </button>
+                `;
+            }
+        }
+
+        // 3. Form Inputs
         const nameInput = document.getElementById("prof-input-name");
         const emailInput = document.getElementById("prof-input-email");
+        const cityInput = document.getElementById("prof-input-city");
         const uniInput = document.getElementById("prof-input-uni");
         const facultyInput = document.getElementById("prof-input-faculty");
         const degreeInput = document.getElementById("prof-input-degree");
         const expInput = document.getElementById("prof-input-exp");
         const englishInput = document.getElementById("prof-input-english");
+        const langInput = document.getElementById("prof-input-languages");
+        const sectorInput = document.getElementById("prof-input-sector");
         const roleInput = document.getElementById("prof-input-role");
 
-        if (nameInput) nameInput.value = user.name || "";
-        if (emailInput) emailInput.value = user.email || "";
-        if (uniInput) uniInput.value = user.university || "UNEC";
-        if (facultyInput) facultyInput.value = user.faculty || "";
-        if (degreeInput) degreeInput.value = user.degree || "Bakalavr";
-        if (expInput) expInput.value = user.experience_years !== undefined ? user.experience_years : 0;
-        if (englishInput) englishInput.value = user.englishLevel || "B2";
+        if (nameInput) nameInput.value = u.name || "";
+        if (emailInput) emailInput.value = u.email || "";
+        if (cityInput) cityInput.value = u.city || "Bakı";
+        if (uniInput) uniInput.value = u.university || "UNEC";
+        if (facultyInput) facultyInput.value = u.faculty || "Maliyyə və iqtisadiyyat";
+        if (degreeInput) degreeInput.value = u.degree || "Bakalavr";
+        if (expInput) expInput.value = (u.experience_years !== undefined) ? u.experience_years : 0;
+        if (englishInput) englishInput.value = u.englishLevel || "B2";
+        if (langInput) langInput.value = u.otherLanguages || "Rus dili (B1), Türk dili";
+        if (sectorInput) sectorInput.value = u.targetSector || "Maliyyə";
 
+        // Populate Roles Dropdown based on Sector
         if (roleInput && this.data && this.data.jobRolesBenchmark) {
             roleInput.innerHTML = "";
             this.data.jobRolesBenchmark.forEach(r => {
                 const opt = document.createElement("option");
                 opt.value = r.id;
                 opt.textContent = `${r.title} (${r.sector})`;
-                if (r.id === user.targetRole) opt.selected = true;
+                if (r.id === u.targetRole) opt.selected = true;
                 roleInput.appendChild(opt);
             });
         }
+
+        // 4. Bottom "Karyera profiliniz" Summary Chips
+        const sumEdu = document.getElementById("prof-sum-edu");
+        if (sumEdu) sumEdu.textContent = `${u.degree || 'Bakalavr'} ${u.university || 'UNEC'}`;
+
+        const sumExp = document.getElementById("prof-sum-exp");
+        if (sumExp) sumExp.textContent = `${u.experience_years || 0} il`;
+
+        const sumEng = document.getElementById("prof-sum-eng");
+        if (sumEng) sumEng.textContent = `${u.englishLevel || 'B2'} (Intermediate)`;
+
+        const sumSec = document.getElementById("prof-sum-sector");
+        if (sumSec) sumSec.textContent = u.targetSector || "Maliyyə";
+
+        const sumRole = document.getElementById("prof-sum-role");
+        if (sumRole) sumRole.textContent = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
+
+        const sumStatusTitle = document.getElementById("prof-sum-status-title");
+        const sumStatusDesc = document.getElementById("prof-sum-status-desc");
+        if (completion.isComplete || completion.percentage >= 80) {
+            if (sumStatusTitle) sumStatusTitle.textContent = "Profiliniz Skill Gap analizi üçün hazırdır!";
+            if (sumStatusDesc) sumStatusDesc.textContent = "Bütün analizlər və uyğun vakansiyalar real vaxtda hesablanır.";
+        } else {
+            if (sumStatusTitle) sumStatusTitle.textContent = "Profilinizi tamamlayın";
+            if (sumStatusDesc) sumStatusDesc.textContent = "Daha dəqiq nəticələr üçün çatışmayan məlumatları əlavə edin.";
+        }
+
+        // 5. Right Panel: Əsas bacarıqlarınız
+        const skillsList = document.getElementById("prof-sidebar-skills-list");
+        if (skillsList) {
+            skillsList.innerHTML = "";
+            const userSkills = u.savedSkills || {};
+            const entries = Object.entries(userSkills).slice(0, 4);
+
+            if (entries.length === 0) {
+                skillsList.innerHTML = `<div class="p-3 text-center text-xs text-slate-400 italic bg-slate-50 rounded-xl">Hələ heç bir bacarıq əlavə edilməyib.</div>`;
+            } else {
+                entries.forEach(([sId, val]) => {
+                    const level = typeof val === "object" ? val.level : (val > 5 ? Math.round(val / 20) : val);
+                    const tagColor = level >= 4 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : (level >= 3 ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-rose-50 text-rose-700 border-rose-200");
+
+                    const row = document.createElement("div");
+                    row.className = "flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs";
+                    row.innerHTML = `
+                        <span class="font-bold text-slate-800 capitalize">${sId.replace(/_/g, " ")}</span>
+                        <span class="font-bold px-2 py-0.5 rounded-md border text-[11px] ${tagColor}">${level}/5</span>
+                    `;
+                    skillsList.appendChild(row);
+                });
+            }
+        }
+
+        // 6. Right Panel: Profilinizin vəziyyəti Checklist
+        const chkEdu = document.getElementById("prof-chk-edu");
+        if (chkEdu) {
+            const isEduDone = Boolean(u.university && u.faculty);
+            chkEdu.textContent = isEduDone ? "Tamamlandı" : "Natamam";
+            chkEdu.className = `font-bold ${isEduDone ? 'text-emerald-600' : 'text-rose-500'}`;
+        }
+
+        const chkRole = document.getElementById("prof-chk-role");
+        if (chkRole) {
+            const isRoleDone = Boolean(u.targetRole);
+            chkRole.textContent = isRoleDone ? "Tamamlandı" : "Seçilməyib";
+            chkRole.className = `font-bold ${isRoleDone ? 'text-emerald-600' : 'text-rose-500'}`;
+        }
+
+        const chkSkills = document.getElementById("prof-chk-skills");
+        if (chkSkills) {
+            const skillCount = Object.keys(u.savedSkills || {}).length;
+            const isSkillsDone = skillCount >= 3;
+            chkSkills.textContent = isSkillsDone ? "Tamamlandı" : (skillCount > 0 ? "Qismən" : "Yoxdur");
+            chkSkills.className = `font-bold ${isSkillsDone ? 'text-emerald-600' : 'text-amber-600'}`;
+        }
+
+        const chkCv = document.getElementById("prof-chk-cv");
+        if (chkCv) {
+            const isCvDone = Boolean(u.uploadedCV);
+            chkCv.textContent = isCvDone ? "Tamamlandı" : "Yoxdur";
+            chkCv.className = `font-bold ${isCvDone ? 'text-emerald-600' : 'text-rose-500'}`;
+        }
+
+        // 7. Missing Items Suggestions (if < 100%)
+        const missingBox = document.getElementById("prof-missing-items-box");
+        const missingList = document.getElementById("prof-missing-items-list");
+        if (missingBox && missingList) {
+            if (completion.isComplete) {
+                missingBox.classList.add("hidden");
+            } else {
+                missingBox.classList.remove("hidden");
+                missingList.innerHTML = "";
+                completion.missing.slice(0, 3).forEach(m => {
+                    const div = document.createElement("div");
+                    div.className = "flex items-center justify-between p-2 rounded-xl bg-white border border-amber-200 text-xs";
+                    div.innerHTML = `
+                        <span class="text-slate-800 font-medium">${m.label}</span>
+                        <button onclick="${m.action}" class="text-blue-600 font-bold hover:underline text-[11px]">Tamamla →</button>
+                    `;
+                    missingList.appendChild(div);
+                });
+            }
+        }
+    }
+
+    markProfileFormChanged() {
+        const btn = document.getElementById("prof-save-btn");
+        if (btn) {
+            btn.classList.add("ring-2", "ring-blue-400");
+        }
+    }
+
+    handleSectorChangeFromProfile() {
+        const sectorVal = document.getElementById("prof-input-sector")?.value;
+        const roleSelect = document.getElementById("prof-input-role");
+        if (!roleSelect || !this.data || !this.data.jobRolesBenchmark) return;
+
+        roleSelect.innerHTML = "";
+        const filtered = this.data.jobRolesBenchmark.filter(r => (r.sector || "").toLowerCase().includes((sectorVal || "").toLowerCase()));
+        const listToUse = filtered.length > 0 ? filtered : this.data.jobRolesBenchmark;
+
+        listToUse.forEach(r => {
+            const opt = document.createElement("option");
+            opt.value = r.id;
+            opt.textContent = `${r.title} (${r.sector})`;
+            roleSelect.appendChild(opt);
+        });
+
+        this.markProfileFormChanged();
+    }
+
+    handleRoleChangeFromProfile() {
+        this.markProfileFormChanged();
     }
 
     saveProfileChanges() {
         const updated = {
             name: document.getElementById("prof-input-name")?.value || "İstifadəçi",
             email: document.getElementById("prof-input-email")?.value || "user@example.com",
+            city: document.getElementById("prof-input-city")?.value || "Bakı",
             university: document.getElementById("prof-input-uni")?.value || "UNEC",
-            faculty: document.getElementById("prof-input-faculty")?.value || "Maliyyə və İqtisadiyyat",
+            faculty: document.getElementById("prof-input-faculty")?.value || "Maliyyə və iqtisadiyyat",
             degree: document.getElementById("prof-input-degree")?.value || "Bakalavr",
             experience_years: parseInt(document.getElementById("prof-input-exp")?.value, 10) || 0,
             englishLevel: document.getElementById("prof-input-english")?.value || "B2",
+            otherLanguages: document.getElementById("prof-input-languages")?.value || "Rus dili (B1), Türk dili",
+            targetSector: document.getElementById("prof-input-sector")?.value || "Maliyyə",
             targetRole: document.getElementById("prof-input-role")?.value || "financial_analyst"
         };
 
         this.auth.updateProfile(updated);
-        alert("Profil məlumatlarınız yadda saxlanıldı və Karyera Uyğunluğu yenidən hesablandı!");
+        
+        // Show stylish non-blocking toast
+        this.showToast("✓ Profil uğurla yeniləndi! Bütün hesablamalar təzələndi.");
+
+        // Recalculate cabinet and all modules
         this.renderStudentCabinet();
-        this.switchCabinetView("overview");
+        this.renderLiveVacancies();
+    }
+
+    showToast(msg) {
+        let toast = document.getElementById("skillmap-live-toast");
+        if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "skillmap-live-toast";
+            toast.className = "fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white text-xs font-bold shadow-2xl flex items-center gap-2 border border-slate-700 transition-all transform duration-300 opacity-0 translate-y-4";
+            document.body.appendChild(toast);
+        }
+        toast.innerHTML = `<i class="fas fa-circle-check text-emerald-400 text-sm"></i><span>${msg}</span>`;
+        toast.classList.remove("opacity-0", "translate-y-4", "hidden");
+        toast.classList.add("opacity-100", "translate-y-0");
+
+        setTimeout(() => {
+            toast.classList.remove("opacity-100", "translate-y-0");
+            toast.classList.add("opacity-0", "translate-y-4");
+        }, 3000);
+    }
+
+    // Photo Management
+    openPhotoUploadModal() {
+        const m = document.getElementById("modal-photo-upload");
+        if (!m) return;
+        const user = this.auth.currentUser;
+        const previewImg = document.getElementById("modal-photo-preview-img");
+        const previewText = document.getElementById("modal-photo-preview-text");
+
+        if (user && user.photoUrl) {
+            if (previewImg) { previewImg.src = user.photoUrl; previewImg.classList.remove("hidden"); }
+            if (previewText) previewText.classList.add("hidden");
+        } else {
+            if (previewImg) previewImg.classList.add("hidden");
+            if (previewText) previewText.classList.remove("hidden");
+        }
+        m.style.display = "flex";
+    }
+
+    closePhotoUploadModal() {
+        const m = document.getElementById("modal-photo-upload");
+        if (m) m.style.display = "none";
+    }
+
+    handlePhotoFileSelected(event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("Şəkil faylı 5MB-dan böyük ola bilməz.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.pendingPhotoUrl = e.target.result;
+            const previewImg = document.getElementById("modal-photo-preview-img");
+            const previewText = document.getElementById("modal-photo-preview-text");
+            if (previewImg) {
+                previewImg.src = this.pendingPhotoUrl;
+                previewImg.classList.remove("hidden");
+            }
+            if (previewText) previewText.classList.add("hidden");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    savePhotoUpload() {
+        if (!this.pendingPhotoUrl) {
+            this.closePhotoUploadModal();
+            return;
+        }
+        this.auth.saveProfilePhoto(this.pendingPhotoUrl);
+        this.closePhotoUploadModal();
+        this.showToast("✓ Profil şəkli uğurla yeniləndi!");
+        this.renderStudentCabinet();
+    }
+
+    removeProfilePhoto() {
+        this.auth.removeProfilePhoto();
+        this.pendingPhotoUrl = null;
+        this.closePhotoUploadModal();
+        this.showToast("Profil şəkli silindi və standart avatara qaytarıldı.");
+        this.renderStudentCabinet();
+    }
+
+    // Completion Breakdown Modal
+    showCompletionBreakdownModal() {
+        const m = document.getElementById("modal-completion-breakdown");
+        if (!m) return;
+
+        const user = this.auth.currentUser || {};
+        const completion = this.auth.calculateCompletion(user);
+
+        const pctElem = document.getElementById("breakdown-modal-pct");
+        if (pctElem) pctElem.textContent = `${completion.percentage}%`;
+
+        const statusElem = document.getElementById("breakdown-modal-status");
+        if (statusElem) statusElem.textContent = completion.status;
+
+        const itemsContainer = document.getElementById("breakdown-modal-items");
+        if (itemsContainer) {
+            itemsContainer.innerHTML = "";
+            completion.breakdown.forEach(item => {
+                const row = document.createElement("div");
+                row.className = "flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs";
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i class="${item.completed ? 'fas fa-circle-check text-emerald-500' : 'far fa-circle text-slate-400'}"></i>
+                        <span class="font-medium text-slate-800">${item.label}</span>
+                    </div>
+                    <span class="font-bold ${item.completed ? 'text-emerald-700' : 'text-slate-400'}">+${item.weight}%</span>
+                `;
+                itemsContainer.appendChild(row);
+            });
+        }
+
+        m.style.display = "flex";
+    }
+
+    closeCompletionBreakdownModal() {
+        const m = document.getElementById("modal-completion-breakdown");
+        if (m) m.style.display = "none";
     }
 
     renderSkillsSubView(skills) {

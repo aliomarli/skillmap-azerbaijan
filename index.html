@@ -659,66 +659,366 @@
                         </div>
                     </div>
 
-                    <!-- SUB-VIEW 2: Profilim -->
+                                        <!-- ======================================================== -->
+                    <!-- SUB-VIEW 2: Profilim 2.0 (Matched with Visual Reference) -->
+                    <!-- ======================================================== -->
                     <div id="cab-view-profile" data-cabinet-view="profile" class="hidden space-y-6">
-                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
-                            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                                <div>
-                                    <h3 class="text-lg font-black text-slate-900">Şəxsi Profil Məlumatları</h3>
-                                    <p class="text-xs text-slate-500">Məlumatlarınızı yenilədikdə Career Match və Skill Gap avtomatik yenidən hesablanacaq.</p>
-                                </div>
-                                <button onclick="app.saveProfileChanges()" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
-                                    <i class="fas fa-floppy-disk"></i>Yadda Saxla
-                                </button>
-                            </div>
+                        
+                        <!-- 1. TOP PROFILE HEADER CARD (3-Column Horizontal Card) -->
+                        <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-2xs">
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                                
+                                <!-- Left Column: Avatar + User Info + Target Role (5 Cols) -->
+                                <div class="lg:col-span-5 flex items-center gap-4">
+                                    <div class="relative flex-shrink-0">
+                                        <div id="prof-avatar-box" class="w-20 h-20 rounded-full bg-slate-100 border-2 border-slate-200 shadow-sm overflow-hidden flex items-center justify-center text-2xl font-black text-slate-600">
+                                            <span id="prof-avatar-initials">ƏÖ</span>
+                                            <img id="prof-avatar-img" src="" alt="Profile Photo" class="w-full h-full object-cover hidden">
+                                        </div>
+                                        <button onclick="app.openPhotoUploadModal()" class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-[10px] shadow-sm border-2 border-white transition-all" title="Şəkli dəyiş">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                    </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Ad və Soyad</label>
-                                    <input type="text" id="prof-input-name" placeholder="Adınızı daxil edin" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <div class="space-y-1">
+                                        <h2 class="text-xl font-black text-slate-900 flex items-center gap-1.5 leading-tight">
+                                            <span id="prof-header-name">Əli Ömərli</span>
+                                            <!-- Green verified checkmark appears ONLY when profile completion == 100% -->
+                                            <i id="prof-header-check" class="fas fa-circle-check text-blue-600 text-sm hidden" title="Profil tamamlandı (100%)"></i>
+                                        </h2>
+                                        <div class="text-xs text-slate-500 font-medium flex items-center gap-1.5">
+                                            <span id="prof-header-uni">UNEC</span>
+                                            <span>•</span>
+                                            <span id="prof-header-faculty">Maliyyə və iqtisadiyyat</span>
+                                        </div>
+                                        <div class="pt-1">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50/80 border border-rose-200/80 text-xs font-bold text-slate-700 shadow-2xs">
+                                                <span class="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[9px]">
+                                                    <i class="fas fa-bullseye"></i>
+                                                </span>
+                                                <span>Hədəf vəzifə: <strong class="text-blue-600 font-bold" id="prof-header-target-role">Financial Analyst</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">E-poçt Ünvanı</label>
-                                    <input type="email" id="prof-input-email" placeholder="E-poçtunuzu daxil edin" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                                <!-- Middle Column: Profile Completion % & Bar (4 Cols) -->
+                                <div class="lg:col-span-4 space-y-2 lg:border-l lg:border-r border-slate-100 lg:px-6">
+                                    <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                                        <span class="flex items-center gap-1">
+                                            Profil tamamlanması
+                                            <i class="far fa-circle-question text-slate-400 cursor-pointer hover:text-blue-600" onclick="app.showCompletionBreakdownModal()" title="Tamamlanma meyarlarını gör"></i>
+                                        </span>
+                                        <span class="text-[10px] text-blue-600 font-semibold cursor-pointer hover:underline" onclick="app.showCompletionBreakdownModal()">Detallar →</span>
+                                    </div>
+
+                                    <div class="text-3xl font-black text-blue-600" id="prof-completion-percentage">80%</div>
+
+                                    <div class="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                        <div id="prof-completion-progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-500" style="width: 80%;"></div>
+                                    </div>
+
+                                    <p class="text-[11px] text-slate-500" id="prof-completion-status-text">
+                                        Profilinizi tamamlayın və daha doğru nəticələr əldə edin.
+                                    </p>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Universitet</label>
-                                    <input type="text" id="prof-input-uni" placeholder="Məsələn: UNEC" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                                <!-- Right Column: CV Card (3 Cols) -->
+                                <div class="lg:col-span-3 space-y-2">
+                                    <div class="font-bold text-xs text-slate-900" id="prof-cv-box-title">CV-niz var?</div>
+                                    <p class="text-[11px] text-slate-500 leading-relaxed" id="prof-cv-box-desc">
+                                        CV-ni yükləyin, məlumatlarınızı avtomatik əlavə edək və ATS uyğunluğunu analiz edək.
+                                    </p>
+                                    <div id="prof-cv-action-container">
+                                        <button id="prof-cv-action-btn" onclick="app.openCVUploadModal()" class="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm shadow-blue-500/20 flex items-center justify-center gap-1.5 transition-all">
+                                            <i class="fas fa-arrow-up-from-bracket"></i>
+                                            <span>CV yüklə</span>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Fakültə / İxtisas</label>
-                                    <input type="text" id="prof-input-faculty" placeholder="Məsələn: Maliyyə" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Təhsil Dərəcəsi</label>
-                                    <select id="prof-input-degree" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                        <option value="Bakalavr">Bakalavr</option>
-                                        <option value="Magistr">Magistr</option>
-                                        <option value="Doktorantura">Doktorantura</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">İş Təcrübəsi (il)</label>
-                                    <input type="number" id="prof-input-exp" min="0" max="20" placeholder="0" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">İngilis Dili Səviyyəsi</label>
-                                    <select id="prof-input-english" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                        <option value="A1">A1 (Başlanğıc)</option>
-                                        <option value="A2">A2 (Elementar)</option>
-                                        <option value="B1">B1 (Pre-Intermediate)</option>
-                                        <option value="B2">B2 (Intermediate)</option>
-                                        <option value="C1">C1 (Advanced)</option>
-                                        <option value="C2">C2 (Proficient / Fluent)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Hədəflədiyiniz Vəzifə</label>
-                                    <select id="prof-input-role" onchange="app.handleRoleChangeFromProfile()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                    </select>
-                                </div>
+
                             </div>
                         </div>
+
+                        <!-- 2. MAIN 2-COLUMN GRID (Left Form 8 Cols + Right Panels 4 Cols) -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                            
+                            <!-- Left: Profile Form Card (8 Cols) -->
+                            <div class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
+                                
+                                <!-- Form Header + Save Button -->
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+                                    <div>
+                                        <h3 class="text-base font-black text-slate-900">Şəxsi Profil Məlumatları</h3>
+                                        <p class="text-xs text-slate-500">Məlumatlarınızı yenilədikdə Career Match və Skill Gap avtomatik yenidən hesablanacaq.</p>
+                                    </div>
+                                    <button id="prof-save-btn" onclick="app.saveProfileChanges()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all flex-shrink-0">
+                                        <i class="fas fa-floppy-disk"></i>
+                                        <span>Dəyişiklikləri yadda saxla</span>
+                                    </button>
+                                </div>
+
+                                <!-- 3 Form Columns -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                    
+                                    <!-- Column 1: Şəxsi məlumatlar -->
+                                    <div class="space-y-3.5">
+                                        <div class="flex items-center gap-1.5 text-xs font-bold text-blue-600 pb-1">
+                                            <i class="fas fa-user text-[11px]"></i>
+                                            <span>Şəxsi məlumatlar</span>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Ad və Soyad</label>
+                                            <input type="text" id="prof-input-name" placeholder="Əli Ömərli" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">E-poçt Ünvanı</label>
+                                            <input type="email" id="prof-input-email" placeholder="aliomarli@example.com" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Şəhər</label>
+                                            <select id="prof-input-city" onchange="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                                <option value="Bakı">Bakı</option>
+                                                <option value="Sumqayıt">Sumqayıt</option>
+                                                <option value="Gəncə">Gəncə</option>
+                                                <option value="Xırdalan">Xırdalan</option>
+                                                <option value="Naxçıvan">Naxçıvan</option>
+                                                <option value="Lənkəran">Lənkəran</option>
+                                                <option value="Digər">Digər</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Təhsil və təcrübə -->
+                                    <div class="space-y-3.5">
+                                        <div class="flex items-center gap-1.5 text-xs font-bold text-blue-600 pb-1">
+                                            <i class="fas fa-graduation-cap text-[11px]"></i>
+                                            <span>Təhsil və təcrübə</span>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Universitet</label>
+                                            <input type="text" id="prof-input-uni" placeholder="UNEC" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Fakültə / İxtisas</label>
+                                            <input type="text" id="prof-input-faculty" placeholder="Maliyyə və iqtisadiyyat" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Təhsil Dərəcəsi</label>
+                                            <select id="prof-input-degree" onchange="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                                <option value="Bakalavr">Bakalavr</option>
+                                                <option value="Magistr">Magistr</option>
+                                                <option value="Doktorantura">Doktorantura</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">İş Təcrübəsi (il)</label>
+                                            <input type="number" id="prof-input-exp" min="0" max="20" placeholder="0" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 3: Karyera profili -->
+                                    <div class="space-y-3.5">
+                                        <div class="flex items-center gap-1.5 text-xs font-bold text-blue-600 pb-1">
+                                            <i class="fas fa-bullseye text-[11px]"></i>
+                                            <span>Karyera profili</span>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">İngilis Dili Səviyyəsi</label>
+                                            <select id="prof-input-english" onchange="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                                <option value="A1">A1 (Başlanğıc)</option>
+                                                <option value="A2">A2 (Elementar)</option>
+                                                <option value="B1">B1 (Pre-Intermediate)</option>
+                                                <option value="B2">B2 (Intermediate)</option>
+                                                <option value="C1">C1 (Advanced)</option>
+                                                <option value="C2">C2 (Proficient / Fluent)</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Digər Dillər</label>
+                                            <input type="text" id="prof-input-languages" placeholder="Rus dili (B1), Türk dili" oninput="app.markProfileFormChanged()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Hədəf Sektor</label>
+                                            <select id="prof-input-sector" onchange="app.handleSectorChangeFromProfile()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                                <option value="Maliyyə">Maliyyə</option>
+                                                <option value="Bank">Bank</option>
+                                                <option value="IT & Proqramlaşdırma">IT & Proqramlaşdırma</option>
+                                                <option value="Satış & Ticarət">Satış & Ticarət</option>
+                                                <option value="İdarəetmə">İdarəetmə</option>
+                                                <option value="Marketinq">Marketinq</option>
+                                                <option value="Mühəndislik">Mühəndislik</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-bold text-slate-700 mb-1">Hədəf Vəzifə</label>
+                                            <select id="prof-input-role" onchange="app.handleRoleChangeFromProfile()" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Bottom "Karyera profiliniz" Dynamic Summary Box -->
+                                <div class="bg-blue-50/50 rounded-2xl p-5 border border-blue-100 space-y-3">
+                                    <div class="text-xs font-bold text-slate-900">Karyera profiliniz</div>
+                                    
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
+                                        <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+                                                <i class="fas fa-graduation-cap"></i>
+                                            </div>
+                                            <div class="truncate">
+                                                <span class="text-[10px] text-slate-400 block font-semibold">Təhsil</span>
+                                                <span class="font-bold text-slate-800 text-[11px] truncate block" id="prof-sum-edu">Bakalavr UNEC</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+                                                <i class="fas fa-briefcase"></i>
+                                            </div>
+                                            <div class="truncate">
+                                                <span class="text-[10px] text-slate-400 block font-semibold">İş Təcrübəsi</span>
+                                                <span class="font-bold text-slate-800 text-[11px] truncate block" id="prof-sum-exp">0 il</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+                                                <i class="fas fa-globe"></i>
+                                            </div>
+                                            <div class="truncate">
+                                                <span class="text-[10px] text-slate-400 block font-semibold">İngilis Dili</span>
+                                                <span class="font-bold text-slate-800 text-[11px] truncate block" id="prof-sum-eng">B2 (Intermediate)</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+                                                <i class="fas fa-building"></i>
+                                            </div>
+                                            <div class="truncate">
+                                                <span class="text-[10px] text-slate-400 block font-semibold">Hədəf Sektor</span>
+                                                <span class="font-bold text-slate-800 text-[11px] truncate block" id="prof-sum-sector">Maliyyə</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 p-2 rounded-xl bg-white border border-blue-100 shadow-2xs">
+                                            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+                                                <i class="fas fa-bullseye"></i>
+                                            </div>
+                                            <div class="truncate">
+                                                <span class="text-[10px] text-slate-400 block font-semibold">Hədəf Vəzifə</span>
+                                                <span class="font-bold text-blue-600 text-[11px] truncate block" id="prof-sum-role">Financial Analyst</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Readiness Callout -->
+                                    <div class="flex items-center gap-3 pt-1">
+                                        <i class="fas fa-circle-check text-emerald-500 text-lg flex-shrink-0"></i>
+                                        <div>
+                                            <div class="font-bold text-xs text-emerald-900" id="prof-sum-status-title">Profiliniz Skill Gap analizi üçün hazırdır!</div>
+                                            <div class="text-[11px] text-emerald-700" id="prof-sum-status-desc">Daha dəqiq nəticələr üçün CV və bacarıqlarınızı tamamlayın.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Footer Notice -->
+                                <div class="text-[11px] text-slate-400 flex items-center gap-1.5 pt-1">
+                                    <i class="fas fa-circle-info text-blue-500"></i>
+                                    <span>Profiliniz yeniləndikdən sonra Career Match, Skill Gap və uyğun vakansiyalar yenidən hesablanacaq.</span>
+                                </div>
+
+                            </div>
+
+                            <!-- Right: Panels (4 Cols) -->
+                            <div class="lg:col-span-4 space-y-6">
+                                
+                                <!-- Top Right Card: Əsas bacarıqlarınız -->
+                                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
+                                    <h3 class="text-sm font-bold text-slate-900">Əsas bacarıqlarınız</h3>
+                                    
+                                    <div id="prof-sidebar-skills-list" class="space-y-2.5">
+                                        <!-- Dynamic skills rendered by app.js -->
+                                    </div>
+
+                                    <button onclick="app.switchCabinetView('skills')" class="w-full text-center text-xs font-bold text-blue-600 hover:text-blue-700 pt-2 flex items-center justify-center gap-1">
+                                        <span>Bütün bacarıqları idarə et</span>
+                                        <i class="fas fa-arrow-right text-[10px]"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Bottom Right Card: Profilinizin vəziyyəti -->
+                                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
+                                    <h3 class="text-sm font-bold text-slate-900">Profilinizin vəziyyəti</h3>
+                                    
+                                    <div id="prof-sidebar-status-checklist" class="space-y-3 text-xs">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-slate-700">
+                                                <i class="fas fa-graduation-cap text-slate-400 w-4 text-center"></i>
+                                                <span>Təhsil məlumatı</span>
+                                            </div>
+                                            <span class="font-bold text-emerald-600" id="prof-chk-edu">Tamamlandı</span>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-slate-700">
+                                                <i class="fas fa-bullseye text-slate-400 w-4 text-center"></i>
+                                                <span>Hədəf vəzifə</span>
+                                            </div>
+                                            <span class="font-bold text-emerald-600" id="prof-chk-role">Tamamlandı</span>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-slate-700">
+                                                <i class="fas fa-puzzle-piece text-slate-400 w-4 text-center"></i>
+                                                <span>Bacarıqlar</span>
+                                            </div>
+                                            <span class="font-bold text-amber-600" id="prof-chk-skills">Qismən</span>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-slate-700">
+                                                <i class="fas fa-file-alt text-slate-400 w-4 text-center"></i>
+                                                <span>CV yüklənib</span>
+                                            </div>
+                                            <span class="font-bold text-rose-500" id="prof-chk-cv">Yoxdur</span>
+                                        </div>
+                                    </div>
+
+                                    <button onclick="app.showCompletionBreakdownModal()" class="w-full py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-blue-600 transition-all text-center">
+                                        Profilimi necə yaxşılaşdıra bilərəm? →
+                                    </button>
+                                </div>
+
+                                <!-- Missing Profile Information Box (Shown if completion < 100%) -->
+                                <div id="prof-missing-items-box" class="bg-amber-50/70 border border-amber-200 rounded-3xl p-5 space-y-3">
+                                    <div class="font-bold text-xs text-amber-900 flex items-center gap-1.5">
+                                        <i class="fas fa-sparkles text-amber-600"></i>
+                                        <span>Profilinizi tamamlamaq üçün:</span>
+                                    </div>
+                                    <div id="prof-missing-items-list" class="space-y-2 text-xs">
+                                        <!-- Dynamic Missing Items -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <!-- SUB-VIEW 3: Bacarıqlarım -->
@@ -1826,5 +2126,90 @@
     <script src="js/nlpSimulator.js"></script>
     <script src="js/chatbot.js"></script>
     <script src="js/app.js"></script>
+    <!-- ======================================================== -->
+    <!-- 4.9. PROFİL FOTOSU YÜKLƏMƏ MODALI -->
+    <!-- ======================================================== -->
+    <div id="modal-photo-upload" onclick="if(event.target === this) app.closePhotoUploadModal()" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-sm">Profil Şəklinin Yenilənməsi</h3>
+                </div>
+                <button onclick="app.closePhotoUploadModal()" class="text-slate-400 hover:text-slate-700 p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-center">
+                <div class="w-28 h-28 rounded-full bg-slate-100 border-2 border-slate-200 mx-auto overflow-hidden flex items-center justify-center text-3xl font-black text-slate-400 shadow-inner" id="modal-photo-preview-box">
+                    <span id="modal-photo-preview-text">👤</span>
+                    <img id="modal-photo-preview-img" src="" alt="Preview" class="w-full h-full object-cover hidden">
+                </div>
+
+                <div class="space-y-2">
+                    <input type="file" id="photo-file-input" accept="image/jpeg, image/png, image/webp" onchange="app.handlePhotoFileSelected(event)" class="hidden">
+                    <button onclick="document.getElementById('photo-file-input').click()" class="px-5 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all inline-flex items-center gap-2">
+                        <i class="fas fa-folder-open text-blue-600"></i>
+                        <span>Şəkil Seçin (JPG, PNG, WEBP)</span>
+                    </button>
+                    <p class="text-[10px] text-slate-400">Maksimum ölçü: 5MB</p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                <button onclick="app.removeProfilePhoto()" class="px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold">
+                    Şəkli Sil
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="app.closePhotoUploadModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700">Ləğv et</button>
+                    <button onclick="app.savePhotoUpload()" class="px-5 py-2 text-xs font-bold rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-sm">Yadda Saxla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 4.10. PROFİLİN TAMAMLANMASI DETALLARI MODALI -->
+    <!-- ======================================================== -->
+    <div id="modal-completion-breakdown" onclick="if(event.target === this) app.closeCompletionBreakdownModal()" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 border border-slate-200 shadow-2xl space-y-4 animate-fadeIn">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-sm font-bold">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-sm">Profil Tamamlanması Göstəricisi</h3>
+                </div>
+                <button onclick="app.closeCompletionBreakdownModal()" class="text-slate-400 hover:text-slate-700 p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <div class="p-4 rounded-2xl bg-blue-50 text-blue-900 flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-blue-700 block">Ümumi Göstərici</span>
+                        <div class="text-2xl font-black text-blue-600" id="breakdown-modal-pct">80%</div>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-bold block" id="breakdown-modal-status">Profil demək olar ki, tamamlanıb</span>
+                        <span class="text-[10px] text-blue-700">100% olduqda təsdiq nişanı aktivləşir ✓</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-1" id="breakdown-modal-items">
+                    <!-- Dynamic Checklist with weights -->
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 text-right">
+                <button onclick="app.closeCompletionBreakdownModal()" class="px-5 py-2 text-xs font-bold rounded-full bg-blue-600 text-white shadow-sm">Anladım</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

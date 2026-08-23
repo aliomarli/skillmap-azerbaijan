@@ -109,7 +109,8 @@ class AuthManager {
             experience_years: uExp,
             employmentStatus: 'Tələbə / Məzun',
             englishLevel: uEng || 'B2',
-            otherLanguages: 'Azərbaycan dili (Ana dili)',
+            city: 'Bakı',
+            otherLanguages: 'Rus dili (B1), Türk dili',
             gpa: '85.0',
             studentId: 'AZ-UNEC-' + Math.floor(1000 + Math.random() * 9000),
             isVerified: true,
@@ -235,6 +236,75 @@ class AuthManager {
             uploadedCV: null,
             cvVersions: []
         });
+    }
+
+    calculateCompletion(user) {
+        if (!user) return { percentage: 0, status: "Profil natamamdır", isComplete: false, breakdown: [], missing: [] };
+
+        const weights = [
+            { id: "name", label: "Ad və Soyad", weight: 10, check: () => Boolean(user.name && user.name.trim().length >= 3), action: "document.getElementById('prof-input-name')?.focus()" },
+            { id: "email", label: "E-poçt Ünvanı", weight: 5, check: () => Boolean(user.email && user.email.includes('@')), action: "document.getElementById('prof-input-email')?.focus()" },
+            { id: "city", label: "Şəhər", weight: 5, check: () => Boolean(user.city && user.city.trim().length > 0), action: "document.getElementById('prof-input-city')?.focus()" },
+            { id: "uni", label: "Universitet", weight: 10, check: () => Boolean(user.university && user.university.trim().length > 0), action: "document.getElementById('prof-input-uni')?.focus()" },
+            { id: "faculty", label: "Fakültə / İxtisas", weight: 10, check: () => Boolean(user.faculty && user.faculty.trim().length > 0), action: "document.getElementById('prof-input-faculty')?.focus()" },
+            { id: "degree", label: "Təhsil Dərəcəsi", weight: 5, check: () => Boolean(user.degree && user.degree.trim().length > 0), action: "document.getElementById('prof-input-degree')?.focus()" },
+            { id: "experience", label: "İş Təcrübəsi", weight: 5, check: () => user.experience_years !== undefined && user.experience_years !== null, action: "document.getElementById('prof-input-exp')?.focus()" },
+            { id: "english", label: "İngilis Dili", weight: 5, check: () => Boolean(user.englishLevel && user.englishLevel.trim().length > 0), action: "document.getElementById('prof-input-english')?.focus()" },
+            { id: "languages", label: "Digər Dillər", weight: 5, check: () => Boolean(user.otherLanguages && user.otherLanguages.trim().length > 0), action: "document.getElementById('prof-input-languages')?.focus()" },
+            { id: "sector", label: "Hədəf Sektor", weight: 10, check: () => Boolean(user.targetSector && user.targetSector.trim().length > 0), action: "document.getElementById('prof-input-sector')?.focus()" },
+            { id: "role", label: "Hədəf Vəzifə", weight: 10, check: () => Boolean(user.targetRole && user.targetRole.trim().length > 0), action: "document.getElementById('prof-input-role')?.focus()" },
+            { id: "skills", label: "Ən azı 3 Təsdiqlənmiş Bacarıq", weight: 10, check: () => Boolean(user.savedSkills && Object.keys(user.savedSkills).length >= 3), action: "app.switchCabinetView('skills')" },
+            { id: "cv", label: "CV Sənədi Yüklənməsi", weight: 5, check: () => Boolean(user.uploadedCV), action: "app.openCVUploadModal()" },
+            { id: "photo", label: "Profil Şəkli", weight: 5, check: () => Boolean(user.photoUrl), action: "app.openPhotoUploadModal()" }
+        ];
+
+        let totalScore = 0;
+        const breakdown = [];
+        const missing = [];
+
+        weights.forEach(w => {
+            const isCompleted = w.check();
+            if (isCompleted) totalScore += w.weight;
+            breakdown.push({
+                id: w.id,
+                label: w.label,
+                weight: w.weight,
+                completed: isCompleted
+            });
+            if (!isCompleted) {
+                missing.push({
+                    id: w.id,
+                    label: w.label,
+                    action: w.action
+                });
+            }
+        });
+
+        const percentage = Math.min(100, Math.max(0, totalScore));
+        let status = "Profil natamamdır";
+        if (percentage >= 100) status = "Profil tamamlandı ✓";
+        else if (percentage >= 80) status = "Profil demək olar ki, tamamlanıb";
+        else if (percentage >= 50) status = "Profil qismən tamamlanıb";
+
+        return {
+            percentage,
+            status,
+            isComplete: percentage === 100,
+            breakdown,
+            missing
+        };
+    }
+
+    saveProfilePhoto(photoUrl) {
+        if (!this.currentUser) return;
+        this.currentUser.photoUrl = photoUrl;
+        this.updateProfile({ photoUrl });
+    }
+
+    removeProfilePhoto() {
+        if (!this.currentUser) return;
+        this.currentUser.photoUrl = null;
+        this.updateProfile({ photoUrl: null });
     }
 
     logout() {
