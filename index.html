@@ -51,50 +51,50 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
     <!-- 1. ÜST NAVİQASİYA (Header & Navigation) -->
-    <header class="sticky top-0 z-50 dark-glass-nav border-b border-slate-800/80">
+    <header class="sticky top-0 z-50 light-glass-nav border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="app.switchTab('overview')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 via-rose-500 to-amber-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-orange-500/30">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white font-black text-xl shadow-md shadow-indigo-500/20">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <div>
                         <div class="flex items-center gap-1.5">
-                            <span class="font-black text-xl text-white tracking-tight">SkillMap</span>
-                            <span class="text-xs font-black px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30">AZ</span>
+                            <span class="font-black text-xl text-slate-900 tracking-tight">SkillMap</span>
+                            <span class="text-xs font-black px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">AZ</span>
                         </div>
-                        <p class="text-[10px] text-slate-400 font-semibold tracking-tight">Əmək Bazarı & Bacarıq İntellekti</p>
+                        <p class="text-[10px] text-slate-500 font-semibold tracking-tight">Əmək Bazarı & Bacarıq İntellekti</p>
                     </div>
                 </div>
 
                 <!-- Naviqasiya Linkləri (Həmişə Görünən Əsas Menyu) -->
                 <nav class="flex items-center gap-1 overflow-x-auto">
-                    <button onclick="app.switchTab('overview')" data-tab-btn="overview" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-white bg-white/15 font-bold whitespace-nowrap shadow-xs">
-                        <i class="fas fa-home mr-1 text-orange-400"></i>Ana Səhifə
+                    <button onclick="app.switchTab('overview')" data-tab-btn="overview" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-indigo-700 bg-indigo-50 font-bold whitespace-nowrap">
+                        <i class="fas fa-home mr-1 text-indigo-600"></i>Ana Səhifə
                     </button>
-                    <button onclick="app.switchTab('student-gap')" data-tab-btn="student-gap" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('student-gap')" data-tab-btn="student-gap" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-id-card mr-1 text-slate-400"></i>Şəxsi Kabinet
                     </button>
-                    <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-briefcase mr-1 text-slate-400"></i>Canlı Vakansiyalar
                     </button>
-                    <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-map-location-dot mr-1 text-slate-400"></i>Bakı Xəritəsi
                     </button>
-                    <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-chart-line mr-1 text-slate-400"></i>Analitika
                     </button>
-                    <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-university mr-1 text-slate-400"></i>Universitetlər
                     </button>
-                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-landmark mr-1 text-slate-400"></i>Dövlət / Siyasət
                     </button>
-                    <button onclick="app.switchTab('nlp-sandbox')" data-tab-btn="nlp-sandbox" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('nlp-sandbox')" data-tab-btn="nlp-sandbox" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-microchip mr-1 text-slate-400"></i>NLP Simulyatoru
                     </button>
-                    <button onclick="app.switchTab('methodology')" data-tab-btn="methodology" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:text-white hover:bg-white/10 whitespace-nowrap">
+                    <button onclick="app.switchTab('methodology')" data-tab-btn="methodology" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-book-bookmark mr-1 text-slate-400"></i>Metodologiya
                     </button>
                 </nav>
@@ -107,17 +107,17 @@
                     </div>
 
                     <!-- Dil Seçimi -->
-                    <button id="lang-toggle-btn" onclick="app.toggleLanguage()" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 transition-all flex items-center gap-1.5" title="Dili Dəyiş / Switch Language">
+                    <button id="lang-toggle-btn" onclick="app.toggleLanguage()" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all flex items-center gap-1.5" title="Dili Dəyiş / Switch Language">
                         <span class="text-sm">🇦🇿</span> <span class="font-bold">AZ</span>
                     </button>
                     
-                    <button onclick="app.openAuthModal('register')" class="btn-flame-cta px-4 py-2 rounded-full text-xs font-black text-white shadow-md flex items-center gap-1.5">
-                        <i class="fas fa-bolt text-amber-200"></i>
+                    <button onclick="app.openAuthModal('register')" class="btn-saas-primary px-4 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1.5">
+                        <i class="fas fa-bolt text-amber-300"></i>
                         <span>İndi Başla</span>
                     </button>
 
-                    <button onclick="app.openDataModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all">
-                        <i class="fas fa-database text-orange-400"></i>
+                    <button onclick="app.openDataModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-all">
+                        <i class="fas fa-database text-indigo-600"></i>
                         <span>Data Yüklə</span>
                     </button>
                 </div>
@@ -132,49 +132,49 @@
         <!-- TAB 1: ANA SƏHİFƏ (OVERVIEW & HERO) -->
         <!-- ======================================================== -->
         <section id="tab-overview" class="tab-content active space-y-8">
-            <!-- Hero Banner (Haziram.com Layout Style with Midnight & Flame theme) -->
-            <div class="gradient-midnight-hero text-white rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden shadow-2xl border border-slate-800">
+            <!-- Hero Banner (Clean Minimalist SaaS Style) -->
+            <div class="hero-light-gradient text-slate-900 rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden shadow-xs border border-slate-200/80">
                 <div class="relative z-10 max-w-4xl mx-auto space-y-6">
                     
                     <!-- 1. Üst Yenilik / Announcement Kapsulu -->
                     <div class="flex justify-center">
-                        <div onclick="app.switchTab('nlp-sandbox')" class="pill-announcement inline-flex items-center gap-2.5 p-1.5 pr-4 rounded-full cursor-pointer group shadow-sm">
-                            <span class="w-6 h-6 rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white flex items-center justify-center text-xs shadow-sm">
-                                <i class="fas fa-rocket text-[10px]"></i>
+                        <div onclick="app.switchTab('nlp-sandbox')" class="pill-badge-indigo inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full cursor-pointer group shadow-2xs">
+                            <span class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] shadow-xs">
+                                <i class="fas fa-rocket"></i>
                             </span>
-                            <span class="text-xs text-slate-200 font-medium">Yeni: Vakansiyalardan bacarıqları avtomatik çıxaran AI NLP mühərriki</span>
-                            <span class="text-xs text-amber-300 font-bold group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                            <span class="text-xs font-semibold">Yeni: Vakansiyalardan bacarıqları avtomatik çıxaran AI NLP mühərriki</span>
+                            <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
                                 Sına →
                             </span>
                         </div>
                     </div>
 
-                    <!-- 2. Nəhəng Başlıq (Haziram Style) -->
-                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
-                        İşlər və Bacarıqlar <br class="hidden sm:inline"> Real Vaxtda <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400">Sizi Tapır</span>
+                    <!-- 2. Nəhəng Başlıq (Haziram / JobCV Style) -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
+                        İşlər və Bacarıqlar <br class="hidden sm:inline"> Real Vaxtda <span class="text-indigo-600">Sizi Tapır</span>
                     </h1>
 
                     <!-- 3. Alt Təsvir Mətni -->
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
                         Azərbaycanda ilk real əmək bazarı və bacarıq uyğunlaşdırma platforması. 420 real vakansiya əsasında biliklərinizi test edin, bazar tələbləri ilə dərhal uyğunlaşın.
                     </p>
 
                     <!-- 4. İki Əsas Hərəkət Düyməsi (Dual CTA Buttons) -->
                     <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
-                        <button onclick="app.openAuthModal('register')" class="btn-flame-cta px-8 py-3.5 rounded-2xl text-white font-black text-sm flex items-center gap-2">
+                        <button onclick="app.openAuthModal('register')" class="btn-saas-primary px-8 py-3.5 rounded-full font-bold text-sm shadow-md flex items-center gap-2">
                             <span>Bacarıqlarımı Test Et</span>
                             <i class="fas fa-arrow-right text-xs"></i>
                         </button>
-                        <button onclick="app.switchTab('live-vacancies')" class="btn-glass-outline px-7 py-3.5 rounded-2xl text-white font-bold text-sm flex items-center gap-2">
-                            <i class="fas fa-briefcase text-slate-300"></i>
+                        <button onclick="app.switchTab('live-vacancies')" class="btn-saas-outline px-7 py-3.5 rounded-full font-bold text-sm flex items-center gap-2">
+                            <i class="fas fa-briefcase text-slate-500"></i>
                             <span>Canlı Vakansiyalara Bax</span>
                         </button>
                     </div>
 
                     <!-- 5. Sosial Sübut / Şəffaflıq Kapsulu (Trust Pill) -->
                     <div class="flex justify-center pt-2">
-                        <div class="pill-trust inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs text-slate-200 font-semibold shadow-xs">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-xs text-slate-600 font-medium shadow-2xs">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span>420 Real Vakansiya (Jobsearch.az) | Tələbələr və Məzunlar üçün 100% Pulsuz</span>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
             </div>
 
             <!-- Tərəfdaş və Etibarlılıq Lövhəsi (Trust Bar) -->
-            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 font-medium">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-2xs flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 font-medium">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span class="font-bold text-slate-800">Məlumat Bazası:</span>
@@ -192,16 +192,16 @@
                 <div class="flex items-center gap-4 text-[11px] text-slate-400">
                     <span>Mənbələr: <strong class="text-emerald-700 font-bold">Jobsearch.az (Aktiv)</strong> <span class="text-slate-400">| DMA, Boss.az, HelloJob, LinkedIn (🔜 Planlaşdırılan)</span></span>
                     <span>•</span>
-                    <span class="text-orange-600 font-bold cursor-pointer hover:underline" onclick="app.switchTab('methodology')">Metodologiya sənədi ➔</span>
+                    <span class="text-indigo-600 font-bold cursor-pointer hover:underline" onclick="app.switchTab('methodology')">Metodologiya sənədi ➔</span>
                 </div>
             </div>
 
             <!-- Makro Göstəricilər Kartları -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-slate-500 font-semibold uppercase">Təhlil Edilən Real Baza</span>
-                        <div class="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                             <i class="fas fa-briefcase text-sm"></i>
                         </div>
                     </div>
@@ -211,7 +211,7 @@
                     </p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-slate-500 font-semibold uppercase">Orta Bazar Uyğunluğu</span>
                         <div class="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
@@ -224,7 +224,7 @@
                     </p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-slate-500 font-semibold uppercase">Ən Tələb Olunan Skill</span>
                         <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
@@ -237,14 +237,14 @@
                     </p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-slate-500 font-semibold uppercase">Ən Çox Artan Bacarıq</span>
-                        <div class="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
                             <i class="fas fa-arrow-trend-up text-sm"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-black text-orange-600" id="stat-rising-skill-val">+5.3 xal</div>
+                    <div class="text-2xl font-black text-indigo-600" id="stat-rising-skill-val">+5.3 xal</div>
                     <p class="text-[11px] text-slate-500 font-medium mt-1 truncate" id="stat-rising-skill-name">
                         MS Excel & Analitika (2026 Trend)
                     </p>
@@ -255,9 +255,9 @@
             <div>
                 <h2 class="text-xl font-bold text-slate-900 mb-4">Kimlər Üçün Nəzərdə Tutulub?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs hover:shadow-md transition-all hover:border-indigo-300 group flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
                                 <i class="fas fa-user-graduate"></i>
                             </div>
                             <h3 class="text-lg font-bold text-slate-900 mb-2">🎓 Tələbə və Məzunlar</h3>
@@ -265,12 +265,12 @@
                                 “Bacarıqlarım əmək bazarına nə qədər uyğundur?” sualına cavab tapın, çatışmayan bacarıqlarınızı (Skill Gap) və fərdi inkişaf planınızı əldə edin.
                             </p>
                         </div>
-                        <button onclick="app.openAuthModal('register')" class="w-full py-2.5 rounded-xl bg-orange-50 text-orange-700 font-bold text-xs hover:bg-orange-600 hover:text-white transition-all">
+                        <button onclick="app.openAuthModal('register')" class="w-full py-2.5 rounded-xl bg-indigo-50 text-indigo-700 font-bold text-xs hover:bg-indigo-600 hover:text-white transition-all">
                             Profil Yarat & Gap-i Ölç
                         </button>
                     </div>
 
-                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs hover:shadow-md transition-all hover:border-emerald-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
                                 <i class="fas fa-university"></i>
@@ -285,7 +285,7 @@
                         </button>
                     </div>
 
-                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-orange-300 group flex flex-col justify-between">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs hover:shadow-md transition-all hover:border-slate-400 group flex flex-col justify-between">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
                                 <i class="fas fa-landmark"></i>
@@ -310,26 +310,26 @@
         <section id="tab-student-gap" class="tab-content space-y-6">
             
             <!-- 1. Yüksək Səviyyəli Şəxsi Profil Lövhəsi (Executive Header) -->
-            <div class="gradient-orange-banner text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs relative overflow-hidden">
                 <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                     
                     <!-- Sol Tərəf: İstifadəçi Şəxsi Məlumatları və Status -->
                     <div class="flex items-start gap-4">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl font-black shadow-lg border-2 border-white/20 flex-shrink-0" id="student-avatar-badge">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 text-2xl font-black shadow-2xs flex-shrink-0" id="student-avatar-badge">
                             NƏ
                         </div>
                         <div class="space-y-1.5">
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold flex items-center gap-1">
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold flex items-center gap-1">
                                     <i class="fas fa-check-circle"></i> Təsdiqlənmiş Tələbə Profili
                                 </span>
-                                <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-mono" id="student-id-display">ID: AZ-UNEC-2026-8492</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[10px] font-mono" id="student-id-display">ID: AZ-UNEC-2026-8492</span>
                             </div>
-                            <h2 class="text-2xl sm:text-3xl font-black text-white" id="student-profile-name-display">Nurlan Əliyev 👋</h2>
-                            <div id="student-profile-meta-display" class="flex flex-wrap gap-2 text-xs text-slate-200">
-                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-university text-orange-400 mr-1.5"></i>UNEC – Maliyyə və Rəqəmsal İqtisadiyyat</span>
-                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-star text-amber-400 mr-1.5"></i>ÜOMG (GPA): 88.4</span>
-                                <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-language text-orange-400 mr-1.5"></i>İngilis dili: B2</span>
+                            <h2 class="text-2xl sm:text-3xl font-black text-slate-900" id="student-profile-name-display">Nurlan Əliyev 👋</h2>
+                            <div id="student-profile-meta-display" class="flex flex-wrap gap-2 text-xs text-slate-600">
+                                <span class="bg-slate-50 border border-slate-200/60 px-2.5 py-1 rounded-lg"><i class="fas fa-university text-indigo-600 mr-1.5"></i>UNEC – Maliyyə və Rəqəmsal İqtisadiyyat</span>
+                                <span class="bg-slate-50 border border-slate-200/60 px-2.5 py-1 rounded-lg"><i class="fas fa-star text-amber-500 mr-1.5"></i>ÜOMG (GPA): 88.4</span>
+                                <span class="bg-slate-50 border border-slate-200/60 px-2.5 py-1 rounded-lg"><i class="fas fa-language text-indigo-600 mr-1.5"></i>İngilis dili: B2</span>
                             </div>
                         </div>
                     </div>
@@ -337,16 +337,16 @@
                     <!-- Sağ Tərəf: Skor və Maaş Potensialı -->
                     <div class="flex items-center gap-3 w-full lg:w-auto">
                         <!-- Uyğunluq Skoru -->
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl text-center min-w-[120px] flex-1 lg:flex-initial">
-                            <div class="text-3xl font-black text-orange-400" id="result-match-score">0%</div>
-                            <div class="text-[10px] uppercase font-bold text-slate-300 mt-0.5">Bazar Uyğunluğu</div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl text-center min-w-[120px] flex-1 lg:flex-initial shadow-2xs">
+                            <div class="text-3xl font-black text-indigo-600" id="result-match-score">0%</div>
+                            <div class="text-[10px] uppercase font-bold text-slate-500 mt-0.5">Bazar Uyğunluğu</div>
                         </div>
 
                         <!-- Maaş Potensialı -->
-                        <div class="bg-gradient-to-tr from-orange-600 to-amber-500 p-4 rounded-2xl text-center min-w-[170px] shadow-lg orange-glow flex-1 lg:flex-initial">
-                            <div class="text-[10px] uppercase font-bold text-orange-100">Bazar Dəyəri Potensialı</div>
+                        <div class="bg-indigo-600 p-4 rounded-2xl text-center min-w-[170px] shadow-md shadow-indigo-500/20 flex-1 lg:flex-initial text-white">
+                            <div class="text-[10px] uppercase font-bold text-indigo-100">Bazar Dəyəri Potensialı</div>
                             <div class="text-lg font-black text-white mt-0.5" id="result-salary-text">1 400 ➔ 2 200 AZN</div>
-                            <div class="text-[10px] text-amber-200 font-semibold" id="result-salary-growth">+57% Gəlir Artımı</div>
+                            <div class="text-[10px] text-amber-300 font-semibold" id="result-salary-growth">+57% Gəlir Artımı</div>
                         </div>
                     </div>
 
@@ -357,10 +357,10 @@
             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                        <i class="fas fa-route text-orange-600"></i>Strateji Karyera İnkişaf Trayektoriyanız
+                        <i class="fas fa-route text-indigo-600"></i>Strateji Karyera İnkişaf Trayektoriyanız
                     </h3>
                     <div class="flex items-center gap-2">
-                        <span id="traj-status-badge" class="text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full border border-orange-200">
+                        <span id="traj-status-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-200">
                             2-ci Mərhələdəsiniz (Skill Gap)
                         </span>
                         <button onclick="window.print()" class="text-xs text-slate-500 hover:text-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 font-medium">
@@ -379,10 +379,10 @@
                         <p id="traj-stage1-desc" class="text-[11px] text-slate-500">Maliyyə və İqtisadiyyat üzrə ali təhsil.</p>
                     </div>
 
-                    <div id="traj-stage2-card" class="p-3.5 rounded-2xl bg-orange-50 border-2 border-orange-500 shadow-sm space-y-1">
+                    <div id="traj-stage2-card" class="p-3.5 rounded-2xl bg-indigo-50 border-2 border-indigo-500 shadow-2xs space-y-1">
                         <div class="flex items-center justify-between">
-                            <span id="traj-stage2-icon" class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">2</span>
-                            <span id="traj-stage2-status" class="text-[10px] font-bold text-orange-700 uppercase animate-pulse">Aktiv Mərhələ</span>
+                            <span id="traj-stage2-icon" class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">2</span>
+                            <span id="traj-stage2-status" class="text-[10px] font-bold text-indigo-700 uppercase animate-pulse">Aktiv Mərhələ</span>
                         </div>
                         <h4 id="traj-stage2-title" class="font-bold text-slate-900 text-xs">2. SQL & Power BI Gap</h4>
                         <p id="traj-stage2-desc" class="text-[11px] text-slate-600">Bazarın tələb etdiyi 2 kritik bacarığı artırmaq.</p>
@@ -412,26 +412,26 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Sol: Hədəf Vəzifə və Səriştə Sliderləri (5 Sütun) -->
                 <div class="lg:col-span-5 space-y-5">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-5">
                         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fas fa-sliders text-orange-600"></i>Hədəf Vəzifə və Bacarıqlar
+                                <i class="fas fa-sliders text-indigo-600"></i>Hədəf Vəzifə və Bacarıqlar
                             </h3>
                             <div class="flex items-center gap-1">
-                                <button onclick="app.loadPreset('finance')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-orange-50 hover:bg-orange-100 text-orange-700">Maliyyə</button>
-                                <button onclick="app.loadPreset('data')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-orange-50 hover:bg-orange-100 text-orange-700">Data</button>
+                                <button onclick="app.loadPreset('finance')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700">Maliyyə</button>
+                                <button onclick="app.loadPreset('data')" class="px-2 py-0.5 text-[10px] font-bold rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700">Data</button>
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Hədəflədiyiniz Vəzifə</label>
-                            <select id="student-target-role" onchange="app.handleRoleChange()" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            <select id="student-target-role" onchange="app.handleRoleChange()" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                             </select>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Təhsil Müəssisəsi</label>
-                            <select id="student-field" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                            <select id="student-field" class="w-full text-xs font-semibold p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                                 <option>UNEC – Maliyyə və Rəqəmsal İqtisadiyyat</option>
                                 <option>BANM – İnformasiya Təhlükəsizliyi</option>
                                 <option>BDU – Tətbiqi Riyaziyyat və Kibernetika</option>
@@ -442,7 +442,7 @@
 
                         <div class="pt-3 border-t border-slate-100">
                             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center justify-between">
-                                <span><i class="fas fa-brain text-orange-600 mr-1.5"></i>Bilik Səviyyələriniz</span>
+                                <span><i class="fas fa-brain text-indigo-600 mr-1.5"></i>Bilik Səviyyələriniz</span>
                                 <span class="text-[10px] text-slate-400 font-normal">Dəyişdikcə avtomatik saxlanılır</span>
                             </h3>
                             
@@ -450,18 +450,18 @@
                             </div>
                         </div>
 
-                        <button onclick="app.runSkillGapCalculation()" class="w-full py-3.5 rounded-xl gradient-orange-btn text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-2">
+                        <button onclick="app.runSkillGapCalculation()" class="w-full py-3.5 rounded-full btn-saas-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
                             <i class="fas fa-calculator"></i>Analizi Yenilə & Yadda Saxla
                         </button>
                     </div>
 
                     <!-- Profilə Ən Uyğun Şirkətlər Bloku -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
                         <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fas fa-building text-orange-600"></i>Profilinizə Ən Uyğun 3 Şirkət
+                            <i class="fas fa-building text-indigo-600"></i>Profilinizə Ən Uyğun 3 Şirkət
                         </h3>
                         <div class="space-y-2.5 text-xs">
-                            <div class="p-3 rounded-2xl bg-orange-50/60 border border-orange-200 flex items-center justify-between">
+                            <div class="p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
                                 <div class="flex items-center gap-2.5">
                                     <div class="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-xs">PB</div>
                                     <div>
@@ -469,7 +469,7 @@
                                         <p class="text-[10px] text-slate-500">Data Analytics Departamenti</p>
                                     </div>
                                 </div>
-                                <span class="text-xs font-black text-orange-700 bg-white px-2 py-1 rounded-lg border border-orange-200">91% Uyğunluq</span>
+                                <span class="text-xs font-black text-indigo-700 bg-white px-2 py-1 rounded-lg border border-indigo-200">91% Uyğunluq</span>
                             </div>
 
                             <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
@@ -500,18 +500,18 @@
                 <!-- Sağ: Radar Qrafiki, Gap Cədvəli və 3 Aylıq Sprint (7 Sütun) -->
                 <div class="lg:col-span-7 space-y-6">
                     <!-- Vəzifə İcmalı -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">Hədəf Standart</span>
+                            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Hədəf Standart</span>
                             <span class="text-xs text-slate-500 font-medium" id="result-role-title">Data Analitik</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed" id="result-role-desc">Yüklənir...</p>
                     </div>
 
                     <!-- Radar Qrafiki -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between">
-                            <span><i class="fas fa-chart-pie mr-1.5 text-orange-600"></i>Bacarıq Uyğunluğu Radar Qrafiki (Spider Chart)</span>
+                            <span><i class="fas fa-chart-pie mr-1.5 text-indigo-600"></i>Bacarıq Uyğunluğu Radar Qrafiki (Spider Chart)</span>
                             <span class="text-[10px] text-slate-400">Sən vs Əmək Bazarı Standartı</span>
                         </h4>
                         <div class="h-64 sm:h-72 flex items-center justify-center">
@@ -520,10 +520,10 @@
                     </div>
 
                     <!-- Skill Gap Cədvəli -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
-                            <span><i class="fas fa-table-columns mr-1.5 text-orange-600"></i><span data-i18n="gap_table_title">Bacarıqlar üzrə Təfərrüatlı Gap Analizi</span></span>
-                            <span class="text-[10px] text-slate-400 font-normal">🟢 Uyğun | 🟠 Kritik Boşluq</span>
+                            <span><i class="fas fa-table-columns mr-1.5 text-indigo-600"></i><span data-i18n="gap_table_title">Bacarıqlar üzrə Təfərrüatlı Gap Analizi</span></span>
+                            <span class="text-[10px] text-slate-400 font-normal">🟢 Uyğun | 🔴 Boşluq</span>
                         </h4>
                         
                         <div class="overflow-x-auto">
@@ -544,17 +544,17 @@
                     </div>
 
                     <!-- 3 Aylıq Karyera Sprint Planı (Actionable Sprint) -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
-                            <span><i class="fas fa-bullseye mr-1.5 text-orange-600"></i>Fərdi 3 Aylıq Karyera İnkişaf Planınız</span>
-                            <span class="text-[10px] text-orange-700 font-bold bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">100% Pulsuz Təlimlər</span>
+                            <span><i class="fas fa-bullseye mr-1.5 text-indigo-600"></i>Fərdi 3 Aylıq Karyera İnkişaf Planınız</span>
+                            <span class="text-[10px] text-indigo-700 font-bold bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">100% Pulsuz Təlimlər</span>
                         </h4>
                         <div id="top-recommendations-list" class="space-y-3">
                         </div>
                     </div>
 
                     <!-- Alternativ Karyera Tövsiyələri -->
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
                             <i class="fas fa-trophy mr-1.5 text-amber-500"></i><span data-i18n="career_alternatives">Mövcud Bacarıqlarınıza Əsasən Digər Uyğun Vəzifələr</span>
                         </h4>
@@ -579,7 +579,7 @@
                 <div class="w-full sm:w-80">
                     <div class="relative">
                         <i class="fas fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                        <input type="text" id="vacancy-search-input" oninput="app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya skill axtarın (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none shadow-sm">
+                        <input type="text" id="vacancy-search-input" oninput="app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya skill axtarın (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs">
                     </div>
                 </div>
             </div>
@@ -681,7 +681,7 @@
                 <div class="flex flex-wrap items-center gap-2.5">
                     <div class="flex items-center gap-2">
                         <label class="text-xs font-bold text-slate-700">Universitet:</label>
-                        <select id="university-selector" onchange="app.renderUniversityView()" class="text-xs font-bold p-2 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                        <select id="university-selector" onchange="app.renderUniversityView()" class="text-xs font-bold p-2 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500">
                             <option value="all">Bütün Universitetlər (Ümumi)</option>
                             <option value="unec">UNEC (İqtisad Universiteti)</option>
                             <option value="bdu">BDU (Bakı Dövlət Universiteti)</option>
@@ -691,7 +691,7 @@
                         </select>
                     </div>
 
-                    <button onclick="app.openSurveyImportModal()" class="px-3.5 py-2 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-sm flex items-center gap-1.5 hover:shadow-md transition-all">
+                    <button onclick="app.openSurveyImportModal()" class="px-3.5 py-2 text-xs font-bold rounded-xl btn-saas-primary shadow-sm flex items-center gap-1.5 hover:shadow-md transition-all">
                         <i class="fas fa-file-csv"></i>
                         <span>Import Student Survey Data</span>
                     </button>
@@ -716,7 +716,7 @@
 
             <!-- Tələbə Sorğusu Xülasə Kartları -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-1.5">
                     <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
                         <span>Sorğu Respondentləri</span>
                         <span id="survey-data-badge-1" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
@@ -725,16 +725,16 @@
                     <p class="text-[10px] text-slate-400">Google Forms / Sheets vasitəsilə toplanan cavablar</p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-1.5">
                     <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
                         <span>Aktiv İş Axtaranlar</span>
                         <span id="survey-data-badge-2" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
                     </div>
-                    <div class="text-2xl font-black text-orange-600" id="survey-job-search-pct">68.5%</div>
+                    <div class="text-2xl font-black text-indigo-600" id="survey-job-search-pct">68.5%</div>
                     <p class="text-[10px] text-slate-400">Məzun və ya sonuncu kurs tələbələri</p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-1.5">
                     <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
                         <span>İngilis Dili (B2+)</span>
                         <span id="survey-data-badge-3" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
@@ -743,7 +743,7 @@
                     <p class="text-[10px] text-slate-400">Sərbəst və ya yaxşı səviyyədə bilənlər</p>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-1.5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-1.5">
                     <div class="flex items-center justify-between text-xs text-slate-500 font-semibold">
                         <span>Ən Çox Hədəflənən Sektor</span>
                         <span id="survey-data-badge-4" class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700">PİLOT DEMO DATA</span>
@@ -754,18 +754,18 @@
             </div>
 
             <!-- ƏMƏK BAZARI TƏLƏBİ VS TƏLƏBƏ BACARIQLARI (MARKET VS STUDENT) -->
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-5">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2">
                     <div>
                         <h3 class="text-base font-black text-slate-900 flex items-center gap-2">
-                            <i class="fas fa-scale-balanced text-orange-600"></i>
+                            <i class="fas fa-scale-balanced text-indigo-600"></i>
                             <span>Əmək Bazarı Tələbi vs Tələbə Bacarıq Təklifi (Market Demand vs Student Skills)</span>
                         </h3>
                         <p class="text-xs text-slate-500">420 real vakansiyadakı tələbat faizi ilə tələbələrin bacarıq səviyyələrinin (Intermediate+) müqayisəsi.</p>
                     </div>
                     <div class="flex items-center gap-2 text-[10px] font-bold">
-                        <span class="inline-flex items-center gap-1 text-orange-600 bg-orange-50 px-2 py-1 rounded-lg border border-orange-200">
-                            <span class="w-2 h-2 rounded-full bg-orange-600"></span>Bazar Tələbi (%)
+                        <span class="inline-flex items-center gap-1 text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg border border-indigo-200">
+                            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>Bazar Tələbi (%)
                         </span>
                         <span class="inline-flex items-center gap-1 text-slate-700 bg-slate-100 px-2 py-1 rounded-lg border border-slate-200">
                             <span class="w-2 h-2 rounded-full bg-slate-700"></span>Tələbə Təklifi (%)
@@ -822,34 +822,34 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
                     <span class="text-xs font-bold text-slate-500 uppercase">Milli Gənc Məşğulluq İndeksi</span>
-                    <div class="text-3xl font-black text-orange-600 mt-2">64.2 / 100</div>
+                    <div class="text-3xl font-black text-indigo-600 mt-2">64.2 / 100</div>
                     <p class="text-xs text-slate-500 mt-2">Ali təhsil məzunlarının ilk 6 ayda ixtisası üzrə iş tapma potensialı.</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
                     <span class="text-xs font-bold text-slate-500 uppercase">Ən Yüksək Struktur Çatışmazlıq</span>
                     <div class="text-3xl font-black text-rose-600 mt-2">Data & SQL (-52%)</div>
                     <p class="text-xs text-slate-500 mt-2">İqtisadiyyat və idarəetmə məzunları arasında data savadlılığı çatışmazlığı.</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
                     <span class="text-xs font-bold text-slate-500 uppercase">Tövsiyə Olunan Təlim Büdcəsi</span>
                     <div class="text-3xl font-black text-emerald-600 mt-2">2.4 Milyon AZN</div>
                     <p class="text-xs text-slate-500 mt-2">DMA və Gənclər Fondu vasitəsilə IT və Data analitika qrantları üçün optimal həcm.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
                 <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fas fa-clipboard-check text-orange-600"></i>Strateji Dövlət Müdaxilə Təklifləri
+                    <i class="fas fa-clipboard-check text-indigo-600"></i>Strateji Dövlət Müdaxilə Təklifləri
                 </h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                         <div class="font-bold text-slate-900 flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">1</span>
+                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">1</span>
                             Universitetlərdə "Data Literacy" Məcburi Fənn Modulu
                         </div>
                         <p class="text-slate-600 leading-relaxed">
@@ -859,7 +859,7 @@
 
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                         <div class="font-bold text-slate-900 flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">2</span>
+                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">2</span>
                             Regional Əmək Mərkəzləri Subsidiyası
                         </div>
                         <p class="text-slate-600 leading-relaxed">
@@ -882,37 +882,37 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-6 space-y-4">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-bold text-slate-700 uppercase">Vakansiya Mətnini Daxil Edin</label>
                             <div class="flex items-center gap-1">
                                 <span class="text-[11px] text-slate-500">Nümunə:</span>
-                                <button onclick="app.loadSampleNLP(0)" class="text-[11px] text-orange-600 font-semibold hover:underline">Data</button>
+                                <button onclick="app.loadSampleNLP(0)" class="text-[11px] text-indigo-600 font-semibold hover:underline">Data</button>
                                 <span class="text-slate-300">•</span>
-                                <button onclick="app.loadSampleNLP(1)" class="text-[11px] text-orange-600 font-semibold hover:underline">Maliyyə</button>
+                                <button onclick="app.loadSampleNLP(1)" class="text-[11px] text-indigo-600 font-semibold hover:underline">Maliyyə</button>
                                 <span class="text-slate-300">•</span>
-                                <button onclick="app.loadSampleNLP(2)" class="text-[11px] text-orange-600 font-semibold hover:underline">Frontend</button>
+                                <button onclick="app.loadSampleNLP(2)" class="text-[11px] text-indigo-600 font-semibold hover:underline">Frontend</button>
                             </div>
                         </div>
 
-                        <textarea id="nlp-input-text" rows="10" class="w-full text-xs font-mono p-3.5 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Vakansiya mətnini bura yapışdırın..."></textarea>
+                        <textarea id="nlp-input-text" rows="10" class="w-full text-xs font-mono p-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Vakansiya mətnini bura yapışdırın..."></textarea>
 
-                        <button onclick="app.runNLPAnalysis()" class="w-full py-3.5 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+                        <button onclick="app.runNLPAnalysis()" class="w-full py-3.5 rounded-full btn-saas-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
                             <i class="fas fa-wand-magic-sparkles"></i>NLP ilə Analiz Et və Bacarıqları Çıxar
                         </button>
                     </div>
                 </div>
 
                 <div class="lg:col-span-6 space-y-4">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
                         <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider pb-3 border-b border-slate-100 flex items-center justify-between">
-                            <span><i class="fas fa-tags text-orange-600 mr-1.5"></i>Aşkar Edilən Tələblər & Teqlər</span>
+                            <span><i class="fas fa-tags text-indigo-600 mr-1.5"></i>Aşkar Edilən Tələblər & Teqlər</span>
                             <span class="text-[11px] text-slate-400 font-normal" id="nlp-detection-count">0 bacarıq tapıldı</span>
                         </h3>
 
                         <div class="space-y-3">
                             <div>
-                                <span class="text-[11px] font-bold text-orange-700 block mb-1.5">Texniki Bacarıqlar:</span>
+                                <span class="text-[11px] font-bold text-indigo-700 block mb-1.5">Texniki Bacarıqlar:</span>
                                 <div id="nlp-tech-tags" class="flex flex-wrap gap-1.5">
                                     <span class="text-xs text-slate-400 italic">Mətn daxil edib 'Analiz Et' düyməsinə basın</span>
                                 </div>
@@ -954,21 +954,21 @@
 
             <div>
                 <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <i class="fas fa-database text-orange-600"></i>Əsas İstinad və Məlumat Mənbələri
+                    <i class="fas fa-database text-indigo-600"></i>Əsas İstinad və Məlumat Mənbələri
                 </h3>
                 <div id="methodology-sources-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
                 <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fas fa-square-root-variable text-orange-600"></i>Riyazi və Alqoritmik Hesablama Modelləri
+                    <i class="fas fa-square-root-variable text-indigo-600"></i>Riyazi və Alqoritmik Hesablama Modelləri
                 </h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                         <span class="font-bold text-slate-900 block">1. Uyğunluq Faizi (Match Score)</span>
-                        <code class="text-[11px] text-orange-600 bg-white p-1 rounded border border-slate-200 block">Match = (Σ min(U, W) / Σ W) * 100</code>
+                        <code class="text-[11px] text-indigo-600 bg-white p-1 rounded border border-slate-200 block">Match = (Σ min(U, W) / Σ W) * 100</code>
                         <p class="text-slate-500 text-[11px] mt-1">İstifadəçinin bilik səviyyəsi ($U$) ilə bazarın çəkili tələb indeksinin ($W$) nisbəti.</p>
                     </div>
 
@@ -990,13 +990,13 @@
     </main>
 
     <!-- 3. TƏHLÜKƏSİZ ŞİFRƏLİ AUTH & PROFİL MODALI (LOGIN & REGISTER) -->
-    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn relative">
             
             <!-- Modal Başlıq və Bağla -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-bold shadow-md">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold shadow-md shadow-indigo-500/20">
                         <i class="fas fa-user-lock"></i>
                     </div>
                     <div>
@@ -1018,10 +1018,10 @@
             <!-- Tablar: Giriş vs Qeydiyyat -->
             <div class="flex rounded-xl bg-slate-100 p-1">
                 <button id="auth-tab-login-btn" onclick="app.switchAuthMode('login')" class="flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all">
-                    <i class="fas fa-right-to-bracket mr-1.5 text-orange-600"></i>Daxil Ol
+                    <i class="fas fa-right-to-bracket mr-1.5 text-indigo-600"></i>Daxil Ol
                 </button>
                 <button id="auth-tab-reg-btn" onclick="app.switchAuthMode('register')" class="flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all">
-                    <i class="fas fa-user-plus mr-1.5 text-orange-600"></i>Yeni Qeydiyyat
+                    <i class="fas fa-user-plus mr-1.5 text-indigo-600"></i>Yeni Qeydiyyat
                 </button>
             </div>
 
@@ -1031,7 +1031,7 @@
                     <label class="block text-xs font-bold text-slate-700 mb-1">E-poçt Ünvanı</label>
                     <div class="relative">
                         <i class="fas fa-envelope absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                        <input type="email" id="login-email" required placeholder="ad@domain.com" class="w-full text-xs pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <input type="email" id="login-email" required placeholder="ad@domain.com" class="w-full text-xs pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     </div>
                 </div>
 
@@ -1039,7 +1039,7 @@
                     <label class="block text-xs font-bold text-slate-700 mb-1">Şifrə</label>
                     <div class="relative">
                         <i class="fas fa-lock absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                        <input type="password" id="login-password" required placeholder="Şifrənizi daxil edin" class="w-full text-xs pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <input type="password" id="login-password" required placeholder="Şifrənizi daxil edin" class="w-full text-xs pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                         <button type="button" onclick="app.togglePasswordVisibility('login-password')" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -1048,15 +1048,15 @@
 
                 <div class="flex items-center justify-between text-xs">
                     <label class="flex items-center gap-1.5 text-slate-600 cursor-pointer">
-                        <input type="checkbox" checked class="rounded text-orange-600 focus:ring-orange-500">
+                        <input type="checkbox" checked class="rounded text-indigo-600 focus:ring-indigo-500">
                         <span>Məni yadda saxla</span>
                     </label>
-                    <a href="javascript:void(0)" onclick="app.fillDemoCredentials()" class="text-orange-600 font-bold hover:underline">
+                    <a href="javascript:void(0)" onclick="app.fillDemoCredentials()" class="text-indigo-600 font-bold hover:underline">
                         ⚡ Demo Hesabı Doldur
                     </a>
                 </div>
 
-                <button type="submit" class="w-full py-3 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+                <button type="submit" class="w-full py-3 rounded-full btn-saas-primary font-bold text-xs shadow-md flex items-center justify-center gap-2">
                     <i class="fas fa-right-to-bracket"></i>Kabinetə Daxil Ol
                 </button>
             </form>
@@ -1066,18 +1066,18 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Adınız və Soyadınız</label>
-                        <input type="text" id="reg-name" required placeholder="məs: Nurlan Əliyev" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <input type="text" id="reg-name" required placeholder="məs: Nurlan Əliyev" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">E-poçt Ünvanı</label>
-                        <input type="email" id="reg-email" required placeholder="nurlan@gmail.com" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <input type="email" id="reg-email" required placeholder="nurlan@gmail.com" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Şifrə (ən azı 6 simvol)</label>
                     <div class="relative">
-                        <input type="password" id="reg-password" required minlength="6" placeholder="Güclü şifrə təyin edin" class="w-full text-xs p-2.5 pr-10 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                        <input type="password" id="reg-password" required minlength="6" placeholder="Güclü şifrə təyin edin" class="w-full text-xs p-2.5 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                         <button type="button" onclick="app.togglePasswordVisibility('reg-password')" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -1087,7 +1087,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Universitet</label>
-                        <select id="reg-university" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                        <select id="reg-university" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500">
                             <option value="UNEC">UNEC (İqtisad Univ.)</option>
                             <option value="BANM">BANM (Bakı Ali Neft Məktəbi)</option>
                             <option value="BDU">BDU (Bakı Dövlət Univ.)</option>
@@ -1099,7 +1099,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Təhsil Səviyyəsi</label>
-                        <select id="reg-degree" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                        <select id="reg-degree" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500">
                             <option value="Bakalavr">Bakalavr (Tələbə)</option>
                             <option value="Magistr">Magistr</option>
                             <option value="Məzun">Məzun (Gənc Mütəxəssis)</option>
@@ -1109,13 +1109,13 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">İxtisas / Fakültə</label>
-                    <input type="text" id="reg-faculty" placeholder="məs: Maliyyə və Mühasibat" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                    <input type="text" id="reg-faculty" placeholder="məs: Maliyyə və Mühasibat" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Hədəf Vəzifə</label>
-                        <select id="reg-target-role" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                        <select id="reg-target-role" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500">
                             <option value="data_analyst">Data Analitik</option>
                             <option value="financial_analyst">Maliyyə Analitiki</option>
                             <option value="business_analyst">Biznes Analitik</option>
@@ -1126,7 +1126,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">İngilis Dili</label>
-                        <select id="reg-english" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500">
+                        <select id="reg-english" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500">
                             <option value="B1">B1 (Orta)</option>
                             <option value="B2" selected>B2 (Yaxşı)</option>
                             <option value="C1">C1 (Sərbəst)</option>
@@ -1135,7 +1135,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3 rounded-xl gradient-orange-btn text-white font-bold text-xs shadow-md flex items-center justify-center gap-2">
+                <button type="submit" class="w-full py-3 rounded-full btn-saas-primary font-bold text-xs shadow-md flex items-center justify-center gap-2">
                     <i class="fas fa-check"></i>Profilimi Yarat & Giriş Et
                 </button>
             </form>
@@ -1144,11 +1144,11 @@
     </div>
 
     <!-- 4. DATA İDXAL / YÜKLƏMƏ MODALI -->
-    <div id="data-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="data-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
                         <i class="fas fa-database"></i>
                     </div>
                     <div>
@@ -1168,7 +1168,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1.5">JSON Məlumatını Yapışdırın və ya Fayldan Seçin</label>
-                    <textarea id="import-json-text" rows="8" class="w-full text-xs font-mono p-3 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Məsələn: { jobRolesBenchmark: [...], regionsMapData: [...] }"></textarea>
+                    <textarea id="import-json-text" rows="8" class="w-full text-xs font-mono p-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Məsələn: { jobRolesBenchmark: [...], regionsMapData: [...] }"></textarea>
                 </div>
             </div>
 
@@ -1178,7 +1178,7 @@
                 </button>
                 <div class="flex items-center gap-2">
                     <button onclick="app.closeDataModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">Bağla</button>
-                    <button onclick="app.importCustomData()" class="px-5 py-2 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-md">
+                    <button onclick="app.importCustomData()" class="px-5 py-2 text-xs font-bold rounded-full btn-saas-primary shadow-sm">
                         <i class="fas fa-check mr-1.5"></i>Datanı Tətbiq Et
                     </button>
                 </div>
@@ -1187,11 +1187,11 @@
     </div>
 
     <!-- 4.5. GOOGLE FORMS SURVEY İDXAL MODALI -->
-    <div id="modal-survey-import" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="modal-survey-import" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2">
-                    <div class="w-9 h-9 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-lg">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
                         <i class="fas fa-file-excel"></i>
                     </div>
                     <div>
@@ -1219,7 +1219,7 @@
             <div class="space-y-4 text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1.5">Fayldan Yükləyin (.csv və ya .xlsx):</label>
-                    <input type="file" id="survey-file-input" accept=".csv, .xlsx" onchange="app.handleSurveyFileUpload(event)" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-600 file:text-white hover:file:bg-orange-700">
+                    <input type="file" id="survey-file-input" accept=".csv, .xlsx" onchange="app.handleSurveyFileUpload(event)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700">
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -1231,11 +1231,11 @@
                 <div>
                     <div class="flex items-center justify-between mb-1.5">
                         <label class="font-bold text-slate-700">CSV Məlumatı (Başlıqlar + Sətirlər):</label>
-                        <button type="button" onclick="app.fillSampleSurveyCSV()" class="text-[10px] text-orange-600 hover:underline font-bold">
+                        <button type="button" onclick="app.fillSampleSurveyCSV()" class="text-[10px] text-indigo-600 hover:underline font-bold">
                             <i class="fas fa-magic mr-1"></i>Nümunə Google Forms Datasını Doldur
                         </button>
                     </div>
-                    <textarea id="survey-csv-text" oninput="app.previewSurveyMapping()" rows="5" class="w-full font-mono text-[11px] p-3 bg-slate-50 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:outline-none" placeholder="Universitet,İxtisas,İş təcrübəsi,İngilis dili,Excel səviyyəsi,SQL səviyyəsi&#10;UNEC,Maliyyə,Təcrübəsiz,B2,4,2&#10;BDU,Kompüter Elmləri,1 il,B1,3,4"></textarea>
+                    <textarea id="survey-csv-text" oninput="app.previewSurveyMapping()" rows="5" class="w-full font-mono text-[11px] p-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Universitet,İxtisas,İş təcrübəsi,İngilis dili,Excel səviyyəsi,SQL səviyyəsi&#10;UNEC,Maliyyə,Təcrübəsiz,B2,4,2&#10;BDU,Kompüter Elmləri,1 il,B1,3,4"></textarea>
                 </div>
 
                 <!-- Sütun Mapping Önizləməsi -->
@@ -1253,7 +1253,7 @@
             <!-- Düymələr -->
             <div class="flex items-center justify-between pt-3 border-t border-slate-100">
                 <button onclick="app.closeSurveyImportModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700">Bağla</button>
-                <button onclick="app.executeSurveyImport()" class="px-5 py-2.5 text-xs font-bold rounded-xl gradient-orange-btn text-white shadow-md flex items-center gap-1.5 hover:shadow-lg transition-all">
+                <button onclick="app.executeSurveyImport()" class="px-5 py-2.5 text-xs font-bold rounded-full btn-saas-primary shadow-sm flex items-center gap-1.5 hover:shadow-md transition-all">
                     <i class="fas fa-file-import"></i>
                     <span>Sorğu Məlumatlarını İdxal Et</span>
                 </button>
@@ -1262,10 +1262,10 @@
     </div>
 
     <!-- 5. FOOTER -->
-    <footer class="bg-white border-t border-slate-200 mt-12 py-8 text-center text-xs text-slate-500">
+    <footer class="bg-white border-t border-slate-200/80 mt-12 py-8 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
             <div class="flex items-center justify-center gap-2 font-bold text-slate-800">
-                <i class="fas fa-bolt text-orange-600"></i>
+                <i class="fas fa-bolt text-indigo-600"></i>
                 <span>SkillMap Azerbaijan</span>
             </div>
             <p>Gənclər, Universitetlər və Dövlət üçün Data Əsaslı Karyera və Əmək Bazarı Qərar Dəstəyi Platforması</p>
