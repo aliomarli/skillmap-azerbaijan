@@ -291,8 +291,8 @@ class SkillMapApp {
     // ========================================================
 
     renderStudentCabinet() {
-        const isLoggedIn = this.auth && this.auth.isLoggedIn();
-        const user = (isLoggedIn && this.auth.currentUser) ? this.auth.currentUser : null;
+        const user = (this.auth && this.auth.currentUser) ? this.auth.currentUser : (this.auth ? this.auth.getDefaultStudent() : null);
+        const isLoggedIn = true;
 
         const welcomeTitle = document.getElementById("cab-welcome-title");
         const topName = document.getElementById("cab-top-username");

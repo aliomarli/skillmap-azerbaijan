@@ -8,14 +8,71 @@ class AuthManager {
         this.DB_KEY = 'skillmap_users_db';
         this.SESSION_KEY = 'skillmap_session_user';
         this.initDatabase();
-        this.currentUser = this.loadSession();
+        this.currentUser = this.loadSession() || this.getDefaultStudent();
+    }
+
+    getDefaultStudent() {
+        return {
+            id: 'std_default_01',
+            email: 'ali.omarli@example.com',
+            password: 'password123',
+            name: 'Əli Ömərli',
+            university: 'UNEC',
+            faculty: 'Maliyyə və İqtisadiyyat',
+            targetRole: 'financial_analyst',
+            targetSector: 'Maliyyə',
+            degree: 'Bakalavr',
+            graduationYear: '2026',
+            experience_years: 0,
+            employmentStatus: 'Tələbə / Məzun',
+            englishLevel: 'B2',
+            city: 'Bakı',
+            otherLanguages: 'Rus dili (B1), Türk dili',
+            gpa: '88.5',
+            studentId: 'AZ-UNEC-2026',
+            isVerified: true,
+            joinedDate: '15 Fevral 2026',
+            savedSkills: {
+                'excel': 4,
+                'financial_analysis': 3,
+                'analytical_thinking': 4,
+                'english': 4,
+                'sql': 2,
+                'power_bi': 2,
+                'accounting_1c': 2
+            },
+            skillSources: {
+                'excel': 'user-added',
+                'financial_analysis': 'user-added',
+                'analytical_thinking': 'user-added',
+                'english': 'user-added',
+                'sql': 'user-added',
+                'power_bi': 'user-added',
+                'accounting_1c': 'user-added'
+            },
+            uploadedCV: {
+                name: 'Ali_Omarli_CV_Financial_Analyst.pdf',
+                uploadDate: '2026-08-20',
+                parsedScore: 88,
+                summary: 'UNEC Maliyyə və İqtisadiyyat fakültəsi məzunu, maliyyə təhlili, Excel və analitik düşüncə bacarıqları.'
+            },
+            cvVersions: []
+        };
     }
 
     initDatabase() {
         let db = this.getDatabase();
-        if (!db) {
+        const defaultUser = this.getDefaultStudent();
+        if (!db || Object.keys(db).length === 0) {
             db = {};
-            localStorage.setItem(this.DB_KEY, JSON.stringify(db));
+            db[defaultUser.email] = defaultUser;
+            this.saveDatabase(db);
+        } else if (!db[defaultUser.email]) {
+            db[defaultUser.email] = defaultUser;
+            this.saveDatabase(db);
+        }
+        if (!localStorage.getItem(this.SESSION_KEY)) {
+            this.saveSession(defaultUser);
         }
     }
 
@@ -35,10 +92,9 @@ class AuthManager {
     loadSession() {
         try {
             const session = localStorage.getItem(this.SESSION_KEY);
-            return session ? JSON.parse(session) : null;
-        } catch (e) {
-            return null;
-        }
+            if (session) return JSON.parse(session);
+        } catch (e) {}
+        return this.getDefaultStudent();
     }
 
     saveSession(user) {
