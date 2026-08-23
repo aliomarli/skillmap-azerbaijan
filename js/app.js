@@ -41,6 +41,7 @@ class SkillMapApp {
 
         try { this.loadSampleNLP(0); } catch (e) { console.error("Error in loadSampleNLP:", e); }
         try { this.runSkillGapCalculation(); } catch (e) { console.error("Error in runSkillGapCalculation:", e); }
+        try { this.initRouter(); } catch (e) { console.error("Error in initRouter:", e); }
     }
 
     renderOverviewStats() {
@@ -290,7 +291,61 @@ class SkillMapApp {
         this.renderLiveVacancies();
     }
 
-    switchTab(tabId) {
+    initRouter() {
+        // Handle Browser Back / Forward buttons (popstate & hashchange)
+        window.addEventListener("popstate", (event) => {
+            const tabFromState = event.state && event.state.tab;
+            const tabFromHash = window.location.hash.replace(/^#/, "");
+            const targetTab = tabFromState || tabFromHash || "overview";
+            this.switchTab(targetTab, false);
+        });
+
+        window.addEventListener("hashchange", () => {
+            const targetTab = window.location.hash.replace(/^#/, "") || "overview";
+            if (targetTab !== this.currentActiveTab) {
+                this.switchTab(targetTab, false);
+            }
+        });
+
+        // Close open modals when pressing Escape key
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                this.closeAuthModal();
+                this.closeDataModal();
+                this.closeSurveyImportModal();
+            }
+        });
+
+        // Initial Route Resolution on page load
+        const initialHash = window.location.hash.replace(/^#/, "");
+        const validTabs = [
+            "overview",
+            "student-gap",
+            "live-vacancies",
+            "interactive-map",
+            "vacancy-analytics",
+            "university-dash",
+            "policy-gov",
+            "nlp-sandbox",
+            "methodology"
+        ];
+
+        if (initialHash && validTabs.includes(initialHash)) {
+            this.switchTab(initialHash, false);
+            try {
+                history.replaceState({ tab: initialHash }, "", `#${initialHash}`);
+            } catch (e) {}
+        } else {
+            this.switchTab("overview", false);
+            try {
+                history.replaceState({ tab: "overview" }, "", window.location.pathname + window.location.search);
+            } catch (e) {}
+        }
+    }
+
+    switchTab(tabId, updateHistory = true) {
+        if (!tabId) tabId = "overview";
+
         document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
         document.querySelectorAll("[data-tab-btn]").forEach(btn => {
             btn.classList.remove("text-indigo-600", "bg-indigo-50", "text-orange-700", "bg-orange-50", "font-bold", "text-primary-600", "bg-primary-50");
@@ -300,6 +355,12 @@ class SkillMapApp {
         const activeContent = document.getElementById(`tab-${tabId}`);
         if (activeContent) {
             activeContent.classList.add("active");
+            this.currentActiveTab = tabId;
+        } else {
+            const defaultContent = document.getElementById("tab-overview");
+            if (defaultContent) defaultContent.classList.add("active");
+            this.currentActiveTab = "overview";
+            tabId = "overview";
         }
 
         const activeBtns = document.querySelectorAll(`[data-tab-btn="${tabId}"]`);
@@ -307,6 +368,18 @@ class SkillMapApp {
             activeBtn.classList.remove("text-slate-600", "text-slate-700");
             activeBtn.classList.add("text-indigo-600", "bg-indigo-50", "font-bold");
         });
+
+        // Update Browser History Stack
+        if (updateHistory) {
+            const targetHash = `#${tabId}`;
+            if (window.location.hash !== targetHash) {
+                try {
+                    history.pushState({ tab: tabId }, "", targetHash);
+                } catch (e) {
+                    window.location.hash = tabId;
+                }
+            }
+        }
 
         if (tabId === "vacancy-analytics") {
             setTimeout(() => {

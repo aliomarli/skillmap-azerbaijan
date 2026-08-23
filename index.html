@@ -990,7 +990,7 @@
     </main>
 
     <!-- 3. TƏHLÜKƏSİZ ŞİFRƏLİ AUTH & PROFİL MODALI (LOGIN & REGISTER) -->
-    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="auth-modal" onclick="if(event.target === this) app.closeAuthModal()" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn relative">
             
             <!-- Modal Başlıq və Bağla -->
@@ -1144,7 +1144,7 @@
     </div>
 
     <!-- 4. DATA İDXAL / YÜKLƏMƏ MODALI -->
-    <div id="data-modal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="data-modal" onclick="if(event.target === this) app.closeDataModal()" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2">
@@ -1187,7 +1187,7 @@
     </div>
 
     <!-- 4.5. GOOGLE FORMS SURVEY İDXAL MODALI -->
-    <div id="modal-survey-import" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
+    <div id="modal-survey-import" onclick="if(event.target === this) app.closeSurveyImportModal()" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5 animate-fadeIn max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-2">
