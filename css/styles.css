@@ -1,10 +1,11 @@
-/* SkillMap Azerbaijan - Xüsusi Stillər və Narıncı Vurğular (styles.css) */
+/* SkillMap Azerbaijan - Premium Midnight & Radiant Flame Theme (styles.css) */
 
 :root {
-    --primary-orange: #f97316;
-    --primary-orange-dark: #ea580c;
+    --primary-flame: #ff5722;
+    --primary-flame-dark: #ea580c;
     --accent-amber: #f59e0b;
-    --navy-dark: #0f172a;
+    --midnight-bg: #0b0f19;
+    --midnight-surface: #131b2e;
     --navy-card: #1e293b;
     --emerald-success: #10b981;
     --rose-danger: #ef4444;
@@ -18,41 +19,87 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Narıncı Gradientlər və İşıqlandırma */
-.gradient-orange-banner {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #ea580c 125%);
+/* Midnight Hero Gradient və Ambient İşıqlandırma */
+.gradient-midnight-hero {
+    background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #0f172a 60%, #0b0f19 100%);
+    position: relative;
 }
 
-.gradient-orange-btn {
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-    box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.35);
+.gradient-midnight-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(249, 115, 22, 0.08) 50%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* Düymə Stilləri */
+.btn-flame-cta {
+    background: linear-gradient(135deg, #ff5722 0%, #ea580c 50%, #f59e0b 100%);
+    box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.45);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-flame-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -5px rgba(234, 88, 12, 0.6);
+    filter: brightness(1.05);
+}
+
+.btn-glass-outline {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: all 0.2s ease-in-out;
 }
 
-.gradient-orange-btn:hover {
+.btn-glass-outline:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px 0 rgba(249, 115, 22, 0.45);
 }
 
-.orange-glow {
-    box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.25);
+.pill-announcement {
+    background: linear-gradient(90deg, rgba(234, 88, 12, 0.15) 0%, rgba(99, 102, 241, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.2s ease;
+}
+
+.pill-announcement:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+    background: linear-gradient(90deg, rgba(234, 88, 12, 0.25) 0%, rgba(99, 102, 241, 0.3) 100%);
+}
+
+.pill-trust {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Naviqasiya Bar */
+.dark-glass-nav {
+    background: rgba(11, 15, 25, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-.glass-nav {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-/* Range Slider xüsusi Narıncı üslub */
+/* Range Slider xüsusi üslub */
 input[type=range] {
     -webkit-appearance: none;
     appearance: none;
@@ -68,15 +115,15 @@ input[type=range]::-webkit-slider-thumb {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #f97316;
+    background: #ea580c;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.5);
+    box-shadow: 0 2px 8px rgba(234, 88, 12, 0.5);
     transition: all 0.15s ease-in-out;
 }
 
 input[type=range]::-webkit-slider-thumb:hover {
     transform: scale(1.2);
-    background: #ea580c;
+    background: #c2410c;
 }
 
 /* Tab animasiyaları */
@@ -102,7 +149,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 /* Çatbot Stilləri */
 .chat-window {
-    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.25), 0 0 20px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.35), 0 0 20px rgba(234, 88, 12, 0.2);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -121,18 +168,18 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 
 .chat-bubble-user {
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    background: linear-gradient(135deg, #ff5722 0%, #ea580c 100%);
     color: white;
     border-bottom-right-radius: 4px;
 }
 
-/* Typing animatsiyası */
+/* Typing animasiyası */
 .typing-dots span {
     display: inline-block;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #f97316;
+    background-color: #ea580c;
     animation: typingBounce 1.2s infinite ease-in-out;
 }
 .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
@@ -147,9 +194,5 @@ input[type=range]::-webkit-slider-thumb:hover {
 @media print {
     .no-print, #chat-widget-container {
         display: none !important;
-    }
-    body {
-        background: white !important;
-        color: black !important;
     }
 }
