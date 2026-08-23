@@ -22,6 +22,7 @@ class SkillMapApp {
     }
 
     init() {
+        this.initCabinetNavListeners();
         try { this.renderOverviewStats(); } catch (e) { console.error("Error in renderOverviewStats:", e); }
         try { this.populateRolesDropdown(); } catch (e) { console.error("Error in populateRolesDropdown:", e); }
         try { this.handleRoleChange(); } catch (e) { console.error("Error in handleRoleChange:", e); }
@@ -1242,6 +1243,67 @@ class SkillMapApp {
             this.renderLiveVacancies();
         }
         window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    switchCabinetView(view) {
+        const viewName = (view || "overview").replace(/^cab-view-/, "").replace(/^cab-nav-/, "");
+        
+        // 1. Hide all cabinet subviews
+        const sections = document.querySelectorAll('[data-cabinet-view]');
+        if (sections.length > 0) {
+            sections.forEach(s => {
+                s.style.display = 'none';
+                s.classList.add('hidden');
+            });
+        }
+        
+        // Fallback for ID based lookup
+        const viewIds = [
+            "overview", "profile", "skills", "skill-gap", "vacancies", 
+            "career-directions", "dev-plan", "skill-passport", "cv-ats", "cv-builder", "settings"
+        ];
+        viewIds.forEach(v => {
+            const el = document.getElementById(`cab-view-${v}`);
+            if (el) {
+                el.style.display = 'none';
+                el.classList.add('hidden');
+            }
+        });
+
+        // 2. Show active subview
+        const activeSection = document.querySelector(`[data-cabinet-view="${viewName}"]`) || document.getElementById(`cab-view-${viewName}`);
+        if (activeSection) {
+            activeSection.style.display = 'block';
+            activeSection.classList.remove('hidden');
+        }
+
+        // 3. Highlight active nav button
+        document.querySelectorAll('.cabinet-nav-btn, .sidebar-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        const activeBtn = document.querySelector(`[data-view-btn="${viewName}"]`) || document.getElementById(`cab-nav-${viewName}`);
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
+
+        // Re-render radar chart if switching to skill gap
+        if (viewName === 'skill-gap' && this.lastMatchResult) {
+            this.renderSkillGapSubView(this.lastMatchResult, this.currentSkills || {});
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    initCabinetNavListeners() {
+        document.querySelectorAll('[data-view-btn]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const view = btn.getAttribute('data-view-btn');
+                if (view) {
+                    this.switchCabinetView(view);
+                }
+            });
+        });
     }
 
     openCVUploadModal() {
