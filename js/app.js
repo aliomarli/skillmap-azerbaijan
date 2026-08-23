@@ -2050,7 +2050,8 @@ class SkillMapApp {
             "university-dash",
             "policy-gov",
             "nlp-sandbox",
-            "methodology"
+            "methodology",
+            "admin"
         ];
 
         if (initialHash && validTabs.includes(initialHash)) {
@@ -2128,11 +2129,7 @@ class SkillMapApp {
 
         if (tabId === "admin") {
             if (this.admin) {
-                if (!this.admin.isAdminLoggedIn()) {
-                    this.admin.openAdminLoginModal();
-                } else {
-                    this.admin.renderAdminView();
-                }
+                this.admin.renderAdminView();
             }
         }
 

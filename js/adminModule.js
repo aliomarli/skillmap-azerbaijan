@@ -264,15 +264,53 @@ class AdminModule {
         }
     }
 
-    renderAdminView() {
+        renderAdminView() {
+        const loginView = document.getElementById("admin-view-login");
+        const dashView = document.getElementById("admin-view-dashboard");
+
         if (!this.isAdminLoggedIn()) {
-            this.openAdminLoginModal();
+            if (loginView) {
+                loginView.classList.remove("hidden");
+                loginView.style.display = "flex";
+            }
+            if (dashView) {
+                dashView.classList.add("hidden");
+                dashView.style.display = "none";
+            }
             return;
+        }
+
+        if (loginView) {
+            loginView.classList.add("hidden");
+            loginView.style.display = "none";
+        }
+        if (dashView) {
+            dashView.classList.remove("hidden");
+            dashView.style.display = "flex";
         }
 
         this.renderDashboardStats();
         this.loadStudentsList();
         this.switchAdminSubView(this.currentSubView || "dashboard");
+    }
+
+    handlePageAdminLoginSubmit(e) {
+        if (e) e.preventDefault();
+        const email = document.getElementById("admin-page-email")?.value || "admin@skillmap.az";
+        const pass = document.getElementById("admin-page-pass")?.value || "";
+        const errEl = document.getElementById("admin-page-login-err");
+
+        const res = this.login(email, pass);
+        if (res.success) {
+            if (errEl) errEl.classList.add("hidden");
+            window.app.showToast("Admin panelinə xoş gəldiniz!", "success");
+            this.renderAdminView();
+        } else {
+            if (errEl) {
+                errEl.textContent = res.message || "Master şifrə yanlışdır!";
+                errEl.classList.remove("hidden");
+            }
+        }
     }
 
     getAllStudents() {
