@@ -35,8 +35,6 @@ class SkillMapApp {
             }
         } catch (e) { console.error("Error in mapModule:", e); }
 
-        try { this.renderVacancyAnalytics(); } catch (e) { console.error("Error in renderVacancyAnalytics:", e); }
-        try { this.renderUniversityView(); } catch (e) { console.error("Error in renderUniversityView:", e); }
         try { this.renderLiveVacancies(); } catch (e) { console.error("Error in renderLiveVacancies:", e); }
         try { this.renderMethodologyView(); } catch (e) { console.error("Error in renderMethodologyView:", e); }
 
@@ -486,11 +484,7 @@ class SkillMapApp {
 
     
 
-    ;
-        this.renderStudentCabinet();
-        this.renderLiveVacancies();
-        alert("Demo Rejimi aktivləşdirildi. Siz nümunə tələbə profilinin analitikasını görürsünüz.");
-    }
+
 
     renderCabinetGeneralVacancies() {
         const container = document.getElementById("cab-matching-vacancies-list");

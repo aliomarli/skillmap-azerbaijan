@@ -18,7 +18,6 @@ class AuthManager {
             localStorage.setItem(this.DB_KEY, JSON.stringify(db));
         }
     }
-    }
 
     getDatabase() {
         try {
