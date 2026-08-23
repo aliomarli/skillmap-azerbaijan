@@ -18,6 +18,7 @@ class SkillMapApp {
         this.currentSkills = {};
         this.charts = {};
 
+        this.admin = new AdminModule();
         this.init();
     }
 
@@ -2125,6 +2126,16 @@ class SkillMapApp {
             }
         }
 
+        if (tabId === "admin") {
+            if (this.admin) {
+                if (!this.admin.isAdminLoggedIn()) {
+                    this.admin.openAdminLoginModal();
+                } else {
+                    this.admin.renderAdminView();
+                }
+            }
+        }
+
         if (tabId === "vacancy-analytics") {
             setTimeout(() => {
                 if (this.charts.topSkills) this.charts.topSkills.resize();
@@ -2790,7 +2801,8 @@ class SkillMapApp {
             window.mapModuleInstance = this.mapModule;
             this.nlpSim = new NLPSimulator(this.data);
 
-            this.init();
+            this.admin = new AdminModule();
+        this.init();
             this.closeDataModal();
             alert("Yeni vakansiya və əmək bazarı məlumatları uğurla tətbiq edildi!");
                } catch (e) {
