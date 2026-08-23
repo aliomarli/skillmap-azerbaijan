@@ -87,7 +87,7 @@ class SkillBot {
                             <i class="fas fa-sparkles text-orange-600"></i> Salam! Mən sizin Fərdi Karyera AI Məsləhətçinizəm.
                         </p>
                         <p class="text-slate-600 leading-relaxed">
-                            Mən sizin profilinizə, bacarıqlarınıza və Azərbaycanın 8 450+ vakansiyasına bələdəm. Sizə necə kömək edə bilərəm?
+                            Mən sizin profilinizə, bacarıqlarınıza və Azərbaycanın 420 real vakansiyasına (Jobsearch.az) bələdəm. Sizə necə kömək edə bilərəm?
                         </p>
                     </div>
 

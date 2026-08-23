@@ -142,7 +142,7 @@
                         Bacarıqlarınızı Real Əmək Bazarı ilə <span class="text-amber-400 underline decoration-orange-500 decoration-wavy decoration-2">Müqayisə Edin</span>.
                     </h1>
                     <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-8">
-                        Azərbaycanın aparıcı şirkətlərinin (PAŞA Bank, ABB, SOCAR, Azercell) 8 450+ vakansiya tələbləri ilə öz biliklərinizi test edin, çatışmayan bacarıqlarınızı və fərdi inkişaf planınızı əldə edin.
+                        Jobsearch.az platformasından toplanmış 420 real vakansiya tələbləri ilə öz biliklərinizi test edin, çatışmayan bacarıqlarınızı (Skill Gap) və fərdi inkişaf planınızı əldə edin.
                     </p>
                     <div class="flex flex-wrap items-center gap-3">
                         <button onclick="app.openAuthModal('register')" class="gradient-orange-btn px-6 py-3.5 rounded-xl text-white font-black text-sm shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
@@ -160,11 +160,10 @@
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span class="font-bold text-slate-800">Məlumat Bazası:</span>
-                    <span class="text-emerald-700 font-bold">420 Real Vakansiya (Jobsearch.az)</span>
-                    <span class="text-slate-400">| Genişlənən Baza: 8 000+</span>
+                    <span class="text-emerald-700 font-bold" id="trust-total-vacancies">420 Real Vakansiya (Jobsearch.az)</span>
                 </div>
                 <div class="flex items-center gap-4 text-[11px] text-slate-400">
-                    <span>Mənbələr: Jobsearch.az (Aktiv), DMA, Boss.az, HelloJob, LinkedIn</span>
+                    <span>Mənbələr: <strong class="text-emerald-700 font-bold">Jobsearch.az (Aktiv)</strong> <span class="text-slate-400">| DMA, Boss.az, HelloJob, LinkedIn (🔜 Planlaşdırılan)</span></span>
                     <span>•</span>
                     <span class="text-orange-600 font-bold cursor-pointer hover:underline" onclick="app.switchTab('methodology')">Metodologiya sənədi ➔</span>
                 </div>
@@ -180,7 +179,7 @@
                         </div>
                     </div>
                     <div class="text-2xl font-black text-slate-900" id="stat-total-vacancies">420</div>
-                    <p class="text-[11px] text-emerald-600 font-medium mt-1">
+                    <p class="text-[11px] text-emerald-600 font-medium mt-1" id="stat-total-vacancies-desc">
                         <i class="fas fa-check-circle mr-0.5"></i>Jobsearch.az Açıq Vakansiyaları
                     </p>
                 </div>
@@ -194,7 +193,7 @@
                     </div>
                     <div class="text-2xl font-black text-slate-900" id="stat-avg-match">58.4%</div>
                     <p class="text-[11px] text-slate-400 font-medium mt-1">
-                        <i class="fas fa-info-circle mr-0.5"></i>Demo kalibrasiya göstəricisi
+                        <i class="fas fa-info-circle mr-0.5"></i>Pilot nümunə kalibrasiyası
                     </p>
                 </div>
 
@@ -205,9 +204,9 @@
                             <i class="fas fa-star text-sm"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-black text-slate-900">İngilis dili & Excel</div>
-                    <p class="text-[11px] text-slate-500 font-medium mt-1">
-                        74% və 68% vakansiyada zəruri
+                    <div class="text-2xl font-black text-slate-900 truncate" id="stat-top-skill-name">Communication</div>
+                    <p class="text-[11px] text-slate-500 font-medium mt-1" id="stat-top-skill-desc">
+                        81 vakansiyada zəruri (19.3%)
                     </p>
                 </div>
 
@@ -215,12 +214,12 @@
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs text-slate-500 font-semibold uppercase">Ən Çox Artan Bacarıq</span>
                         <div class="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600">
-                            <i class="fas fa-robot text-sm"></i>
+                            <i class="fas fa-arrow-trend-up text-sm"></i>
                         </div>
                     </div>
-                    <div class="text-2xl font-black text-orange-600">+142%</div>
-                    <p class="text-[11px] text-slate-500 font-medium mt-1">
-                        AI Alətləri & Power BI (2026)
+                    <div class="text-2xl font-black text-orange-600" id="stat-rising-skill-val">+5.3 xal</div>
+                    <p class="text-[11px] text-slate-500 font-medium mt-1 truncate" id="stat-rising-skill-name">
+                        MS Excel & Analitika (2026 Trend)
                     </p>
                 </div>
             </div>

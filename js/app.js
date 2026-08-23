@@ -22,6 +22,7 @@ class SkillMapApp {
     }
 
     init() {
+        try { this.renderOverviewStats(); } catch (e) { console.error("Error in renderOverviewStats:", e); }
         try { this.populateRolesDropdown(); } catch (e) { console.error("Error in populateRolesDropdown:", e); }
         try { this.handleRoleChange(); } catch (e) { console.error("Error in handleRoleChange:", e); }
         try { this.updateAuthUI(); } catch (e) { console.error("Error in updateAuthUI:", e); }
@@ -40,6 +41,41 @@ class SkillMapApp {
 
         try { this.loadSampleNLP(0); } catch (e) { console.error("Error in loadSampleNLP:", e); }
         try { this.runSkillGapCalculation(); } catch (e) { console.error("Error in runSkillGapCalculation:", e); }
+    }
+
+    renderOverviewStats() {
+        const stats = (this.data && this.data.macroMarketStats) ? this.data.macroMarketStats : {};
+        const totalVacs = stats.totalAnalyzed || (this.data.liveVacancies ? this.data.liveVacancies.length : 420);
+
+        // 1. Total Vacancies
+        const totalElem = document.getElementById("stat-total-vacancies");
+        if (totalElem) totalElem.textContent = `${totalVacs}`;
+        const trustTotalElem = document.getElementById("trust-total-vacancies");
+        if (trustTotalElem) trustTotalElem.textContent = `${totalVacs} Real Vakansiya (Jobsearch.az)`;
+
+        // 2. Top Demanded Skill (Overall Top Skill)
+        const topSkills = stats.topSkillsAnalytics || stats.topDemandedSkillsOverall || [];
+        const topSkillNameElem = document.getElementById("stat-top-skill-name");
+        const topSkillDescElem = document.getElementById("stat-top-skill-desc");
+        if (topSkills.length > 0) {
+            const firstSkill = topSkills[0];
+            const sName = firstSkill.skill || firstSkill.name || "Communication";
+            const sPct = firstSkill.demand_percentage !== undefined ? firstSkill.demand_percentage : (firstSkill.percentage || 19.3);
+            const sCount = firstSkill.demand_count !== undefined ? firstSkill.demand_count : Math.round((sPct / 100) * totalVacs);
+            
+            if (topSkillNameElem) topSkillNameElem.textContent = sName;
+            if (topSkillDescElem) topSkillDescElem.textContent = `${sCount} vakansiyada zəruri (${sPct}%)`;
+        }
+
+        // 3. Rising Skill (Real Xal from macroMarketStats.risingSkills2026[0])
+        const risingList = stats.risingSkills2026 || [];
+        const risingValElem = document.getElementById("stat-rising-skill-val");
+        const risingNameElem = document.getElementById("stat-rising-skill-name");
+        if (risingList.length > 0) {
+            const firstRising = risingList[0];
+            if (risingValElem) risingValElem.textContent = firstRising.growth || "+5.3 xal";
+            if (risingNameElem) risingNameElem.textContent = `${firstRising.name} (2026 Trend)`;
+        }
     }
 
     updateAuthUI() {
