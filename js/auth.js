@@ -193,7 +193,7 @@ class AuthManager {
         });
     }
 
-    saveParsedCV(parsedCV) {
+            saveParsedCV(parsedCV) {
         if (!this.currentUser) return;
         this.currentUser.uploadedCV = parsedCV;
 
@@ -208,21 +208,36 @@ class AuthManager {
             });
         }
 
-        // Auto-merge profile info if confirmed
-        if (parsedCV.personalInfo && parsedCV.personalInfo.name) {
-            this.currentUser.name = parsedCV.personalInfo.name;
-        }
+        // NOTE: USER NAME IS STRICTLY PRESERVED. CV upload NEVER overwrites user's registered name.
+
+        // Auto-merge educational details
         if (parsedCV.education) {
             if (parsedCV.education.university) this.currentUser.university = parsedCV.education.university;
             if (parsedCV.education.degree) this.currentUser.degree = parsedCV.education.degree;
             if (parsedCV.education.field) this.currentUser.faculty = parsedCV.education.field;
         }
+
+        // Auto-merge experience
         if (parsedCV.experience) {
-            this.currentUser.experience_years = parsedCV.experience.totalYears || 0;
-            this.currentUser.employmentStatus = parsedCV.experience.employmentStatus || 'Tələbə';
+            if (parsedCV.experience.totalYears !== undefined && parsedCV.experience.totalYears > 0) {
+                this.currentUser.experience_years = parsedCV.experience.totalYears;
+            }
+            this.currentUser.employmentStatus = parsedCV.experience.employmentStatus || 'Tələbə / Məzun';
         }
-        if (parsedCV.languages && parsedCV.languages.englishLevel) {
-            this.currentUser.englishLevel = parsedCV.languages.englishLevel;
+
+        // Auto-merge languages
+        if (parsedCV.languages) {
+            if (parsedCV.languages.englishLevel) this.currentUser.englishLevel = parsedCV.languages.englishLevel;
+            if (parsedCV.languages.otherLanguagesStr) this.currentUser.otherLanguages = parsedCV.languages.otherLanguagesStr;
+        }
+
+        // Auto-merge city & target career
+        if (parsedCV.personalInfo && parsedCV.personalInfo.city) {
+            this.currentUser.city = parsedCV.personalInfo.city;
+        }
+        if (parsedCV.targetCareer) {
+            if (parsedCV.targetCareer.sector) this.currentUser.targetSector = parsedCV.targetCareer.sector;
+            if (parsedCV.targetCareer.role) this.currentUser.targetRole = parsedCV.targetCareer.role;
         }
 
         this.updateProfile(this.currentUser);

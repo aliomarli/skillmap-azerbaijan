@@ -1343,14 +1343,17 @@ class SkillMapApp {
         this.showCVConfirmationModal(parsed);
     }
 
-    showCVConfirmationModal(parsed) {
+        showCVConfirmationModal(parsed) {
         const modal = document.getElementById("modal-cv-confirm");
         if (!modal) return;
 
+        const currentUserName = (this.auth.currentUser && this.auth.currentUser.name) ? this.auth.currentUser.name : "";
+        const displayName = (parsed.personalInfo && parsed.personalInfo.name && parsed.personalInfo.name.length >= 4) ? parsed.personalInfo.name : (currentUserName || "Tələbə");
+
         document.getElementById("confirm-confidence-score").textContent = `${parsed.confidenceScore}%`;
         document.getElementById("confirm-file-name").textContent = parsed.fileName || "CV Faylı";
-        document.getElementById("confirm-name").textContent = parsed.personalInfo.name || "Namizəd";
-        document.getElementById("confirm-contact").textContent = `${parsed.personalInfo.email} · ${parsed.personalInfo.phone}`;
+        document.getElementById("confirm-name").textContent = displayName;
+        document.getElementById("confirm-contact").textContent = `${parsed.personalInfo.email || (this.auth.currentUser?.email || 'Məlumat yoxdur')} · ${parsed.personalInfo.phone || '+994 50 123 45 67'}`;
         document.getElementById("confirm-edu").textContent = `${parsed.education.university} · ${parsed.education.field}`;
         document.getElementById("confirm-exp").textContent = `${parsed.experience.totalYears} il (${parsed.experience.employmentStatus})`;
 
@@ -1370,12 +1373,25 @@ class SkillMapApp {
 
     confirmExtractedCV() {
         if (!this.pendingParsedCV) return;
-        this.auth.saveParsedCV(this.pendingParsedCV);
-        document.getElementById("modal-cv-confirm").style.display = "none";
         
-        alert("CV məlumatlarınız və bacarıqlarınız profilinizə uğurla inteqrasiya edildi!");
+        // Auto-merge to user profile
+        this.auth.saveParsedCV(this.pendingParsedCV);
+        
+        const modal = document.getElementById("modal-cv-confirm");
+        if (modal) modal.style.display = "none";
+        
+        this.showToast("✓ CV uğurla oxundu və məlumatlar profilinizə tətbiq edildi!");
+        
+        // Re-render student cabinet and stay on profile to see the auto-filled fields
         this.renderStudentCabinet();
-        this.switchCabinetView("cv-ats");
+        this.switchCabinetView("profile");
+    }
+
+    deleteUserCV() {
+        this.auth.deleteCV();
+        this.showToast("CV faylı silindi və profil yeniləndi.");
+        this.renderStudentCabinet();
+        this.switchCabinetView("profile");
     }
 
     // ========================================================

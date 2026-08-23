@@ -2118,6 +2118,13 @@
     <script src="js/auth.js"></script>
     <script src="js/data.js"></script>
     <script src="js/skillGapEngine.js"></script>
+        <!-- PDF.js CDN (Client-side bilingual PDF parser) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (typeof window !== "undefined" && window.pdfjsLib) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        }
+    </script>
     <script src="js/cvParser.js"></script>
     <script src="js/atsEngine.js"></script>
     <script src="js/cvBuilder.js"></script>
