@@ -109,15 +109,9 @@ class SkillMapApp {
                 `;
             }
 
-            if (studentAvatarBadge) {
-                studentAvatarBadge.textContent = initials;
-            }
-            if (studentIdDisplay) {
-                studentIdDisplay.textContent = `ID: ${user.studentId || 'AZ-STD-2026'}`;
-            }
-            if (studentNameBanner) {
-                studentNameBanner.textContent = `${user.name} 👋`;
-            }
+            if (studentAvatarBadge) studentAvatarBadge.textContent = initials;
+            if (studentIdDisplay) studentIdDisplay.textContent = `ID: ${user.studentId || 'AZ-STD-2026'}`;
+            if (studentNameBanner) studentNameBanner.textContent = `${user.name} 👋`;
             if (studentMetaBanner) {
                 studentMetaBanner.innerHTML = `
                     <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-university text-indigo-600 mr-1.5"></i>${user.university} – ${user.faculty}</span>
@@ -145,8 +139,13 @@ class SkillMapApp {
                     </button>
                 `;
             }
-            if (studentNameBanner) {
-                studentNameBanner.textContent = `Tələbə və Məzun Karyera Kabineti 👋`;
+            if (studentNameBanner) studentNameBanner.textContent = `Tələbə və Məzun Karyera Kabineti 👋`;
+            if (studentAvatarBadge) studentAvatarBadge.textContent = "👤";
+            if (studentIdDisplay) studentIdDisplay.textContent = "Giriş Tələb Olunur";
+            if (studentMetaBanner) {
+                studentMetaBanner.innerHTML = `
+                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-500 shadow-2xs"><i class="fas fa-lock text-slate-400 mr-1.5"></i>Şəxsi profilinizi görmək üçün daxil olun</span>
+                `;
             }
         }
     }
@@ -263,61 +262,144 @@ class SkillMapApp {
 
     handleLogout() {
         this.auth.logout();
+        this.isDemoMode = false;
+        this.currentSkills = {};
         this.updateAuthUI();
-    }
-
-    toggleLanguage() {
-        this.currentLang = this.currentLang === "az" ? "en" : "az";
-        this.applyLanguage();
-    }
-
-    applyLanguage() {
-        const langDict = this.data.i18n[this.currentLang];
-        const langBtn = document.getElementById("lang-toggle-btn");
-        if (langBtn) {
-            langBtn.innerHTML = this.currentLang === "az" 
-                ? `<span class="text-sm">🇦🇿</span> <span class="font-bold">AZ</span>` 
-                : `<span class="text-sm">🇬🇧</span> <span class="font-bold">EN</span>`;
-        }
-
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.getAttribute("data-i18n");
-            if (langDict[key]) {
-                el.textContent = langDict[key];
-            }
-        });
-
-        this.runSkillGapCalculation();
+        this.renderStudentCabinet();
         this.renderLiveVacancies();
+        alert("Kabinetdən uğurla çıxış edildi. Şəxsi məlumatlar təmizləndi.");
+    }
+
+    toggleCabinetDarkMode(isDark) {
+        const root = document.getElementById("student-cabinet-root");
+        if (root) {
+            if (isDark) root.classList.add("student-cabinet-dark");
+            else root.classList.remove("student-cabinet-dark");
+        }
     }
 
 
     // ========================================================
-    // STUDENT CABINET 2.0 INTEGRATION METHODS (SCREENSHOT SOURCE OF TRUTH)
+    // STUDENT CABINET 2.0 METHODS (AUTH-AWARE & SECURE)
     // ========================================================
 
     renderStudentCabinet() {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : {
-            name: "Əli Ömərli",
-            email: "ali.omarli@example.com",
-            university: "UNEC",
-            faculty: "Maliyyə və İqtisadiyyat",
-            degree: "Bakalavr",
-            experience_years: 1,
-            employmentStatus: "Tələbə / Təcrübəçi",
-            englishLevel: "B2",
-            targetRole: "financial_analyst",
-            studentId: "AZ-UNEC-2026-8492",
-            savedSkills: {
-                "excel": 4,
-                "financial_analysis": 4,
-                "sql": 2,
-                "powerbi": 1,
-                "financial_modeling": 2,
-                "presentation_skills": 4
-            }
-        };
+        const isLoggedIn = this.auth && this.auth.isLoggedIn();
+        const user = isLoggedIn ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : null);
 
+        const topName = document.getElementById("cab-top-username");
+        const topAvatar = document.getElementById("cab-top-avatar");
+        const welcomeTitle = document.getElementById("cab-welcome-title");
+
+        if (!user) {
+            // ====================================================
+            // LOGGED-OUT STATE (GUEST / ANONYMOUS)
+            // ====================================================
+            if (topName) topName.textContent = "Qonaq";
+            if (topAvatar) topAvatar.textContent = "👤";
+
+            if (welcomeTitle) {
+                welcomeTitle.textContent = "Xoş Gəlmisiniz! 👋";
+            }
+
+            const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
+            if (welcomeDesc) {
+                welcomeDesc.textContent = "Fərdi Career Match, Skill Gap analizi və sizə uyğun vakansiyaların uyğunluq dərəcəsini görmək üçün zəhmət olmasa şəxsi kabinetinizə daxil olun və ya qeydiyyatdan keçin.";
+            }
+
+            const welcomeBtns = document.querySelector("#cab-view-overview .pt-2.flex.flex-wrap");
+            if (welcomeBtns) {
+                welcomeBtns.innerHTML = `
+                    <button onclick="app.openAuthModal('login')" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
+                        <i class="fas fa-right-to-bracket"></i>
+                        <span>Kabinetə Daxil Ol</span>
+                    </button>
+                    <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition-all">
+                        <i class="fas fa-user-plus mr-1"></i>Qeydiyyatdan Keç
+                    </button>
+                    <button onclick="app.loadDemoProfile()" class="px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold transition-all">
+                        <i class="fas fa-eye mr-1"></i>Demo Rejimini Sına
+                    </button>
+                `;
+            }
+
+            // 5 Top Stat Cards (Logged Out)
+            const matchElem = document.getElementById("cab-stat-match");
+            if (matchElem) matchElem.textContent = "— %";
+
+            const roleElem = document.getElementById("cab-stat-role");
+            if (roleElem) roleElem.textContent = "Seçilməyib";
+
+            const sectorElem = document.getElementById("cab-stat-sector");
+            if (sectorElem) sectorElem.textContent = "Giriş tələb olunur";
+
+            const topGapNameElem = document.getElementById("cab-stat-top-gap-name");
+            if (topGapNameElem) topGapNameElem.textContent = "—";
+
+            const topGapDescElem = document.getElementById("cab-stat-top-gap-desc");
+            if (topGapDescElem) topGapDescElem.textContent = "Profil daxil edilməyib";
+
+            const vacCountElem = document.getElementById("cab-stat-vacancies-count");
+            if (vacCountElem) vacCountElem.textContent = `${this.data && this.data.liveVacancies ? this.data.liveVacancies.length : 420}`;
+
+            const altCountElem = document.getElementById("cab-stat-alts-count");
+            if (altCountElem) altCountElem.textContent = "—";
+
+            // Row 1: Skill Gap Table (Locked state)
+            const tbody = document.getElementById("cab-gap-table-body");
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-10 text-slate-500">
+                            <i class="fas fa-lock text-2xl text-slate-300 mb-2 block"></i>
+                            <span class="font-bold text-slate-700 block mb-1">Şəxsi Skill Gap Analizi Giriş Tələb Edir</span>
+                            <span class="text-xs text-slate-500 block mb-3">Bacarıqlarınızın əmək bazarı ilə müqayisəsini görmək üçün daxil olun.</span>
+                            <div class="flex items-center justify-center gap-2">
+                                <button onclick="app.openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold">Daxil Ol</button>
+                                <button onclick="app.loadDemoProfile()" class="px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Demo Nümunə</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Row 1: Career Alternatives (Locked state)
+            const altsList = document.getElementById("cab-career-alts-list");
+            if (altsList) {
+                altsList.innerHTML = `
+                    <div class="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
+                        <i class="fas fa-lock text-slate-300 text-xl mb-1.5 block"></i>
+                        Fərdi karyera uyğunluq faizləriniz daxil olduqdan sonra hesablanacaq.
+                    </div>
+                `;
+            }
+
+            // Row 2: Matching Vacancies (General list without fake personal match percentages)
+            this.renderCabinetGeneralVacancies();
+
+            // Row 2: Development Plan (Locked state)
+            const devPlan = document.getElementById("cab-dev-plan-steps");
+            if (devPlan) {
+                devPlan.innerHTML = `
+                    <div class="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
+                        <i class="fas fa-route text-slate-300 text-xl mb-1.5 block"></i>
+                        Fərdi 4 addımlıq inkişaf planı üçün bacarıqlarınızı daxil edin.
+                    </div>
+                `;
+            }
+
+            // Row 3: Skill Passport (Locked state)
+            this.renderCabinetPassportCard(null, null, {});
+
+            // Sub-views
+            this.populateProfileSubView({ name: "", email: "", university: "UNEC", faculty: "", degree: "Bakalavr", experience_years: 0, englishLevel: "B2" });
+            this.renderSkillsSubView({});
+            return;
+        }
+
+        // ====================================================
+        // LOGGED-IN OR DEMO MODE STATE (FULL PERSONALIZED ANALYSIS)
+        // ====================================================
         const targetRoleId = user.targetRole || "financial_analyst";
         const currentSkills = user.savedSkills || this.currentSkills || {};
 
@@ -326,19 +408,35 @@ class SkillMapApp {
         this.lastMatchResult = matchResult;
 
         // 1. Header & Welcome Banner
-        const topName = document.getElementById("cab-top-username");
-        if (topName) topName.textContent = user.name || "Əli Ömərli";
+        if (topName) topName.textContent = user.name || "İstifadəçi";
         
-        const topAvatar = document.getElementById("cab-top-avatar");
         if (topAvatar) {
-            const initials = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "ƏÖ";
+            const initials = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "TL";
             topAvatar.textContent = initials;
         }
 
-        const welcomeTitle = document.getElementById("cab-welcome-title");
         if (welcomeTitle) {
-            const firstName = user.name ? user.name.split(" ")[0] : "Əli";
-            welcomeTitle.textContent = `Salam, ${firstName}! 👋`;
+            const firstName = user.name ? user.name.split(" ")[0] : "İstifadəçi";
+            const demoBadge = this.isDemoMode ? ` <span class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">DEMO REJİMİ</span>` : "";
+            welcomeTitle.innerHTML = `Salam, ${firstName}! 👋${demoBadge}`;
+        }
+
+        const welcomeDesc = document.querySelector("#cab-view-overview p.text-slate-600");
+        if (welcomeDesc) {
+            welcomeDesc.textContent = "Karyera hədəflərinizə çatmaq üçün bacarıqlarınızı analiz edirik və ən uyğun iş imkanlarını sizin üçün tapırıq.";
+        }
+
+        const welcomeBtns = document.querySelector("#cab-view-overview .pt-2.flex.flex-wrap");
+        if (welcomeBtns) {
+            welcomeBtns.innerHTML = `
+                <button onclick="app.openCVUploadModal()" class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
+                    <i class="fas fa-file-arrow-up"></i>
+                    <span>CV-ni yüklə & ATS Analizi</span>
+                </button>
+                <button onclick="app.switchCabinetView('profile')" class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+                    <i class="fas fa-sliders mr-1"></i>Hədəfi Dəyiş
+                </button>
+            `;
         }
 
         // 2. 5 Top Stat Cards
@@ -391,6 +489,87 @@ class SkillMapApp {
         this.renderCVBuilderSubView(user, targetRoleId);
     }
 
+    getDemoUserData() {
+        return {
+            name: "Əli Ömərli (Demo)",
+            email: "ali.demo@unec.edu.az",
+            university: "UNEC",
+            faculty: "Maliyyə və İqtisadiyyat",
+            degree: "Bakalavr",
+            experience_years: 1,
+            employmentStatus: "Tələbə / Təcrübəçi",
+            englishLevel: "B2",
+            targetRole: "financial_analyst",
+            studentId: "AZ-DEMO-2026-8492",
+            savedSkills: {
+                "excel": 4,
+                "financial_analysis": 4,
+                "sql": 2,
+                "powerbi": 1,
+                "financial_modeling": 2,
+                "presentation_skills": 4
+            }
+        };
+    }
+
+    loadDemoProfile() {
+        this.isDemoMode = true;
+        this.currentSkills = {
+            "excel": 4,
+            "financial_analysis": 4,
+            "sql": 2,
+            "powerbi": 1,
+            "financial_modeling": 2,
+            "presentation_skills": 4
+        };
+        this.renderStudentCabinet();
+        this.renderLiveVacancies();
+        alert("Demo Rejimi aktivləşdirildi. Siz nümunə tələbə profilinin analitikasını görürsünüz.");
+    }
+
+    renderCabinetGeneralVacancies() {
+        const container = document.getElementById("cab-matching-vacancies-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const vacancies = (this.data && this.data.liveVacancies) ? this.data.liveVacancies.slice(0, 4) : [];
+        vacancies.forEach(job => {
+            const div = document.createElement("div");
+            div.className = "p-3.5 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs transition-all";
+            
+            const compInitials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
+            const skillsList = job.skills ? job.skills.slice(0, 3) : ["Excel", "Analitika"];
+
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                        ${compInitials}
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
+                            <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location || "Bakı"}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500">${job.company}</div>
+                        <div class="flex flex-wrap gap-1 pt-0.5">
+                            ${skillsList.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
+                    <button onclick="app.openAuthModal('login')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-[11px] font-bold transition-all">
+                        <i class="fas fa-lock text-[9px] text-slate-400 mr-1"></i>Uyğunluq üçün daxil olun
+                    </button>
+                    <a href="${job.source_url || job.url || 'https://jobsearch.az'}" target="_blank" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
+                        Vakansiyaya bax
+                    </a>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
     renderCabinetGapTable(result, currentSkills) {
         const tbody = document.getElementById("cab-gap-table-body");
         if (!tbody) return;
@@ -409,12 +588,10 @@ class SkillMapApp {
             const tr = document.createElement("tr");
             tr.className = "hover:bg-slate-50/80 transition-colors";
 
-            // User level color
             let userBarColor = "#10b981"; // green
             if (item.gap === 1) userBarColor = "#f59e0b"; // orange
             else if (item.gap >= 2) userBarColor = "#ef4444"; // red
 
-            // Status Badge
             let statusBadge = "";
             if (item.gap <= 0) {
                 statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-emerald-700"><i class="fas fa-circle-check text-emerald-500"></i> Güclü</span>`;
@@ -469,7 +646,7 @@ class SkillMapApp {
             { title: "Investment Analyst", matchScore: 58, color: "bg-amber-500" }
         ];
 
-        const alts = (result.alternativeCareers && result.alternativeCareers.length > 0)
+        const alts = (result && result.alternativeCareers && result.alternativeCareers.length > 0)
             ? result.alternativeCareers.map(a => ({
                 title: a.roleTitle || a.title,
                 matchScore: a.matchPercentage || a.matchScore || 70,
@@ -517,7 +694,7 @@ class SkillMapApp {
             { title: "Business Analyst", company: "Azər Türk Bank", location: "Bakı", matchScore: 74, skills: ["Excel", "SQL", "Power BI"], logoBg: "bg-amber-700", logoText: "ATB", url: "https://jobsearch.az" }
         ];
 
-        const jobsToRender = matchingJobs.length >= 4 ? matchingJobs.map((j, i) => ({
+        const jobsToRender = (matchingJobs && matchingJobs.length >= 4) ? matchingJobs.map((j, i) => ({
             title: j.title || "Financial Analyst",
             company: j.company || "PAŞA Bank",
             location: j.location || "Bakı",
@@ -601,11 +778,21 @@ class SkillMapApp {
         const passMatch = document.getElementById("cab-pass-match");
         const grid = document.getElementById("cab-pass-skills-grid");
 
+        if (!user) {
+            if (passName) passName.textContent = "Qonaq İstifadəçi";
+            if (passAvatar) passAvatar.textContent = "👤";
+            if (passUni) passUni.textContent = "Giriş tələb olunur";
+            if (passRole) passRole.textContent = "Hədəf vəzifə: Seçilməyib";
+            if (passMatch) passMatch.textContent = "Career Match: — %";
+            if (grid) grid.innerHTML = `<div class="col-span-2 p-3 text-center text-xs text-slate-400 italic">Skill Pasportu təsdiqlənmiş profil üçün aktivləşir.</div>`;
+            return;
+        }
+
         if (passName) passName.textContent = user.name || "Əli Ömərli";
         if (passAvatar) passAvatar.textContent = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2) : "ƏÖ";
         if (passUni) passUni.textContent = `${user.university || "UNEC"} · ${user.faculty || "Maliyyə ixtisası"}`;
-        if (passRole) passRole.textContent = `Hədəf vəzifə: ${matchResult.role ? matchResult.role.title : "Financial Analyst"}`;
-        if (passMatch) passMatch.textContent = `Career Match: ${matchResult.matchPercentage || 74}%`;
+        if (passRole) passRole.textContent = `Hədəf vəzifə: ${matchResult && matchResult.role ? matchResult.role.title : "Financial Analyst"}`;
+        if (passMatch) passMatch.textContent = `Career Match: ${matchResult && matchResult.matchPercentage ? matchResult.matchPercentage : 74}%`;
 
         if (grid) {
             grid.innerHTML = "";
@@ -735,12 +922,12 @@ class SkillMapApp {
         const englishInput = document.getElementById("prof-input-english");
         const roleInput = document.getElementById("prof-input-role");
 
-        if (nameInput) nameInput.value = user.name || "Əli Ömərli";
-        if (emailInput) emailInput.value = user.email || "ali.omarli@example.com";
+        if (nameInput) nameInput.value = user.name || "";
+        if (emailInput) emailInput.value = user.email || "";
         if (uniInput) uniInput.value = user.university || "UNEC";
-        if (facultyInput) facultyInput.value = user.faculty || "Maliyyə və İqtisadiyyat";
+        if (facultyInput) facultyInput.value = user.faculty || "";
         if (degreeInput) degreeInput.value = user.degree || "Bakalavr";
-        if (expInput) expInput.value = user.experience_years || 1;
+        if (expInput) expInput.value = user.experience_years !== undefined ? user.experience_years : 0;
         if (englishInput) englishInput.value = user.englishLevel || "B2";
 
         if (roleInput && this.data && this.data.jobRolesBenchmark) {
@@ -777,6 +964,11 @@ class SkillMapApp {
         const container = document.getElementById("cab-full-skills-list");
         if (!container) return;
         container.innerHTML = "";
+
+        if (!skills || Object.keys(skills).length === 0) {
+            container.innerHTML = `<div class="col-span-full p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">Bacarıqlar siyahısı boşdur. Yeni bacarıq əlavə edin və ya CV yükləyin.</div>`;
+            return;
+        }
 
         const skillNames = {
             "excel": "Excel",
@@ -846,8 +1038,8 @@ class SkillMapApp {
         const container = document.getElementById("cab-ats-results-container");
         if (!container) return;
 
-        const parsedCV = user.uploadedCV || (window.cvParser ? window.cvParser.parseRawText("", "Sample") : null);
-        const atsResult = window.atsEngine.evaluateCV(parsedCV, targetRoleId);
+        const parsedCV = (user && user.uploadedCV) || (window.cvParser ? window.cvParser.parseRawText("", "Sample") : null);
+        const atsResult = window.atsEngine ? window.atsEngine.evaluateCV(parsedCV, targetRoleId) : { overallScore: 78, targetRoleTitle: "Financial Analyst", status: "Yaxşı", matchedSkills: [], missingSkills: [], recommendations: [] };
 
         container.innerHTML = `
             <div class="space-y-6">
@@ -907,33 +1099,37 @@ class SkillMapApp {
         preview.innerHTML = `
             <div class="space-y-3">
                 <div class="text-center pb-3 border-b border-slate-200">
-                    <div class="font-bold text-base text-slate-900">${user.name || "Əli Ömərli"}</div>
+                    <div class="font-bold text-base text-slate-900">${(user && user.name) || "Əli Ömərli"}</div>
                     <div class="text-xs text-blue-600 font-semibold">${roleTitle}</div>
-                    <div class="text-[11px] text-slate-500">${user.email} • +994 50 123 45 67 • Bakı, Azərbaycan</div>
+                    <div class="text-[11px] text-slate-500">${(user && user.email) || "ali@example.com"} • +994 50 123 45 67 • Bakı, Azərbaycan</div>
                 </div>
                 <div>
                     <div class="font-bold text-xs uppercase text-slate-800">Təhsil:</div>
-                    <div class="text-xs text-slate-600">${user.university} — ${user.degree}, ${user.faculty} (2026)</div>
+                    <div class="text-xs text-slate-600">${(user && user.university) || "UNEC"} — ${(user && user.degree) || "Bakalavr"}, ${(user && user.faculty) || "Maliyyə"} (2026)</div>
                 </div>
                 <div>
                     <div class="font-bold text-xs uppercase text-slate-800">Bacarıqlar:</div>
-                    <div class="text-xs text-slate-600">${Object.entries(user.savedSkills || {}).map(([k, v]) => `${k} (${v}/5)`).join(" • ")}</div>
+                    <div class="text-xs text-slate-600">${Object.entries((user && user.savedSkills) || {}).map(([k, v]) => `${k} (${v}/5)`).join(" • ")}</div>
                 </div>
             </div>
         `;
     }
 
     downloadBuiltCV(lang = "az") {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : { name: "Əli Ömərli", email: "ali.omarli@example.com" };
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Əli Ömərli", email: "ali.omarli@example.com" });
         const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === user.targetRole) : null;
         const roleTitle = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
 
-        window.cvBuilder.downloadCV(user, lang, roleTitle);
+        if (window.cvBuilder) {
+            window.cvBuilder.downloadCV(user, lang, roleTitle);
+        }
     }
 
     exportSkillPassport() {
-        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : { name: "Əli Ömərli", university: "UNEC", studentId: "AZ-UNEC-2026-8492" };
-        window.skillPassportGenerator.exportPassportPDF(user, this.lastMatchResult);
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : (this.isDemoMode ? this.getDemoUserData() : { name: "Əli Ömərli", university: "UNEC", studentId: "AZ-UNEC-2026-8492" });
+        if (window.skillPassportGenerator) {
+            window.skillPassportGenerator.exportPassportPDF(user, this.lastMatchResult);
+        }
     }
 
     deleteUserCV() {
@@ -946,9 +1142,12 @@ class SkillMapApp {
 
     handleLogout() {
         this.auth.logout();
-        alert("Hesabdan çıxış edildi.");
+        this.isDemoMode = false;
+        this.currentSkills = {};
         this.updateAuthUI();
         this.renderStudentCabinet();
+        this.renderLiveVacancies();
+        alert("Kabinetdən uğurla çıxış edildi. Şəxsi məlumatlar təmizləndi.");
     }
 
     toggleCabinetDarkMode(isDark) {
@@ -959,7 +1158,8 @@ class SkillMapApp {
         }
     }
 
-    initRouter() {
+
+        initRouter() {
         // Handle Browser Back / Forward buttons (popstate & hashchange)
         window.addEventListener("popstate", (event) => {
             const tabFromState = event.state && event.state.tab;
@@ -1483,12 +1683,33 @@ class SkillMapApp {
             return;
         }
 
+        const isLoggedIn = (this.auth && this.auth.isLoggedIn()) || this.isDemoMode;
+        const userSkills = (this.auth && this.auth.isLoggedIn() && this.auth.currentUser) ? this.auth.currentUser.savedSkills : this.currentSkills;
+
         container.innerHTML = filtered.map(vac => {
-            const matchInfo = this.engine.calculateVacancyMatch(vac, this.currentSkills);
-            
-            let badgeBg = "bg-amber-100 text-amber-800 border-amber-200";
-            if (matchInfo.matchScore >= 75) badgeBg = "bg-emerald-100 text-emerald-800 border-emerald-200";
-            else if (matchInfo.matchScore < 45) badgeBg = "bg-rose-100 text-rose-800 border-rose-200";
+            let matchBadgeHtml = "";
+            let matchingSkillIds = [];
+
+            if (isLoggedIn && userSkills && Object.keys(userSkills).length > 0) {
+                const matchInfo = this.engine.calculateVacancyMatch(vac, userSkills);
+                matchingSkillIds = (matchInfo.matchingSkills || []).map(ms => (ms.id || ms.name || "").toLowerCase());
+                
+                let badgeBg = "bg-amber-100 text-amber-800 border-amber-200";
+                if (matchInfo.matchScore >= 75) badgeBg = "bg-emerald-100 text-emerald-800 border-emerald-200";
+                else if (matchInfo.matchScore < 45) badgeBg = "bg-rose-100 text-rose-800 border-rose-200";
+
+                matchBadgeHtml = `
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs">
+                        <i class="fas fa-bolt mr-1 text-[10px]"></i>${matchInfo.matchScore}% Uyğun
+                    </span>
+                `;
+            } else {
+                matchBadgeHtml = `
+                    <button onclick="app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 shadow-2xs transition-all" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
+                        <i class="fas fa-lock text-[9px] text-slate-400"></i>Uyğunluq üçün daxil olun
+                    </button>
+                `;
+            }
 
             // Required vs Preferred skills
             const reqSkills = vac.required_skills || [];
@@ -1498,9 +1719,10 @@ class SkillMapApp {
             let tagsHtml = "";
             if (allSkills.length > 0) {
                 tagsHtml = allSkills.map(s => {
+                    const sLower = s.toLowerCase();
                     const isReq = reqSkills.includes(s);
                     const isPref = prefSkills.includes(s);
-                    const isMatching = matchInfo.matchingSkills && matchInfo.matchingSkills.some(ms => ms.id === s || ms.name === s);
+                    const isMatching = isLoggedIn && matchingSkillIds.some(ms => ms === sLower);
 
                     let pillClass = "bg-slate-100 text-slate-700 border-slate-200";
                     let labelPrefix = "";
@@ -1517,7 +1739,7 @@ class SkillMapApp {
                     }
 
                     return `
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${pillClass}" title="NLP ilə çıxarılıb">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${pillClass}">
                             ${isMatching ? '✓ ' : ''}${labelPrefix}${s}
                         </span>
                     `;
@@ -1526,26 +1748,22 @@ class SkillMapApp {
                 tagsHtml = `<span class="text-[11px] text-slate-400 italic">Vakansiya mətnində xüsusi bacarıq tələbi qeyd olunmayıb</span>`;
             }
 
-            // Quality score badge
             const qScore = vac.data_quality_score !== undefined ? vac.data_quality_score : 50;
             let qBadgeColor = "bg-slate-100 text-slate-600";
             if (qScore >= 70) qBadgeColor = "bg-emerald-50 text-emerald-700 border border-emerald-200";
             else if (qScore < 40) qBadgeColor = "bg-amber-50 text-amber-700 border border-amber-200";
 
-            // Extracted meta pills (Languages, Experience, Education)
             const expText = vac.extracted_experience ? vac.extracted_experience.raw : (vac.experience || "Qeyd olunmayıb");
             const eduText = vac.extracted_education ? vac.extracted_education.display : (vac.education || "Qeyd olunmayıb");
             const langs = vac.extracted_languages || [];
             const langPills = langs.map(l => `<span class="text-[10px] bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded font-medium"><i class="fas fa-language mr-1"></i>${l.language_az || l.language} (${l.level})</span>`).join(" ");
 
-            // Company initials or icon
             const compName = vac.company || "Açıq Vakansiya";
             const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
 
             return `
                 <div class="job-card flex flex-col justify-between space-y-3.5 group">
                     <div>
-                        <!-- Card Header: Company Logo, Title, Match Score -->
                         <div class="flex items-start justify-between gap-3 mb-2.5">
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
@@ -1557,56 +1775,34 @@ class SkillMapApp {
                                 </div>
                             </div>
                             <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs">
-                                    <i class="fas fa-bolt mr-1 text-[10px]"></i>${matchInfo.matchScore}% Uyğun
-                                </span>
+                                ${matchBadgeHtml}
                                 <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${qBadgeColor}" title="Data Tamlığı və Keyfiyyət İndeksi">
                                     Keyfiyyət: ${qScore}/100
                                 </span>
                             </div>
                         </div>
 
-                        <!-- Meta: Sektor, Məkan, Təcrübə -->
                         <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 mb-3">
-                            <span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg">
-                                <i class="fas fa-folder text-slate-400 text-[10px]"></i>${vac.sector || "Digər"}
-                            </span>
-                            <span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg">
-                                <i class="fas fa-location-dot text-slate-400 text-[10px]"></i>${vac.district || vac.location || "Bakı"}
-                            </span>
-                            ${expText !== 'Qeyd olunmayıb' ? `<span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg"><i class="fas fa-clock text-slate-400 text-[10px]"></i>${expText}</span>` : ''}
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-building text-slate-400 mr-1"></i>${vac.sector}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-location-dot text-slate-400 mr-1"></i>${vac.location}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-briefcase text-slate-400 mr-1"></i>${expText}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-graduation-cap text-slate-400 mr-1"></i>${eduText}</span>
+                            ${langPills}
                         </div>
 
-                        <p class="text-xs text-slate-600 line-clamp-2 mb-3.5 leading-relaxed">${vac.description || "Təsvir qeyd olunmayıb."}</p>
-
-                        <!-- NLP Skills Section -->
-                        <div class="space-y-1.5 mb-2 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100">
-                            <div class="flex items-center justify-between text-[10px] text-slate-400 font-semibold mb-1">
-                                <span class="flex items-center gap-1"><i class="fas fa-microchip text-indigo-500"></i>NLP Çıxarılmış Bacarıqlar:</span>
-                                <span class="text-emerald-600 font-bold">✓ Standartlaşdırılıb</span>
-                            </div>
+                        <div class="space-y-1.5">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Tələb Olunan Bacarıqlar:</span>
                             <div class="flex flex-wrap gap-1">
                                 ${tagsHtml}
                             </div>
                         </div>
-
-                        <!-- Dil və Təhsil Metadatası -->
-                        ${(langPills || eduText !== 'Qeyd olunmayıb') ? `
-                        <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600">
-                            ${eduText !== 'Qeyd olunmayıb' ? `<span class="bg-slate-100 px-1.5 py-0.5 rounded text-[10px] text-slate-700 font-medium"><i class="fas fa-graduation-cap mr-1 text-slate-400"></i>${eduText}</span>` : ''}
-                            ${langPills}
-                        </div>` : ''}
                     </div>
 
-                    <!-- Card Footer: Salary & Apply Button -->
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                        <div>
-                            <span class="text-slate-400 block text-[10px] font-medium">Maaş (Net/Gross):</span>
-                            <span class="font-bold text-slate-900 text-sm">${vac.salary || "Razılaşma yolu ilə"}</span>
-                        </div>
-                        <a href="${vac.applyUrl || '#'}" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm group-hover:shadow-md">
-                            <span>Elana Bax</span>
-                            <i class="fas fa-arrow-up-right-from-square text-[10px] opacity-70 group-hover:opacity-100"></i>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] text-slate-400"><i class="fas fa-clock mr-1"></i>${vac.posted_date || "Aktiv elan"}</span>
+                        <a href="${vac.source_url || 'https://jobsearch.az'}" target="_blank" class="px-4 py-1.5 rounded-full btn-saas-outline text-indigo-600 hover:text-indigo-700 font-bold text-xs shadow-2xs group-hover:bg-indigo-600 group-hover:text-white transition-all flex items-center gap-1.5">
+                            <span>Müraciət Et</span>
+                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
                     </div>
                 </div>
@@ -1614,695 +1810,6 @@ class SkillMapApp {
         }).join("");
     }
 
-    renderVacancyAnalytics() {
-        const stats = this.data.macroMarketStats || {};
-        const topSkillsData = stats.topSkillsAnalytics || [
-            { skill: "Excel", demand_percentage: 68 },
-            { skill: "English", demand_percentage: 62 },
-            { skill: "SQL", demand_percentage: 48 },
-            { skill: "1C", demand_percentage: 38 },
-            { skill: "Communication", demand_percentage: 75 }
-        ];
-
-        const ctxTop = document.getElementById("chart-top-skills");
-        if (ctxTop) {
-            if (this.charts.topSkills) this.charts.topSkills.destroy();
-            this.charts.topSkills = new Chart(ctxTop, {
-                type: 'bar',
-                data: {
-                    labels: topSkillsData.slice(0, 10).map(s => s.skill),
-                    datasets: [{
-                        label: 'Vakansiyalarda Tələbat Faizi (%)',
-                        data: topSkillsData.slice(0, 10).map(s => s.demand_percentage),
-                        backgroundColor: '#ea580c',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: ctx => `${ctx.raw}% (${topSkillsData[ctx.dataIndex]?.demand_count || 0} vakansiya)`
-                            }
-                        }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } }
-                    }
-                }
-            });
-        }
-
-        const ctxSectors = document.getElementById("chart-sectors");
-        if (ctxSectors) {
-            const sectors = (stats && stats.sectorDistribution && stats.sectorDistribution.length > 0)
-                ? stats.sectorDistribution
-                : [
-                    { sector: "Maliyyə & Bankçılıq", share: 31.4 },
-                    { sector: "IT & Rəqəmsal", share: 20.5 },
-                    { sector: "Satış & Müştəri Xidmətləri", share: 18.6 },
-                    { sector: "Təhsil & Elm", share: 10.0 },
-                    { sector: "Mühəndislik & Tikinti", share: 8.1 },
-                    { sector: "Logistika & Təchizat", share: 5.2 },
-                    { sector: "İnzibati & HR", share: 3.8 }
-                ];
-
-            if (this.charts.sectors) this.charts.sectors.destroy();
-            this.charts.sectors = new Chart(ctxSectors, {
-                type: 'doughnut',
-                data: {
-                    labels: sectors.map(s => s.sector),
-                    datasets: [{
-                        data: sectors.map(s => s.share || s.count),
-                        backgroundColor: ['#ea580c', '#f59e0b', '#10b981', '#6366f1', '#8b5cf6', '#ec4899', '#06b6d4', '#64748b'],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
-                    }
-                }
-            });
-        }
-
-        const risingContainer = document.getElementById("rising-skills-list");
-        if (risingContainer) {
-            const risingList = (stats && stats.risingSkills2026 && stats.risingSkills2026.length > 0)
-                ? stats.risingSkills2026
-                : topSkillsData.slice(0, 5).map(item => ({ name: item.skill, growth: `+${item.demand_percentage}%` }));
-
-            risingContainer.innerHTML = risingList.map(item => `
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-orange-50/60 border border-orange-100 text-xs font-semibold">
-                    <span class="text-slate-800"><i class="fas fa-arrow-up text-orange-600 mr-2"></i>${item.name || item.skill}</span>
-                    <span class="text-orange-700 font-bold bg-orange-100 px-2 py-0.5 rounded-full">${item.growth}</span>
-                </div>
-            `).join("");
-        }
-
-        const decliningContainer = document.getElementById("declining-skills-list");
-        if (decliningContainer) {
-            const decliningList = (stats && stats.decliningSkills2026 && stats.decliningSkills2026.length > 0)
-                ? stats.decliningSkills2026
-                : [
-                    { name: "Əl ilə Sənədləşmə", growth: "-35%" },
-                    { name: "Klassik Kadr Uçotu (Offline)", growth: "-28%" },
-                    { name: "Kompüter Operatorluğu (Baza)", growth: "-22%" },
-                    { name: "Statik Cədvəl İdarəçiliyi", growth: "-18%" }
-                ];
-
-            decliningContainer.innerHTML = decliningList.map(item => `
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-rose-50/60 border border-rose-100 text-xs font-semibold">
-                    <span class="text-slate-800"><i class="fas fa-arrow-down text-rose-600 mr-2"></i>${item.name}</span>
-                    <span class="text-rose-700 font-bold bg-rose-100 px-2 py-0.5 rounded-full">${item.growth}</span>
-                </div>
-            `).join("");
-        }
-    }
-
-    // ----------------------------------------------------
-    // GOOGLE FORMS STUDENT SURVEY & MARKET VS STUDENT
-    // ----------------------------------------------------
-
-    getSurveyData(universityId = "all") {
-        if (!this.surveyResponses) {
-            // Default pilot survey sample (144 respondents across major universities)
-            this.surveyResponses = [
-                // UNEC (48 respondents)
-                ...Array.from({ length: 48 }, (_, i) => ({
-                    respondent_id: `RESP-UNEC-${   String(i+1).padStart(3,'0')}`,
-                    university: "UNEC",
-                    field_of_study: i % 2 === 0 ? "Maliyyə" : "Mühasibat və Audit",
-                    field_normalized: "Economics & Finance",
-                    education_level: "Bakalavr",
-                    work_experience: i % 3 === 0 ? "1 - 3 il" : "Təcrübəsiz (0 il)",
-                    work_experience_years: i % 3 === 0 ? 1.5 : 0.0,
-                    job_search_status: i % 4 === 0 ? "Hazırda işləyir" : "Aktiv iş axtarır",
-                    english_level: i % 2 === 0 ? "B2" : "B1",
-                    digital_skill_level: "Orta",
-                    target_sector: "Maliyyə & Bankçılıq",
-                    target_role: i % 2 === 0 ? "Financial Analyst" : "Accountant",
-                    skills: { excel: 4, financial_analysis: 4, accounting: 4, accounting_1c: 3, english: 4, communication: 4, analytical_thinking: 3, sql: 2, powerbi: 2 },
-                    is_demo: 1
-                })),
-                // BDU (36 respondents)
-                ...Array.from({ length: 36 }, (_, i) => ({
-                    respondent_id: `RESP-BDU-${   String(i+1).padStart(3,'0')}`,
-                    university: "BDU",
-                    field_of_study: i % 2 === 0 ? "Tətbiqi Riyaziyyat və Kibernetika" : "Kompüter Elmləri",
-                    field_normalized: "IT & Computer Science",
-                    education_level: "Bakalavr",
-                    work_experience: i % 2 === 0 ? "0 - 1 il" : "Təcrübəsiz (0 il)",
-                    work_experience_years: i % 2 === 0 ? 0.5 : 0.0,
-                    job_search_status: "Aktiv iş axtarır",
-                    english_level: i % 3 === 0 ? "B2" : "B1",
-                    digital_skill_level: "Qabaqcıl",
-                    target_sector: "IT & Rəqəmsal",
-                    target_role: i % 2 === 0 ? "Data Analyst" : "Frontend Developer",
-                    skills: { python: 4, sql: 3, javascript: 3, excel: 3, analytical_thinking: 4, communication: 3, english: 3, powerbi: 2 },
-                    is_demo: 1
-                })),
-                // ADNSU (32 respondents)
-                ...Array.from({ length: 32 }, (_, i) => ({
-                    respondent_id: `RESP-ADNSU-${   String(i+1).padStart(3,'0')}`,
-                    university: "ADNSU",
-                    field_of_study: i % 2 === 0 ? "İnformasiya Texnologiyaları" : "Neft-qaz Mühəndisliyi",
-                    field_normalized: i % 2 === 0 ? "IT & Computer Science" : "Engineering",
-                    education_level: "Bakalavr",
-                    work_experience: "Təcrübəsiz (0 il)",
-                    work_experience_years: 0.0,
-                    job_search_status: "Aktiv iş axtarır",
-                    english_level: "B1",
-                    digital_skill_level: "Orta",
-                    target_sector: "Mühəndislik & IT",
-                    target_role: i % 2 === 0 ? "Software Developer" : "Mühəndis",
-                    skills: { autocad: 4, excel: 3, sql: 3, communication: 3, english: 3, analytical_thinking: 3, python: 2 },
-                    is_demo: 1
-                })),
-                // BANM (16 respondents - below threshold < 30)
-                ...Array.from({ length: 16 }, (_, i) => ({
-                    respondent_id: `RESP-BANM-${   String(i+1).padStart(3,'0')}`,
-                    university: "BANM",
-                    field_of_study: "Proseslərin Avtomatlaşdırılması Mühəndisliyi",
-                    field_normalized: "Engineering",
-                    education_level: "Bakalavr",
-                    work_experience: "1 - 3 il",
-                    work_experience_years: 1.5,
-                    job_search_status: "Aktiv iş axtarır",
-                    english_level: "C1",
-                    digital_skill_level: "Qabaqcıl",
-                    target_sector: "Mühəndislik & Neft-Qaz",
-                    target_role: "Process Automation Engineer",
-                    skills: { english: 5, python: 4, autocad: 4, excel: 4, communication: 4, analytical_thinking: 5, sql: 3 },
-                    is_demo: 1
-                })),
-                // ADA (12 respondents - below threshold < 30)
-                ...Array.from({ length: 12 }, (_, i) => ({
-                    respondent_id: `RESP-ADA-${   String(i+1).padStart(3,'0')}`,
-                    university: "ADA",
-                    field_of_study: "Biznes İdarəçiliyi və IT",
-                    field_normalized: "IT & Computer Science",
-                    education_level: "Bakalavr",
-                    work_experience: "0 - 1 il",
-                    work_experience_years: 0.5,
-                    job_search_status: "Aktiv iş axtarır",
-                    english_level: "C1",
-                    digital_skill_level: "Qabaqcıl",
-                    target_sector: "IT & Biznes",
-                    target_role: "Business Analyst",
-                    skills: { english: 5, communication: 5, analytical_thinking: 4, excel: 4, powerbi: 3, sql: 3, python: 3 },
-                    is_demo: 1
-                }))
-            ];
-        }
-
-        if (universityId === "all" || !universityId) {
-            return this.surveyResponses;
-        }
-
-        const mapName = {
-            "unec": "UNEC",
-            "bdu": "BDU",
-            "azii": "ADNSU",
-            "banm": "BANM",
-            "ada": "ADA"
-        };
-        const targetName = (mapName[universityId.toLowerCase()] || universityId).toLowerCase();
-        return this.surveyResponses.filter(r => (r.university || "").toLowerCase().includes(targetName));
-    }
-
-    renderUniversityView() {
-        const select = document.getElementById("university-selector");
-        const uniId = select ? select.value : "all";
-        const responses = this.getSurveyData(uniId);
-        const respCount = responses.length;
-
-        // 1. Threshold Yoxlanışı (Threshold = 30)
-        const thresholdAlert = document.getElementById("uni-threshold-alert");
-        const thresholdCountElem = document.getElementById("threshold-curr-count");
-        if (thresholdAlert && thresholdCountElem) {
-            thresholdCountElem.textContent = respCount;
-            if (uniId !== "all" && respCount < 30) {
-                thresholdAlert.classList.remove("hidden");
-            } else {
-                thresholdAlert.classList.add("hidden");
-            }
-        }
-
-        // 2. Tələbə Sorğu Xülasə Kartları
-        const totalRespElem = document.getElementById("survey-total-respondents");
-        const jobSearchElem = document.getElementById("survey-job-search-pct");
-        const englishElem = document.getElementById("survey-english-pct");
-        const topSectorElem = document.getElementById("survey-top-sector");
-
-        if (totalRespElem) {
-            totalRespElem.textContent = `${respCount} respondent`;
-        }
-
-        const realCount = responses.filter(r => !r.is_demo).length;
-        const badgeIds = ["survey-data-badge-1", "survey-data-badge-2", "survey-data-badge-3", "survey-data-badge-4", "survey-data-badge"];
-        badgeIds.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                if (realCount > 0) {
-                    el.textContent = "REAL FORMS DATA";
-                    el.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-100 text-emerald-800";
-                } else {
-                    el.textContent = "PİLOT DEMO DATA";
-                    el.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-purple-100 text-purple-700";
-                }
-            }
-        });
-
-        if (respCount > 0) {
-            const jobSeekers = responses.filter(r => (r.job_search_status || "").includes("Aktiv")).length;
-            if (jobSearchElem) jobSearchElem.textContent = `${Math.round((jobSeekers / respCount) * 100)}%`;
-
-            const b2Eng = responses.filter(r => ["B2", "C1", "C2"].includes((r.english_level || "").toUpperCase())).length;
-            if (englishElem) englishElem.textContent = `${Math.round((b2Eng / respCount) * 100)}%`;
-
-            const sectorCounts = {};
-            responses.forEach(r => {
-                const s = r.target_sector || "Digər";
-                sectorCounts[s] = (sectorCounts[s] || 0) + 1;
-            });
-            const topSec = Object.entries(sectorCounts).sort((a, b) => b[1] - a[1])[0];
-            if (topSectorElem) topSectorElem.textContent = topSec ? topSec[0] : "IT & Maliyyə";
-        }
-
-        // 3. Market Demand vs Student Skills Müqayisəsi
-        this.renderMarketVsStudentComparison(responses, uniId);
-
-        // 4. Universitet Profili & Kurrikulum Tövsiyəsi
-        const container = document.getElementById("university-details-container");
-        if (!container) return;
-
-        const uniInfo = (this.data && this.data.universitiesData) ? this.data.universitiesData.find(u => u.id === (uniId === "all" ? "unec" : uniId)) : null;
-        if (!uniInfo) return;
-
-        let strengthsHtml = (uniInfo.topStrengths || []).map(s => `
-            <div class="flex items-center justify-between text-xs p-2.5 rounded-xl bg-emerald-50 border border-emerald-100 font-semibold">
-                <span class="text-emerald-950">${s.name}</span>
-                <span class="font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md">${s.score}% səviyyə</span>
-            </div>
-        `).join("");
-
-        let gapsHtml = (uniInfo.criticalSkillGaps || []).map(g => `
-            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-                <div class="flex justify-between font-bold text-slate-900">
-                    <span>${g.name}</span>
-                    <span class="text-rose-600 font-black">-${g.gap}% Boşluq</span>
-                </div>
-                <div class="flex justify-between text-[11px] text-slate-500 font-medium">
-                    <span>Bazar Tələbi: <strong>${g.marketDemand}%</strong></span>
-                    <span>Tələbə Səviyyəsi: <strong>${g.studentLevel}%</strong></span>
-                </div>
-                <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
-                    <div class="bg-rose-500 h-1.5 rounded-full" style="width: ${g.gap}%"></div>
-                </div>
-            </div>
-        `).join("");
-
-        container.innerHTML = `
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2">
-                    <div>
-                        <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">Təhsil Müəssisəsi və Fakültə Profili</span>
-                        <h3 class="text-xl font-black text-slate-900 mt-0.5">${uniId === 'all' ? 'Azərbaycan Ali Təhsil Müəssisələri (Ümumi İcmal)' : uniInfo.name}</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">${uniId === 'all' ? 'Bütün tərəfdaş universitetlərin aqreqasiya edilmiş göstəriciləri' : 'Əhatə olunan fakültə: ' + uniInfo.faculty}</p>
-                    </div>
-                    <div class="px-4 py-2.5 bg-orange-50 border border-orange-200 rounded-2xl text-center">
-                        <div class="text-[11px] text-orange-700 font-bold">Sorğuda İştirak Edən</div>
-                        <div class="text-lg font-black text-orange-950">${respCount} Tələbə / Məzun</div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                            <i class="fas fa-check-circle text-emerald-600"></i>Tələbələrin Əsas Üstünlükləri
-                        </h4>
-                        <div class="space-y-2">
-                            ${strengthsHtml}
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-xs font-bold text-rose-800 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                            <i class="fas fa-triangle-exclamation text-rose-600"></i>Əmək Bazarında Kritik Skill Gap-lər
-                        </h4>
-                        <div class="space-y-2.5">
-                            ${gapsHtml}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-4.5 bg-gradient-to-r from-orange-50/70 via-amber-50/50 to-orange-50/70 rounded-2xl border border-orange-200/80">
-                    <div class="flex items-center gap-2 text-xs font-bold text-orange-950 mb-1.5">
-                        <i class="fas fa-robot text-orange-600"></i>
-                        <span>Süni İntellekt Kurrikulum və Qərar Dəstək Tövsiyəsi:</span>
-                    </div>
-                    <p class="text-xs text-slate-800 leading-relaxed font-medium">
-                        "${uniInfo.aiRecommendation || 'Tədris proqramına bazarın ən çox tələb etdiyi data savadlılığı və praktiki laboratoriya dərslərinin artırılması tövsiyə olunur.'}"
-                    </p>
-                </div>
-            </div>
-        `;
-    }
-
-    renderMarketVsStudentComparison(responses, universityId) {
-        const topMarketSkills = [
-            { id: "communication", name: "Communication", marketDemand: 19.3 },
-            { id: "time_management", name: "Time Management", marketDemand: 17.4 },
-            { id: "analytical_thinking", name: "Analytical Thinking", marketDemand: 14.0 },
-            { id: "excel", name: "Excel", marketDemand: 13.1 },
-            { id: "sales", name: "Sales", marketDemand: 13.1 },
-            { id: "russian", name: "Russian", marketDemand: 10.5 },
-            { id: "english", name: "English", marketDemand: 8.8 },
-            { id: "1c", name: "1C 8.3", marketDemand: 7.1 },
-            { id: "procurement", name: "Procurement", marketDemand: 5.7 },
-            { id: "accounting", name: "Accounting", marketDemand: 5.2 },
-            { id: "autocad", name: "AutoCAD", marketDemand: 2.1 },
-            { id: "sql", name: "SQL", marketDemand: 1.7 },
-            { id: "powerbi", name: "Power BI", marketDemand: 1.5 },
-            { id: "python", name: "Python", marketDemand: 1.4 }
-        ];
-
-        const realCount = responses.filter(r => !r.is_demo).length;
-        const realCountElem = document.getElementById("market-real-respondents-count");
-        if (realCountElem) realCountElem.textContent = realCount;
-
-        const isSufficientRealData = (realCount >= 30);
-        const totalResp = Math.max(1, responses.length);
-
-        const comparisonRows = topMarketSkills.map(sk => {
-            let compCount = 0;
-            let totalLevel = 0;
-            responses.forEach(r => {
-                const sVal = (r.skills && r.skills[sk.id] !== undefined) ? r.skills[sk.id] : 2;
-                if (sVal >= 3) compCount++;
-                totalLevel += sVal;
-            });
-
-            const studentAvail = parseFloat(((compCount / totalResp) * 100).toFixed(1));
-            const avgLevel = parseFloat((totalLevel / totalResp).toFixed(1));
-            const gap = parseFloat((sk.marketDemand - studentAvail).toFixed(1));
-
-            let statusText = "Kifayət qədər data yoxdur";
-            let statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">Kifayət qədər data yoxdur</span>`;
-
-            if (isSufficientRealData) {
-                if (gap > 5.0) {
-                    statusText = "Kritik Çatışmazlıq";
-                    statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-200">Undersupplied</span>`;
-                } else if (gap < -15.0) {
-                    statusText = "Təklif Üstündür";
-                    statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Oversupplied</span>`;
-                } else {
-                    statusText = "Balanslaşdırılmış";
-                    statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">Balanced</span>`;
-                }
-            }
-
-            return {
-                ...sk,
-                studentAvail,
-                avgLevel,
-                gap,
-                statusText,
-                statusBadge
-            };
-        });
-
-        // 1. Render Table
-        const tbody = document.getElementById("market-vs-student-tbody");
-        if (tbody) {
-            tbody.innerHTML = comparisonRows.map(row => `
-                <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-2.5 font-bold text-slate-900">
-                        ${row.name}
-                        <span class="block text-[10px] text-slate-400 font-normal">Orta səviyyə: ${row.avgLevel}/5</span>
-                    </td>
-                    <td class="py-2.5 text-center font-bold text-orange-600">${row.marketDemand}%</td>
-                    <td class="py-2.5 text-center font-bold text-slate-700">${row.studentAvail}%</td>
-                    <td class="py-2.5 text-center font-bold ${row.gap > 0 ? 'text-rose-600' : 'text-emerald-600'}">
-                        ${row.gap > 0 ? `-${row.gap}%` : `+${Math.abs(row.gap)}%`}
-                    </td>
-                    <td class="py-2.5 text-right">${row.statusBadge}</td>
-                </tr>
-            `).join("");
-        }
-
-        // 2. Render Comparison Chart
-        const ctx = document.getElementById("chart-market-vs-student");
-        if (ctx) {
-            if (this.charts.marketVsStudent) this.charts.marketVsStudent.destroy();
-            const top8 = comparisonRows.slice(0, 8);
-            this.charts.marketVsStudent = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: top8.map(s => s.name),
-                    datasets: [
-                        {
-                            label: 'Bazar Tələbi (%)',
-                            data: top8.map(s => s.marketDemand),
-                            backgroundColor: '#ea580c',
-                            borderRadius: 4
-                        },
-                        {
-                            label: 'Tələbə Təklifi (Intermediate+ %)',
-                            data: top8.map(s => s.studentAvail),
-                            backgroundColor: '#64748b',
-                            borderRadius: 4
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } }
-                    },
-                    plugins: {
-                        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } }
-                    }
-                }
-            });
-        }
-    }
-
-    // ----------------------------------------------------
-    // SURVEY IMPORT / EXPORT UI MODAL HANDLERS
-    // ----------------------------------------------------
-
-    openSurveyImportModal() {
-        const modal = document.getElementById("modal-survey-import");
-        if (modal) {
-            modal.style.display = "flex";
-            this.previewSurveyMapping();
-        }
-    }
-
-    closeSurveyImportModal() {
-        const modal = document.getElementById("modal-survey-import");
-        if (modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    fillSampleSurveyCSV() {
-        const sampleCSV = `Universitet,İxtisas,Təhsil səviyyəsi,İş təcrübəsi,İngilis dili,Rəqəmsal bacarıq,Excel səviyyəsi,SQL səviyyəsi,Python səviyyəsi,Power BI səviyyəsi,Hədəf sektor,Hədəf vəzifə
-UNEC,Maliyyə və Mühasibat,Bakalavr,Təcrübəsiz,B2,Orta,4,2,1,2,Maliyyə & Bankçılıq,Data Analyst
-UNEC,Rəqəmsal İqtisadiyyat,Bakalavr,0-1 il,B2,Qabaqcıl,4,4,3,3,IT & Maliyyə,Business Analyst
-BDU,Kompüter Elmləri,Bakalavr,1-3 il,B2,Qabaqcıl,3,4,4,3,IT & Rəqəmsal,Data Analyst
-BDU,Tətbiqi Riyaziyyat,Bakalavr,Təcrübəsiz,B1,Orta,3,3,3,2,IT & Rəqəmsal,Python Developer
-ADNSU,İnformasiya Texnologiyaları,Bakalavr,0-1 il,B1,Orta,3,3,2,2,Mühəndislik & IT,Software Developer
-BANM,Proseslərin Avtomatlaşdırılması,Bakalavr,1-3 il,C1,Qabaqcıl,5,4,4,3,Mühəndislik,Automation Engineer
-ADA,Biznes İdarəçiliyi,Bakalavr,Təcrübəsiz,C1,Qabaqcıl,4,3,2,3,Biznes & Konsaltinq,Financial Analyst`;
-        
-        const txtArea = document.getElementById("survey-csv-text");
-        if (txtArea) {
-            txtArea.value = sampleCSV;
-            this.previewSurveyMapping();
-        }
-    }
-
-    handleSurveyFileUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const content = e.target.result;
-            const txtArea = document.getElementById("survey-csv-text");
-            if (txtArea) {
-                txtArea.value = content;
-                this.previewSurveyMapping();
-            }
-        };
-        reader.readAsText(file, "UTF-8");
-    }
-
-    previewSurveyMapping() {
-        const txtArea = document.getElementById("survey-csv-text");
-        const container = document.getElementById("mapping-tags-container");
-        const countElem = document.getElementById("mapping-detected-count");
-        if (!txtArea || !container) return;
-
-        const text = txtArea.value.trim();
-        if (!text) {
-            container.innerHTML = `<span class="text-slate-400 italic">CSV məlumatı daxil edildikdən sonra sütunlar avtomatik map olunacaq.</span>`;
-            if (countElem) countElem.textContent = "0 sütun";
-            return;
-        }
-
-        const firstLine = text.split("\n")[0];
-        const delimiter = firstLine.includes(";") && !firstLine.includes(",") ? ";" : ",";
-        const cols = firstLine.split(delimiter).map(c => c.replace(/["']/g, "").trim());
-
-        if (countElem) countElem.textContent = `${cols.length} sütun aşkarlandı`;
-
-        container.innerHTML = cols.map(col => {
-            const colLow = col.toLowerCase();
-            let badgeColor = "bg-orange-50 text-orange-700 border-orange-200";
-            let targetField = "custom_field";
-
-            if (colLow.includes("ad") || colLow.includes("soyad") || colLow.includes("email") || colLow.includes("telefon")) {
-                badgeColor = "bg-rose-50 text-rose-700 border-rose-200 line-through";
-                targetField = "DROP_PII (Məxfilik)";
-            } else if (colLow.includes("universitet") || colLow.includes("ali təhsil")) {
-                targetField = "➔ university";
-            } else if (colLow.includes("ixtisas") || colLow.includes("fakültə")) {
-                targetField = "➔ field_of_study";
-            } else if (colLow.includes("təcrübə")) {
-                targetField = "➔ work_experience";
-            } else if (colLow.includes("ingilis")) {
-                targetField = "➔ english_level";
-            } else if (colLow.includes("excel")) {
-                targetField = "➔ skill:excel";
-            } else if (colLow.includes("sql")) {
-                targetField = "➔ skill:sql";
-            } else if (colLow.includes("python")) {
-                targetField = "➔ skill:python";
-            } else if (colLow.includes("power")) {
-                targetField = "➔ skill:powerbi";
-            } else if (colLow.includes("sektor")) {
-                targetField = "➔ target_sector";
-            } else if (colLow.includes("vəzifə")) {
-                targetField = "➔ target_role";
-            }
-
-            return `
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold ${badgeColor}">
-                    <span>${col}</span>
-                    <span class="text-[10px] font-mono opacity-80">${targetField}</span>
-                </div>
-            `;
-        }).join("");
-    }
-
-    executeSurveyImport() {
-        const txtArea = document.getElementById("survey-csv-text");
-        if (!txtArea || !txtArea.value.trim()) {
-            alert("Zəhmət olmasa CSV mətni daxil edin və ya fayl seçin.");
-            return;
-        }
-
-        const lines = txtArea.value.trim().split("\n");
-        if (lines.length < 2) {
-            alert("CSV ən azı başlıq və 1 sətir məlumatdan ibarət olmalıdır.");
-            return;
-        }
-
-        const firstLine = lines[0];
-        const delimiter = firstLine.includes(";") && !firstLine.includes(",") ? ";" : ",";
-        const headers = firstLine.split(delimiter).map(h => h.replace(/["']/g, "").trim());
-
-        const newRecords = [];
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-            const values = line.split(delimiter).map(v => v.replace(/["']/g, "").trim());
-            
-            const rec = {
-                respondent_id: `RESP-IMPORT-${Date.now()}-${   String(i).padStart(3,'0')}`,
-                university: "UNEC",
-                field_of_study: "Maliyyə",
-                field_normalized: "Economics & Finance",
-                education_level: "Bakalavr",
-                work_experience: "Təcrübəsiz (0 il)",
-                work_experience_years: 0.0,
-                job_search_status: "Aktiv iş axtarır",
-                english_level: "B2",
-                target_sector: "Maliyyə & Bankçılıq",
-                target_role: "Data Analyst",
-                skills: {},
-                is_demo: 0
-            };
-
-            headers.forEach((h, idx) => {
-                const val = values[idx] || "";
-                const hLow = h.toLowerCase();
-                if (hLow.includes("ad") || hLow.includes("email") || hLow.includes("telefon")) return;
-
-                if (hLow.includes("universitet")) rec.university = val;
-                else if (hLow.includes("ixtisas")) {
-                    rec.field_of_study = val;
-                    if (val.toLowerCase().includes("it") || val.toLowerCase().includes("kompüter")) rec.field_normalized = "IT & Computer Science";
-                    else if (val.toLowerCase().includes("mühəndis")) rec.field_normalized = "Engineering";
-                }
-                else if (hLow.includes("təcrübə")) rec.work_experience = val;
-                else if (hLow.includes("ingilis")) rec.english_level = val;
-                else if (hLow.includes("excel")) rec.skills.excel = parseInt(val) || 3;
-                else if (hLow.includes("sql")) rec.skills.sql = parseInt(val) || 2;
-                else if (hLow.includes("python")) rec.skills.python = parseInt(val) || 2;
-                else if (hLow.includes("power")) rec.skills.powerbi = parseInt(val) || 2;
-                else if (hLow.includes("sektor")) rec.target_sector = val;
-                else if (hLow.includes("vəzifə")) rec.target_role = val;
-            });
-
-            newRecords.push(rec);
-        }
-
-        if (!this.surveyResponses) this.getSurveyData("all");
-        this.surveyResponses = [...newRecords, ...this.surveyResponses];
-
-        this.closeSurveyImportModal();
-        this.renderUniversityView();
-
-        alert(`✅ Uğurlu İdxal: ${newRecords.length} respondent məlumatı sistemə əlavə edildi və anonimləşdirildi!`);
-    }
-
-    exportSurveyAnalyticsCSV() {
-        const select = document.getElementById("university-selector");
-        const uniId = select ? select.value : "all";
-        const responses = this.getSurveyData(uniId);
-
-        let csvContent = "Respondent_ID,Universitet,Ixtisas_Qrupu,Tehsil_Seviyyesi,Tecrube,Ingilis_Dili,Hedef_Sektor,Hedef_Vezife,Demo_Status\n";
-        responses.forEach(r => {
-            csvContent += `"${r.respondent_id}","${r.university}","${r.field_normalized}","${r.education_level}","${r.work_experience}","${r.english_level}","${r.target_sector}","${r.target_role}","${r.is_demo ? 'DEMO' : 'REAL'}"\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `skillmap_student_survey_export_${uniId}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    /**
-     * Rəsmi Metodologiya və Mənbələr Bölməsi
-     */
     renderMethodologyView() {
         const container = document.getElementById("methodology-sources-list");
         if (!container) return;
