@@ -92,13 +92,13 @@ class SkillMapApp {
             if (authContainer) {
                 authContainer.innerHTML = `
                     <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200 cursor-pointer" onclick="app.switchTab('student-gap')">
-                            <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/80 cursor-pointer shadow-2xs hover:bg-indigo-100/60 transition-all" onclick="app.switchTab('student-gap')">
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
                                 ${initials}
                             </div>
                             <div class="text-left hidden sm:block">
                                 <div class="text-xs font-bold text-slate-900 leading-tight">${user.name}</div>
-                                <div class="text-[10px] text-orange-700 font-semibold">${user.university} (${user.degree})</div>
+                                <div class="text-[10px] text-indigo-700 font-semibold">${user.university} (${user.degree})</div>
                             </div>
                         </div>
                         <button onclick="app.handleLogout()" class="p-2 text-slate-400 hover:text-rose-600 rounded-lg text-xs transition-colors" title="Çıxış Et">
@@ -119,9 +119,9 @@ class SkillMapApp {
             }
             if (studentMetaBanner) {
                 studentMetaBanner.innerHTML = `
-                    <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-university text-orange-400 mr-1.5"></i>${user.university} – ${user.faculty}</span>
-                    <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-star text-amber-400 mr-1.5"></i>ÜOMG: ${user.gpa || '88.4'}</span>
-                    <span class="bg-white/10 px-2.5 py-1 rounded-lg"><i class="fas fa-language text-orange-400 mr-1.5"></i>İngilis dili: ${user.englishLevel}</span>
+                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-university text-indigo-600 mr-1.5"></i>${user.university} – ${user.faculty}</span>
+                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-star text-amber-500 mr-1.5"></i>ÜOMG: ${user.gpa || '88.4'}</span>
+                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-language text-indigo-600 mr-1.5"></i>İngilis dili: ${user.englishLevel}</span>
                 `;
             }
 
@@ -138,8 +138,8 @@ class SkillMapApp {
         } else {
             if (authContainer) {
                 authContainer.innerHTML = `
-                    <button onclick="app.openAuthModal('login')" class="gradient-orange-btn px-4 py-2 rounded-xl text-white font-bold text-xs shadow-md flex items-center gap-1.5">
-                        <i class="fas fa-user-lock"></i>
+                    <button onclick="app.openAuthModal('login')" class="btn-saas-outline px-3.5 py-2 rounded-full text-slate-800 hover:text-indigo-600 font-bold text-xs shadow-2xs flex items-center gap-1.5 transition-all">
+                        <i class="fas fa-user-lock text-indigo-600"></i>
                         <span>Kabinetə Daxil Ol</span>
                     </button>
                 `;
@@ -293,8 +293,8 @@ class SkillMapApp {
     switchTab(tabId) {
         document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
         document.querySelectorAll("[data-tab-btn]").forEach(btn => {
-            btn.classList.remove("text-orange-700", "bg-orange-50", "font-bold", "text-primary-600", "bg-primary-50");
-            btn.classList.add("text-slate-700");
+            btn.classList.remove("text-indigo-600", "bg-indigo-50", "text-orange-700", "bg-orange-50", "font-bold", "text-primary-600", "bg-primary-50");
+            btn.classList.add("text-slate-600");
         });
 
         const activeContent = document.getElementById(`tab-${tabId}`);
@@ -304,8 +304,8 @@ class SkillMapApp {
 
         const activeBtns = document.querySelectorAll(`[data-tab-btn="${tabId}"]`);
         activeBtns.forEach(activeBtn => {
-            activeBtn.classList.remove("text-slate-700");
-            activeBtn.classList.add("text-orange-700", "bg-orange-50", "font-bold");
+            activeBtn.classList.remove("text-slate-600", "text-slate-700");
+            activeBtn.classList.add("text-indigo-600", "bg-indigo-50", "font-bold");
         });
 
         if (tabId === "vacancy-analytics") {
@@ -465,7 +465,7 @@ class SkillMapApp {
             if (result.matchPercentage >= 75) {
                 scoreElem.className = "text-3xl font-black text-emerald-600";
             } else if (result.matchPercentage >= 50) {
-                scoreElem.className = "text-3xl font-black text-amber-600";
+                scoreElem.className = "text-3xl font-black text-indigo-600";
             } else {
                 scoreElem.className = "text-3xl font-black text-rose-600";
             }
@@ -501,26 +501,26 @@ class SkillMapApp {
             `;
         }
 
-        // 4. Radar Qrafiki
+        // 4. Spider (Radar) Qrafiki
         this.renderStudentRadarChart(result);
 
         // 5. Gap Cədvəli
         const tableBody = document.getElementById("gap-table-body");
         if (tableBody) {
             tableBody.innerHTML = "";
-            const levelNames = { 1: "Beginner (1)", 2: "Basic (2)", 3: "Intermediate (3)", 4: "Advanced (4)", 5: "Expert (5)" };
+            const levelNames = { 1: "Beginner", 2: "Elementary", 3: "Intermediate", 4: "Upper-Inter", 5: "Advanced" };
 
-            result.breakdown.forEach(item => {
+            (result.breakdown || []).forEach(item => {
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-slate-50/80 transition-colors";
                 
                 let statusBadge = "";
-                if (item.gap === 0) {
-                    statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">🟢 Uyğun</span>`;
+                if (item.gap <= 0) {
+                    statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">🟢 Standarta Uyğundur</span>`;
                 } else if (item.gap === 1) {
                     statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">🟡 Low Gap (-1)</span>`;
                 } else if (item.gap === 2) {
-                    statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">🟠 Medium Gap (-2)</span>`;
+                    statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-800">🔵 Medium Gap (-2)</span>`;
                 } else {
                     statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">🔴 High Gap (-${item.gap})</span>`;
                 }
@@ -529,7 +529,7 @@ class SkillMapApp {
                 if (item.priority === "Very High") {
                     priorityBadge = `<span class="text-[9px] font-black text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">Təcili</span>`;
                 } else if (item.priority === "High") {
-                    priorityBadge = `<span class="text-[9px] font-bold text-orange-700 bg-orange-50 px-1.5 py-0.5 rounded border border-orange-200">Yüksək</span>`;
+                    priorityBadge = `<span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">Yüksək</span>`;
                 } else if (item.priority === "Medium") {
                     priorityBadge = `<span class="text-[9px] font-medium text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">Orta</span>`;
                 } else {
@@ -539,7 +539,7 @@ class SkillMapApp {
                 tr.innerHTML = `
                     <td class="py-2.5 font-semibold text-slate-800">
                         ${item.skillName}
-                        <span class="block text-[10px] text-slate-400 font-normal">${item.importance === 'required' ? 'Zəruri Tələb' : 'Üstünlük'} • Tələbat: ${item.demandPercentage}%</span>
+                        <span class="block text-[10px] text-slate-400 font-normal">${item.importance === 'required' ? 'Zəruri Tələb' : 'Üstünlük'} • Tələbat: ${item.demandPercentage || 70}%</span>
                     </td>
                     <td class="py-2.5 text-center font-bold text-slate-700">${levelNames[item.userLevel] || item.userLevel}</td>
                     <td class="py-2.5 text-center font-bold text-slate-700">${levelNames[item.requiredLevel] || item.requiredLevel}</td>
@@ -557,7 +557,7 @@ class SkillMapApp {
         const recList = document.getElementById("top-recommendations-list");
         if (recList) {
             recList.innerHTML = "";
-            const priorities = result.recommendations || [];
+            const priorities = result.topPriorities || [];
             if (priorities.length === 0) {
                 recList.innerHTML = `<div class="p-3 bg-emerald-50 text-emerald-800 text-xs rounded-xl font-medium">Təbriklər! Seçdiyiniz vəzifə üçün bütün zəruri bacarıqları tam ödəyirsiniz.</div>`;
             } else {
@@ -565,17 +565,17 @@ class SkillMapApp {
                     const div = document.createElement("div");
                     div.className = "p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 text-xs";
                     div.innerHTML = `
-                        <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center flex-shrink-0 text-xs mt-0.5">
+                        <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center flex-shrink-0 text-xs mt-0.5">
                             ${idx + 1}
                         </div>
                         <div class="flex-grow space-y-1">
                             <div class="font-bold text-slate-900 flex items-center justify-between">
-                                <span>${rec.title || rec.skill}</span>
-                                <span class="text-orange-600 text-[11px] font-bold">Prioritet: ${rec.priority || 'Yüksək'}</span>
+                                <span>${rec.skillName} (Boşluq: -${rec.gap})</span>
+                                <span class="text-indigo-600 text-[11px] font-bold">Prioritet: ${rec.priorityAz || 'Yüksək'}</span>
                             </div>
-                            <p class="text-slate-600 leading-relaxed">${rec.advice}</p>
-                            <div class="pt-1 text-[11px] text-orange-700 font-semibold flex items-center gap-1">
-                                <i class="fas fa-graduation-cap"></i>Resurs: <span>${rec.link || rec.suggestedResource || 'Onlayn resurslar'}</span>
+                            <p class="text-slate-600 leading-relaxed">${rec.actionPlan || 'Bazar tələbini ödəmək üçün bu bacarığı artırın.'}</p>
+                            <div class="pt-1 text-[11px] text-indigo-700 font-semibold flex items-center gap-1">
+                                <i class="fas fa-graduation-cap"></i>Resurs: <span>${rec.resource || 'SkillMap Pulsuz Təlimlər'}</span>
                             </div>
                         </div>
                     `;
@@ -588,25 +588,25 @@ class SkillMapApp {
         const altList = document.getElementById("career-alternatives-list");
         if (altList) {
             altList.innerHTML = "";
-            const alternatives = result.alternativeCareers || this.engine.getRankedCareerRecommendations(this.currentSkills, roleId).slice(0, 3);
+            const alternatives = result.alternativeCareers || [];
             const medals = ["🥇", "🥈", "🥉"];
             alternatives.forEach((alt, idx) => {
                 const card = document.createElement("div");
-                card.className = "p-3.5 rounded-xl border border-slate-200 bg-white hover:border-orange-300 transition-all cursor-pointer";
+                card.className = "p-3.5 rounded-xl border border-slate-200/80 bg-white hover:border-indigo-300 transition-all cursor-pointer shadow-2xs";
                 card.onclick = () => {
                     const sel = document.getElementById("student-target-role");
                     if (sel) {
-                        sel.value = alt.role_id || alt.id;
+                        sel.value = alt.roleId;
                         this.handleRoleChange();
                     }
                 };
                 card.innerHTML = `
                     <div class="flex items-center justify-between mb-1.5">
                         <span class="text-base">${medals[idx] || "🎯"}</span>
-                        <span class="text-xs font-black text-orange-700 bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">${alt.match_score || alt.matchScore}% Uyğun</span>
+                        <span class="text-xs font-black text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">${alt.matchPercentage}% Uyğun</span>
                     </div>
-                    <div class="font-bold text-slate-900 text-xs mb-1">${alt.title}</div>
-                    <div class="text-[11px] text-slate-500 line-clamp-1">${alt.sector} • ${alt.avgSalary || alt.base_salary + ' AZN'}</div>
+                    <div class="font-bold text-slate-900 text-xs mb-1">${alt.roleTitle}</div>
+                    <div class="text-[11px] text-slate-500 line-clamp-1">${alt.sector} • ${alt.salaryBenchmark} AZN</div>
                 `;
                 altList.appendChild(card);
             });

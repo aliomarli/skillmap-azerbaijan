@@ -50,11 +50,11 @@ class SkillBot {
 
         container.innerHTML = `
             <!-- Çatbot Pəncərəsi -->
-            <div id="chat-window" class="hidden mb-3 w-[360px] sm:w-[410px] h-[540px] bg-white rounded-3xl chat-window border border-slate-200 overflow-hidden flex-col transition-all duration-300" style="display: none;">
+            <div id="chat-window" class="hidden mb-3 w-[360px] sm:w-[410px] h-[540px] bg-white rounded-3xl chat-window border border-slate-200/80 overflow-hidden flex-col transition-all duration-300 shadow-2xl" style="display: none;">
                 <!-- Başlıq -->
-                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-orange-600 p-4 text-white flex items-center justify-between shadow-md">
+                <div class="bg-slate-900 p-4 text-white flex items-center justify-between border-b border-slate-800">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-md">
+                        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-indigo-500/30">
                             <i class="fas fa-robot text-sm"></i>
                         </div>
                         <div>
@@ -62,18 +62,18 @@ class SkillBot {
                                 <h4 class="font-bold text-sm text-white">SkillBot AI Pro</h4>
                                 <span class="px-1.5 py-0.2 text-[9px] font-black rounded bg-emerald-500 text-white">CANLI</span>
                             </div>
-                            <p class="text-[10px] text-orange-200" id="chat-user-status">Karyera & Müsahibə Məsləhətçiniz</p>
+                            <p class="text-[10px] text-slate-400" id="chat-user-status">Karyera & Müsahibə Məsləhətçiniz</p>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-1">
-                        <button onclick="window.skillBotInstance.toggleExpand()" class="text-slate-300 hover:text-white p-1.5 rounded-lg text-xs" title="Böyüt / Kiçilt">
+                        <button onclick="window.skillBotInstance.toggleExpand()" class="text-slate-400 hover:text-white p-1.5 rounded-lg text-xs transition-colors" title="Böyüt / Kiçilt">
                             <i class="fas fa-expand" id="chat-expand-icon"></i>
                         </button>
-                        <button onclick="window.skillBotInstance.clearChat()" class="text-slate-300 hover:text-white p-1.5 rounded-lg text-xs" title="Tarixçəni Təmizlə">
+                        <button onclick="window.skillBotInstance.clearChat()" class="text-slate-400 hover:text-white p-1.5 rounded-lg text-xs transition-colors" title="Tarixçəni Təmizlə">
                             <i class="fas fa-rotate-left"></i>
                         </button>
-                        <button onclick="window.skillBotInstance.toggleChat()" class="text-slate-300 hover:text-white p-1.5 rounded-lg text-sm ml-1">
+                        <button onclick="window.skillBotInstance.toggleChat()" class="text-slate-400 hover:text-white p-1.5 rounded-lg text-sm ml-1 transition-colors">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -82,9 +82,9 @@ class SkillBot {
                 <!-- Mesajlar Sahəsi -->
                 <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-3.5 text-xs bg-slate-50/60">
                     <!-- Giriş Mesajı -->
-                    <div class="chat-bubble-bot p-4 rounded-2xl max-w-[90%] space-y-2 shadow-sm">
+                    <div class="chat-bubble-bot p-4 rounded-2xl max-w-[90%] space-y-2 shadow-2xs">
                         <p class="font-bold text-slate-900 flex items-center gap-1.5">
-                            <i class="fas fa-sparkles text-orange-600"></i> Salam! Mən sizin Fərdi Karyera AI Məsləhətçinizəm.
+                            <i class="fas fa-sparkles text-indigo-600"></i> Salam! Mən sizin Fərdi Karyera AI Məsləhətçinizəm.
                         </p>
                         <p class="text-slate-600 leading-relaxed">
                             Mən sizin profilinizə, bacarıqlarınıza və Azərbaycanın 420 real vakansiyasına (Jobsearch.az) bələdəm. Sizə necə kömək edə bilərəm?
@@ -95,16 +95,16 @@ class SkillBot {
                     <div class="space-y-1.5 pt-1">
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tövsiyə olunan əmrlər:</p>
                         <div class="flex flex-wrap gap-1.5">
-                            <button onclick="window.skillBotInstance.analyzeUserProfile()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-orange-50 text-orange-700 font-bold border border-orange-200 text-[11px] shadow-sm transition-all flex items-center gap-1">
-                                <i class="fas fa-user-check text-orange-600"></i> Profilimi Analiz Et
+                            <button onclick="window.skillBotInstance.analyzeUserProfile()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 text-[11px] shadow-2xs transition-all flex items-center gap-1">
+                                <i class="fas fa-user-check text-indigo-600"></i> Profilimi Analiz Et
                             </button>
-                            <button onclick="window.skillBotInstance.startInterviewSimulation()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 text-[11px] shadow-sm transition-all flex items-center gap-1">
+                            <button onclick="window.skillBotInstance.startInterviewSimulation()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-700 font-bold border border-indigo-200 text-[11px] shadow-2xs transition-all flex items-center gap-1">
                                 <i class="fas fa-clipboard-question text-indigo-600"></i> Müsahibə Sualları Ver
                             </button>
-                            <button onclick="window.skillBotInstance.sendQuickPrompt('Data Analitiklərin Bakıda orta maaşı nə qədərdir?')" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[11px] shadow-sm transition-all flex items-center gap-1">
+                            <button onclick="window.skillBotInstance.sendQuickPrompt('Data Analitiklərin Bakıda orta maaşı nə qədərdir?')" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[11px] shadow-2xs transition-all flex items-center gap-1">
                                 <i class="fas fa-money-bill-wave text-emerald-600"></i> Bakı Maaşları
                             </button>
-                            <button onclick="window.skillBotInstance.sendQuickPrompt('SQL və Power BI üçün ən yaxşı pulsuz kurslar')" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-amber-50 text-amber-800 font-bold border border-amber-200 text-[11px] shadow-sm transition-all flex items-center gap-1">
+                            <button onclick="window.skillBotInstance.sendQuickPrompt('SQL və Power BI üçün ən yaxşı pulsuz kurslar')" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-amber-50 text-amber-800 font-bold border border-amber-200 text-[11px] shadow-2xs transition-all flex items-center gap-1">
                                 <i class="fas fa-graduation-cap text-amber-600"></i> Pulsuz Kurslar
                             </button>
                         </div>
@@ -121,16 +121,16 @@ class SkillBot {
 
                 <!-- Daxiletmə Sahəsi -->
                 <div class="p-3 bg-white border-t border-slate-100 flex items-center gap-2">
-                    <input type="text" id="chat-input" onkeypress="if(event.key==='Enter') window.skillBotInstance.sendMessage()" placeholder="Sualınızı və ya cavabınızı yazın..." class="flex-grow text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:outline-none">
-                    <button onclick="window.skillBotInstance.sendMessage()" class="w-9 h-9 rounded-xl gradient-orange-btn text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                    <input type="text" id="chat-input" onkeypress="if(event.key==='Enter') window.skillBotInstance.sendMessage()" placeholder="Sualınızı və ya cavabınızı yazın..." class="flex-grow text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <button onclick="window.skillBotInstance.sendMessage()" class="w-9 h-9 rounded-xl btn-saas-primary text-white flex items-center justify-center flex-shrink-0 shadow-md">
                         <i class="fas fa-paper-plane text-xs"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Əsas Çatbot Açma Düyməsi -->
-            <button onclick="window.skillBotInstance.toggleChat()" class="gradient-orange-btn w-14 h-14 rounded-2xl text-white flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition-all orange-glow group relative">
-                <i class="fas fa-robot group-hover:scale-110 transition-transform"></i>
+            <button onclick="window.skillBotInstance.toggleChat()" class="chat-fab-btn w-14 h-14 rounded-2xl flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition-all group relative cursor-pointer" title="SkillBot AI ilə danış">
+                <i class="fas fa-robot text-white group-hover:scale-110 transition-transform"></i>
                 <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white animate-pulse"></span>
             </button>
         `;
@@ -439,9 +439,9 @@ class SkillBot {
             actionsHtml = `<div class="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5">`;
             actions.forEach(act => {
                 if (act.url) {
-                    actionsHtml += `<a href="${act.url}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-[11px] border border-orange-200 shadow-sm transition-all">${act.label} <i class="fas fa-arrow-up-right-from-square text-[9px]"></i></a>`;
+                    actionsHtml += `<a href="${act.url}" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-[11px] border border-indigo-200 shadow-2xs transition-all">${act.label} <i class="fas fa-arrow-up-right-from-square text-[9px]"></i></a>`;
                 } else if (act.action) {
-                    actionsHtml += `<button onclick="${act.action}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-orange-500 hover:text-white text-slate-800 font-bold text-[11px] border border-slate-200 shadow-sm transition-all">${act.label}</button>`;
+                    actionsHtml += `<button onclick="${act.action}" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-800 font-bold text-[11px] border border-slate-200 shadow-2xs transition-all">${act.label}</button>`;
                 }
             });
             actionsHtml += `</div>`;
