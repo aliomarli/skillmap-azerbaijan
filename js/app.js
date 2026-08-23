@@ -13,6 +13,9 @@ class SkillMapApp {
         this.topEmployersModule = typeof TopEmployersModule !== "undefined" ? new TopEmployersModule(this.data) : null;
         if (this.topEmployersModule) window.topEmployersModuleInstance = this.topEmployersModule;
         this.nlpSim = typeof NLPSimulator !== "undefined" ? new NLPSimulator(this.data) : null;
+        this.admin = (typeof AdminModule !== "undefined")
+            ? new AdminModule()
+            : ((typeof window !== "undefined" && window.AdminModule) ? new window.AdminModule() : null);
 
         this.currentLang = "az";
         this.currentSkills = {};
@@ -2049,7 +2052,8 @@ class SkillMapApp {
             "university-dash",
             "policy-gov",
             "nlp-sandbox",
-            "methodology"
+            "methodology",
+            "admin"
         ];
 
         if (initialHash && validTabs.includes(initialHash)) {
@@ -2108,6 +2112,12 @@ class SkillMapApp {
         }
 
         const activeBtns = document.querySelectorAll(`[data-tab-btn="${tabId}"]`);
+        
+        if (tabId === "admin") {
+            if (this.admin) {
+                this.admin.renderAdminView();
+            }
+        }
         activeBtns.forEach(activeBtn => {
             activeBtn.classList.remove("text-slate-600", "text-slate-700");
             activeBtn.classList.add("text-indigo-600", "bg-indigo-50", "font-bold");

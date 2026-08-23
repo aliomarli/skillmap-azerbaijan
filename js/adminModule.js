@@ -693,7 +693,18 @@ class AdminModule {
         const vacContainer = document.getElementById("admin-modal-matching-vacancies");
         if (vacContainer) {
             vacContainer.innerHTML = "";
-            const vacancies = (window.SkillMapData && window.SkillMapData.liveVacancies) ? window.SkillMapData.liveVacancies : [];
+            let vacancies = (window.SkillMapData && Array.isArray(window.SkillMapData.liveVacancies) && window.SkillMapData.liveVacancies.length > 0) 
+                ? window.SkillMapData.liveVacancies 
+                : ((window.app && window.app.data && Array.isArray(window.app.data.liveVacancies) && window.app.data.liveVacancies.length > 0)
+                    ? window.app.data.liveVacancies 
+                    : [
+                        { id: "vac_01", title: "Junior Data Analyst", company: "PASHA Bank", skills: ["SQL", "Excel", "Power BI", "Python"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
+                        { id: "vac_02", title: "BI Specialist", company: "Kapital Bank", skills: ["SQL", "Power BI", "Data Visualization", "Excel"], min_experience_years: 1, required_education: "Bakalavr", required_english_level: "B2" },
+                        { id: "vac_03", title: "Junior Financial Analyst", company: "ABB", skills: ["Excel", "Financial Modeling", "Analytical Thinking"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
+                        { id: "vac_04", title: "Junior Business Analyst", company: "Azercell", skills: ["Business Analysis", "Communication", "SQL", "Excel"], min_experience_years: 1, required_education: "Bakalavr", required_english_level: "B2" },
+                        { id: "vac_05", title: "Junior Frontend Developer", company: "PASHA Technology", skills: ["JavaScript", "React", "HTML/CSS", "Git"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
+                        { id: "vac_06", title: "Digital Marketing Specialist", company: "Trendyol AZ", skills: ["Digital Marketing", "Communication", "English", "Excel"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" }
+                    ]);
             const scored = vacancies.map(v => {
                 const res = engine.calculateVacancyMatch(v, student.savedSkills || {}, student, targetRoleId);
                 return {
