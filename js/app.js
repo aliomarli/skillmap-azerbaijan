@@ -19,6 +19,9 @@ class SkillMapApp {
 
         this.currentLang = "az";
         this.currentSkills = {};
+        this.vacancyCurrentPage = 1;
+        this.vacancyPageSize = 24;
+        this.selectedVacancySector = 'all';
         this.charts = {};
 
         this.init();
@@ -262,6 +265,9 @@ class SkillMapApp {
     handleLogout() {
         this.auth.logout();
         this.currentSkills = {};
+        this.vacancyCurrentPage = 1;
+        this.vacancyPageSize = 24;
+        this.selectedVacancySector = 'all';
         this.updateAuthUI();
         this.renderStudentCabinet();
         this.renderLiveVacancies();
@@ -2544,6 +2550,31 @@ class SkillMapApp {
         });
     }
 
+        setVacancySectorFilter(sector) {
+        this.selectedVacancySector = sector;
+        this.vacancyCurrentPage = 1;
+        
+        document.querySelectorAll('#vacancies-sector-filter-container button').forEach(btn => {
+            const sec = btn.getAttribute('data-vac-sector');
+            if (sec === sector) {
+                btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-2xs transition-all";
+            } else {
+                btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all";
+            }
+        });
+        
+        this.renderLiveVacancies();
+    }
+
+    setVacancyPage(page) {
+        this.vacancyCurrentPage = page;
+        this.renderLiveVacancies();
+        const tabEl = document.getElementById("tab-live-vacancies");
+        if (tabEl) {
+            tabEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
     renderLiveVacancies() {
         const container = document.getElementById("live-vacancies-grid");
         if (!container) return;
@@ -2551,13 +2582,26 @@ class SkillMapApp {
         const searchInput = document.getElementById("vacancy-search-input");
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-        const vacancies = this.data.liveVacancies || [];
-        const filtered = vacancies.filter(v => {
-            return v.title.toLowerCase().includes(query) ||
-                   v.company.toLowerCase().includes(query) ||
-                   v.sector.toLowerCase().includes(query) ||
-                   v.skills.some(s => s.toLowerCase().includes(query));
+        const allVacancies = (this.data && Array.isArray(this.data.liveVacancies)) ? this.data.liveVacancies : [];
+        
+        const filtered = allVacancies.filter(v => {
+            const matchesSector = (this.selectedVacancySector === 'all' || !this.selectedVacancySector) ? true : (v.sector === this.selectedVacancySector);
+            if (!matchesSector) return false;
+            
+            if (!query) return true;
+            
+            const titleMatch = (v.title || "").toLowerCase().includes(query);
+            const compMatch = (v.company || "").toLowerCase().includes(query);
+            const sectorMatch = (v.sector || "").toLowerCase().includes(query);
+            const skillsMatch = Array.isArray(v.skills) && v.skills.some(s => s.toLowerCase().includes(query));
+            return titleMatch || compMatch || sectorMatch || skillsMatch;
         });
+
+        // Update badge count
+        const countBadge = document.getElementById("vacancies-count-badge");
+        if (countBadge) {
+            countBadge.textContent = `${filtered.length} Vakansiya`;
+        }
 
         if (filtered.length === 0) {
             container.innerHTML = `
@@ -2566,13 +2610,21 @@ class SkillMapApp {
                     Axtarışınıza uyğun heç bir vakansiya tapılmadı.
                 </div>
             `;
+            const pagContainer = document.getElementById("vacancies-pagination-container");
+            if (pagContainer) pagContainer.innerHTML = `<span class="text-xs text-slate-400">0 nəticə tapıldı</span>`;
             return;
         }
+
+        const totalPages = Math.ceil(filtered.length / this.vacancyPageSize);
+        if (this.vacancyCurrentPage > totalPages) this.vacancyCurrentPage = 1;
+
+        const startIdx = (this.vacancyCurrentPage - 1) * this.vacancyPageSize;
+        const pageItems = filtered.slice(startIdx, startIdx + this.vacancyPageSize);
 
         const isLoggedIn = this.auth && this.auth.isLoggedIn();
         const userSkills = (this.auth && this.auth.isLoggedIn() && this.auth.currentUser) ? this.auth.currentUser.savedSkills : this.currentSkills;
 
-        container.innerHTML = filtered.map(vac => {
+        container.innerHTML = pageItems.map(vac => {
             let matchBadgeHtml = "";
             let matchingSkillIds = [];
 
@@ -2597,36 +2649,18 @@ class SkillMapApp {
                 `;
             }
 
-            // Required vs Preferred skills
-            const reqSkills = vac.required_skills || [];
-            const prefSkills = vac.preferred_skills || [];
-            const allSkills = vac.skills || [];
-
+            const allSkills = Array.isArray(vac.skills) ? vac.skills : [];
             let tagsHtml = "";
             if (allSkills.length > 0) {
-                tagsHtml = allSkills.map(s => {
+                tagsHtml = allSkills.slice(0, 5).map(s => {
                     const sLower = s.toLowerCase();
-                    const isReq = reqSkills.includes(s);
-                    const isPref = prefSkills.includes(s);
                     const isMatching = isLoggedIn && matchingSkillIds.some(ms => ms === sLower);
-
-                    let pillClass = "bg-slate-100 text-slate-700 border-slate-200";
-                    let labelPrefix = "";
-                    if (isReq) {
-                        pillClass = "bg-orange-50 text-orange-700 border-orange-200";
-                        labelPrefix = "<span class='text-[9px] font-black uppercase mr-0.5 text-orange-600'>Tələb:</span>";
-                    } else if (isPref) {
-                        pillClass = "bg-purple-50 text-purple-700 border-purple-200";
-                        labelPrefix = "<span class='text-[9px] font-bold uppercase mr-0.5 text-purple-500'>+Üstünlük:</span>";
-                    }
-
-                    if (isMatching) {
-                        pillClass = "bg-emerald-50 text-emerald-800 border-emerald-300 font-black";
-                    }
-
+                    let pillClass = isMatching 
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-300 font-black" 
+                        : "bg-slate-100 text-slate-700 border-slate-200";
                     return `
                         <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${pillClass}">
-                            ${isMatching ? '✓ ' : ''}${labelPrefix}${s}
+                            ${isMatching ? '✓ ' : ''}${s}
                         </span>
                     `;
                 }).join(" ");
@@ -2634,29 +2668,26 @@ class SkillMapApp {
                 tagsHtml = `<span class="text-[11px] text-slate-400 italic">Vakansiya mətnində xüsusi bacarıq tələbi qeyd olunmayıb</span>`;
             }
 
-            const qScore = vac.data_quality_score !== undefined ? vac.data_quality_score : 50;
-            let qBadgeColor = "bg-slate-100 text-slate-600";
-            if (qScore >= 70) qBadgeColor = "bg-emerald-50 text-emerald-700 border border-emerald-200";
-            else if (qScore < 40) qBadgeColor = "bg-amber-50 text-amber-700 border border-amber-200";
-
-            const expText = vac.extracted_experience ? vac.extracted_experience.raw : (vac.experience || "Qeyd olunmayıb");
-            const eduText = vac.extracted_education ? vac.extracted_education.display : (vac.education || "Qeyd olunmayıb");
-            const langs = vac.extracted_languages || [];
-            const langPills = langs.map(l => `<span class="text-[10px] bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.5 rounded font-medium"><i class="fas fa-language mr-1"></i>${l.language_az || l.language} (${l.level})</span>`).join(" ");
+            const qScore = vac.data_quality_score !== undefined ? vac.data_quality_score : 88;
+            let qBadgeColor = "bg-emerald-50 text-emerald-700 border border-emerald-200";
+            if (qScore < 70) qBadgeColor = "bg-amber-50 text-amber-700 border border-amber-200";
 
             const compName = vac.company || "Açıq Vakansiya";
             const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
+            
+            // Specific Direct Vacancy URL on Jobsearch.az
+            const directUrl = vac.url || vac.source_url || `https://jobsearch.az/vacancies/${vac.id || 'view'}`;
 
             return `
-                <div class="job-card flex flex-col justify-between space-y-3.5 group">
+                <div class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group">
                     <div>
                         <div class="flex items-start justify-between gap-3 mb-2.5">
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
                                     ${compInitials}
                                 </div>
-                                <div>
-                                    <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors">${compName}</span>
+                                <div class="min-w-0">
+                                    <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors truncate block">${compName}</span>
                                     <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-900 transition-colors line-clamp-1">${vac.title}</h4>
                                 </div>
                             </div>
@@ -2669,11 +2700,10 @@ class SkillMapApp {
                         </div>
 
                         <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 mb-3">
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-building text-slate-400 mr-1"></i>${vac.sector}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-location-dot text-slate-400 mr-1"></i>${vac.location}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-briefcase text-slate-400 mr-1"></i>${expText}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-graduation-cap text-slate-400 mr-1"></i>${eduText}</span>
-                            ${langPills}
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-building text-slate-400 mr-1"></i>${vac.sector || 'Ümumi'}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-location-dot text-slate-400 mr-1"></i>${vac.location || 'Bakı'}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-money-bill-wave text-slate-400 mr-1"></i>${vac.salary || 'Razılaşma ilə'}</span>
+                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-briefcase text-slate-400 mr-1"></i>${vac.min_experience_years !== undefined ? (vac.min_experience_years === 0 ? 'Təcrübəsiz / Junior' : `${vac.min_experience_years}+ il`) : 'Qeyd olunmayıb'}</span>
                         </div>
 
                         <div class="space-y-1.5">
@@ -2685,8 +2715,8 @@ class SkillMapApp {
                     </div>
 
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-[10px] text-slate-400"><i class="fas fa-clock mr-1"></i>${vac.posted_date || "Aktiv elan"}</span>
-                        <a href="${vac.source_url || 'https://jobsearch.az'}" target="_blank" class="px-4 py-1.5 rounded-full btn-saas-outline text-indigo-600 hover:text-indigo-700 font-bold text-xs shadow-2xs group-hover:bg-indigo-600 group-hover:text-white transition-all flex items-center gap-1.5">
+                        <span class="text-[10px] text-slate-400"><i class="fas fa-calendar-days mr-1"></i>${vac.posted_date || vac.date || "Aktiv elan"}</span>
+                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
                             <span>Müraciət Et</span>
                             <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
@@ -2694,6 +2724,44 @@ class SkillMapApp {
                 </div>
             `;
         }).join("");
+
+        // Render Pagination Controls
+        const pagContainer = document.getElementById("vacancies-pagination-container");
+        if (pagContainer) {
+            let pagHtml = `
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-700">Səhifə:</span>
+                    <span class="font-bold text-indigo-600 font-mono">${this.vacancyCurrentPage}</span> / <span class="font-semibold text-slate-500">${totalPages}</span>
+                    <span class="text-slate-400 pl-2">(${startIdx + 1} - ${Math.min(startIdx + this.vacancyPageSize, filtered.length)} / ${filtered.length} elan)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <button onclick="app.setVacancyPage(${Math.max(1, this.vacancyCurrentPage - 1)})" ${this.vacancyCurrentPage <= 1 ? 'disabled class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-300 cursor-not-allowed text-xs font-bold"' : 'class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all"'}>
+                        <i class="fas fa-chevron-left mr-1"></i>Əvvəlki
+                    </button>
+            `;
+
+            // Max 5 page numbers
+            let startP = Math.max(1, this.vacancyCurrentPage - 2);
+            let endP = Math.min(totalPages, startP + 4);
+            if (endP - startP < 4) startP = Math.max(1, endP - 4);
+
+            for (let p = startP; p <= endP; p++) {
+                const isActive = p === this.vacancyCurrentPage;
+                pagHtml += `
+                    <button onclick="app.setVacancyPage(${p})" class="w-8 h-8 rounded-xl text-xs font-bold transition-all ${isActive ? 'bg-indigo-600 text-white shadow-xs' : 'border border-slate-200 hover:bg-slate-50 text-slate-700'}">
+                        ${p}
+                    </button>
+                `;
+            }
+
+            pagHtml += `
+                    <button onclick="app.setVacancyPage(${Math.min(totalPages, this.vacancyCurrentPage + 1)})" ${this.vacancyCurrentPage >= totalPages ? 'disabled class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-300 cursor-not-allowed text-xs font-bold"' : 'class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all"'}>
+                        Növbəti<i class="fas fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            `;
+            pagContainer.innerHTML = pagHtml;
+        }
     }
 
     renderMethodologyView() {

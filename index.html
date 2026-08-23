@@ -1653,22 +1653,47 @@
         <!-- ======================================================== -->
         <!-- TAB 3: CANLI VAKANSİYA KATALOQU -->
         <!-- ======================================================== -->
+                <!-- ======================================================== -->
+        <!-- TAB 3: CANLI VAKANSİYALAR VƏ ŞƏXSİ UYĞUNLUQ (420 REAL VAKANSİYA) -->
+        <!-- ======================================================== -->
         <section id="tab-live-vacancies" class="tab-content space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
                 <div>
                     <h2 class="text-2xl font-black text-slate-900" data-i18n="vacancies_title">📋 Canlı Vakansiyalar və Şəxsi Uyğunluq</h2>
-                    <p class="text-xs text-slate-500">Vakansiya elanlarını axtarın. Sistem sizin yığdığınız bacarıq profilinizə əsasən hər elan üçün fərdi uyğunluq faizinizi hesablayır.</p>
+                    <p class="text-xs text-slate-500">420 real vakansiya elanı (Jobsearch.az bazasından). Sistem sizin profilinizə əsasən hər elan üçün fərdi uyğunluq faizinizi hesablayır.</p>
                 </div>
 
-                <div class="w-full sm:w-80">
-                    <div class="relative">
-                        <i class="fas fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                        <input type="text" id="vacancy-search-input" oninput="app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya skill axtarın (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs">
+                <div class="flex items-center gap-3">
+                    <span id="vacancies-count-badge" class="px-3.5 py-2 rounded-xl bg-indigo-50 text-indigo-700 font-black text-xs border border-indigo-200 shadow-2xs whitespace-nowrap">
+                        420 Vakansiya
+                    </span>
+                    <div class="w-full sm:w-80">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                            <input type="text" id="vacancy-search-input" oninput="app.vacancyCurrentPage = 1; app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya skill axtarın (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs">
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Sektor Üzrə Sürətli Filterlər -->
+            <div id="vacancies-sector-filter-container" class="flex flex-wrap items-center gap-2">
+                <button onclick="app.setVacancySectorFilter('all')" data-vac-sector="all" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-2xs transition-all">Bütün Sektorlar (420)</button>
+                <button onclick="app.setVacancySectorFilter('IT & Data')" data-vac-sector="IT & Data" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">IT & Data</button>
+                <button onclick="app.setVacancySectorFilter('Maliyyə & Bankçılıq')" data-vac-sector="Maliyyə & Bankçılıq" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Maliyyə & Bankçılıq</button>
+                <button onclick="app.setVacancySectorFilter('Marketinq & Media')" data-vac-sector="Marketinq & Media" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Marketinq & Media</button>
+                <button onclick="app.setVacancySectorFilter('İnzibati & HR')" data-vac-sector="İnzibati & HR" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">İnzibati & HR</button>
+                <button onclick="app.setVacancySectorFilter('Mühəndislik & Texnologiya')" data-vac-sector="Mühəndislik & Texnologiya" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Mühəndislik</button>
+                <button onclick="app.setVacancySectorFilter('Satış & Kommersiya')" data-vac-sector="Satış & Kommersiya" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Satış</button>
+            </div>
+
+            <!-- Vakansiya Kartları Qridi -->
             <div id="live-vacancies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+
+            <!-- Səhifələmə (Pagination) Paneli -->
+            <div id="vacancies-pagination-container" class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-600">
+                <!-- Dynamically populated pagination controls -->
             </div>
         </section>
 
