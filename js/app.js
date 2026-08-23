@@ -26,6 +26,7 @@ class SkillMapApp {
         try { this.populateRolesDropdown(); } catch (e) { console.error("Error in populateRolesDropdown:", e); }
         try { this.handleRoleChange(); } catch (e) { console.error("Error in handleRoleChange:", e); }
         try { this.updateAuthUI(); } catch (e) { console.error("Error in updateAuthUI:", e); }
+        try { this.renderStudentCabinet(); } catch (e) { console.error("Error in renderStudentCabinet:", e); }
 
         try {
             if (this.mapModule) {

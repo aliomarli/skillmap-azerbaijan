@@ -305,7 +305,7 @@
 
 
         <!-- ======================================================== -->
-        <!-- TAB 2: STUDENT CABINET 2.0 (FAITHFUL TO SCREENSHOT REFERENCE) -->
+        <!-- TAB 2: STUDENT CABINET 2.0 (DYNAMIC AUTH-AWARE) -->
         <!-- ======================================================== -->
         <section id="tab-student-gap" class="tab-content">
             <div id="student-cabinet-root" class="w-full flex flex-col lg:flex-row items-start gap-6">
@@ -407,11 +407,10 @@
 
                         <div class="flex items-center gap-3">
                             <!-- Notifications -->
-                            <div class="relative cursor-pointer" onclick="alert('2 yeni bildirişiniz var:\n1. 4 yeni Financial Analyst vakansiyası əlavə olundu.\n2. Skill Passport-unuz uğurla generasiya edildi.')">
+                            <div class="relative cursor-pointer" onclick="alert('Bildirişləri görmək üçün kabinetə daxil olun.')">
                                 <div class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all">
                                     <i class="far fa-bell text-sm"></i>
                                 </div>
-                                <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">2</span>
                             </div>
 
                             <!-- Help Icon -->
@@ -420,12 +419,12 @@
                             </button>
 
                             <!-- User Avatar & Name Dropdown -->
-                            <div class="flex items-center gap-2.5 pl-2 border-l border-slate-200 cursor-pointer" onclick="app.switchCabinetView('profile')">
-                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center text-xs shadow-sm" id="cab-top-avatar">
-                                    ƏÖ
+                            <div class="flex items-center gap-2.5 pl-2 border-l border-slate-200 cursor-pointer" onclick="if(app.auth.isLoggedIn()) app.switchCabinetView('profile'); else app.openAuthModal('login');">
+                                <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-xs shadow-sm" id="cab-top-avatar">
+                                    👤
                                 </div>
                                 <div class="hidden sm:block text-left">
-                                    <div class="text-xs font-bold text-slate-900" id="cab-top-username">Əli Ömərli</div>
+                                    <div class="text-xs font-bold text-slate-900" id="cab-top-username">Qonaq</div>
                                 </div>
                                 <i class="fas fa-chevron-down text-[10px] text-slate-400"></i>
                             </div>
@@ -433,23 +432,26 @@
                     </div>
 
                     <!-- ======================================================== -->
-                    <!-- SUB-VIEW 1: Ümumi Görünüş (Overview - EXACT MATCH TO SCREENSHOT) -->
+                    <!-- SUB-VIEW 1: Ümumi Görünüş (Overview) -->
                     <!-- ======================================================== -->
                     <div id="cab-view-overview" class="space-y-6">
                         <!-- Welcome Banner -->
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                             <div class="space-y-2 max-w-xl z-10">
-                                <h2 class="text-2xl sm:text-3xl font-black text-slate-900" id="cab-welcome-title">Salam, Əli! 👋</h2>
+                                <h2 class="text-2xl sm:text-3xl font-black text-slate-900" id="cab-welcome-title">Xoş Gəlmisiniz! 👋</h2>
                                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                                    Karyera hədəflərinizə çatmaq üçün bacarıqlarınızı analiz edirik və ən uyğun iş imkanlarını sizin üçün tapırıq.
+                                    Karyera hədəflərinizə çatmaq və fərdi analizləri görmək üçün şəxsi kabinetinizə daxil olun və ya qeydiyyatdan keçin.
                                 </p>
                                 <div class="pt-2 flex flex-wrap gap-2">
-                                    <button onclick="app.openCVUploadModal()" class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
-                                        <i class="fas fa-file-arrow-up"></i>
-                                        <span>CV-ni yüklə & ATS Analizi</span>
+                                    <button onclick="app.openAuthModal('login')" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
+                                        <i class="fas fa-right-to-bracket"></i>
+                                        <span>Kabinetə Daxil Ol</span>
                                     </button>
-                                    <button onclick="app.switchCabinetView('profile')" class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
-                                        <i class="fas fa-sliders mr-1"></i>Hədəfi Dəyiş
+                                    <button onclick="app.openAuthModal('register')" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-sm transition-all">
+                                        <i class="fas fa-user-plus mr-1"></i>Qeydiyyatdan Keç
+                                    </button>
+                                    <button onclick="app.loadDemoProfile()" class="px-4 py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold transition-all">
+                                        <i class="fas fa-eye mr-1"></i>Demo Rejimini Sına
                                     </button>
                                 </div>
                             </div>
@@ -470,11 +472,11 @@
                             <!-- Card 1: Career Match -->
                             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
                                 <span class="text-xs font-bold text-slate-600">Career Match</span>
-                                <div class="text-2xl sm:text-3xl font-black text-emerald-600" id="cab-stat-match">74%</div>
-                                <p class="text-[10px] text-slate-500 leading-tight">Hədəf vəzifənizə uyğunluğunuz</p>
+                                <div class="text-2xl sm:text-3xl font-black text-slate-400" id="cab-stat-match">— %</div>
+                                <p class="text-[10px] text-slate-500 leading-tight">Giriş edərək ölçün</p>
                                 <div class="pt-1">
-                                    <svg class="w-full h-5 text-emerald-500" viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                                        <path d="M0 15 Q 25 5, 50 12 T 100 6" />
+                                    <svg class="w-full h-5 text-slate-300" viewBox="0 0 100 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                        <path d="M0 15 Q 25 15, 50 15 T 100 15" />
                                     </svg>
                                 </div>
                             </div>
@@ -482,10 +484,10 @@
                             <!-- Card 2: Hədəf vəzifə -->
                             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
                                 <span class="text-xs font-bold text-slate-600">Hədəf vəzifə</span>
-                                <div class="text-base sm:text-lg font-black text-blue-600 truncate" id="cab-stat-role">Financial Analyst</div>
-                                <p class="text-[10px] text-slate-500 leading-tight" id="cab-stat-sector">Maliyyə və Bank sektoru</p>
+                                <div class="text-base sm:text-lg font-black text-slate-500 truncate" id="cab-stat-role">Seçilməyib</div>
+                                <p class="text-[10px] text-slate-500 leading-tight" id="cab-stat-sector">Giriş tələb olunur</p>
                                 <div class="flex justify-end pt-1">
-                                    <div class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
+                                    <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs">
                                         <i class="fas fa-bullseye"></i>
                                     </div>
                                 </div>
@@ -494,22 +496,22 @@
                             <!-- Card 3: Top Skill Gap -->
                             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
                                 <span class="text-xs font-bold text-slate-600">Top Skill Gap</span>
-                                <div class="text-base sm:text-lg font-black text-rose-500 truncate" id="cab-stat-top-gap-name">Power BI</div>
-                                <p class="text-[10px] text-slate-500 leading-tight" id="cab-stat-top-gap-desc">2 səviyyə fərq var</p>
+                                <div class="text-base sm:text-lg font-black text-slate-400 truncate" id="cab-stat-top-gap-name">—</div>
+                                <p class="text-[10px] text-slate-500 leading-tight" id="cab-stat-top-gap-desc">Profil tələb olunur</p>
                                 <div class="segmented-gap-bar">
-                                    <span class="bg-rose-500"></span>
-                                    <span class="bg-rose-500"></span>
-                                    <span class="bg-rose-300"></span>
-                                    <span class="bg-rose-200"></span>
-                                    <span class="bg-rose-100"></span>
+                                    <span class="bg-slate-200"></span>
+                                    <span class="bg-slate-200"></span>
+                                    <span class="bg-slate-200"></span>
+                                    <span class="bg-slate-200"></span>
+                                    <span class="bg-slate-200"></span>
                                 </div>
                             </div>
 
                             <!-- Card 4: Uyğun vakansiyalar -->
                             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
                                 <span class="text-xs font-bold text-slate-600">Uyğun vakansiyalar</span>
-                                <div class="text-2xl sm:text-3xl font-black text-blue-600" id="cab-stat-vacancies-count">12</div>
-                                <p class="text-[10px] text-slate-500 leading-tight">Sizə uyğun açıq vakansiya</p>
+                                <div class="text-2xl sm:text-3xl font-black text-blue-600" id="cab-stat-vacancies-count">420</div>
+                                <p class="text-[10px] text-slate-500 leading-tight">Ümumi açıq vakansiya</p>
                                 <div class="flex justify-end pt-1">
                                     <div class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
                                         <i class="fas fa-briefcase"></i>
@@ -520,10 +522,10 @@
                             <!-- Card 5: Alternativ karyeralar -->
                             <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2 col-span-2 sm:col-span-1">
                                 <span class="text-xs font-bold text-slate-600">Alternativ karyeralar</span>
-                                <div class="text-2xl sm:text-3xl font-black text-purple-600" id="cab-stat-alts-count">3</div>
-                                <p class="text-[10px] text-slate-500 leading-tight">Sizə uyğun digər vəzifələr</p>
+                                <div class="text-2xl sm:text-3xl font-black text-slate-400" id="cab-stat-alts-count">—</div>
+                                <p class="text-[10px] text-slate-500 leading-tight">Giriş tələb olunur</p>
                                 <div class="flex justify-end pt-1">
-                                    <div class="w-7 h-7 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-xs">
+                                    <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs">
                                         <i class="fas fa-user-group"></i>
                                     </div>
                                 </div>
@@ -551,16 +553,19 @@
                                             </tr>
                                         </thead>
                                         <tbody id="cab-gap-table-body" class="divide-y divide-slate-100">
-                                            <!-- Dynamic Rows -->
+                                            <tr>
+                                                <td colspan="5" class="text-center py-10 text-slate-500">
+                                                    <i class="fas fa-lock text-2xl text-slate-300 mb-2 block"></i>
+                                                    <span class="font-bold text-slate-700 block mb-1">Şəxsi Skill Gap Analizi Giriş Tələb Edir</span>
+                                                    <span class="text-xs text-slate-500 block mb-3">Bacarıqlarınızın əmək bazarı ilə müqayisəsini görmək üçün daxil olun.</span>
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <button onclick="app.openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-blue-600 text-white text-xs font-bold">Daxil Ol</button>
+                                                        <button onclick="app.loadDemoProfile()" class="px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Demo Nümunə</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
-                                </div>
-
-                                <!-- Legend -->
-                                <div class="flex items-center gap-4 pt-3 border-t border-slate-100 text-[11px] text-slate-600 font-medium">
-                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Güclü (0)</span>
-                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Orta (1)</span>
-                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Yüksək (2+)</span>
                                 </div>
                             </div>
 
@@ -573,7 +578,10 @@
                                     </div>
 
                                     <div id="cab-career-alts-list" class="space-y-3.5">
-                                        <!-- Dynamic Progress Bars -->
+                                        <div class="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
+                                            <i class="fas fa-lock text-slate-300 text-xl mb-1.5 block"></i>
+                                            Fərdi karyera uyğunluq faizləriniz daxil olduqdan sonra hesablanacaq.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -593,7 +601,7 @@
                                 </div>
 
                                 <div id="cab-matching-vacancies-list" class="space-y-3">
-                                    <!-- Dynamic Vacancies -->
+                                    <!-- Dynamic Vacancies rendered by app.js -->
                                 </div>
                             </div>
 
@@ -605,7 +613,10 @@
                                     </div>
 
                                     <div id="cab-dev-plan-steps" class="space-y-3.5">
-                                        <!-- Dynamic Timeline Steps -->
+                                        <div class="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200">
+                                            <i class="fas fa-route text-slate-300 text-xl mb-1.5 block"></i>
+                                            Fərdi 4 addımlıq inkişaf planı üçün bacarıqlarınızı daxil edin.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -615,24 +626,23 @@
                             </div>
                         </div>
 
-                        <!-- Row 3: Skill Passport Card (EXACT MATCH TO SCREENSHOT) -->
+                        <!-- Row 3: Skill Passport Card -->
                         <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
                             <h3 class="text-sm font-bold text-slate-900">Skill Passport</h3>
 
                             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                                 <!-- Left Metadata -->
                                 <div class="lg:col-span-4 flex items-center gap-4">
-                                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center text-xl shadow-md" id="cab-pass-avatar">
-                                        ƏÖ
+                                    <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-xl shadow-md" id="cab-pass-avatar">
+                                        👤
                                     </div>
                                     <div class="space-y-1">
-                                        <h4 class="text-base font-bold text-slate-900" id="cab-pass-name">Əli Ömərli</h4>
-                                        <div class="text-xs text-slate-500" id="cab-pass-uni">UNEC · Maliyyə ixtisası</div>
-                                        <div class="text-xs text-slate-700 font-semibold" id="cab-pass-role">Hədəf vəzifə: Financial Analyst</div>
-                                        <div class="inline-flex items-center px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black" id="cab-pass-match">
-                                            Career Match: 74%
+                                        <h4 class="text-base font-bold text-slate-900" id="cab-pass-name">Qonaq İstifadəçi</h4>
+                                        <div class="text-xs text-slate-500" id="cab-pass-uni">Giriş tələb olunur</div>
+                                        <div class="text-xs text-slate-700 font-semibold" id="cab-pass-role">Hədəf vəzifə: Seçilməyib</div>
+                                        <div class="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 text-[10px] font-bold" id="cab-pass-match">
+                                            Career Match: — %
                                         </div>
-                                        <div class="text-[10px] text-slate-400">Generated: 20 May 2026</div>
                                     </div>
                                 </div>
 
@@ -640,7 +650,7 @@
                                 <div class="lg:col-span-5 space-y-2">
                                     <div class="text-xs font-bold text-slate-700">Əsas bacarıqlar</div>
                                     <div class="grid grid-cols-2 gap-2" id="cab-pass-skills-grid">
-                                        <!-- Dynamic Skill Chips with Level Badges -->
+                                        <div class="col-span-2 p-3 text-center text-xs text-slate-400 italic">Skill Pasportu təsdiqlənmiş profil üçün aktivləşir.</div>
                                     </div>
                                 </div>
 
@@ -650,7 +660,7 @@
                                     <p class="text-[11px] text-slate-400 leading-relaxed">
                                         Skill Passport-unuzu PDF formatında yükləyin və CV-nizə əlavə edin.
                                     </p>
-                                    <button onclick="app.exportSkillPassport()" class="w-full py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all">
+                                    <button onclick="if(app.auth.isLoggedIn() || app.isDemoMode) app.exportSkillPassport(); else app.openAuthModal('login');" class="w-full py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all">
                                         <i class="fas fa-download"></i>
                                         <span>PDF yüklə</span>
                                     </button>
@@ -659,9 +669,7 @@
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
-                    <!-- SUB-VIEW 2: Profilim (Profile Editor) -->
-                    <!-- ======================================================== -->
+                    <!-- SUB-VIEW 2: Profilim -->
                     <div id="cab-view-profile" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -677,19 +685,19 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Ad və Soyad</label>
-                                    <input type="text" id="prof-input-name" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <input type="text" id="prof-input-name" placeholder="Adınızı daxil edin" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">E-poçt Ünvanı</label>
-                                    <input type="email" id="prof-input-email" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <input type="email" id="prof-input-email" placeholder="E-poçtunuzu daxil edin" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Universitet</label>
-                                    <input type="text" id="prof-input-uni" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <input type="text" id="prof-input-uni" placeholder="Məsələn: UNEC" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Fakültə / İxtisas</label>
-                                    <input type="text" id="prof-input-faculty" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <input type="text" id="prof-input-faculty" placeholder="Məsələn: Maliyyə" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">Təhsil Dərəcəsi</label>
@@ -701,7 +709,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">İş Təcrübəsi (il)</label>
-                                    <input type="number" id="prof-input-exp" min="0" max="20" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <input type="number" id="prof-input-exp" min="0" max="20" placeholder="0" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1.5">İngilis Dili Səviyyəsi</label>
@@ -723,9 +731,7 @@
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
-                    <!-- SUB-VIEW 3: Bacarıqlarım (Skills Manager) -->
-                    <!-- ======================================================== -->
+                    <!-- SUB-VIEW 3: Bacarıqlarım -->
                     <div id="cab-view-skills" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
@@ -740,16 +746,12 @@
                                 </div>
                             </div>
 
-                            <!-- Skills Sliders / Cards Grid -->
                             <div id="cab-full-skills-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <!-- Dynamic Skill Controls -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
-                    <!-- SUB-VIEW 4: Skill Gap (Deep Dive) -->
-                    <!-- ======================================================== -->
+                    <!-- SUB-VIEW 4: Skill Gap -->
                     <div id="cab-view-skill-gap" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -759,14 +761,11 @@
                                 </div>
                             </div>
                             <div id="cab-deep-gap-content">
-                                <!-- Deep Gap Table & Radar Canvas -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
                     <!-- SUB-VIEW 5: Mənə Uyğun Vakansiyalar -->
-                    <!-- ======================================================== -->
                     <div id="cab-view-vacancies" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
@@ -776,14 +775,11 @@
                                 </div>
                             </div>
                             <div id="cab-full-vacancies-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <!-- Dynamic Job Cards -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
                     <!-- SUB-VIEW 6: Karyera İstiqamətlərim -->
-                    <!-- ======================================================== -->
                     <div id="cab-view-career-directions" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="pb-4 border-b border-slate-100">
@@ -791,14 +787,11 @@
                                 <p class="text-xs text-slate-500">Hazırkı bacarıqlarınızla başqa hansı vəzifələrdə dərhal işə başlaya və ya yüksək qazanc əldə edə bilərsiniz?</p>
                             </div>
                             <div id="cab-full-career-matrix" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <!-- Dynamic Career Cards -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
                     <!-- SUB-VIEW 7: İnkişaf Planım -->
-                    <!-- ======================================================== -->
                     <div id="cab-view-dev-plan" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="pb-4 border-b border-slate-100">
@@ -806,14 +799,11 @@
                                 <p class="text-xs text-slate-500">Boşluqları bağlamaq və əməkhaqqı potensialınızı artırmaq üçün addım-addım prioritetlər.</p>
                             </div>
                             <div id="cab-full-dev-plan-list" class="space-y-4">
-                                <!-- Detailed Roadmap -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
-                    <!-- SUB-VIEW 8: Skill Passport (Tam Baxış) -->
-                    <!-- ======================================================== -->
+                    <!-- SUB-VIEW 8: Skill Passport -->
                     <div id="cab-view-skill-passport" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -821,19 +811,16 @@
                                     <h3 class="text-lg font-black text-slate-900">Rəsmi Rəqəmsal Skill Pasportu</h3>
                                     <p class="text-xs text-slate-500">İşəgötürənlərə və universitetlərə təqdim edilə bilən rəsmi bacarıq sertifikatı.</p>
                                 </div>
-                                <button onclick="app.exportSkillPassport()" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md flex items-center gap-2">
+                                <button onclick="if(app.auth.isLoggedIn() || app.isDemoMode) app.exportSkillPassport(); else app.openAuthModal('login');" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md flex items-center gap-2">
                                     <i class="fas fa-download"></i>PDF Formatında Endir
                                 </button>
                             </div>
                             <div id="cab-full-passport-preview">
-                                <!-- Live Passport Render -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
                     <!-- SUB-VIEW 9: CV & ATS Analizi -->
-                    <!-- ======================================================== -->
                     <div id="cab-view-cv-ats" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
@@ -847,14 +834,11 @@
                             </div>
 
                             <div id="cab-ats-results-container">
-                                <!-- Dynamic ATS Score Breakdown & Missing Keywords -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
                     <!-- SUB-VIEW 10: ATS CV Builder -->
-                    <!-- ======================================================== -->
                     <div id="cab-view-cv-builder" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
@@ -873,14 +857,11 @@
                             </div>
 
                             <div id="cab-cv-builder-preview" class="border border-slate-200 rounded-2xl p-6 bg-slate-50 font-mono text-xs">
-                                <!-- Live CV Preview -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- ======================================================== -->
-                    <!-- SUB-VIEW 11: Tənzimləmələr & Məlumat Məxfiliyi -->
-                    <!-- ======================================================== -->
+                    <!-- SUB-VIEW 11: Tənzimləmələr -->
                     <div id="cab-view-settings" class="hidden space-y-6">
                         <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs space-y-6">
                             <div class="pb-4 border-b border-slate-100">
