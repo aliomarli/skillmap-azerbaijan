@@ -18,7 +18,6 @@ class SkillMapApp {
         this.currentSkills = {};
         this.charts = {};
 
-        this.admin = new AdminModule();
         this.init();
     }
 
@@ -2050,8 +2049,7 @@ class SkillMapApp {
             "university-dash",
             "policy-gov",
             "nlp-sandbox",
-            "methodology",
-            "admin"
+            "methodology"
         ];
 
         if (initialHash && validTabs.includes(initialHash)) {
@@ -2124,12 +2122,6 @@ class SkillMapApp {
                 } catch (e) {
                     window.location.hash = tabId;
                 }
-            }
-        }
-
-        if (tabId === "admin") {
-            if (this.admin) {
-                this.admin.renderAdminView();
             }
         }
 
@@ -2798,8 +2790,7 @@ class SkillMapApp {
             window.mapModuleInstance = this.mapModule;
             this.nlpSim = new NLPSimulator(this.data);
 
-            this.admin = new AdminModule();
-        this.init();
+            this.init();
             this.closeDataModal();
             alert("Yeni vakansiya və əmək bazarı məlumatları uğurla tətbiq edildi!");
                } catch (e) {
