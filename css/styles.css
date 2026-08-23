@@ -276,3 +276,104 @@ input[type=range]::-webkit-slider-thumb:hover {
         display: none !important;
     }
 }
+
+/* ======================================================== */
+/* STUDENT CABINET 2.0 DEDICATED STYLING (MATCHING SCREENSHOT) */
+/* ======================================================== */
+
+.cabinet-sidebar {
+    background-color: #0f172a; /* Dark Navy Slate-900 */
+    border-radius: 1.5rem;
+    color: #94a3b8;
+}
+
+.sidebar-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #94a3b8;
+    transition: all 0.15s ease-in-out;
+    text-align: left;
+}
+
+.sidebar-nav-btn:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-nav-btn.active {
+    background-color: #2563eb; /* Royal Blue */
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.sidebar-help-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+/* Segmented Bar for Top Skill Gap */
+.segmented-gap-bar {
+    display: flex;
+    gap: 4px;
+    height: 8px;
+    width: 100%;
+    margin-top: 6px;
+}
+.segmented-gap-bar span {
+    flex: 1;
+    height: 100%;
+    border-radius: 2px;
+}
+
+/* Dual Bar for Skill Gap Table */
+.dual-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.dual-bar-track {
+    height: 6px;
+    width: 48px;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+}
+.dual-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+}
+
+/* Dark Mode for Student Cabinet */
+.student-cabinet-dark {
+    background-color: #0b1120 !important;
+    color: #f1f5f9 !important;
+}
+.student-cabinet-dark .bg-white {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+.student-cabinet-dark .text-slate-900 {
+    color: #f8fafc !important;
+}
+.student-cabinet-dark .text-slate-700,
+.student-cabinet-dark .text-slate-600 {
+    color: #cbd5e1 !important;
+}
+.student-cabinet-dark .text-slate-500 {
+    color: #94a3b8 !important;
+}
+.student-cabinet-dark .bg-slate-50 {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+}
+

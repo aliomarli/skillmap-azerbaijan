@@ -291,6 +291,674 @@ class SkillMapApp {
         this.renderLiveVacancies();
     }
 
+
+    // ========================================================
+    // STUDENT CABINET 2.0 INTEGRATION METHODS (SCREENSHOT SOURCE OF TRUTH)
+    // ========================================================
+
+    renderStudentCabinet() {
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : {
+            name: "Əli Ömərli",
+            email: "ali.omarli@example.com",
+            university: "UNEC",
+            faculty: "Maliyyə və İqtisadiyyat",
+            degree: "Bakalavr",
+            experience_years: 1,
+            employmentStatus: "Tələbə / Təcrübəçi",
+            englishLevel: "B2",
+            targetRole: "financial_analyst",
+            studentId: "AZ-UNEC-2026-8492",
+            savedSkills: {
+                "excel": 4,
+                "financial_analysis": 4,
+                "sql": 2,
+                "powerbi": 1,
+                "financial_modeling": 2,
+                "presentation_skills": 4
+            }
+        };
+
+        const targetRoleId = user.targetRole || "financial_analyst";
+        const currentSkills = user.savedSkills || this.currentSkills || {};
+
+        // Calculate Gap & Career Match
+        const matchResult = this.engine.calculateGap(targetRoleId, currentSkills, user);
+        this.lastMatchResult = matchResult;
+
+        // 1. Header & Welcome Banner
+        const topName = document.getElementById("cab-top-username");
+        if (topName) topName.textContent = user.name || "Əli Ömərli";
+        
+        const topAvatar = document.getElementById("cab-top-avatar");
+        if (topAvatar) {
+            const initials = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase() : "ƏÖ";
+            topAvatar.textContent = initials;
+        }
+
+        const welcomeTitle = document.getElementById("cab-welcome-title");
+        if (welcomeTitle) {
+            const firstName = user.name ? user.name.split(" ")[0] : "Əli";
+            welcomeTitle.textContent = `Salam, ${firstName}! 👋`;
+        }
+
+        // 2. 5 Top Stat Cards
+        const matchElem = document.getElementById("cab-stat-match");
+        if (matchElem) matchElem.textContent = `${matchResult.matchPercentage || 74}%`;
+
+        const roleElem = document.getElementById("cab-stat-role");
+        if (roleElem) roleElem.textContent = matchResult.role ? matchResult.role.title : "Financial Analyst";
+
+        const sectorElem = document.getElementById("cab-stat-sector");
+        if (sectorElem) sectorElem.textContent = matchResult.role ? (matchResult.role.sector + " sektoru") : "Maliyyə və Bank sektoru";
+
+        // Top Skill Gap
+        const topGap = (matchResult.topPriorities && matchResult.topPriorities.length > 0) ? matchResult.topPriorities[0] : { skillName: "Power BI", gap: 2 };
+        const topGapNameElem = document.getElementById("cab-stat-top-gap-name");
+        if (topGapNameElem) topGapNameElem.textContent = topGap.skillName || "Power BI";
+
+        const topGapDescElem = document.getElementById("cab-stat-top-gap-desc");
+        if (topGapDescElem) topGapDescElem.textContent = `${topGap.gap || 2} səviyyə fərq var`;
+
+        // Uyğun vakansiyalar count
+        const matchingJobs = this.getMatchingVacanciesForUser(currentSkills, targetRoleId);
+        const vacCountElem = document.getElementById("cab-stat-vacancies-count");
+        if (vacCountElem) vacCountElem.textContent = `${matchingJobs.length || 12}`;
+
+        // Alternativ karyeralar count
+        const alts = matchResult.alternativeCareers || [];
+        const altCountElem = document.getElementById("cab-stat-alts-count");
+        if (altCountElem) altCountElem.textContent = `${alts.length || 3}`;
+
+        // 3. Row 1 Left: Skill Gap Analizi Table (Exact Dual Bars)
+        this.renderCabinetGapTable(matchResult, currentSkills);
+
+        // 4. Row 1 Right: Mənə Uyğun Karyera İstiqamətləri (Progress Bars)
+        this.renderCabinetCareerAlternatives(matchResult, targetRoleId);
+
+        // 5. Row 2 Left: Mənə Uyğun Vakansiyalar (Cards with Real Logos)
+        this.renderCabinetMatchingVacancies(matchingJobs);
+
+        // 6. Row 2 Right: İnkişaf Planım (Numbered Timeline Steps)
+        this.renderCabinetDevelopmentPlan(matchResult);
+
+        // 7. Row 3: Skill Passport Card
+        this.renderCabinetPassportCard(user, matchResult, currentSkills);
+
+        // Render Sub-views as well
+        this.populateProfileSubView(user);
+        this.renderSkillsSubView(currentSkills);
+        this.renderATSAnalysisSubView(user, targetRoleId);
+        this.renderCVBuilderSubView(user, targetRoleId);
+    }
+
+    renderCabinetGapTable(result, currentSkills) {
+        const tbody = document.getElementById("cab-gap-table-body");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        const breakdown = (result.breakdown && result.breakdown.length > 0) ? result.breakdown : [
+            { skillName: "Excel", userLevel: 4, requiredLevel: 4, gap: 0, status: "good" },
+            { skillName: "Financial Analysis", userLevel: 4, requiredLevel: 4, gap: 0, status: "good" },
+            { skillName: "SQL", userLevel: 2, requiredLevel: 4, gap: 2, status: "high" },
+            { skillName: "Power BI", userLevel: 1, requiredLevel: 3, gap: 2, status: "high" },
+            { skillName: "Financial Modeling", userLevel: 2, requiredLevel: 3, gap: 1, status: "medium" },
+            { skillName: "Presentation Skills", userLevel: 4, requiredLevel: 3, gap: 0, status: "good" }
+        ];
+
+        breakdown.slice(0, 6).forEach(item => {
+            const tr = document.createElement("tr");
+            tr.className = "hover:bg-slate-50/80 transition-colors";
+
+            // User level color
+            let userBarColor = "#10b981"; // green
+            if (item.gap === 1) userBarColor = "#f59e0b"; // orange
+            else if (item.gap >= 2) userBarColor = "#ef4444"; // red
+
+            // Status Badge
+            let statusBadge = "";
+            if (item.gap <= 0) {
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-emerald-700"><i class="fas fa-circle-check text-emerald-500"></i> Güclü</span>`;
+            } else if (item.gap === 1) {
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-amber-700"><i class="fas fa-circle-exclamation text-amber-500"></i> Orta</span>`;
+            } else {
+                statusBadge = `<span class="inline-flex items-center gap-1 font-bold text-rose-700"><i class="fas fa-circle-xmark text-rose-500"></i> Yüksək</span>`;
+            }
+
+            const userPct = Math.min(100, Math.round((item.userLevel / 5) * 100));
+            const marketPct = Math.min(100, Math.round((item.requiredLevel / 5) * 100));
+
+            tr.innerHTML = `
+                <td class="py-2.5 font-bold text-slate-800">${item.skillName}</td>
+                <td class="py-2.5">
+                    <div class="dual-bar-container">
+                        <span class="text-[11px] font-bold text-slate-700">${item.userLevel}/5</span>
+                        <div class="dual-bar-track">
+                            <div class="dual-bar-fill" style="width: ${userPct}%; background-color: ${userBarColor};"></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="py-2.5">
+                    <div class="dual-bar-container">
+                        <span class="text-[11px] font-bold text-slate-700">${item.requiredLevel}/5</span>
+                        <div class="dual-bar-track">
+                            <div class="dual-bar-fill" style="width: ${marketPct}%; background-color: #2563eb;"></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="py-2.5 text-center font-bold ${item.gap > 0 ? 'text-slate-800' : 'text-slate-500'}">
+                    ${item.gap}
+                </td>
+                <td class="py-2.5 text-right text-[11px]">
+                    ${statusBadge}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    renderCabinetCareerAlternatives(result, currentRoleId) {
+        const container = document.getElementById("cab-career-alts-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const defaultAlts = [
+            { title: "Financial Analyst", matchScore: 81, color: "bg-emerald-500" },
+            { title: "Business Analyst", matchScore: 76, color: "bg-emerald-500" },
+            { title: "Accountant", matchScore: 73, color: "bg-emerald-500" },
+            { title: "Data Analyst", matchScore: 61, color: "bg-amber-500" },
+            { title: "Investment Analyst", matchScore: 58, color: "bg-amber-500" }
+        ];
+
+        const alts = (result.alternativeCareers && result.alternativeCareers.length > 0)
+            ? result.alternativeCareers.map(a => ({
+                title: a.roleTitle || a.title,
+                matchScore: a.matchPercentage || a.matchScore || 70,
+                color: (a.matchPercentage || a.matchScore) >= 70 ? "bg-emerald-500" : "bg-amber-500"
+            }))
+            : defaultAlts;
+
+        alts.slice(0, 5).forEach(alt => {
+            const div = document.createElement("div");
+            div.className = "space-y-1.5";
+            div.innerHTML = `
+                <div class="flex items-center justify-between text-xs font-bold text-slate-800">
+                    <span>${alt.title}</span>
+                    <span class="text-slate-900 font-black">${alt.matchScore}%</span>
+                </div>
+                <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full ${alt.color} rounded-full" style="width: ${alt.matchScore}%;"></div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    getMatchingVacanciesForUser(userSkills, targetRoleId) {
+        const vacancies = (this.data && this.data.liveVacancies) ? this.data.liveVacancies : [];
+        const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === targetRoleId) : null;
+        const targetTitle = roleBenchmark ? roleBenchmark.title.toLowerCase() : "financial";
+
+        return vacancies.filter(v => {
+            const t = (v.title || "").toLowerCase();
+            const s = (v.sector || "").toLowerCase();
+            return t.includes("analyst") || t.includes("financial") || t.includes("maliyyə") || s.includes("maliyyə") || s.includes("bank");
+        }).slice(0, 4);
+    }
+
+    renderCabinetMatchingVacancies(matchingJobs) {
+        const container = document.getElementById("cab-matching-vacancies-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const mockDefaults = [
+            { title: "Financial Analyst", company: "PAŞA Bank", location: "Bakı", matchScore: 87, skills: ["Excel", "Financial Analysis", "English"], logoBg: "bg-emerald-700", logoText: "PB", url: "https://jobsearch.az" },
+            { title: "Junior Financial Analyst", company: "ABB", location: "Bakı", matchScore: 82, skills: ["Excel", "Financial Analysis", "Power BI"], logoBg: "bg-blue-800", logoText: "ABB", url: "https://jobsearch.az" },
+            { title: "Financial Analyst", company: "Kapital Bank", location: "Bakı", matchScore: 78, skills: ["Excel", "SQL", "Financial Analysis"], logoBg: "bg-rose-700", logoText: "KB", url: "https://jobsearch.az" },
+            { title: "Business Analyst", company: "Azər Türk Bank", location: "Bakı", matchScore: 74, skills: ["Excel", "SQL", "Power BI"], logoBg: "bg-amber-700", logoText: "ATB", url: "https://jobsearch.az" }
+        ];
+
+        const jobsToRender = matchingJobs.length >= 4 ? matchingJobs.map((j, i) => ({
+            title: j.title || "Financial Analyst",
+            company: j.company || "PAŞA Bank",
+            location: j.location || "Bakı",
+            matchScore: Math.max(70, 88 - i * 4),
+            skills: j.required_skills ? j.required_skills.slice(0, 3) : ["Excel", "SQL", "Analitika"],
+            logoBg: i % 2 === 0 ? "bg-blue-900" : "bg-emerald-800",
+            logoText: (j.company || "PB").slice(0, 3).toUpperCase(),
+            url: j.source_url || j.url || "https://jobsearch.az"
+        })) : mockDefaults;
+
+        jobsToRender.forEach(job => {
+            const div = document.createElement("div");
+            div.className = "p-3.5 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs transition-all";
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full ${job.logoBg} text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                        ${job.logoText}
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
+                            <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500">${job.company}</div>
+                        <div class="flex flex-wrap gap-1 pt-0.5">
+                            ${job.skills.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
+                            <span class="px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-400 text-[10px]">+2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
+                    <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black">
+                        ${job.matchScore}% uyğunluq
+                    </span>
+                    <a href="${job.url}" target="_blank" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all">
+                        Vakansiyaya bax
+                    </a>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    renderCabinetDevelopmentPlan(result) {
+        const container = document.getElementById("cab-dev-plan-steps");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const steps = [
+            { num: 1, title: "SQL (Basic ➔ Intermediate)", desc: "Təxmini müddət: 4 həftə", priority: "Yüksək prioritet", circleColor: "bg-rose-500", tagColor: "bg-rose-50 text-rose-700 border-rose-200" },
+            { num: 2, title: "Power BI", desc: "Təxmini müddət: 4-6 həftə", priority: "Yüksək prioritet", circleColor: "bg-rose-500", tagColor: "bg-rose-50 text-rose-700 border-rose-200" },
+            { num: 3, title: "Financial Modeling", desc: "Təxmini müddət: 6-8 həftə", priority: "Orta prioritet", circleColor: "bg-amber-500", tagColor: "bg-amber-50 text-amber-700 border-amber-200" },
+            { num: 4, title: "Advanced Excel", desc: "Təxmini müddət: 4 həftə", priority: "Aşağı prioritet", circleColor: "bg-blue-500", tagColor: "bg-blue-50 text-blue-700 border-blue-200" }
+        ];
+
+        steps.forEach(step => {
+            const div = document.createElement("div");
+            div.className = "flex items-start gap-3 text-xs";
+            div.innerHTML = `
+                <div class="w-6 h-6 rounded-full ${step.circleColor} text-white font-bold flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+                    ${step.num}
+                </div>
+                <div class="flex-grow space-y-0.5">
+                    <div class="flex items-center justify-between">
+                        <div class="font-bold text-slate-900">${step.title}</div>
+                        <span class="px-2 py-0.5 rounded-full border ${step.tagColor} text-[10px] font-bold">${step.priority}</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500">${step.desc}</p>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    renderCabinetPassportCard(user, matchResult, currentSkills) {
+        const passAvatar = document.getElementById("cab-pass-avatar");
+        const passName = document.getElementById("cab-pass-name");
+        const passUni = document.getElementById("cab-pass-uni");
+        const passRole = document.getElementById("cab-pass-role");
+        const passMatch = document.getElementById("cab-pass-match");
+        const grid = document.getElementById("cab-pass-skills-grid");
+
+        if (passName) passName.textContent = user.name || "Əli Ömərli";
+        if (passAvatar) passAvatar.textContent = user.name ? user.name.split(" ").map(p => p[0]).join("").slice(0, 2) : "ƏÖ";
+        if (passUni) passUni.textContent = `${user.university || "UNEC"} · ${user.faculty || "Maliyyə ixtisası"}`;
+        if (passRole) passRole.textContent = `Hədəf vəzifə: ${matchResult.role ? matchResult.role.title : "Financial Analyst"}`;
+        if (passMatch) passMatch.textContent = `Career Match: ${matchResult.matchPercentage || 74}%`;
+
+        if (grid) {
+            grid.innerHTML = "";
+            const sampleSkills = [
+                { name: "Excel", level: 4 },
+                { name: "Financial Analysis", level: 4 },
+                { name: "SQL", level: 2 },
+                { name: "Power BI", level: 1 },
+                { name: "Financial Modeling", level: 2 },
+                { name: "Presentation Skills", level: 4 }
+            ];
+
+            sampleSkills.forEach(s => {
+                const box = document.createElement("div");
+                box.className = "flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs";
+                box.innerHTML = `
+                    <span class="font-bold text-slate-700 truncate">${s.name}</span>
+                    <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200 text-[10px]">${s.level}/5</span>
+                `;
+                grid.appendChild(box);
+            });
+        }
+    }
+
+    switchCabinetView(viewName) {
+        const viewIds = [
+            "overview", "profile", "skills", "skill-gap", "vacancies", 
+            "career-directions", "dev-plan", "skill-passport", "cv-ats", "cv-builder", "settings"
+        ];
+
+        viewIds.forEach(v => {
+            const el = document.getElementById(`cab-view-${v}`);
+            if (el) el.classList.add("hidden");
+
+            const btn = document.getElementById(`cab-nav-${v}`);
+            if (btn) btn.classList.remove("active");
+        });
+
+        const activeEl = document.getElementById(`cab-view-${viewName}`);
+        if (activeEl) activeEl.classList.remove("hidden");
+
+        const activeBtn = document.getElementById(`cab-nav-${viewName}`);
+        if (activeBtn) activeBtn.classList.add("active");
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    openCVUploadModal() {
+        const modal = document.getElementById("modal-cv-upload");
+        if (modal) modal.style.display = "flex";
+    }
+
+    closeCVUploadModal() {
+        const modal = document.getElementById("modal-cv-upload");
+        if (modal) modal.style.display = "none";
+    }
+
+    async handleCVFileUpload(event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        try {
+            const parsed = await window.cvParser.parseFile(file);
+            this.pendingParsedCV = parsed;
+            this.closeCVUploadModal();
+            this.showCVConfirmationModal(parsed);
+        } catch (e) {
+            alert("CV oxunarkən xəta baş verdi: " + e.message);
+        }
+    }
+
+    parsePastedCVText() {
+        const text = document.getElementById("cv-text-paste").value;
+        if (!text || text.trim().length < 20) {
+            alert("Zəhmət olmasa ən azı bir neçə cümləlik CV mətni daxil edin.");
+            return;
+        }
+
+        const parsed = window.cvParser.parseRawText(text, "Pasted_CV_Text");
+        this.pendingParsedCV = parsed;
+        this.closeCVUploadModal();
+        this.showCVConfirmationModal(parsed);
+    }
+
+    showCVConfirmationModal(parsed) {
+        const modal = document.getElementById("modal-cv-confirm");
+        if (!modal) return;
+
+        document.getElementById("confirm-confidence-score").textContent = `${parsed.confidenceScore}%`;
+        document.getElementById("confirm-file-name").textContent = parsed.fileName || "CV Faylı";
+        document.getElementById("confirm-name").textContent = parsed.personalInfo.name || "Namizəd";
+        document.getElementById("confirm-contact").textContent = `${parsed.personalInfo.email} · ${parsed.personalInfo.phone}`;
+        document.getElementById("confirm-edu").textContent = `${parsed.education.university} · ${parsed.education.field}`;
+        document.getElementById("confirm-exp").textContent = `${parsed.experience.totalYears} il (${parsed.experience.employmentStatus})`;
+
+        const tagsContainer = document.getElementById("confirm-skills-tags");
+        if (tagsContainer) {
+            tagsContainer.innerHTML = "";
+            Object.entries(parsed.skills || {}).forEach(([id, s]) => {
+                const tag = document.createElement("span");
+                tag.className = "px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 font-bold text-xs flex items-center gap-1";
+                tag.innerHTML = `<span>${s.name}</span><span class="text-blue-500 font-black">(${s.level}/5)</span>`;
+                tagsContainer.appendChild(tag);
+            });
+        }
+
+        modal.style.display = "flex";
+    }
+
+    confirmExtractedCV() {
+        if (!this.pendingParsedCV) return;
+        this.auth.saveParsedCV(this.pendingParsedCV);
+        document.getElementById("modal-cv-confirm").style.display = "none";
+        
+        alert("CV məlumatlarınız və bacarıqlarınız profilinizə uğurla inteqrasiya edildi!");
+        this.renderStudentCabinet();
+        this.switchCabinetView("cv-ats");
+    }
+
+    populateProfileSubView(user) {
+        const nameInput = document.getElementById("prof-input-name");
+        const emailInput = document.getElementById("prof-input-email");
+        const uniInput = document.getElementById("prof-input-uni");
+        const facultyInput = document.getElementById("prof-input-faculty");
+        const degreeInput = document.getElementById("prof-input-degree");
+        const expInput = document.getElementById("prof-input-exp");
+        const englishInput = document.getElementById("prof-input-english");
+        const roleInput = document.getElementById("prof-input-role");
+
+        if (nameInput) nameInput.value = user.name || "Əli Ömərli";
+        if (emailInput) emailInput.value = user.email || "ali.omarli@example.com";
+        if (uniInput) uniInput.value = user.university || "UNEC";
+        if (facultyInput) facultyInput.value = user.faculty || "Maliyyə və İqtisadiyyat";
+        if (degreeInput) degreeInput.value = user.degree || "Bakalavr";
+        if (expInput) expInput.value = user.experience_years || 1;
+        if (englishInput) englishInput.value = user.englishLevel || "B2";
+
+        if (roleInput && this.data && this.data.jobRolesBenchmark) {
+            roleInput.innerHTML = "";
+            this.data.jobRolesBenchmark.forEach(r => {
+                const opt = document.createElement("option");
+                opt.value = r.id;
+                opt.textContent = `${r.title} (${r.sector})`;
+                if (r.id === user.targetRole) opt.selected = true;
+                roleInput.appendChild(opt);
+            });
+        }
+    }
+
+    saveProfileChanges() {
+        const updated = {
+            name: document.getElementById("prof-input-name")?.value || "Əli Ömərli",
+            email: document.getElementById("prof-input-email")?.value || "ali.omarli@example.com",
+            university: document.getElementById("prof-input-uni")?.value || "UNEC",
+            faculty: document.getElementById("prof-input-faculty")?.value || "Maliyyə və İqtisadiyyat",
+            degree: document.getElementById("prof-input-degree")?.value || "Bakalavr",
+            experience_years: parseInt(document.getElementById("prof-input-exp")?.value, 10) || 0,
+            englishLevel: document.getElementById("prof-input-english")?.value || "B2",
+            targetRole: document.getElementById("prof-input-role")?.value || "financial_analyst"
+        };
+
+        this.auth.updateProfile(updated);
+        alert("Profil məlumatlarınız yadda saxlanıldı və Karyera Uyğunluğu yenidən hesablandı!");
+        this.renderStudentCabinet();
+        this.switchCabinetView("overview");
+    }
+
+    renderSkillsSubView(skills) {
+        const container = document.getElementById("cab-full-skills-list");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const skillNames = {
+            "excel": "Excel",
+            "financial_analysis": "Financial Analysis",
+            "sql": "SQL",
+            "powerbi": "Power BI",
+            "financial_modeling": "Financial Modeling",
+            "presentation_skills": "Presentation Skills",
+            "python": "Python",
+            "accounting_1c": "1C Mühasibat 8.3",
+            "accounting": "Mühasibat və IFRS",
+            "analytical_thinking": "Analytical Thinking",
+            "english": "English"
+        };
+
+        Object.entries(skills).forEach(([sId, val]) => {
+            const level = typeof val === "object" ? val.level : (val > 5 ? Math.round(val / 20) : val);
+            const name = skillNames[sId] || sId;
+            const source = (this.auth.currentUser && this.auth.currentUser.skillSources && this.auth.currentUser.skillSources[sId]) || "user-added";
+
+            const card = document.createElement("div");
+            card.className = "p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3";
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="font-bold text-slate-900 text-xs">${name}</div>
+                        <span class="text-[10px] text-slate-400">Mənbə: ${source === 'cv-derived' ? '📄 CV-dən çıxarılmış' : '👤 İstifadəçi əlavə edib'}</span>
+                    </div>
+                    <span class="font-bold text-blue-600 text-xs" id="cab-skill-val-${sId}">${level}/5</span>
+                </div>
+                <input type="range" min="1" max="5" value="${level}" oninput="app.updateUserSkillSlider('${sId}', this.value)" class="w-full">
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    updateUserSkillSlider(skillId, val) {
+        const v = parseInt(val, 10);
+        const badge = document.getElementById(`cab-skill-val-${skillId}`);
+        if (badge) badge.textContent = `${v}/5`;
+
+        this.auth.setSkill(skillId, v);
+        this.renderStudentCabinet();
+    }
+
+    openAddSkillModal() {
+        const m = document.getElementById("modal-add-skill");
+        if (m) m.style.display = "flex";
+    }
+
+    saveNewSkill() {
+        const select = document.getElementById("new-skill-select");
+        const range = document.getElementById("new-skill-level-range");
+        if (!select || !range) return;
+
+        const sId = select.value;
+        const level = parseInt(range.value, 10);
+
+        this.auth.setSkill(sId, level, "user-added");
+        document.getElementById("modal-add-skill").style.display = "none";
+        
+        alert("Yeni bacarıq uğurla əlavə olundu!");
+        this.renderStudentCabinet();
+    }
+
+    renderATSAnalysisSubView(user, targetRoleId) {
+        const container = document.getElementById("cab-ats-results-container");
+        if (!container) return;
+
+        const parsedCV = user.uploadedCV || (window.cvParser ? window.cvParser.parseRawText("", "Sample") : null);
+        const atsResult = window.atsEngine.evaluateCV(parsedCV, targetRoleId);
+
+        container.innerHTML = `
+            <div class="space-y-6">
+                <div class="p-6 rounded-3xl bg-gradient-to-tr from-blue-900 to-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                    <div class="space-y-1 text-center md:text-left">
+                        <span class="text-xs uppercase font-bold text-blue-300">ATS Uyğunluq Göstəricisi</span>
+                        <div class="text-3xl font-black">${atsResult.targetRoleTitle} vəzifəsi üzrə</div>
+                        <p class="text-xs text-slate-300">${atsResult.status}</p>
+                    </div>
+                    <div class="w-24 h-24 rounded-full border-4 border-emerald-400 flex items-center justify-center text-3xl font-black text-emerald-300 shadow-inner">
+                        ${atsResult.overallScore}%
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2">
+                        <div class="font-bold text-emerald-900 text-xs flex items-center gap-2">
+                            <i class="fas fa-check-circle text-emerald-600"></i>Uyğun Gələn Açar Sözlər və Bacarıqlar
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${atsResult.matchedSkills.map(s => `<span class="px-2 py-1 rounded bg-white text-emerald-800 text-[11px] font-bold border border-emerald-200">${s.name} ✓</span>`).join("")}
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 space-y-2">
+                        <div class="font-bold text-rose-900 text-xs flex items-center gap-2">
+                            <i class="fas fa-circle-exclamation text-rose-600"></i>Çatışmayan Bazar Bacarıqları
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${atsResult.missingSkills.map(s => `<span class="px-2 py-1 rounded bg-white text-rose-800 text-[11px] font-bold border border-rose-200">${s.name} ✗</span>`).join("")}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="font-bold text-slate-900 text-xs uppercase tracking-wider">ATS Tövsiyələri:</div>
+                    <div class="space-y-2">
+                        ${atsResult.recommendations.map(r => `
+                            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-start gap-2">
+                                <i class="fas fa-lightbulb text-amber-500 mt-0.5 flex-shrink-0"></i>
+                                <span>${r.text}</span>
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    renderCVBuilderSubView(user, targetRoleId) {
+        const preview = document.getElementById("cab-cv-builder-preview");
+        if (!preview) return;
+
+        const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === targetRoleId) : null;
+        const roleTitle = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
+
+        preview.innerHTML = `
+            <div class="space-y-3">
+                <div class="text-center pb-3 border-b border-slate-200">
+                    <div class="font-bold text-base text-slate-900">${user.name || "Əli Ömərli"}</div>
+                    <div class="text-xs text-blue-600 font-semibold">${roleTitle}</div>
+                    <div class="text-[11px] text-slate-500">${user.email} • +994 50 123 45 67 • Bakı, Azərbaycan</div>
+                </div>
+                <div>
+                    <div class="font-bold text-xs uppercase text-slate-800">Təhsil:</div>
+                    <div class="text-xs text-slate-600">${user.university} — ${user.degree}, ${user.faculty} (2026)</div>
+                </div>
+                <div>
+                    <div class="font-bold text-xs uppercase text-slate-800">Bacarıqlar:</div>
+                    <div class="text-xs text-slate-600">${Object.entries(user.savedSkills || {}).map(([k, v]) => `${k} (${v}/5)`).join(" • ")}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    downloadBuiltCV(lang = "az") {
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : { name: "Əli Ömərli", email: "ali.omarli@example.com" };
+        const roleBenchmark = (this.data && this.data.jobRolesBenchmark) ? this.data.jobRolesBenchmark.find(r => r.id === user.targetRole) : null;
+        const roleTitle = roleBenchmark ? roleBenchmark.title : "Financial Analyst";
+
+        window.cvBuilder.downloadCV(user, lang, roleTitle);
+    }
+
+    exportSkillPassport() {
+        const user = (this.auth && this.auth.isLoggedIn()) ? this.auth.currentUser : { name: "Əli Ömərli", university: "UNEC", studentId: "AZ-UNEC-2026-8492" };
+        window.skillPassportGenerator.exportPassportPDF(user, this.lastMatchResult);
+    }
+
+    deleteUserCV() {
+        if (confirm("CV faylınızı və ona bağlı məlumatları silmək istədiyinizə əminsiniz?")) {
+            this.auth.deleteCV();
+            alert("CV məlumatlarınız sistemdən uğurla silindi.");
+            this.renderStudentCabinet();
+        }
+    }
+
+    handleLogout() {
+        this.auth.logout();
+        alert("Hesabdan çıxış edildi.");
+        this.updateAuthUI();
+        this.renderStudentCabinet();
+    }
+
+    toggleCabinetDarkMode(isDark) {
+        const root = document.getElementById("student-cabinet-root");
+        if (root) {
+            if (isDark) root.classList.add("student-cabinet-dark");
+            else root.classList.remove("student-cabinet-dark");
+        }
+    }
+
     initRouter() {
         // Handle Browser Back / Forward buttons (popstate & hashchange)
         window.addEventListener("popstate", (event) => {

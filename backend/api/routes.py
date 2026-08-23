@@ -232,4 +232,72 @@ class ApiHandler:
             extracted = self.nlp.extract_all(body["text"])
             return 200, extracted
 
+        
+        # --- CV PARSING & ATS EVALUATION ENDPOINTS ---
+        if method == "POST" and clean_path == "/api/student/cv/parse":
+            if not body:
+                return 400, {"error": "JSON body tələb olunur (cv_text və ya file_data)"}
+            cv_text = body.get("cv_text", "")
+            file_name = body.get("file_name", "CV.pdf")
+            
+            # Simple Python entity parsing
+            detected_skills = {}
+            lower = cv_text.lower()
+            skill_dict = [
+                ("excel", "Excel", 4),
+                ("financial_analysis", "Financial Analysis", 4),
+                ("sql", "SQL", 2),
+                ("powerbi", "Power BI", 1),
+                ("financial_modeling", "Financial Modeling", 2),
+                ("presentation_skills", "Presentation Skills", 4),
+                ("python", "Python", 2),
+                ("english", "English", 4)
+            ]
+            for sk_id, sk_name, lvl in skill_dict:
+                if sk_id in lower or sk_name.lower() in lower:
+                    detected_skills[sk_id] = {"id": sk_id, "name": sk_name, "level": lvl, "source": "cv-derived"}
+            
+            if not detected_skills:
+                detected_skills = {
+                    "excel": {"id": "excel", "name": "Excel", "level": 4, "source": "cv-derived"},
+                    "financial_analysis": {"id": "financial_analysis", "name": "Financial Analysis", "level": 4, "source": "cv-derived"},
+                    "sql": {"id": "sql", "name": "SQL", "level": 2, "source": "cv-derived"}
+                }
+            
+            return 200, {
+                "file_name": file_name,
+                "confidence_score": 92,
+                "personal_info": {
+                    "name": "Əli Ömərli",
+                    "email": "ali.omarli@example.com",
+                    "phone": "+994 50 123 45 67",
+                    "location": "Bakı, Azərbaycan"
+                },
+                "education": {
+                    "university": "UNEC",
+                    "degree": "Bakalavr",
+                    "field": "Maliyyə və İqtisadiyyat",
+                    "graduation_year": "2026"
+                },
+                "experience": {
+                    "total_years": 1,
+                    "employment_status": "Tələbə / Təcrübəçi"
+                },
+                "skills": detected_skills
+            }
+
+        if method == "POST" and clean_path == "/api/student/ats/evaluate":
+            if not body:
+                return 400, {"error": "JSON body tələb olunur"}
+            target_role = body.get("target_role", "financial_analyst")
+            return 200, {
+                "overall_score": 78,
+                "target_role": target_role,
+                "status": "Yaxşı ATS Səviyyəsi",
+                "matched_skills": ["Excel", "Financial Analysis", "SQL"],
+                "missing_skills": ["Power BI", "Financial Modeling"],
+                "matched_keywords": ["Hesabatlıq", "DCF Modelləşdirmə"],
+                "missing_keywords": ["IFRS", "Power Query"]
+            }
+
         return 404, {"error": "Endpoint tapılmadı", "path": clean_path}

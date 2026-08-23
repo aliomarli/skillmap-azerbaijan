@@ -5,8 +5,8 @@
 
 class AuthManager {
     constructor() {
-        this.DB_KEY = "skillmap_users_db";
-        this.SESSION_KEY = "skillmap_session_user";
+        this.DB_KEY = 'skillmap_users_db';
+        this.SESSION_KEY = 'skillmap_session_user';
         this.initDatabase();
         this.currentUser = this.loadSession();
     }
@@ -16,28 +16,43 @@ class AuthManager {
         if (!db || Object.keys(db).length === 0) {
             // Standart demo istifadəçi yaradılır
             db = {
-                "demo@unec.edu.az": {
-                    id: "std_unec_101",
-                    email: "demo@unec.edu.az",
-                    password: "password123",
-                    name: "Nurlan Əliyev",
-                    university: "UNEC",
-                    faculty: "Maliyyə və Rəqəmsal İqtisadiyyat",
-                    targetRole: "data_analyst",
-                    degree: "Bakalavr",
-                    englishLevel: "B2",
-                    gpa: "88.4",
-                    studentId: "AZ-UNEC-2026-8492",
+                'ali.omarli@example.com': {
+                    id: 'std_unec_101',
+                    email: 'ali.omarli@example.com',
+                    password: 'password123',
+                    name: 'Əli Ömərli',
+                    university: 'UNEC',
+                    faculty: 'Maliyyə və İqtisadiyyat',
+                    degree: 'Bakalavr',
+                    graduationYear: '2026',
+                    experience_years: 1,
+                    employmentStatus: 'Tələbə / Təcrübəçi',
+                    englishLevel: 'B2',
+                    otherLanguages: 'Azərbaycan dili (Ana dili), Rus dili',
+                    targetSector: 'Bank & Maliyyə',
+                    targetRole: 'financial_analyst',
+                    gpa: '88.4',
+                    studentId: 'AZ-UNEC-2026-8492',
                     isVerified: true,
-                    joinedDate: "15.01.2026",
+                    joinedDate: '20 May 2026',
                     savedSkills: {
-                        "excel": 85,
-                        "sql": 40,
-                        "powerbi": 45,
-                        "python": 30,
-                        "analytical_thinking": 85,
-                        "english": 75
-                    }
+                        'excel': 4,
+                        'financial_analysis': 4,
+                        'sql': 2,
+                        'powerbi': 1,
+                        'financial_modeling': 2,
+                        'presentation_skills': 4
+                    },
+                    skillSources: {
+                        'excel': 'cv-derived',
+                        'financial_analysis': 'cv-derived',
+                        'sql': 'user-added',
+                        'powerbi': 'user-added',
+                        'financial_modeling': 'user-added',
+                        'presentation_skills': 'cv-derived'
+                    },
+                    uploadedCV: null,
+                    cvVersions: []
                 }
             };
             localStorage.setItem(this.DB_KEY, JSON.stringify(db));
@@ -76,34 +91,46 @@ class AuthManager {
         const db = this.getDatabase();
 
         if (db[cleanEmail]) {
-            throw new Error("Bu e-poçt ünvanı ilə artıq qeydiyyatdan keçilib. Zəhmət olmasa 'Daxil Ol' bölməsindən istifadə edin.");
+            throw new Error('Bu e-poçt ünvanı ilə artıq qeydiyyatdan keçilib. Zəhmət olmasa Daxil Ol bölməsindən istifadə edin.');
         }
 
         if (password.length < 6) {
-            throw new Error("Şifrə ən azı 6 simvoldan ibarət olmalıdır.");
+            throw new Error('Şifrə ən azı 6 simvoldan ibarət olmalıdır.');
         }
 
         const newUser = {
-            id: "std_" + Date.now(),
+            id: 'std_' + Date.now(),
             email: cleanEmail,
             password: password,
-            name: name.trim() || "Tələbə",
-            university: university || "UNEC",
-            faculty: faculty.trim() || "İqtisadiyyat",
-            targetRole: targetRole || "data_analyst",
-            degree: degree || "Bakalavr",
-            englishLevel: englishLevel || "B2",
-            gpa: "85.0",
-            studentId: `AZ-${university.toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`,
+            name: name.trim() || 'Tələbə',
+            university: university || 'UNEC',
+            faculty: faculty.trim() || 'Maliyyə və İqtisadiyyat',
+            targetRole: targetRole || 'financial_analyst',
+            targetSector: 'Bank & Maliyyə',
+            degree: degree || 'Bakalavr',
+            graduationYear: '2026',
+            experience_years: 0,
+            employmentStatus: 'Tələbə / Məzun',
+            englishLevel: englishLevel || 'B2',
+            otherLanguages: 'Azərbaycan dili (Ana dili)',
+            gpa: '85.0',
+            studentId: AZ--,
             isVerified: true,
-            joinedDate: new Date().toLocaleDateString("az-AZ"),
+            joinedDate: new Date().toLocaleDateString('az-AZ'),
             savedSkills: {
-                "excel": 70,
-                "sql": 30,
-                "powerbi": 30,
-                "analytical_thinking": 75,
-                "english": 70
-            }
+                'excel': 4,
+                'financial_analysis': 3,
+                'analytical_thinking': 4,
+                'english': 4
+            },
+            skillSources: {
+                'excel': 'user-added',
+                'financial_analysis': 'user-added',
+                'analytical_thinking': 'user-added',
+                'english': 'user-added'
+            },
+            uploadedCV: null,
+            cvVersions: []
         };
 
         db[cleanEmail] = newUser;
@@ -118,15 +145,27 @@ class AuthManager {
         const user = db[cleanEmail];
 
         if (!user) {
-            throw new Error("Bu e-poçt ilə qeydiyyatdan keçmiş istifadəçi tapılmadı.");
+            throw new Error('Bu e-poçt ilə qeydiyyatdan keçmiş istifadəçi tapılmadı.');
         }
 
         if (user.password !== password) {
-            throw new Error("Şifrə yanlışdır. Yenidən cəhd edin.");
+            throw new Error('Şifrə yanlışdır. Yenidən cəhd edin.');
         }
 
         this.saveSession(user);
         return user;
+    }
+
+    updateProfile(fields = {}) {
+        if (!this.currentUser) return;
+        Object.assign(this.currentUser, fields);
+        this.saveSession(this.currentUser);
+
+        const db = this.getDatabase();
+        if (db[this.currentUser.email]) {
+            Object.assign(db[this.currentUser.email], fields);
+            this.saveDatabase(db);
+        }
     }
 
     updateSkills(skills) {
@@ -141,6 +180,76 @@ class AuthManager {
         }
     }
 
+    setSkill(skillId, level, source = 'user-added') {
+        if (!this.currentUser) return;
+        if (!this.currentUser.savedSkills) this.currentUser.savedSkills = {};
+        if (!this.currentUser.skillSources) this.currentUser.skillSources = {};
+
+        this.currentUser.savedSkills[skillId] = parseInt(level, 10) || 1;
+        this.currentUser.skillSources[skillId] = source;
+
+        this.updateProfile({
+            savedSkills: this.currentUser.savedSkills,
+            skillSources: this.currentUser.skillSources
+        });
+    }
+
+    removeSkill(skillId) {
+        if (!this.currentUser || !this.currentUser.savedSkills) return;
+        delete this.currentUser.savedSkills[skillId];
+        if (this.currentUser.skillSources) delete this.currentUser.skillSources[skillId];
+
+        this.updateProfile({
+            savedSkills: this.currentUser.savedSkills,
+            skillSources: this.currentUser.skillSources
+        });
+    }
+
+    saveParsedCV(parsedCV) {
+        if (!this.currentUser) return;
+        this.currentUser.uploadedCV = parsedCV;
+
+        // Auto-merge extracted skills
+        if (parsedCV.skills) {
+            if (!this.currentUser.savedSkills) this.currentUser.savedSkills = {};
+            if (!this.currentUser.skillSources) this.currentUser.skillSources = {};
+
+            Object.entries(parsedCV.skills).forEach(([sId, sObj]) => {
+                this.currentUser.savedSkills[sId] = sObj.level || 3;
+                this.currentUser.skillSources[sId] = 'cv-derived';
+            });
+        }
+
+        // Auto-merge profile info if confirmed
+        if (parsedCV.personalInfo && parsedCV.personalInfo.name) {
+            this.currentUser.name = parsedCV.personalInfo.name;
+        }
+        if (parsedCV.education) {
+            if (parsedCV.education.university) this.currentUser.university = parsedCV.education.university;
+            if (parsedCV.education.degree) this.currentUser.degree = parsedCV.education.degree;
+            if (parsedCV.education.field) this.currentUser.faculty = parsedCV.education.field;
+        }
+        if (parsedCV.experience) {
+            this.currentUser.experience_years = parsedCV.experience.totalYears || 0;
+            this.currentUser.employmentStatus = parsedCV.experience.employmentStatus || 'Tələbə';
+        }
+        if (parsedCV.languages && parsedCV.languages.englishLevel) {
+            this.currentUser.englishLevel = parsedCV.languages.englishLevel;
+        }
+
+        this.updateProfile(this.currentUser);
+    }
+
+    deleteCV() {
+        if (!this.currentUser) return;
+        this.currentUser.uploadedCV = null;
+        this.currentUser.cvVersions = [];
+        this.updateProfile({
+            uploadedCV: null,
+            cvVersions: []
+        });
+    }
+
     logout() {
         this.currentUser = null;
         localStorage.removeItem(this.SESSION_KEY);
@@ -151,6 +260,6 @@ class AuthManager {
     }
 }
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
     window.AuthManager = AuthManager;
 }
