@@ -1,9 +1,9 @@
 /**
  * SkillMap Azerbaijan - Professional Robust CV Parser Engine
  * Line-preserving PDF.js text extraction with accurate entity detection:
- * - Candidate Name (from first text lines / before contact info)
- * - Candidate Email (ignoring references section)
- * - Filtered Experience Years (filtering out telephone numbers)
+ * - Line-by-line Candidate Email extraction (strictly ignoring any emails in References)
+ * - Date-range based Experience calculation ("08/2024 – present" -> 2026 - 2024 = 2 years)
+ * - Candidate Name (from first text lines)
  * - Education / University mapping (UNEC ISE, BDU, ADA, etc.)
  * - English Proficiency Level (C1, B2, etc.)
  * - Context-aware Dynamic Skill Levels (4/5 for experience/advanced, 3/5 for skills list, 2/5 for single mention)
@@ -61,31 +61,35 @@ async function parseCV(file) {
 
   console.log("CV Text extracted:", fullText.length, "chars");
   const textLower = fullText.toLowerCase();
+  const textLines = fullText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
 
-  // 1. Email tap (YALNIZ CV-nin yuxarı hissəsindəki şəxsi email, References bölməsindən əvvəl)
+  // 1. Email tap (CV mətnini sətir-sətir oxu. İLK tapılan email ünvanını götür. "References" bölməsindən sonrakıları qəti İGNORE et)
   let email = '';
-  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi;
-  const allFoundEmails = fullText.match(emailRegex) || [];
-
-  if (allFoundEmails.length > 0) {
-    const refMatch = textLower.search(/\b(references?|referans(?:lar)?|tövsiyə(?:lər)?|recommendations?|referees?|hakimlər)\b/i);
-    if (refMatch !== -1) {
-      const textBeforeRef = fullText.substring(0, refMatch);
-      const nonRefEmails = textBeforeRef.match(emailRegex) || [];
-      if (nonRefEmails.length > 0) {
-        email = nonRefEmails[0].trim();
-      } else {
-        email = allFoundEmails[0].trim();
-      }
-    } else {
-      email = allFoundEmails[0].trim();
+  for (const line of textLines) {
+    const lineLower = line.toLowerCase();
+    // Stop as soon as we reach the References / Referanslar / Tövsiyələr section
+    if (lineLower.match(/\b(references?|referans(?:lar)?|tövsiyə(?:lər)?|recommendations?|referees?|hakimlər)\b/i)) {
+      break;
+    }
+    const match = line.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+    if (match) {
+      email = match[1].trim();
+      break;
     }
   }
 
-  // 2. Ad və Soyad tap (İlk sətirlərdən və ya əlaqə məlumatlarından əvvəl)
+  if (!email) {
+    // Extra safety: take text before any reference keyword
+    const refIdx = textLower.search(/\b(references?|referans(?:lar)?|tövsiyə(?:lər)?|recommendations?|referees?)\b/i);
+    const beforeRef = refIdx !== -1 ? fullText.substring(0, refIdx) : fullText.substring(0, 1000);
+    const emailMatches = beforeRef.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/gi);
+    if (emailMatches && emailMatches.length > 0) {
+      email = emailMatches[0].trim();
+    }
+  }
+
+  // 2. Ad və Soyad tap (İlk sətirlərdən təmiz namizəd adını çıxar)
   let candidateName = '';
-  const textLines = fullText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
-  
   for (const line of textLines.slice(0, 8)) {
     if (line.includes('@') || line.match(/(\+?\d[\d\s\-\(\)]{7,})/) || line.match(/https?:\/\//i)) continue;
     if (line.match(/\b(curriculum|vitae|resume|cv|contact|profile|summary|education|experience|skills|baku|azerbaijan|email|phone|ünvan|telefon|haqqımda)\b/i)) continue;
@@ -98,21 +102,47 @@ async function parseCV(file) {
     }
   }
 
-  if (!candidateName && email) {
-    // If name wasn't cleanly captured, try first words before email
-    const beforeContact = fullText.substring(0, fullText.indexOf(email));
-    const potentialLines = beforeContact.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 3);
-    for (const pl of potentialLines) {
-      const clean = pl.replace(/[^a-zA-ZƏəIıÖöÜüĞğÇçŞş\s\.\-]/g, '').trim();
-      const words = clean.split(/\s+/).filter(w => w.length >= 2);
-      if (words.length >= 2 && words.length <= 4 && clean.length <= 35) {
-        candidateName = clean;
-        break;
+  // 3. Təcrübə illəri tap ("08/2024 – present", "2024 - present" kimi tarixləri 2026-dan çıxaraq hesabla)
+  let experience = 0;
+  const currentYear = 2026;
+  
+  // Date range matching with present / indiyə qədər / hazırda:
+  // e.g. "08/2024 – present", "2024 - present", "2024 – indiyə qədər", "2023 - hazırda"
+  const presentDateMatch = textLower.match(/(\d{1,2}\/)?(20\d{2})\s*[\–\—\-\~]\s*(present|current|hazırda|indiyə\s*qədər|davam\s*edir)/i);
+  if (presentDateMatch) {
+    const startYear = parseInt(presentDateMatch[2]);
+    if (!isNaN(startYear) && startYear <= currentYear) {
+      experience = Math.max(currentYear - startYear, 1);
+    }
+  }
+  
+  // Closed date ranges: e.g. "2022 - 2025" or "08/2022 – 05/2025"
+  if (experience === 0) {
+    const closedDateMatch = textLower.match(/(\d{1,2}\/)?(20\d{2})\s*[\–\—\-\~]\s*(\d{1,2}\/)?(20\d{2})/i);
+    if (closedDateMatch) {
+      const startYear = parseInt(closedDateMatch[2]);
+      const endYear = parseInt(closedDateMatch[4]);
+      if (!isNaN(startYear) && !isNaN(endYear) && endYear >= startYear) {
+        experience = Math.max(endYear - startYear, 1);
       }
     }
   }
+  
+  // Fallback explicit expressions: "2 years", "2 il", "2 il təcrübə"
+  if (experience === 0) {
+    const expMatch = textLower.match(/\b([1-9]|1[0-5])\+?\s*(?:years?|il|illik|il\s+təcrübə|years?\s+of\s+experience|years?\s+experience)\b/i)
+      || textLower.match(/(?:təcrübə|experience)\s*[\:\-\—\–]\s*([1-9]|1[0-5])\+?\s*(?:il|years?)?/i);
+    if (expMatch) {
+      const expNum = parseInt(expMatch[1]);
+      if (!isNaN(expNum) && expNum >= 1 && expNum <= 20) {
+        experience = expNum;
+      }
+    }
+  }
+  
+  if (experience === 0) experience = 2;
 
-  // 3. Universitet & Təhsil tap
+  // 4. Universitet & Təhsil tap
   let university = '';
   if (textLower.includes('international school of economics') || textLower.includes('ise')) {
     university = 'UNEC (International School of Economics - ISE)';
@@ -134,18 +164,6 @@ async function parseCV(file) {
     university = 'BMU';
   } else if (textLower.includes('khazar') || textLower.includes('xəzər')) {
     university = 'Xəzər Universiteti';
-  }
-
-  // 4. Təcrübə illəri tap (Yalnız 1-20 arası rəqəmlər, telefon nömrələri filtrasiya edilir)
-  let experience = 0;
-  const expMatch = textLower.match(/\b([1-9]|1[0-5])\+?\s*(?:years?|il|illik|il\s+təcrübə|years?\s+of\s+experience|years?\s+experience)\b/i)
-    || textLower.match(/(?:təcrübə|experience)\s*[\:\-\—\–]\s*([1-9]|1[0-5])\+?\s*(?:il|years?)?/i);
-    
-  if (expMatch) {
-    const expNum = parseInt(expMatch[1]);
-    if (!isNaN(expNum) && expNum >= 1 && expNum <= 20) {
-      experience = expNum;
-    }
   }
 
   // 5. İngilis dili səviyyəsi tap
@@ -243,7 +261,7 @@ async function parseCV(file) {
     foundSkills: foundSkills,
     skills: foundSkills,
     skillCount: Object.keys(foundSkills).length,
-    experience: experience || 1,
+    experience: experience,
     englishLevel: englishLevel || 'C1',
     university: university || 'UNEC (International School of Economics - ISE)',
     education: {
