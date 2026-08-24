@@ -2616,7 +2616,26 @@ class SkillMapApp {
         const allVacancies = (this.data && Array.isArray(this.data.liveVacancies)) ? this.data.liveVacancies : [];
         
         const filtered = allVacancies.filter(v => {
-            const matchesSector = (this.selectedVacancySector === 'all' || !this.selectedVacancySector) ? true : (v.sector === this.selectedVacancySector);
+            let matchesSector = true;
+            if (this.selectedVacancySector && this.selectedVacancySector !== 'all') {
+                const sec = this.selectedVacancySector.toLowerCase();
+                const vSec = ((v.sector || '') + ' ' + (v.category || '')).toLowerCase();
+                if (sec.includes('it')) {
+                    matchesSector = vSec.includes('it') || vSec.includes('texniki') || vSec.includes('data');
+                } else if (sec.includes('maliyyə')) {
+                    matchesSector = vSec.includes('maliyye') || vSec.includes('muhasibat') || vSec.includes('maliyyə');
+                } else if (sec.includes('marketinq')) {
+                    matchesSector = vSec.includes('marketinq') || vSec.includes('pr') || vSec.includes('dizayn');
+                } else if (sec.includes('hr') || sec.includes('inzibati')) {
+                    matchesSector = vSec.includes('insan resurslari') || vSec.includes('ofis') || vSec.includes('inzibati') || vSec.includes('menecment');
+                } else if (sec.includes('mühəndis') || sec.includes('muhendis')) {
+                    matchesSector = vSec.includes('muhendis') || vSec.includes('texniki');
+                } else if (sec.includes('satış') || sec.includes('satis')) {
+                    matchesSector = vSec.includes('satis') || vSec.includes('satış');
+                } else {
+                    matchesSector = vSec.includes(sec);
+                }
+            }
             if (!matchesSector) return false;
             
             if (!query) return true;
