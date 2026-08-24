@@ -12,8 +12,9 @@
 async function parseCV(file) {
   console.log("parseCV CALLED - checking if duplicate");
   
-  if (!file) {
-    throw new Error("Fayl seçilməyib.");
+  if (!file || (file.size !== undefined && file.size === 0)) {
+    console.warn("parseCV ignored: empty file or size is zero bytes");
+    throw new Error("PDF oxunmadı (Fayl boşdur)");
   }
 
   let fullText = '';

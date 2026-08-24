@@ -1397,12 +1397,15 @@ class SkillMapApp {
     }
 
     async handleCVFileUpload(event) {
+        const file = event.target && event.target.files && event.target.files[0];
+        if (!file || file.size === 0) {
+            console.log("Empty or zero-byte file event ignored");
+            return;
+        }
         if (this.isParsingCV) {
             console.log("Ignoring duplicate CV upload event trigger");
             return;
         }
-        const file = event.target.files && event.target.files[0];
-        if (!file) return;
 
         this.isParsingCV = true;
         try {

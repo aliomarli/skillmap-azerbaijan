@@ -2448,8 +2448,8 @@
 
             <!-- Upload Area -->
             <div class="space-y-4">
+                <input type="file" id="cv-file-input" accept=".pdf, .docx, .doc, .txt" onchange="app.handleCVFileUpload(event)" class="hidden">
                 <label for="cv-file-input" class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-6 text-center bg-slate-50 hover:bg-blue-50/50 transition-all cursor-pointer block">
-                    <input type="file" id="cv-file-input" accept=".pdf, .docx, .doc, .txt" onchange="app.handleCVFileUpload(event)" class="hidden">
                     <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-3 text-xl">
                         <i class="fas fa-cloud-arrow-up"></i>
                     </div>
