@@ -467,7 +467,11 @@ class SkillMapApp {
             this.auth.updateProfile({ savedSkills: initSkills });
         }
 
-        const currentSkills = user.savedSkills || {};
+        const currentSkills = (this.currentSkills && Object.keys(this.currentSkills).length > 0)
+            ? this.currentSkills
+            : (user.savedSkills || user.skills || {});
+        user.savedSkills = currentSkills;
+        user.skills = currentSkills;
         this.currentSkills = currentSkills;
 
         // Calculate Gap & Career Match
@@ -1397,51 +1401,71 @@ class SkillMapApp {
         if (!file) return;
 
         try {
-            const parsed = await window.cvParser.parseFile(file);
+            const parsed = await parseCV(file);
             this.pendingParsedCV = parsed;
             this.closeCVUploadModal();
-            this.showCVConfirmationModal(parsed);
+            this.showCVConfirmationModal(parsed, file.name);
         } catch (e) {
+            console.error("CV oxunarkən xəta:", e);
             alert("CV oxunarkən xəta baş verdi: " + e.message);
         }
     }
 
-    parsePastedCVText() {
+    async parsePastedCVText() {
         const text = document.getElementById("cv-text-paste").value;
         if (!text || text.trim().length < 20) {
             alert("Zəhmət olmasa ən azı bir neçə cümləlik CV mətni daxil edin.");
             return;
         }
 
-        const parsed = window.cvParser.parseRawText(text, "Pasted_CV_Text");
+        const blob = new Blob([text], { type: "text/plain" });
+        blob.name = "Pasted_CV.txt";
+        const parsed = await parseCV(blob);
         this.pendingParsedCV = parsed;
         this.closeCVUploadModal();
-        this.showCVConfirmationModal(parsed);
+        this.showCVConfirmationModal(parsed, "Pasted_CV_Text");
     }
 
-        showCVConfirmationModal(parsed) {
+    showCVConfirmationModal(parsed, fileName = "CV Faylı") {
         const modal = document.getElementById("modal-cv-confirm");
         if (!modal) return;
 
-        const currentUserName = (this.auth.currentUser && this.auth.currentUser.name) ? this.auth.currentUser.name : "";
-        const displayName = (parsed.personalInfo && parsed.personalInfo.name && parsed.personalInfo.name.length >= 4) ? parsed.personalInfo.name : (currentUserName || "Tələbə");
+        const currentUserName = (this.auth && this.auth.currentUser && this.auth.currentUser.name) ? this.auth.currentUser.name : "";
+        const displayName = parsed.candidateName || currentUserName || "Namizəd";
 
-        document.getElementById("confirm-confidence-score").textContent = `${parsed.confidenceScore}%`;
-        document.getElementById("confirm-file-name").textContent = parsed.fileName || "CV Faylı";
-        document.getElementById("confirm-name").textContent = displayName;
-        document.getElementById("confirm-contact").textContent = `${parsed.personalInfo.email || (this.auth.currentUser?.email || 'Məlumat yoxdur')} · ${parsed.personalInfo.phone || '+994 50 123 45 67'}`;
-        document.getElementById("confirm-edu").textContent = `${parsed.education.university} · ${parsed.education.field}`;
-        document.getElementById("confirm-exp").textContent = `${parsed.experience.totalYears} il (${parsed.experience.employmentStatus})`;
+        const confEl = document.getElementById("confirm-confidence-score");
+        if (confEl) confEl.textContent = parsed.confidence || (parsed.skillCount > 3 ? "Yüksək" : "Orta");
+        
+        const fileEl = document.getElementById("confirm-file-name");
+        if (fileEl) fileEl.textContent = fileName || "CV.pdf";
+
+        const nameEl = document.getElementById("confirm-name");
+        if (nameEl) nameEl.textContent = displayName;
+
+        const contactEl = document.getElementById("confirm-contact");
+        if (contactEl) contactEl.textContent = `${parsed.email || this.auth?.currentUser?.email || 'Məlumat yoxdur'}`;
+
+        const eduEl = document.getElementById("confirm-edu");
+        if (eduEl) eduEl.textContent = parsed.university ? `${parsed.university} · Ali Təhsil` : "Təhsil qeyd olunmayıb";
+
+        const expEl = document.getElementById("confirm-exp");
+        if (expEl) expEl.textContent = `${parsed.experience || 0} il (İngilis dili: ${parsed.englishLevel || 'B2'})`;
 
         const tagsContainer = document.getElementById("confirm-skills-tags");
         if (tagsContainer) {
             tagsContainer.innerHTML = "";
-            Object.entries(parsed.skills || {}).forEach(([id, s]) => {
-                const tag = document.createElement("span");
-                tag.className = "px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 font-bold text-xs flex items-center gap-1";
-                tag.innerHTML = `<span>${s.name}</span><span class="text-blue-500 font-black">(${s.level}/5)</span>`;
-                tagsContainer.appendChild(tag);
-            });
+            const skillsEntries = Object.entries(parsed.foundSkills || parsed.skills || {});
+            if (skillsEntries.length === 0) {
+                tagsContainer.innerHTML = '<span class="text-xs text-slate-400 italic">Heç bir açar bacarıq aşkar edilmədi.</span>';
+            } else {
+                skillsEntries.forEach(([id, s]) => {
+                    const lvl = typeof s === "object" ? s.level : s;
+                    const tag = document.createElement("span");
+                    tag.className = "px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 font-bold text-xs flex items-center gap-1";
+                    tag.innerHTML = `<span class="capitalize">${id.replace(/_/g, " ")}</span> <span class="text-emerald-600 font-black">✓ (${lvl}/5)</span>`;
+                    tagsContainer.appendChild(tag);
+                });
+            }
         }
 
         modal.style.display = "flex";
@@ -1449,18 +1473,45 @@ class SkillMapApp {
 
     confirmExtractedCV() {
         if (!this.pendingParsedCV) return;
+        const parsed = this.pendingParsedCV;
         
-        // Auto-merge to user profile
-        this.auth.saveParsedCV(this.pendingParsedCV);
-        
+        // 1. Reset currentSkills and populate ONLY with skills found from the CV
+        this.currentSkills = {};
+        const skillsObj = parsed.foundSkills || parsed.skills || {};
+        Object.entries(skillsObj).forEach(([id, s]) => {
+            const lvl = typeof s === "object" ? s.level : s;
+            this.currentSkills[id] = lvl;
+        });
+
+        // 2. Update user profile state
+        if (this.auth && this.auth.currentUser) {
+            this.auth.currentUser.skills = this.currentSkills;
+            this.auth.currentUser.savedSkills = this.currentSkills;
+            if (parsed.candidateName && (!this.auth.currentUser.name || this.auth.currentUser.name === "Tələbə" || this.auth.currentUser.name === "Namizəd")) {
+                this.auth.currentUser.name = parsed.candidateName;
+            }
+            if (parsed.email && !this.auth.currentUser.email) {
+                this.auth.currentUser.email = parsed.email;
+            }
+            if (parsed.university) this.auth.currentUser.university = parsed.university;
+            if (parsed.englishLevel) this.auth.currentUser.englishLevel = parsed.englishLevel;
+            if (parsed.experience) this.auth.currentUser.experience_years = parsed.experience;
+
+            if (typeof firebaseSaveSkills === "function") {
+                firebaseSaveSkills(this.currentSkills, this.auth.currentUser.targetRole || "data_analyst");
+            }
+        }
+
         const modal = document.getElementById("modal-cv-confirm");
         if (modal) modal.style.display = "none";
         
-        this.showToast("✓ CV uğurla oxundu və məlumatlar profilinizə tətbiq edildi!");
+        const skillNames = Object.keys(skillsObj).map(s => s.replace(/_/g, " ").toUpperCase() + " ✓").join(", ");
+        this.showToast(`CV-dən tapılan bacarıqlar: ${skillNames || '0 bacarıq'} (${Object.keys(skillsObj).length} bacarıq). Zəhmət olmasa səviyyələri yoxlayın.`, "success");
         
-        // Re-render student cabinet and stay on profile to see the auto-filled fields
+        // Re-calculate & update views
+        this.runSkillGapCalculation();
         this.renderStudentCabinet();
-        this.switchCabinetView("profile");
+        this.switchCabinetView("skills");
     }
 
     deleteUserCV() {
