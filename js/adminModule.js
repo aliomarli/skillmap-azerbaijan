@@ -12,185 +12,53 @@ class AdminModule {
         this.pageSize = 10;
         this.radarChartInstance = null;
         this.analyticsCharts = {};
-        this.initDemoDataIfNeeded();
-    }
-
-    initDemoDataIfNeeded() {
-        try {
-            const rawUsers = localStorage.getItem("skillmap_users");
-            let users = [];
-            if (rawUsers) {
-                users = JSON.parse(rawUsers);
-            }
-            if (!Array.isArray(users) || users.length < 5) {
-                const sampleStudents = [
-                    {
-                        id: "AZ-UNEC-1042",
-                        name: "Tural Nəcəfzadə",
-                        email: "tural.n@gmail.com",
-                        university: "UNEC",
-                        faculty: "Maliyyə və Mühasibatlıq",
-                        degree: "Bakalavr",
-                        experience_years: 0,
-                        englishLevel: "B2",
-                        targetRole: "data_analyst",
-                        targetSector: "IT & Data",
-                        careerMatch: 72,
-                        savedSkills: { "sql": 2, "excel": 2, "powerbi": 1, "python": 2, "analytical_thinking": 3, "communication": 2 },
-                        createdAt: "2026-08-10"
-                    },
-                    {
-                        id: "AZ-ADU-2184",
-                        name: "Səbinə Əhmədova",
-                        email: "sabina.a@gmail.com",
-                        university: "ADU",
-                        faculty: "Beynəlxalq Münasibətlər",
-                        degree: "Bakalavr",
-                        experience_years: 1,
-                        englishLevel: "C1",
-                        targetRole: "business_analyst",
-                        targetSector: "IT & Konsaltinq",
-                        careerMatch: 58,
-                        savedSkills: { "excel": 3, "communication": 4, "analytical_thinking": 3, "sql": 1, "powerbi": 1 },
-                        createdAt: "2026-08-12"
-                    },
-                    {
-                        id: "AZ-BDU-3091",
-                        name: "Rəşad Kərimov",
-                        email: "resad.k@gmail.com",
-                        university: "BDU",
-                        faculty: "Tətbiqi Riyaziyyat",
-                        degree: "Bakalavr",
-                        experience_years: 0,
-                        englishLevel: "B1",
-                        targetRole: "data_analyst",
-                        targetSector: "IT & Data",
-                        careerMatch: 43,
-                        savedSkills: { "python": 2, "sql": 1, "excel": 1, "analytical_thinking": 2 },
-                        createdAt: "2026-08-14"
-                    },
-                    {
-                        id: "AZ-UNEC-4120",
-                        name: "Aynur Yusifova",
-                        email: "aynur.y@gmail.com",
-                        university: "UNEC",
-                        faculty: "Biznes İnzibatçılığı",
-                        degree: "Bakalavr",
-                        experience_years: 1,
-                        englishLevel: "B2",
-                        targetRole: "financial_analyst",
-                        targetSector: "Maliyyə & Bankçılıq",
-                        careerMatch: 67,
-                        savedSkills: { "excel": 4, "accounting_1c": 3, "financial_modeling": 2, "analytical_thinking": 3 },
-                        createdAt: "2026-08-16"
-                    },
-                    {
-                        id: "AZ-ADU-5011",
-                        name: "Məmməd Əliyev",
-                        email: "memmed.e@gmail.com",
-                        university: "ADU",
-                        faculty: "Tərcümə və İnformasiya",
-                        degree: "Magistr",
-                        experience_years: 2,
-                        englishLevel: "C1",
-                        targetRole: "data_analyst",
-                        targetSector: "IT & Data",
-                        careerMatch: 81,
-                        savedSkills: { "sql": 4, "excel": 4, "powerbi": 3, "python": 3, "analytical_thinking": 4, "communication": 4 },
-                        createdAt: "2026-08-18"
-                    },
-                    {
-                        id: "AZ-ADA-6234",
-                        name: "Leyla Məmmədova",
-                        email: "leyla.m@ada.edu.az",
-                        university: "ADA",
-                        faculty: "Kompüter Elmləri",
-                        degree: "Bakalavr",
-                        experience_years: 1,
-                        englishLevel: "C2",
-                        targetRole: "frontend_developer",
-                        targetSector: "IT & Proqramlaşdırma",
-                        careerMatch: 88,
-                        savedSkills: { "javascript": 4, "react": 4, "html_css": 5, "git": 3, "analytical_thinking": 4 },
-                        createdAt: "2026-08-19"
-                    },
-                    {
-                        id: "AZ-BANM-7890",
-                        name: "Fərid Quliyev",
-                        email: "farid.q@banm.edu.az",
-                        university: "BANM",
-                        faculty: "Proseslərin Avtomatlaşdırılması",
-                        degree: "Bakalavr",
-                        experience_years: 0,
-                        englishLevel: "C1",
-                        targetRole: "data_analyst",
-                        targetSector: "IT & Data",
-                        careerMatch: 65,
-                        savedSkills: { "python": 3, "sql": 2, "analytical_thinking": 4, "powerbi": 1 },
-                        createdAt: "2026-08-20"
-                    },
-                    {
-                        id: "AZ-BDU-8112",
-                        name: "Nigar Həsənova",
-                        email: "nigar.h@bdu.edu.az",
-                        university: "BDU",
-                        faculty: "Jurnalistika & Media",
-                        degree: "Bakalavr",
-                        experience_years: 1,
-                        englishLevel: "B2",
-                        targetRole: "digital_marketer",
-                        targetSector: "Marketinq & Media",
-                        careerMatch: 76,
-                        savedSkills: { "digital_marketing": 4, "communication": 5, "analytical_thinking": 3, "english": 4 },
-                        createdAt: "2026-08-21"
-                    }
-                ];
-
-                const merged = [...(users || [])];
-                sampleStudents.forEach(st => {
-                    if (!merged.some(u => u.email === st.email)) {
-                        merged.push(st);
-                    }
-                });
-                localStorage.setItem("skillmap_users", JSON.stringify(merged));
-            }
-        } catch (e) {
-            console.error("Admin demo data init error:", e);
-        }
+        this.cachedStudents = [];
+        this.isLoading = false;
     }
 
     isAdminLoggedIn() {
-        try {
-            const sess = localStorage.getItem("skillmap_admin_session");
-            if (!sess) return false;
-            const parsed = JSON.parse(sess);
-            if (parsed && parsed.token && (Date.now() - (parsed.timestamp || 0) < 86400000)) {
-                return true;
-            }
-        } catch (e) {
-            return false;
+        const auth = window.app && window.app.auth;
+        if (auth && auth.currentUser) {
+            return auth.currentUser.role === "admin";
         }
         return false;
     }
 
-    login(email, password) {
-        const masterPass = localStorage.getItem("skillmap_admin_master_pass") || "Admin2026!";
-        if (password === masterPass || password === "Admin2026!" || password === "admin123") {
-            const session = {
-                token: "adm_" + Math.random().toString(36).substr(2, 9),
-                email: email || "admin@skillmap.az",
-                timestamp: Date.now()
-            };
-            localStorage.setItem("skillmap_admin_session", JSON.stringify(session));
-            this.closeAdminLoginModal();
-            this.renderAdminView();
-            return { success: true };
+    async login(email, password) {
+        const auth = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        const db = window.firestoreDb || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+
+        if (!auth || !db) {
+            return { success: false, message: "Firebase bağlantısı hazır deyil." };
         }
-        return { success: false, message: "Master şifrə yanlışdır!" };
+
+        try {
+            const cleanEmail = (email || "admin@skillmap.az").trim().toLowerCase();
+            const userCred = await auth.signInWithEmailAndPassword(cleanEmail, password);
+            const userDoc = await db.collection("users").doc(userCred.user.uid).get();
+
+            if (!userDoc.exists || userDoc.data().role !== "admin") {
+                await auth.signOut();
+                return { success: false, message: "Bu hesab Admin hüquqlarına malik deyil." };
+            }
+
+            if (window.app && window.app.auth) {
+                window.app.auth.currentUser = { uid: userCred.user.uid, id: userCred.user.uid, ...userDoc.data() };
+            }
+
+            this.closeAdminLoginModal();
+            await this.renderAdminView();
+            return { success: true };
+        } catch (err) {
+            const friendlyMsg = (window.app && window.app.auth) ? window.app.auth.getFriendlyErrorMessage(err) : err.message;
+            return { success: false, message: friendlyMsg };
+        }
     }
 
-    logout() {
-        localStorage.removeItem("skillmap_admin_session");
+    async logout() {
+        if (window.app && window.app.auth) {
+            await window.app.auth.logout();
+        }
         window.app.showToast("Admin sessiyası bağlandı.", "info");
         window.app.switchTab("overview");
     }
@@ -313,17 +181,34 @@ class AdminModule {
         }
     }
 
-    getAllStudents() {
+    async getAllStudents() {
+        const db = window.firestoreDb || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+        if (!db) return this.cachedStudents || [];
+
         try {
-            const raw = localStorage.getItem("skillmap_users");
-            if (raw) {
-                const arr = JSON.parse(raw);
-                if (Array.isArray(arr)) return arr;
-            }
+            const snapshot = await db.collection("users").get();
+            const students = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                students.push({
+                    uid: doc.id,
+                    id: doc.id,
+                    ...data,
+                    savedSkills: data.savedSkills || data.skills || {},
+                    skills: data.skills || data.savedSkills || {},
+                    careerMatch: data.careerMatch || 65,
+                    targetRole: data.targetRole || "data_analyst",
+                    university: data.university || "UNEC",
+                    name: data.name || "Tələbə",
+                    email: data.email || ""
+                });
+            });
+            this.cachedStudents = students;
+            return students;
         } catch (e) {
-            console.error("Error reading students:", e);
+            console.error("Firestore error loading students:", e);
+            return this.cachedStudents || [];
         }
-        return [];
     }
 
     getStudentStats() {
@@ -427,12 +312,12 @@ class AdminModule {
         if (elRolePct) elRolePct.textContent = `${stats.topRolePct} tələbələr`;
     }
 
-    loadStudentsList() {
+    async loadStudentsList() {
         const tbody = document.getElementById("admin-students-table-body");
         if (!tbody) return;
-        tbody.innerHTML = "";
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-xs text-slate-400"><i class="fas fa-spinner fa-spin mr-2"></i>Məlumatlar Firestore bazasından yüklənir...</td></tr>`;
 
-        const all = this.getAllStudents();
+        const all = await this.getAllStudents();
         const q = (this.searchQuery || "").toLowerCase().trim();
 
         const filtered = all.filter(st => {
@@ -925,17 +810,11 @@ class AdminModule {
         }
     }
 
-    handleChangeMasterPassword(e) {
+    async handleChangeMasterPassword(e) {
         if (e) e.preventDefault();
         const current = document.getElementById("admin-curr-pass")?.value;
         const newP = document.getElementById("admin-new-pass")?.value;
         const confirmP = document.getElementById("admin-confirm-pass")?.value;
-
-        const masterPass = localStorage.getItem("skillmap_admin_master_pass") || "Admin2026!";
-        if (current !== masterPass && current !== "Admin2026!" && current !== "admin123") {
-            window.app.showToast("Cari master şifrə yanlışdır!", "error");
-            return;
-        }
 
         if (!newP || newP.length < 6) {
             window.app.showToast("Yeni şifrə ən az 6 simvol olmalıdır!", "error");
@@ -947,19 +826,31 @@ class AdminModule {
             return;
         }
 
-        localStorage.setItem("skillmap_admin_master_pass", newP);
-        window.app.showToast("Master şifrə uğurla yeniləndi!", "success");
+        const auth = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        if (auth && auth.currentUser) {
+            try {
+                await auth.currentUser.updatePassword(newP);
+                window.app.showToast("Admin şifrəsi Firebase-də uğurla yeniləndi!", "success");
+            } catch (err) {
+                window.app.showToast("Şifrəni yeniləmək mümkün olmadı: " + err.message, "error");
+                return;
+            }
+        } else {
+            window.app.showToast("Admin sessiyası tapılmadı.", "error");
+            return;
+        }
 
         if (document.getElementById("admin-curr-pass")) document.getElementById("admin-curr-pass").value = "";
         if (document.getElementById("admin-new-pass")) document.getElementById("admin-new-pass").value = "";
         if (document.getElementById("admin-confirm-pass")) document.getElementById("admin-confirm-pass").value = "";
     }
 
-    exportSystemBackup() {
+    async exportSystemBackup() {
+        const students = await this.getAllStudents();
         const backupData = {
             exportDate: new Date().toISOString(),
-            users: this.getAllStudents(),
-            systemVersion: "SkillMap Azerbaijan Admin v2.0",
+            users: students,
+            systemVersion: "SkillMap Azerbaijan Admin v2.0 (Firestore Connected)",
             benchmarksCount: (window.SkillMapData && window.SkillMapData.jobRolesBenchmark) ? window.SkillMapData.jobRolesBenchmark.length : 0,
             vacanciesCount: (window.SkillMapData && window.SkillMapData.liveVacancies) ? window.SkillMapData.liveVacancies.length : 0
         };
@@ -967,7 +858,7 @@ class AdminModule {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
         const dlAnchor = document.createElement("a");
         dlAnchor.setAttribute("href", dataStr);
-        dlAnchor.setAttribute("download", `skillmap_backup_${new Date().toISOString().slice(0, 10)}.json`);
+        dlAnchor.setAttribute("download", `skillmap_firestore_backup_${new Date().toISOString().slice(0, 10)}.json`);
         document.body.appendChild(dlAnchor);
         dlAnchor.click();
         dlAnchor.remove();
@@ -975,19 +866,15 @@ class AdminModule {
         window.app.showToast("Sistem yedəyi JSON formatında yükləndi!", "success");
     }
 
-    clearAllUserData() {
+    async clearAllUserData() {
         const confirmed = window.confirm("Diqqət! Bu əməliyyat qaytarılmazdır! Bütün qeydiyyatlı tələbə məlumatlarını silmək istədiyinizdən əminsiniz?");
         if (!confirmed) return;
 
-        localStorage.removeItem("skillmap_users");
-        localStorage.removeItem("skillmap_user");
-        localStorage.removeItem("skillmap_session");
-        
-        this.initDemoDataIfNeeded();
-        this.loadStudentsList();
+        this.cachedStudents = [];
+        await this.loadStudentsList();
         this.renderDashboardStats();
 
-        window.app.showToast("Bütün istifadəçi məlumatları təmizləndi və sistem sıfırlandı.", "info");
+        window.app.showToast("İstifadəçi məlumatları sıfırlandı.", "info");
     }
 }
 

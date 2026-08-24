@@ -218,56 +218,86 @@ class SkillMapApp {
 
     
 
-    handleLoginSubmit(event) {
+    async handleLoginSubmit(event) {
         if (event) event.preventDefault();
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
+        const email = document.getElementById("login-email")?.value;
+        const password = document.getElementById("login-password")?.value;
+        const btn = document.querySelector("#form-login button[type='submit']");
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Giriş edilir...';
+        }
 
         try {
-            this.auth.login(email, password);
+            await this.auth.login(email, password);
             this.updateAuthUI();
             this.handleRoleChange();
             this.runSkillGapCalculation();
             this.closeAuthModal();
             this.switchTab("student-gap");
+            this.showToast("Uğurla daxil oldunuz!");
         } catch (err) {
             this.showAuthError(err.message);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-right-to-bracket mr-1.5"></i>Kabinetə Daxil Ol';
+            }
         }
     }
 
-    handleRegisterSubmit(event) {
+    async handleRegisterSubmit(event) {
         if (event) event.preventDefault();
-        const name = document.getElementById("reg-name").value.trim() || "Tələbə";
-        const email = document.getElementById("reg-email").value.trim();
-        const password = document.getElementById("reg-password").value;
-        const uni = document.getElementById("reg-university").value;
-        const faculty = document.getElementById("reg-faculty").value.trim() || "İqtisadiyyat";
-        const targetRole = document.getElementById("reg-target-role").value;
-        const degree = document.getElementById("reg-degree").value;
-        const english = document.getElementById("reg-english").value;
+        const name = document.getElementById("reg-name")?.value.trim() || "Tələbə";
+        const email = document.getElementById("reg-email")?.value.trim();
+        const password = document.getElementById("reg-password")?.value;
+        const uni = document.getElementById("reg-university")?.value;
+        const faculty = document.getElementById("reg-faculty")?.value.trim() || "İqtisadiyyat";
+        const targetRole = document.getElementById("reg-target-role")?.value;
+        const degree = document.getElementById("reg-degree")?.value;
+        const english = document.getElementById("reg-english")?.value;
+        const btn = document.querySelector("#form-register button[type='submit']");
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Profil yaradılır...';
+        }
 
         try {
-            this.auth.register(email, password, name, uni, faculty, targetRole, degree, english);
+            await this.auth.register(email, password, name, uni, faculty, targetRole, degree, english);
             
-            document.getElementById("student-target-role").value = targetRole;
+            const targetSelect = document.getElementById("student-target-role");
+            if (targetSelect) targetSelect.value = targetRole;
             this.updateAuthUI();
             this.handleRoleChange();
             this.runSkillGapCalculation();
             this.closeAuthModal();
             this.switchTab("student-gap");
+            this.showToast("Profiliniz uğurla yaradıldı və Firestore-da saxlanıldı!");
         } catch (err) {
             this.showAuthError(err.message);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check mr-1.5"></i>Profilimi Yarat & Giriş Et';
+            }
         }
     }
 
-
-
-    handleLogout() {
-        this.auth.logout();
+    async handleLogout() {
+        await this.auth.logout();
         this.currentSkills = {};
         this.vacancyCurrentPage = 1;
         this.vacancyPageSize = 24;
         this.selectedVacancySector = 'all';
+        this.updateAuthUI();
+        this.renderStudentCabinet();
+        this.renderLiveVacancies();
+        this.showToast("Sessiya bağlandı.");
+    }
+
+    onAuthStatusChanged(user) {
         this.updateAuthUI();
         this.renderStudentCabinet();
         this.renderLiveVacancies();
@@ -1713,7 +1743,13 @@ class SkillMapApp {
         this.markProfileFormChanged();
     }
 
-    saveProfileChanges() {
+    async saveProfileChanges() {
+        const btn = document.getElementById("btn-prof-save-changes");
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Firestore-a yazılır...';
+        }
+
         const updated = {
             name: document.getElementById("prof-input-name")?.value || "İstifadəçi",
             email: document.getElementById("prof-input-email")?.value || "user@example.com",
@@ -1721,17 +1757,24 @@ class SkillMapApp {
             university: document.getElementById("prof-input-uni")?.value || "UNEC",
             faculty: document.getElementById("prof-input-faculty")?.value || "Maliyyə və iqtisadiyyat",
             degree: document.getElementById("prof-input-degree")?.value || "Bakalavr",
+            educationLevel: document.getElementById("prof-input-degree")?.value || "Bakalavr",
             experience_years: parseInt(document.getElementById("prof-input-exp")?.value, 10) || 0,
+            experience: parseInt(document.getElementById("prof-input-exp")?.value, 10) || 0,
             englishLevel: document.getElementById("prof-input-english")?.value || "B2",
             otherLanguages: document.getElementById("prof-input-languages")?.value || "Rus dili (B1), Türk dili",
-            targetSector: document.getElementById("prof-input-sector")?.value || "Maliyyə",
+            targetSector: document.getElementById("prof-input-sector")?.value || "Maliyyə & Bankçılıq",
             targetRole: document.getElementById("prof-input-role")?.value || "financial_analyst"
         };
 
-        this.auth.updateProfile(updated);
+        await this.auth.updateProfile(updated);
+
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-check mr-1.5"></i>Yadda Saxla';
+        }
         
         // Show stylish non-blocking toast
-        this.showToast("✓ Profil uğurla yeniləndi! Bütün hesablamalar təzələndi.");
+        this.showToast("✓ Profil Firestore-da uğurla yeniləndi!");
 
         // Recalculate cabinet and all modules
         this.renderStudentCabinet();
