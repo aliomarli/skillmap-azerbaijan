@@ -220,7 +220,7 @@ class SkillMapApp {
 
     async handleLoginSubmit(event) {
         if (event) event.preventDefault();
-        const email = document.getElementById("login-email")?.value;
+        const email = document.getElementById("login-email")?.value?.trim();
         const password = document.getElementById("login-password")?.value;
         const btn = document.querySelector("#form-login button[type='submit']");
 
@@ -230,13 +230,20 @@ class SkillMapApp {
         }
 
         try {
-            await this.auth.login(email, password);
-            this.updateAuthUI();
-            this.handleRoleChange();
-            this.runSkillGapCalculation();
-            this.closeAuthModal();
-            this.switchTab("student-gap");
-            this.showToast("Uğurla daxil oldunuz!");
+            const result = await firebaseLogin(email, password);
+            if (result.success) {
+                if (this.auth) {
+                    await this.auth.loadUserProfile(result.uid, email);
+                }
+                this.updateAuthUI();
+                this.handleRoleChange();
+                this.runSkillGapCalculation();
+                this.closeAuthModal();
+                this.switchTab("student-gap");
+                this.showToast("Uğurla daxil oldunuz!");
+            } else {
+                this.showAuthError(result.error || "Giriş məlumatları yanlışdır.");
+            }
         } catch (err) {
             this.showAuthError(err.message);
         } finally {
@@ -265,16 +272,22 @@ class SkillMapApp {
         }
 
         try {
-            await this.auth.register(email, password, name, uni, faculty, targetRole, degree, english);
-            
-            const targetSelect = document.getElementById("student-target-role");
-            if (targetSelect) targetSelect.value = targetRole;
-            this.updateAuthUI();
-            this.handleRoleChange();
-            this.runSkillGapCalculation();
-            this.closeAuthModal();
-            this.switchTab("student-gap");
-            this.showToast("Profiliniz uğurla yaradıldı və Firestore-da saxlanıldı!");
+            const result = await firebaseRegister(name, email, password, uni, faculty, targetRole, english);
+            if (result.success) {
+                if (this.auth) {
+                    await this.auth.loadUserProfile(result.uid, email);
+                }
+                const targetSelect = document.getElementById("student-target-role");
+                if (targetSelect) targetSelect.value = targetRole;
+                this.updateAuthUI();
+                this.handleRoleChange();
+                this.runSkillGapCalculation();
+                this.closeAuthModal();
+                this.switchTab("student-gap");
+                this.showToast("Profiliniz uğurla yaradıldı və Firestore-da saxlanıldı!");
+            } else {
+                this.showAuthError(result.error || "Qeydiyyat xətası baş verdi.");
+            }
         } catch (err) {
             this.showAuthError(err.message);
         } finally {
@@ -286,7 +299,10 @@ class SkillMapApp {
     }
 
     async handleLogout() {
-        await this.auth.logout();
+        await firebaseLogout();
+        if (this.auth) {
+            this.auth.currentUser = null;
+        }
         this.currentSkills = {};
         this.vacancyCurrentPage = 1;
         this.vacancyPageSize = 24;
