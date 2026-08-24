@@ -2876,11 +2876,25 @@
     
     <!-- PDF.js CDN (Client-side bilingual PDF parser) -->
 
-    <!-- Firebase SDKs (Compat version for static GitHub Pages) -->
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <script src="js/firebase.js"></script>
+    <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB1ocnco4JArR2D8Ve4GvFJA-nLBMkPOyk",
+      authDomain: "skillmap-c25e7.firebaseapp.com",
+      projectId: "skillmap-c25e7",
+      storageBucket: "skillmap-c25e7.firebasestorage.app",
+      messagingSenderId: "313126067270",
+      appId: "1:313126067270:web:0a7451ccb3ceae9e97e47",
+      measurementId: "G-TPVJL87SYH"
+    };
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.firestore();
+    window.auth = firebase.auth();
+    console.log("Firebase initialized successfully");
+    </script>
 
     <!-- JS Skriptlər -->
     <script src="js/auth.js"></script>
