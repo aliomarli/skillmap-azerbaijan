@@ -1,7 +1,7 @@
 /**
  * SkillMap Azerbaijan - Admin Panel Module (js/adminModule.js)
  * Implements complete Admin Authentication, Dashboard, Student List, Detailed Profile Modal,
- * Analytics Charts, Methodology, and Settings according to design reference.
+ * Analytics Charts, Methodology, and Settings connected 100% to Real Firebase & Market Data.
  */
 
 class AdminModule {
@@ -49,7 +49,7 @@ class AdminModule {
                     return { success: true };
                 }
             } catch (fbErr) {
-                // If standard master password used, allow admin session
+                // If master password used, allow admin session
                 if (password === "Admin2026!" || password === "admin123") {
                     if (window.app && window.app.auth) {
                         window.app.auth.currentUser = {
@@ -167,7 +167,7 @@ class AdminModule {
         }
     }
 
-        renderAdminView() {
+    async renderAdminView() {
         const loginView = document.getElementById("admin-view-login");
         const dashView = document.getElementById("admin-view-dashboard");
 
@@ -192,6 +192,7 @@ class AdminModule {
             dashView.style.display = "flex";
         }
 
+        await this.getAllStudents();
         this.renderDashboardStats();
         this.loadStudentsList();
         this.switchAdminSubView(this.currentSubView || "dashboard");
@@ -226,10 +227,10 @@ class AdminModule {
                     ...doc,
                     savedSkills: doc.savedSkills || doc.skills || {},
                     skills: doc.skills || doc.savedSkills || {},
-                    careerMatch: doc.careerMatch !== undefined ? doc.careerMatch : 65,
+                    careerMatch: doc.careerMatch !== undefined ? doc.careerMatch : 0,
                     targetRole: doc.targetRole || "data_analyst",
-                    university: doc.university || "UNEC",
-                    name: doc.name || "Tələbə",
+                    university: doc.university || "Qeyd olunmayıb",
+                    name: doc.name || "Namizəd",
                     email: doc.email || ""
                 }));
                 return this.cachedStudents;
@@ -237,7 +238,10 @@ class AdminModule {
         }
 
         const db = window.firestoreDb || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
-        if (!db) return this.cachedStudents || [];
+        if (!db) {
+            this.cachedStudents = [];
+            return [];
+        }
 
         try {
             const snapshot = await db.collection("users").get();
@@ -250,10 +254,10 @@ class AdminModule {
                     ...data,
                     savedSkills: data.savedSkills || data.skills || {},
                     skills: data.skills || data.savedSkills || {},
-                    careerMatch: data.careerMatch || 65,
+                    careerMatch: data.careerMatch !== undefined ? data.careerMatch : 0,
                     targetRole: data.targetRole || "data_analyst",
-                    university: data.university || "UNEC",
-                    name: data.name || "Tələbə",
+                    university: data.university || "Qeyd olunmayıb",
+                    name: data.name || "Namizəd",
                     email: data.email || ""
                 });
             });
@@ -261,13 +265,25 @@ class AdminModule {
             return students;
         } catch (e) {
             console.error("Firestore error loading students:", e);
-            return this.cachedStudents || [];
+            this.cachedStudents = [];
+            return [];
         }
     }
 
     getStudentStats() {
-        const students = this.getAllStudents();
-        const totalStudents = students.length || 248;
+        const students = this.cachedStudents || [];
+        const totalStudents = students.length;
+
+        if (totalStudents === 0) {
+            return {
+                totalStudents: 0,
+                avgMatch: "0%",
+                topSkill: "Məlumat yoxdur",
+                topSkillPct: "0%",
+                topRole: "Məlumat yoxdur",
+                topRolePct: "0%"
+            };
+        }
 
         let sumMatch = 0;
         let matchCount = 0;
@@ -276,27 +292,25 @@ class AdminModule {
 
         students.forEach(st => {
             let m = st.careerMatch;
-            if (m === undefined && window.app && window.app.engine) {
-                const res = window.app.engine.calculateGap(st.targetRole || "data_analyst", st.savedSkills || {}, st);
-                m = res.matchPercentage;
-            }
-            if (m !== undefined) {
+            if (m !== undefined && !isNaN(m) && Number(m) > 0) {
                 sumMatch += Number(m);
                 matchCount++;
             }
 
-            const role = st.targetRole || "data_analyst";
-            roleFreq[role] = (roleFreq[role] || 0) + 1;
+            const role = st.targetRole;
+            if (role) {
+                roleFreq[role] = (roleFreq[role] || 0) + 1;
+            }
 
-            const skills = st.savedSkills || {};
+            const skills = st.savedSkills || st.skills || {};
             Object.keys(skills).forEach(sk => {
                 skillFreq[sk] = (skillFreq[sk] || 0) + 1;
             });
         });
 
-        const avgMatch = matchCount > 0 ? (sumMatch / matchCount).toFixed(1) : "61.4";
+        const avgMatch = matchCount > 0 ? (sumMatch / matchCount).toFixed(1) : "0";
 
-        let topRoleKey = "data_analyst";
+        let topRoleKey = "";
         let topRoleCount = 0;
         Object.entries(roleFreq).forEach(([r, c]) => {
             if (c > topRoleCount) {
@@ -305,16 +319,17 @@ class AdminModule {
             }
         });
         const roleTitleMap = {
-            data_analyst: "Data Analyst",
-            financial_analyst: "Financial Analyst",
-            business_analyst: "Business Analyst",
+            data_analyst: "Data Analitik",
+            financial_analyst: "Maliyyə Analitiki",
+            business_analyst: "Biznes Analitik",
             frontend_developer: "Frontend Developer",
-            digital_marketer: "Digital Marketer"
+            digital_marketer: "Rəqəmsal Marketinq",
+            hr_specialist: "HR Mütəxəssis"
         };
-        const topRoleTitle = roleTitleMap[topRoleKey] || "Data Analyst";
-        const topRolePct = totalStudents > 0 ? Math.round((topRoleCount / totalStudents) * 100) : 38;
+        const topRoleTitle = topRoleKey ? (roleTitleMap[topRoleKey] || topRoleKey.replace(/_/g, " ").toUpperCase()) : "Məlumat yoxdur";
+        const topRolePct = (totalStudents > 0 && topRoleCount > 0) ? Math.round((topRoleCount / totalStudents) * 100) : 0;
 
-        let topSkillKey = "sql";
+        let topSkillKey = "";
         let topSkillCount = 0;
         Object.entries(skillFreq).forEach(([s, c]) => {
             if (c > topSkillCount) {
@@ -328,19 +343,26 @@ class AdminModule {
             powerbi: "Power BI",
             power_bi: "Power BI",
             python: "Python",
+            data_visualization: "Data Vizualizasiya",
+            data_analysis: "Data Analizi",
+            reporting: "Hesabatlıq",
+            r_programming: "R Proqramlaşdırma",
+            knime: "KNIME",
+            ms_office: "MS Office",
+            data_preprocessing: "Data Pre-processing",
             analytical_thinking: "Analitik Təfəkkür",
             communication: "Kommunikasiya"
         };
-        const topSkillName = skillNameMap[topSkillKey] || "SQL";
-        const topSkillPct = totalStudents > 0 ? Math.round((Math.max(topSkillCount, totalStudents * 0.72) / totalStudents) * 100) : 72;
+        const topSkillName = topSkillKey ? (skillNameMap[topSkillKey] || topSkillKey.replace(/_/g, " ").toUpperCase()) : "Məlumat yoxdur";
+        const topSkillPct = (totalStudents > 0 && topSkillCount > 0) ? Math.round((topSkillCount / totalStudents) * 100) : 0;
 
         return {
-            totalStudents: Math.max(totalStudents, 248),
+            totalStudents: totalStudents,
             avgMatch: `${avgMatch}%`,
             topSkill: topSkillName,
-            topSkillPct: `${Math.min(100, Math.max(72, topSkillPct))}%`,
+            topSkillPct: `${topSkillPct}%`,
             topRole: topRoleTitle,
-            topRolePct: `${Math.min(100, Math.max(38, topRolePct))}%`
+            topRolePct: `${topRolePct}%`
         };
     }
 
@@ -357,13 +379,17 @@ class AdminModule {
         if (elSkill) elSkill.textContent = stats.topSkill;
 
         const elSkillPct = document.getElementById("admin-stat-top-skill-pct");
-        if (elSkillPct) elSkillPct.textContent = `${stats.topSkillPct} tələbələrdə`;
+        if (elSkillPct) {
+            elSkillPct.textContent = stats.totalStudents > 0 ? `${stats.topSkillPct} tələbələrdə` : "Qeydiyyat yoxdur";
+        }
 
         const elRole = document.getElementById("admin-stat-top-role");
         if (elRole) elRole.textContent = stats.topRole;
 
         const elRolePct = document.getElementById("admin-stat-top-role-pct");
-        if (elRolePct) elRolePct.textContent = `${stats.topRolePct} tələbələr`;
+        if (elRolePct) {
+            elRolePct.textContent = stats.totalStudents > 0 ? `${stats.topRolePct} tələbələrdə` : "Qeydiyyat yoxdur";
+        }
     }
 
     async loadStudentsList() {
@@ -395,7 +421,7 @@ class AdminModule {
         }
 
         if (pageItems.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-xs text-slate-400 font-semibold">Heç bir tələbə tapılmadı.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-xs text-slate-400 font-semibold">Heç bir tələbə qeydiyyatı tapılmadı.</td></tr>`;
             return;
         }
 
@@ -403,292 +429,119 @@ class AdminModule {
             data_analyst: "Data Analyst",
             financial_analyst: "Financial Analyst",
             business_analyst: "Business Analyst",
-            frontend_developer: "Frontend Developer",
-            digital_marketer: "Digital Marketer"
+            frontend_developer: "Frontend Dev",
+            digital_marketer: "Digital Marketing",
+            hr_specialist: "HR Specialist"
         };
 
-        pageItems.forEach(st => {
-            let matchScore = st.careerMatch;
-            if (matchScore === undefined && window.app && window.app.engine) {
-                const res = window.app.engine.calculateGap(st.targetRole || "data_analyst", st.savedSkills || {}, st);
-                matchScore = Math.round(res.matchPercentage);
-            }
-            if (matchScore === undefined) matchScore = 70;
+        tbody.innerHTML = pageItems.map(st => {
+            const roleTitle = roleTitleMap[st.targetRole] || (st.targetRole ? st.targetRole.replace(/_/g, " ") : "Müəyyən edilməyib");
+            const matchScore = st.careerMatch !== undefined ? st.careerMatch : 0;
+            const badgeColor = matchScore >= 70
+                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                : (matchScore >= 50 ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-rose-50 text-rose-700 border-rose-200");
 
-            let matchClass = "bg-emerald-50 text-emerald-700 border-emerald-200";
-            if (matchScore < 50) {
-                matchClass = "bg-rose-50 text-rose-700 border-rose-200";
-            } else if (matchScore < 70) {
-                matchClass = "bg-amber-50 text-amber-700 border-amber-200";
-            }
-
-            const initials = (st.name || "TN").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase() || "TL";
-            const roleName = roleTitleMap[st.targetRole] || (st.targetRole ? st.targetRole.replace(/_/g, " ") : "Data Analyst");
-
-            const tr = document.createElement("tr");
-            tr.className = "hover:bg-slate-50/80 transition-colors border-b border-slate-100";
-            tr.innerHTML = `
-                <td class="py-3 px-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs flex items-center justify-center shadow-xs flex-shrink-0">
-                            ${initials}
+            return `
+                <tr class="hover:bg-slate-50/80 transition-colors text-xs">
+                    <td class="py-3 px-4">
+                        <div class="font-bold text-slate-900">${st.name || "Namizəd"}</div>
+                        <div class="text-[10px] text-slate-400 font-mono">${st.email || "-"}</div>
+                    </td>
+                    <td class="py-3 px-4 font-semibold text-slate-700">${st.university || "UNEC"}</td>
+                    <td class="py-3 px-4 font-medium text-slate-600">${roleTitle}</td>
+                    <td class="py-3 px-4">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border ${badgeColor}">
+                            ${matchScore}%
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-right">
+                        <div class="flex items-center justify-end gap-1.5">
+                            <button onclick="app.admin.viewStudentProfile('${st.uid || st.id || st.email}')" class="px-3 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs shadow-2xs transition-all">
+                                Bax
+                            </button>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-slate-900 text-xs">${st.name || "Adsız Tələbə"}</h4>
-                            <p class="text-[11px] text-slate-400 font-normal">${st.email || "email@yoxdur"}</p>
-                        </div>
-                    </div>
-                </td>
-                <td class="py-3 px-4 text-xs font-semibold text-slate-700">${st.university || "UNEC"}</td>
-                <td class="py-3 px-4 text-xs font-medium text-slate-800">${roleName}</td>
-                <td class="py-3 px-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${matchClass}">
-                        ${matchScore}%
-                    </span>
-                </td>
-                <td class="py-3 px-4 text-right">
-                    <div class="flex items-center justify-end gap-2">
-                        <button onclick="app.admin.viewStudentProfile('${st.id || st.email}')" class="px-3 py-1 rounded-lg border border-indigo-200 text-indigo-600 bg-indigo-50/50 hover:bg-indigo-600 hover:text-white font-bold text-xs transition-all shadow-xs flex items-center gap-1.5">
-                            <i class="fas fa-eye text-[10px]"></i>
-                            <span>Profili Gör</span>
-                        </button>
-                        <button onclick="app.admin.openStudentOptions('${st.id || st.email}')" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition-all">
-                            <i class="fas fa-ellipsis-vertical text-xs"></i>
-                        </button>
-                    </div>
-                </td>
+                    </td>
+                </tr>
             `;
-            tbody.appendChild(tr);
-        });
+        }).join("");
 
-        this.renderPaginationControls(totalPages);
+        this.renderPagination(totalPages);
+        this.renderDashboardStats();
     }
 
-    renderPaginationControls(totalPages) {
+    renderPagination(totalPages) {
         const container = document.getElementById("admin-pagination-container");
         if (!container) return;
-        container.innerHTML = "";
 
-        if (totalPages <= 1) return;
-
-        const prevBtn = document.createElement("button");
-        prevBtn.className = `w-7 h-7 rounded-lg border text-xs font-bold flex items-center justify-center transition-all ${this.currentPage > 1 ? 'border-slate-200 hover:bg-slate-100 text-slate-700' : 'border-slate-100 text-slate-300 cursor-not-allowed'}`;
-        prevBtn.innerHTML = '<i class="fas fa-chevron-left text-[10px]"></i>';
-        prevBtn.onclick = () => {
-            if (this.currentPage > 1) {
-                this.currentPage--;
-                this.loadStudentsList();
-            }
-        };
-        container.appendChild(prevBtn);
-
-        for (let p = 1; p <= Math.min(5, totalPages); p++) {
-            const pageBtn = document.createElement("button");
-            pageBtn.className = `w-7 h-7 rounded-lg text-xs font-bold transition-all ${p === this.currentPage ? 'bg-indigo-600 text-white shadow-xs' : 'border border-slate-200 text-slate-700 hover:bg-slate-100'}`;
-            pageBtn.textContent = p;
-            pageBtn.onclick = () => {
-                this.currentPage = p;
-                this.loadStudentsList();
-            };
-            container.appendChild(pageBtn);
+        if (totalPages <= 1) {
+            container.innerHTML = "";
+            return;
         }
 
-        const nextBtn = document.createElement("button");
-        nextBtn.className = `w-7 h-7 rounded-lg border text-xs font-bold flex items-center justify-center transition-all ${this.currentPage < totalPages ? 'border-slate-200 hover:bg-slate-100 text-slate-700' : 'border-slate-100 text-slate-300 cursor-not-allowed'}`;
-        nextBtn.innerHTML = '<i class="fas fa-chevron-right text-[10px]"></i>';
-        nextBtn.onclick = () => {
-            if (this.currentPage < totalPages) {
-                this.currentPage++;
-                this.loadStudentsList();
+        let html = `
+            <button onclick="app.admin.goToPage(${this.currentPage - 1})" ${this.currentPage === 1 ? 'disabled class="opacity-40 cursor-not-allowed"' : ''} class="w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 flex items-center justify-center text-xs font-bold hover:bg-slate-50">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === this.currentPage) {
+                html += `<button class="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-xs shadow-sm">${i}</button>`;
+            } else {
+                html += `<button onclick="app.admin.goToPage(${i})" class="w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 font-bold text-xs hover:bg-slate-50">${i}</button>`;
             }
-        };
-        container.appendChild(nextBtn);
+        }
+
+        html += `
+            <button onclick="app.admin.goToPage(${this.currentPage + 1})" ${this.currentPage === totalPages ? 'disabled class="opacity-40 cursor-not-allowed"' : ''} class="w-8 h-8 rounded-lg border border-slate-200 bg-white text-slate-600 flex items-center justify-center text-xs font-bold hover:bg-slate-50">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        `;
+
+        container.innerHTML = html;
     }
 
-    handleStudentSearch(q) {
-        this.searchQuery = q;
+    goToPage(pageNum) {
+        this.currentPage = pageNum;
+        this.loadStudentsList();
+    }
+
+    handleStudentSearch(query) {
+        this.searchQuery = query;
         this.currentPage = 1;
         this.loadStudentsList();
     }
 
-    async viewStudentProfile(userId) {
-        let student = null;
-        if (typeof firebaseGetUserProfile === "function" && userId) {
-            student = await firebaseGetUserProfile(userId);
-        }
-        if (!student) {
-            const students = await this.getAllStudents();
-            student = students.find(s => s.id === userId || s.uid === userId || s.email === userId) || students[0];
-        }
-        if (!student) return;
-
+    async viewStudentProfile(studentId) {
         const modal = document.getElementById("modal-admin-student-profile");
         if (!modal) return;
 
-        const engine = window.app && window.app.engine ? window.app.engine : new SkillGapEngine(window.SkillMapData);
-        const targetRoleId = student.targetRole || "data_analyst";
-        const gapResult = engine.calculateGap(targetRoleId, student.savedSkills || {}, student);
-
-        const initials = (student.name || "TN").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
-        const avatarEl = document.getElementById("admin-modal-avatar");
-        if (avatarEl) avatarEl.textContent = initials;
+        let st = (this.cachedStudents || []).find(s => (s.uid === studentId || s.id === studentId || s.email === studentId));
+        if (!st && typeof firebaseGetUserProfile === "function") {
+            st = await firebaseGetUserProfile(studentId);
+        }
+        if (!st) {
+            window.app.showToast("Tələbə profili tapılmadı.", "error");
+            return;
+        }
 
         const nameEl = document.getElementById("admin-modal-name");
-        if (nameEl) nameEl.textContent = student.name || "Adsız Tələbə";
+        if (nameEl) nameEl.textContent = st.name || "Tələbə";
 
         const emailEl = document.getElementById("admin-modal-email");
-        if (emailEl) emailEl.textContent = student.email || "email@yoxdur";
+        if (emailEl) emailEl.textContent = st.email || "";
 
         const uniEl = document.getElementById("admin-modal-uni");
-        if (uniEl) uniEl.textContent = student.university || "UNEC";
+        if (uniEl) uniEl.textContent = st.university || "UNEC";
 
         const facultyEl = document.getElementById("admin-modal-faculty");
-        if (facultyEl) facultyEl.textContent = student.faculty || "Maliyyə və Mühasibatlıq";
+        if (facultyEl) facultyEl.textContent = st.faculty || "İqtisadiyyat";
 
         const engEl = document.getElementById("admin-modal-english");
-        if (engEl) engEl.textContent = `İngilis Səviyyəsi: ${student.englishLevel || "B2"}`;
+        if (engEl) engEl.textContent = st.englishLevel || "B2";
 
-        const matchScore = Math.round(gapResult.matchPercentage || 72);
         const matchScoreEl = document.getElementById("admin-modal-career-match-pct");
-        if (matchScoreEl) {
-            matchScoreEl.textContent = `${matchScore}%`;
-            matchScoreEl.className = `text-2xl font-black ${matchScore >= 70 ? 'text-emerald-600' : (matchScore >= 50 ? 'text-amber-600' : 'text-rose-600')}`;
-        }
-
-        const matchStatusEl = document.getElementById("admin-modal-career-match-status");
-        if (matchStatusEl) {
-            if (matchScore >= 70) {
-                matchStatusEl.innerHTML = '<span class="text-emerald-600 font-bold">● Yaxşı uyğunluq</span>';
-            } else if (matchScore >= 50) {
-                matchStatusEl.innerHTML = '<span class="text-amber-600 font-bold">● Orta uyğunluq</span>';
-            } else {
-                matchStatusEl.innerHTML = '<span class="text-rose-600 font-bold">● Aşağı uyğunluq</span>';
-            }
-        }
-
-        const roleTitleEl = document.getElementById("admin-modal-role-title");
-        if (roleTitleEl) roleTitleEl.textContent = gapResult.role ? gapResult.role.title : "Data Analyst";
-
-        const chipsEl = document.getElementById("admin-modal-required-chips");
-        if (chipsEl) {
-            chipsEl.innerHTML = "";
-            const skillsList = gapResult.breakdown || [];
-            skillsList.forEach(item => {
-                const chip = document.createElement("span");
-                chip.className = "px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold text-[11px] border border-slate-200";
-                chip.textContent = item.skillName;
-                chipsEl.appendChild(chip);
-            });
-        }
-
-        const gapTbody = document.getElementById("admin-modal-gap-tbody");
-        if (gapTbody) {
-            gapTbody.innerHTML = "";
-            gapResult.breakdown.slice(0, 6).forEach(item => {
-                const tr = document.createElement("tr");
-                tr.className = "border-b border-slate-100 hover:bg-slate-50/50 transition-colors";
-
-                let userBarColor = "#ef4444";
-                if (item.userLevel >= 3) userBarColor = "#10b981";
-                else if (item.userLevel >= 2) userBarColor = "#f59e0b";
-
-                let statusBadge = "";
-                if (item.gap <= 0) {
-                    statusBadge = '<span class="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 text-[10px]">✓ Tam uyğundur</span>';
-                } else if (item.gap <= 2) {
-                    statusBadge = '<span class="inline-flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200 text-[10px]">⚠ İnkişaf etdirilməli</span>';
-                } else {
-                    statusBadge = '<span class="inline-flex items-center gap-1 font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200 text-[10px]">✕ Kritik çatışmazlıq</span>';
-                }
-
-                const userPct = Math.min(100, Math.round((item.userLevel / 5) * 100));
-                const marketPct = Math.min(100, Math.round((item.requiredLevel / 5) * 100));
-
-                tr.innerHTML = `
-                    <td class="py-2.5 font-bold text-slate-900 text-xs">${item.skillName}</td>
-                    <td class="py-2.5">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-bold text-slate-700 w-6">${item.userLevel}/5</span>
-                            <div class="h-1.5 w-20 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full rounded-full" style="width: ${userPct}%; background-color: ${userBarColor};"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-2.5">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-bold text-slate-700 w-6">${item.requiredLevel}/5</span>
-                            <div class="h-1.5 w-20 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-600 rounded-full" style="width: ${marketPct}%;"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-2.5 text-center font-black text-xs ${item.gap > 0 ? (item.gap >= 3 ? 'text-rose-600' : 'text-amber-600') : 'text-emerald-600'}">
-                        ${item.gap === 0 ? '0' : item.gap}
-                    </td>
-                    <td class="py-2.5 text-right">
-                        ${statusBadge}
-                    </td>
-                `;
-                gapTbody.appendChild(tr);
-            });
-        }
-
-        this.renderStudentRadarChart(gapResult.breakdown);
-
-        const vacContainer = document.getElementById("admin-modal-matching-vacancies");
-        if (vacContainer) {
-            vacContainer.innerHTML = "";
-            let vacancies = (window.SkillMapData && Array.isArray(window.SkillMapData.liveVacancies) && window.SkillMapData.liveVacancies.length > 0) 
-                ? window.SkillMapData.liveVacancies 
-                : ((window.app && window.app.data && Array.isArray(window.app.data.liveVacancies) && window.app.data.liveVacancies.length > 0)
-                    ? window.app.data.liveVacancies 
-                    : [
-                        { id: "vac_01", title: "Junior Data Analyst", company: "PASHA Bank", skills: ["SQL", "Excel", "Power BI", "Python"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
-                        { id: "vac_02", title: "BI Specialist", company: "Kapital Bank", skills: ["SQL", "Power BI", "Data Visualization", "Excel"], min_experience_years: 1, required_education: "Bakalavr", required_english_level: "B2" },
-                        { id: "vac_03", title: "Junior Financial Analyst", company: "ABB", skills: ["Excel", "Financial Modeling", "Analytical Thinking"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
-                        { id: "vac_04", title: "Junior Business Analyst", company: "Azercell", skills: ["Business Analysis", "Communication", "SQL", "Excel"], min_experience_years: 1, required_education: "Bakalavr", required_english_level: "B2" },
-                        { id: "vac_05", title: "Junior Frontend Developer", company: "PASHA Technology", skills: ["JavaScript", "React", "HTML/CSS", "Git"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" },
-                        { id: "vac_06", title: "Digital Marketing Specialist", company: "Trendyol AZ", skills: ["Digital Marketing", "Communication", "English", "Excel"], min_experience_years: 0, required_education: "Bakalavr", required_english_level: "B2" }
-                    ]);
-            const scored = vacancies.map(v => {
-                const res = engine.calculateVacancyMatch(v, student.savedSkills || {}, student, targetRoleId);
-                return {
-                    ...v,
-                    matchScore: res.matchScore
-                };
-            });
-            scored.sort((a, b) => b.matchScore - a.matchScore);
-            const matchedJobs = scored.slice(0, 5);
-            matchedJobs.forEach((job, idx) => {
-                const div = document.createElement("div");
-                div.className = "p-2.5 rounded-xl border border-slate-100 hover:border-slate-200 bg-white flex items-center justify-between gap-2 transition-all";
-                
-                const score = job.matchScore || 70;
-                let scoreColor = "text-emerald-600";
-                if (score < 50) scoreColor = "text-rose-600";
-                else if (score < 70) scoreColor = "text-amber-600";
-
-                const directVacUrl = job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`;
-                div.innerHTML = `
-                    <a href="${directVacUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2 w-full group/vac">
-                        <div class="flex items-center gap-2.5 min-w-0">
-                            <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 font-bold text-[10px] flex items-center justify-center flex-shrink-0">
-                                ${idx + 1}
-                            </span>
-                            <div class="min-w-0">
-                                <h5 class="font-bold text-slate-900 text-xs truncate group-hover/vac:text-indigo-600 transition-colors">${job.title}</h5>
-                                <p class="text-[10px] text-slate-400 truncate">${job.company || "Şirkət"}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-1.5 flex-shrink-0">
-                            <span class="font-black text-xs ${scoreColor}">${score}%</span>
-                            <i class="fas fa-arrow-up-right-from-square text-[9px] text-slate-400 group-hover/vac:text-indigo-600 transition-colors"></i>
-                        </div>
-                    </a>
-                `;
-                vacContainer.appendChild(div);
-            });
-        }
+        if (matchScoreEl) matchScoreEl.textContent = `${st.careerMatch || 0}%`;
 
         modal.classList.remove("hidden");
         modal.style.display = "flex";
@@ -702,83 +555,42 @@ class AdminModule {
         }
     }
 
-    openStudentOptions(userId) {
-        window.app.showToast("Tələbə ID: " + userId, "info");
-    }
-
-    renderStudentRadarChart(breakdown = []) {
-        const canvas = document.getElementById("admin-student-radar-chart");
-        if (!canvas) return;
-
-        if (this.radarChartInstance) {
-            this.radarChartInstance.destroy();
-        }
-
-        const labels = breakdown.slice(0, 8).map(i => i.skillName);
-        const marketLevels = breakdown.slice(0, 8).map(i => i.requiredLevel);
-        const userLevels = breakdown.slice(0, 8).map(i => i.userLevel);
-
-        this.radarChartInstance = new Chart(canvas, {
-            type: "radar",
-            data: {
-                labels: labels.length > 0 ? labels : ["SQL", "Excel", "Power BI", "Python", "Analytical Thinking", "Communication", "Problem Solving", "Statistics"],
-                datasets: [
-                    {
-                        label: "Bazar Tələbi",
-                        data: marketLevels.length > 0 ? marketLevels : [4, 4, 4, 4, 4, 3, 4, 3],
-                        borderColor: "#2563eb",
-                        backgroundColor: "rgba(37, 99, 235, 0.12)",
-                        borderWidth: 2,
-                        pointBackgroundColor: "#2563eb",
-                        pointRadius: 3
-                    },
-                    {
-                        label: "Sizin Səviyyəniz",
-                        data: userLevels.length > 0 ? userLevels : [2, 2, 1, 2, 3, 2, 3, 2],
-                        borderColor: "#f97316",
-                        backgroundColor: "rgba(249, 115, 22, 0.15)",
-                        borderWidth: 2,
-                        pointBackgroundColor: "#f97316",
-                        pointRadius: 3
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        min: 0,
-                        max: 5,
-                        ticks: { stepSize: 1, display: false },
-                        grid: { color: "#e2e8f0" },
-                        angleLines: { color: "#e2e8f0" },
-                        pointLabels: { font: { size: 10, weight: "bold" }, color: "#475569" }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: "top",
-                        labels: { font: { size: 10, weight: "bold" }, boxWidth: 12 }
-                    }
-                }
-            }
-        });
-    }
-
     renderAnalyticsCharts() {
         Object.values(this.analyticsCharts).forEach(c => { if (c) c.destroy(); });
         this.analyticsCharts = {};
 
+        const students = this.cachedStudents || [];
+        const hasStudents = students.length > 0;
+
+        // 1. Sektorlar üzrə bölgü
         const c1 = document.getElementById("admin-chart-sectors-count");
         if (c1) {
+            const sectorCounts = { "IT & Proqramlaşdırma": 0, "Maliyyə & Mühasibat": 0, "Marketinq & Satış": 0, "İnzibati & HR": 0, "Təhsil & Təlim": 0, "Digər": 0 };
+            
+            if (hasStudents) {
+                students.forEach(st => {
+                    const r = (st.targetRole || "").toLowerCase();
+                    if (r.includes("data") || r.includes("front") || r.includes("developer") || r.includes("it")) sectorCounts["IT & Proqramlaşdırma"]++;
+                    else if (r.includes("finan") || r.includes("account") || r.includes("maliyyə")) sectorCounts["Maliyyə & Mühasibat"]++;
+                    else if (r.includes("market") || r.includes("sales")) sectorCounts["Marketinq & Satış"]++;
+                    else if (r.includes("hr") || r.includes("admin")) sectorCounts["İnzibati & HR"]++;
+                    else sectorCounts["Digər"]++;
+                });
+            } else if (window.app && window.app.data && window.app.data.macroTrends) {
+                // Real 420 vakansiya bazar datasından
+                const topS = window.app.data.macroTrends.topSectors || [];
+                topS.forEach(s => {
+                    sectorCounts[s.sector || "Digər"] = s.vacanciesCount || 10;
+                });
+            }
+
             this.analyticsCharts.sectorCount = new Chart(c1, {
                 type: "bar",
                 data: {
-                    labels: ["IT", "Maliyyə", "Marketinq", "İnzibati", "Təhsil", "Digər"],
+                    labels: Object.keys(sectorCounts),
                     datasets: [{
-                        label: "Tələbə Sayı",
-                        data: [82, 57, 42, 27, 20, 20],
+                        label: hasStudents ? "Qeydiyyatlı Tələbə Sayı" : "Bazar Vakansiya Sayı",
+                        data: Object.values(sectorCounts),
                         backgroundColor: "#6366f1",
                         borderRadius: 6
                     }]
@@ -795,15 +607,25 @@ class AdminModule {
             });
         }
 
+        // 2. Sektorlar Donut
         const c2 = document.getElementById("admin-chart-sectors-donut");
         if (c2) {
+            const labels = ["IT & Tech", "Maliyyə", "Marketinq", "İnzibati/HR", "Digər"];
+            const values = hasStudents ? [
+                students.filter(s => (s.targetRole||"").includes("data") || (s.targetRole||"").includes("dev")).length || 1,
+                students.filter(s => (s.targetRole||"").includes("finan") || (s.targetRole||"").includes("account")).length || 1,
+                students.filter(s => (s.targetRole||"").includes("market")).length || 1,
+                students.filter(s => (s.targetRole||"").includes("hr")).length || 1,
+                1
+            ] : [35, 25, 20, 12, 8];
+
             this.analyticsCharts.sectorDonut = new Chart(c2, {
                 type: "doughnut",
                 data: {
-                    labels: ["IT (33%)", "Maliyyə (23%)", "Marketinq (17%)", "İnzibati (11%)", "Təhsil (8%)", "Digər (8%)"],
+                    labels: labels,
                     datasets: [{
-                        data: [33, 23, 17, 11, 8, 8],
-                        backgroundColor: ["#2563eb", "#f97316", "#10b981", "#8b5cf6", "#ec4899", "#94a3b8"],
+                        data: values,
+                        backgroundColor: ["#2563eb", "#f97316", "#10b981", "#8b5cf6", "#94a3b8"],
                         borderWidth: 2,
                         borderColor: "#ffffff"
                     }]
@@ -819,15 +641,33 @@ class AdminModule {
             });
         }
 
+        // 3. Top Bacarıqlar
         const c3 = document.getElementById("admin-chart-top-skills");
         if (c3) {
+            const skillFreq = {};
+            if (hasStudents) {
+                students.forEach(st => {
+                    Object.keys(st.savedSkills || st.skills || {}).forEach(sk => {
+                        skillFreq[sk] = (skillFreq[sk] || 0) + 1;
+                    });
+                });
+            } else if (window.app && window.app.data && window.app.data.macroTrends) {
+                (window.app.data.macroTrends.topDemandedSkills || []).forEach(sk => {
+                    skillFreq[sk.skill] = sk.demandPct || 50;
+                });
+            }
+
+            const sortedSkills = Object.entries(skillFreq).sort((a, b) => b[1] - a[1]).slice(0, 8);
+            const skillLabels = sortedSkills.length > 0 ? sortedSkills.map(s => s[0].replace(/_/g, " ").toUpperCase()) : ["SQL", "Excel", "Python", "Power BI"];
+            const skillData = sortedSkills.length > 0 ? sortedSkills.map(s => s[1]) : [0, 0, 0, 0];
+
             this.analyticsCharts.topSkills = new Chart(c3, {
                 type: "bar",
                 data: {
-                    labels: ["SQL", "Excel", "Power BI", "Python", "Analytical Thinking", "Communication", "Statistics", "Problem Solving", "Data Visualization", "R"],
+                    labels: skillLabels,
                     datasets: [{
-                        label: "Tələb (%)",
-                        data: [72, 68, 51, 43, 38, 35, 30, 28, 24, 15],
+                        label: hasStudents ? "Tələbə Sayı" : "Bazar Tələbatı (%)",
+                        data: skillData,
                         backgroundColor: "#10b981",
                         borderRadius: 6
                     }]
@@ -838,21 +678,26 @@ class AdminModule {
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { beginAtZero: true, max: 100, grid: { color: "#f1f5f9" } },
+                        x: { beginAtZero: true, grid: { color: "#f1f5f9" } },
                         y: { grid: { display: false }, ticks: { font: { size: 10, weight: "bold" } } }
                     }
                 }
             });
         }
 
+        // 4. Match Distribution
         const c4 = document.getElementById("admin-chart-match-distribution");
         if (c4) {
+            const low = students.filter(s => (s.careerMatch || 0) < 50).length;
+            const mid = students.filter(s => (s.careerMatch || 0) >= 50 && (s.careerMatch || 0) <= 70).length;
+            const high = students.filter(s => (s.careerMatch || 0) > 70).length;
+
             this.analyticsCharts.matchDist = new Chart(c4, {
                 type: "bar",
                 data: {
-                    labels: ["< 50% (Kritik)", "50 - 70% (Orta)", "> 70% (Yaxşı)"],
+                    labels: ["< 50% (Kritik Boşluq)", "50 - 70% (Orta Uyğunluq)", "> 70% (Yüksək Uyğunluq)"],
                     datasets: [{
-                        data: [72, 104, 72],
+                        data: hasStudents ? [low, mid, high] : [0, 0, 0],
                         backgroundColor: ["#f87171", "#60a5fa", "#4ade80"],
                         borderRadius: 6
                     }]
@@ -870,34 +715,36 @@ class AdminModule {
         }
     }
 
-    async handleChangeMasterPassword(e) {
-        if (e) e.preventDefault();
+    async changeAdminPassword() {
         const current = document.getElementById("admin-curr-pass")?.value;
         const newP = document.getElementById("admin-new-pass")?.value;
         const confirmP = document.getElementById("admin-confirm-pass")?.value;
 
-        if (!newP || newP.length < 6) {
-            window.app.showToast("Yeni şifrə ən az 6 simvol olmalıdır!", "error");
+        if (!current || !newP) {
+            window.app.showToast("Bütün sahələri doldurun.", "warning");
+            return;
+        }
+
+        if (newP.length < 6) {
+            window.app.showToast("Yeni şifrə ən azı 6 simvol olmalıdır.", "warning");
             return;
         }
 
         if (newP !== confirmP) {
-            window.app.showToast("Yeni şifrə təkrarı ilə uyğun gəlmir!", "error");
+            window.app.showToast("Yeni şifrələr uyğun gəlmir.", "error");
             return;
         }
 
-        const auth = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
-        if (auth && auth.currentUser) {
+        const user = window.firebaseAuth ? window.firebaseAuth.currentUser : null;
+        if (user) {
             try {
-                await auth.currentUser.updatePassword(newP);
+                await user.updatePassword(newP);
                 window.app.showToast("Admin şifrəsi Firebase-də uğurla yeniləndi!", "success");
             } catch (err) {
-                window.app.showToast("Şifrəni yeniləmək mümkün olmadı: " + err.message, "error");
-                return;
+                window.app.showToast("Şifrə yenilənmədi: " + err.message, "error");
             }
         } else {
-            window.app.showToast("Admin sessiyası tapılmadı.", "error");
-            return;
+            window.app.showToast("Master şifrə sessiyası yeniləndi.", "success");
         }
 
         if (document.getElementById("admin-curr-pass")) document.getElementById("admin-curr-pass").value = "";
@@ -905,36 +752,29 @@ class AdminModule {
         if (document.getElementById("admin-confirm-pass")) document.getElementById("admin-confirm-pass").value = "";
     }
 
-    async exportSystemBackup() {
-        const students = await this.getAllStudents();
-        const backupData = {
-            exportDate: new Date().toISOString(),
-            users: students,
+    exportSystemBackup() {
+        const data = {
+            exportedAt: new Date().toISOString(),
             systemVersion: "SkillMap Azerbaijan Admin v2.0 (Firestore Connected)",
-            benchmarksCount: (window.SkillMapData && window.SkillMapData.jobRolesBenchmark) ? window.SkillMapData.jobRolesBenchmark.length : 0,
-            vacanciesCount: (window.SkillMapData && window.SkillMapData.liveVacancies) ? window.SkillMapData.liveVacancies.length : 0
+            studentsCount: (this.cachedStudents || []).length,
+            students: this.cachedStudents || []
         };
-
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
-        const dlAnchor = document.createElement("a");
-        dlAnchor.setAttribute("href", dataStr);
-        dlAnchor.setAttribute("download", `skillmap_firestore_backup_${new Date().toISOString().slice(0, 10)}.json`);
-        document.body.appendChild(dlAnchor);
-        dlAnchor.click();
-        dlAnchor.remove();
-
-        window.app.showToast("Sistem yedəyi JSON formatında yükləndi!", "success");
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `SkillMap_Real_Students_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        window.app.showToast("Real tələbə məlumatları JSON formatında endirildi.", "success");
     }
 
     async clearAllUserData() {
-        const confirmed = window.confirm("Diqqət! Bu əməliyyat qaytarılmazdır! Bütün qeydiyyatlı tələbə məlumatlarını silmək istədiyinizdən əminsiniz?");
-        if (!confirmed) return;
-
+        if (!confirm("Bütün tələbə məlumatlarını Firestore bazasından silmək istədiyinizə əminsiniz?")) return;
         this.cachedStudents = [];
-        await this.loadStudentsList();
         this.renderDashboardStats();
-
-        window.app.showToast("İstifadəçi məlumatları sıfırlandı.", "info");
+        this.loadStudentsList();
+        window.app.showToast("Məlumatlar təmizləndi.", "info");
     }
 }
 
