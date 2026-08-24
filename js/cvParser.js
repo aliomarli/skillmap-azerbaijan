@@ -9,12 +9,19 @@
  * - Context-aware Dynamic Skill Levels (4/5 for experience/advanced, 3/5 for skills list, 2/5 for single mention)
  */
 
+let cvParseInProgress = false;
+
 async function parseCV(file) {
-  console.log("parseCV CALLED - checking if duplicate");
+  if (cvParseInProgress) {
+    console.log("parseCV already running, skipping duplicate call");
+    return null;
+  }
+  cvParseInProgress = true;
   
   if (!file || (file.size !== undefined && file.size === 0)) {
-    console.warn("parseCV ignored: empty file or size is zero bytes");
-    throw new Error("PDF oxunmadı (Fayl boşdur)");
+    console.warn("Boş PDF cəhdi atlandı");
+    cvParseInProgress = false;
+    return null;
   }
 
   let fullText = '';
@@ -59,15 +66,24 @@ async function parseCV(file) {
       try {
         fullText = await file.text();
       } catch (e) {
+        cvParseInProgress = false;
         throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin");
       }
     }
   } catch (err) {
+    const errMsg = (err && err.message) ? err.message.toLowerCase() : "";
+    if (errMsg.includes("empty") || errMsg.includes("zero bytes") || errMsg.includes("0 bytes")) {
+      console.warn("Boş PDF cəhdi atlandı");
+      cvParseInProgress = false;
+      return null;
+    }
     console.error("PDF.js extraction error:", err);
+    cvParseInProgress = false;
     throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin (" + (err.message || "Fayl zədələnib") + ")");
   }
   
   if (!fullText || fullText.trim().length < 15) {
+    cvParseInProgress = false;
     throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin (Sənəddə oxunaqlı mətn aşkar edilmədi)");
   }
 
@@ -296,6 +312,7 @@ async function parseCV(file) {
   };
   
   console.log("CV Parse result:", result);
+  cvParseInProgress = false;
   return result;
 }
 

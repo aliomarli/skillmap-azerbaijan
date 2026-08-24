@@ -1410,6 +1410,7 @@ class SkillMapApp {
         this.isParsingCV = true;
         try {
             const parsed = await parseCV(file);
+            if (!parsed) return;
             this.pendingParsedCV = parsed;
             this.closeCVUploadModal();
             this.showCVConfirmationModal(parsed, file.name);
@@ -1435,6 +1436,7 @@ class SkillMapApp {
             const blob = new Blob([text], { type: "text/plain" });
             blob.name = "Pasted_CV.txt";
             const parsed = await parseCV(blob);
+            if (!parsed) return;
             this.pendingParsedCV = parsed;
             this.closeCVUploadModal();
             this.showCVConfirmationModal(parsed, "Pasted_CV_Text");
