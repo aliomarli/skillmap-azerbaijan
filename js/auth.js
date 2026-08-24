@@ -200,6 +200,9 @@ class AuthManager {
             this.currentUser = newDoc;
         }
 
+        if (typeof saveStudentToLocalRegistry === 'function') {
+            saveStudentToLocalRegistry(this.currentUser);
+        }
         return this.currentUser;
     }
 
@@ -358,6 +361,9 @@ class AuthManager {
             } catch (e) {
                 console.error("Error updating profile in Firestore:", e);
             }
+        }
+        if (typeof saveStudentToLocalRegistry === 'function') {
+            saveStudentToLocalRegistry(this.currentUser);
         }
     }
 

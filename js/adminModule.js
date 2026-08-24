@@ -302,26 +302,24 @@ class AdminModule {
     async getAllStudents() {
         if (typeof firebaseGetAllUsers === "function") {
             const rawUsers = await firebaseGetAllUsers();
-            if (rawUsers && rawUsers.length > 0) {
-                this.cachedStudents = rawUsers.map(doc => ({
-                    uid: doc.uid || doc.id,
-                    id: doc.uid || doc.id,
-                    ...doc,
-                    savedSkills: doc.savedSkills || doc.skills || {},
-                    skills: doc.skills || doc.savedSkills || {},
-                    careerMatch: doc.careerMatch !== undefined ? doc.careerMatch : 0,
-                    targetRole: doc.targetRole || "data_analyst",
-                    university: doc.university || "Qeyd olunmayıb",
-                    faculty: doc.faculty || "İqtisadiyyat / İT",
-                    degree: doc.degree || "Bakalavr",
-                    englishLevel: doc.englishLevel || "B2",
-                    name: doc.name || "Namizəd",
-                    email: doc.email || "",
-                    role: doc.role || "student",
-                    createdAt: doc.createdAt || null
-                }));
-                return this.cachedStudents;
-            }
+            this.cachedStudents = (rawUsers || []).map(doc => ({
+                uid: doc.uid || doc.id,
+                id: doc.uid || doc.id,
+                ...doc,
+                savedSkills: doc.savedSkills || doc.skills || {},
+                skills: doc.skills || doc.savedSkills || {},
+                careerMatch: doc.careerMatch !== undefined ? doc.careerMatch : 0,
+                targetRole: doc.targetRole || "data_analyst",
+                university: doc.university || "UNEC",
+                faculty: doc.faculty || "İqtisadiyyat / İT",
+                degree: doc.degree || "Bakalavr",
+                englishLevel: doc.englishLevel || "B2",
+                name: doc.name || "Namizəd",
+                email: doc.email || "",
+                role: doc.role || "student",
+                createdAt: doc.createdAt || null
+            }));
+            return this.cachedStudents;
         }
 
         const db = window.firestoreDb || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
