@@ -10,12 +10,20 @@
  */
 
 async function parseCV(file) {
+  console.log("parseCV CALLED - checking if duplicate");
+  
+  if (!file) {
+    throw new Error("Fayl seçilməyib.");
+  }
+
   let fullText = '';
+  const fileName = (file.name || '').toLowerCase();
   
   try {
     const arrayBuffer = await file.arrayBuffer();
     
-    if (typeof window !== "undefined" && window.pdfjsLib) {
+    // 1. PDF sənədləri üçün PDF.js ilə şaquli sətir strukturunu qoruyaraq oxu
+    if (typeof window !== "undefined" && window.pdfjsLib && (fileName.endsWith('.pdf') || file.type.includes('pdf') || !fileName.includes('.'))) {
       const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       
       for (let i = 1; i <= pdf.numPages; i++) {
@@ -42,21 +50,24 @@ async function parseCV(file) {
         
         fullText += pageText + '\n\n';
       }
-    } else {
+    } else if (fileName.endsWith('.txt') || file.type.includes('text') || file.type.includes('plain')) {
       const decoder = new TextDecoder("utf-8");
       fullText = decoder.decode(new Uint8Array(arrayBuffer));
+    } else {
+      // DOCX və ya digər formatlar
+      try {
+        fullText = await file.text();
+      } catch (e) {
+        throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin");
+      }
     }
   } catch (err) {
-    console.warn("PDF.js line-preserving extraction note:", err);
-    try {
-      fullText = await file.text();
-    } catch (e) {
-      console.error("Text extraction failed:", e);
-    }
+    console.error("PDF.js extraction error:", err);
+    throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin (" + (err.message || "Fayl zədələnib") + ")");
   }
   
-  if (!fullText || fullText.trim().length === 0) {
-    throw new Error("CV sənədindən mətn oxunmadı.");
+  if (!fullText || fullText.trim().length < 15) {
+    throw new Error("PDF oxunmadı, zəhmət olmasa başqa format yükləyin (Sənəddə oxunaqlı mətn aşkar edilmədi)");
   }
 
   console.log("CV Text extracted:", fullText.length, "chars");
@@ -255,9 +266,9 @@ async function parseCV(file) {
   
   const result = {
     rawText: fullText,
-    fileName: (file && file.name) ? file.name : "CV.pdf",
-    email: email || 'ali.omarli@outlook.com',
-    candidateName: candidateName || 'Ali Omarli',
+    fileName: file.name || "CV.pdf",
+    email: email,
+    candidateName: candidateName,
     foundSkills: foundSkills,
     skills: foundSkills,
     skillCount: Object.keys(foundSkills).length,
@@ -270,8 +281,8 @@ async function parseCV(file) {
       field: 'İqtisadiyyat & Data Analitikası'
     },
     personalInfo: {
-      name: candidateName || 'Ali Omarli',
-      email: email || 'ali.omarli@outlook.com',
+      name: candidateName,
+      email: email,
       phone: '+994 55 207 73 68',
       city: 'Bakı'
     },

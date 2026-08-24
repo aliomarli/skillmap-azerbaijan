@@ -2448,14 +2448,14 @@
 
             <!-- Upload Area -->
             <div class="space-y-4">
-                <div class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-6 text-center bg-slate-50 hover:bg-blue-50/50 transition-all cursor-pointer" onclick="document.getElementById('cv-file-input').click()">
+                <label for="cv-file-input" class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-6 text-center bg-slate-50 hover:bg-blue-50/50 transition-all cursor-pointer block">
                     <input type="file" id="cv-file-input" accept=".pdf, .docx, .doc, .txt" onchange="app.handleCVFileUpload(event)" class="hidden">
                     <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-3 text-xl">
                         <i class="fas fa-cloud-arrow-up"></i>
                     </div>
                     <div class="font-bold text-xs text-slate-800 mb-1">Faylı seçmək üçün bura klikləyin</div>
                     <div class="text-[11px] text-slate-500">PDF, DOCX və ya TXT (Maksimum 10MB)</div>
-                </div>
+                </label>
 
                 <div class="flex items-center gap-2">
                     <div class="flex-grow border-t border-slate-200"></div>

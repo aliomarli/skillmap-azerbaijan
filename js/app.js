@@ -1397,9 +1397,14 @@ class SkillMapApp {
     }
 
     async handleCVFileUpload(event) {
+        if (this.isParsingCV) {
+            console.log("Ignoring duplicate CV upload event trigger");
+            return;
+        }
         const file = event.target.files && event.target.files[0];
         if (!file) return;
 
+        this.isParsingCV = true;
         try {
             const parsed = await parseCV(file);
             this.pendingParsedCV = parsed;
@@ -1407,23 +1412,35 @@ class SkillMapApp {
             this.showCVConfirmationModal(parsed, file.name);
         } catch (e) {
             console.error("CV oxunarkən xəta:", e);
-            alert("CV oxunarkən xəta baş verdi: " + e.message);
+            alert(e.message || "PDF oxunmadı, zəhmət olmasa başqa format yükləyin");
+        } finally {
+            this.isParsingCV = false;
+            if (event.target) event.target.value = '';
         }
     }
 
     async parsePastedCVText() {
+        if (this.isParsingCV) return;
         const text = document.getElementById("cv-text-paste").value;
         if (!text || text.trim().length < 20) {
             alert("Zəhmət olmasa ən azı bir neçə cümləlik CV mətni daxil edin.");
             return;
         }
 
-        const blob = new Blob([text], { type: "text/plain" });
-        blob.name = "Pasted_CV.txt";
-        const parsed = await parseCV(blob);
-        this.pendingParsedCV = parsed;
-        this.closeCVUploadModal();
-        this.showCVConfirmationModal(parsed, "Pasted_CV_Text");
+        this.isParsingCV = true;
+        try {
+            const blob = new Blob([text], { type: "text/plain" });
+            blob.name = "Pasted_CV.txt";
+            const parsed = await parseCV(blob);
+            this.pendingParsedCV = parsed;
+            this.closeCVUploadModal();
+            this.showCVConfirmationModal(parsed, "Pasted_CV_Text");
+        } catch (e) {
+            console.error("CV mətni oxunarkən xəta:", e);
+            alert(e.message || "CV mətni oxunmadı.");
+        } finally {
+            this.isParsingCV = false;
+        }
     }
 
     showCVConfirmationModal(parsed, fileName = "CV Faylı") {
