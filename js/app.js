@@ -1430,8 +1430,7 @@ class SkillMapApp {
         const modal = document.getElementById("modal-cv-confirm");
         if (!modal) return;
 
-        const currentUserName = (this.auth && this.auth.currentUser && this.auth.currentUser.name) ? this.auth.currentUser.name : "";
-        const displayName = parsed.candidateName || currentUserName || "Namizəd";
+        const displayName = parsed.candidateName || (this.auth?.currentUser?.name && this.auth.currentUser.name !== "test" ? this.auth.currentUser.name : "Namizəd");
 
         const confEl = document.getElementById("confirm-confidence-score");
         if (confEl) confEl.textContent = parsed.confidence || (parsed.skillCount > 3 ? "Yüksək" : "Orta");
@@ -1446,7 +1445,7 @@ class SkillMapApp {
         if (contactEl) contactEl.textContent = `${parsed.email || this.auth?.currentUser?.email || 'Məlumat yoxdur'}`;
 
         const eduEl = document.getElementById("confirm-edu");
-        if (eduEl) eduEl.textContent = parsed.university ? `${parsed.university} · Ali Təhsil` : "Təhsil qeyd olunmayıb";
+        if (eduEl) eduEl.textContent = parsed.university ? `${parsed.university}` : "Təhsil qeyd olunmayıb";
 
         const expEl = document.getElementById("confirm-exp");
         if (expEl) expEl.textContent = `${parsed.experience || 0} il (İngilis dili: ${parsed.englishLevel || 'B2'})`;
@@ -1487,10 +1486,10 @@ class SkillMapApp {
         if (this.auth && this.auth.currentUser) {
             this.auth.currentUser.skills = this.currentSkills;
             this.auth.currentUser.savedSkills = this.currentSkills;
-            if (parsed.candidateName && (!this.auth.currentUser.name || this.auth.currentUser.name === "Tələbə" || this.auth.currentUser.name === "Namizəd")) {
+            if (parsed.candidateName) {
                 this.auth.currentUser.name = parsed.candidateName;
             }
-            if (parsed.email && !this.auth.currentUser.email) {
+            if (parsed.email) {
                 this.auth.currentUser.email = parsed.email;
             }
             if (parsed.university) this.auth.currentUser.university = parsed.university;
