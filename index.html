@@ -1192,40 +1192,44 @@
         <section id="tab-admin" class="tab-content space-y-6">
             
             <!-- A) ADMİN GİRİŞ EKRANI (Əgər login olunmayıbsa) -->
-            <div id="admin-view-login" class="min-h-[550px] flex items-center justify-center py-10">
-                <div class="bg-white rounded-3xl max-w-md w-full p-8 border border-slate-200 shadow-xl space-y-6 animate-fadeIn">
-                    <div class="text-center space-y-2">
-                        <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl mx-auto shadow-md shadow-indigo-600/10">
+            <div id="admin-view-login" class="min-h-[560px] flex items-center justify-center py-10">
+                <div class="bg-white rounded-3xl max-w-md w-full p-8 sm:p-10 border border-slate-200/90 shadow-2xl space-y-6 animate-fadeIn relative overflow-hidden">
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-indigo-50 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="text-center space-y-2 relative">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-indigo-500/25">
                             <i class="fas fa-shield-halved"></i>
                         </div>
-                        <h2 class="text-xl font-black text-slate-900 tracking-tight">Admin Girişi</h2>
-                        <p class="text-xs text-slate-500 font-medium">Sistem idarəetmə mərkəzinə daxil olmaq üçün master şifrəni daxil edin</p>
+                        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Admin İdarəetmə Paneli</h2>
+                        <p class="text-xs text-slate-500 font-medium">Sistem idarəetmə mərkəzinə daxil olmaq üçün məlumatlarınızı daxil edin</p>
                     </div>
 
-                    <form onsubmit="app.admin.handlePageAdminLoginSubmit(event)" class="space-y-4 pt-2">
-                        <div class="space-y-1">
+                    <form onsubmit="app.admin.handlePageAdminLoginSubmit(event)" class="space-y-4 pt-2 relative">
+                        <div class="space-y-1.5">
                             <label class="text-xs font-bold text-slate-700 block">Admin Email</label>
                             <div class="relative">
                                 <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                <input type="email" id="admin-page-email" value="admin@skillmap.az" required class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
+                                <input type="email" id="admin-page-email" value="admin@skillmap.az" required class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
                             </div>
                         </div>
 
-                        <div class="space-y-1">
+                        <div class="space-y-1.5">
                             <label class="text-xs font-bold text-slate-700 block">Master Şifrə</label>
                             <div class="relative">
                                 <i class="fas fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                <input type="password" id="admin-page-pass" placeholder="Master şifrəni daxil edin" required class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
-                            </div>
-                            <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
-                                <span>Standart: <strong class="text-indigo-600 font-mono">Admin2026!</strong></span>
-                                <span class="text-slate-400">v2.0 Enterprise</span>
+                                <input type="password" id="admin-page-pass" placeholder="Master şifrəni daxil edin" required class="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                                <button type="button" onclick="app.togglePasswordVisibility('admin-page-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fas fa-eye"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <div id="admin-page-login-err" class="p-3 rounded-xl bg-rose-50 text-rose-700 text-xs font-bold border border-rose-200 hidden"></div>
+                        <div id="admin-page-login-err" class="p-3 rounded-xl bg-rose-50 text-rose-700 text-xs font-bold border border-rose-200 hidden flex items-center gap-2">
+                            <i class="fas fa-circle-exclamation flex-shrink-0"></i>
+                            <span>Admin şifrəsi yanlışdır!</span>
+                        </div>
 
-                        <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/25 transition-all flex items-center justify-center gap-2">
                             <i class="fas fa-right-to-bracket"></i>
                             <span>Admin Panelinə Daxil Ol</span>
                         </button>
@@ -1236,16 +1240,16 @@
             <!-- B) ADMİN DASHBOARD EKRANI (Login olandan sonra) -->
             <div id="admin-view-dashboard" class="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[820px] hidden" style="display: none;">
                 
-                <!-- Sol Qaranlıq Sidebar (220px) -->
-                <aside class="w-full md:w-60 bg-slate-900 text-white p-5 flex flex-col justify-between flex-shrink-0 border-r border-slate-800">
+                <!-- Sol Qaranlıq Sidebar (240px) -->
+                <aside class="w-full md:w-64 bg-slate-900 text-white p-5 flex flex-col justify-between flex-shrink-0 border-r border-slate-800">
                     <div class="space-y-6">
                         <!-- Brand Header -->
-                        <div class="flex items-center gap-2.5 px-2 py-1">
-                            <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-base shadow-md shadow-indigo-600/30">
+                        <div class="flex items-center gap-3 px-2 py-1">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white text-base shadow-md shadow-indigo-600/30">
                                 <i class="fas fa-shield-halved"></i>
                             </div>
                             <div>
-                                <h2 class="font-black text-sm text-white tracking-tight">Admin Panel</h2>
+                                <h2 class="font-black text-sm text-white tracking-tight">Admin Console</h2>
                                 <p class="text-[10px] text-slate-400 font-semibold">SkillMap Control v2.0</p>
                             </div>
                         </div>
@@ -1279,11 +1283,13 @@
                     <div class="pt-6 border-t border-slate-800 space-y-3">
                         <div class="flex items-center gap-3 px-2">
                             <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 text-white font-black text-xs flex items-center justify-center shadow-sm">
-                                A
+                                <i class="fas fa-user-tie"></i>
                             </div>
                             <div class="min-w-0">
-                                <h4 class="font-bold text-xs text-white truncate">Admin</h4>
-                                <p class="text-[10px] text-slate-400 truncate">Super Admin</p>
+                                <h4 class="font-bold text-xs text-white truncate">Administrator</h4>
+                                <p class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Super Admin
+                                </p>
                             </div>
                         </div>
                         <button onclick="app.admin.logout()" class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 border border-rose-900/40 transition-all">
@@ -1296,26 +1302,38 @@
                 <!-- Sağ Əsas Məzmun Sahəsi -->
                 <div class="flex-1 p-6 md:p-8 bg-slate-50/70 overflow-y-auto space-y-6">
                     
-                    <!-- Üst Başlıq və Profil Statusu -->
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                    <!-- Üst Başlıq və Canlı Status Barı -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
                         <div>
                             <h1 class="text-xl font-black text-slate-900 tracking-tight" id="admin-subview-title">Admin Dashboard</h1>
-                            <p class="text-xs text-slate-500 font-medium">Sistemə ümumi baxış və statistik məlumatlar</p>
+                            <p class="text-xs text-slate-500 font-medium" id="admin-subview-desc">Sistemə ümumi baxış və statistik məlumatlar</p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-2xs">
+                        
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-2xs text-xs font-bold text-slate-700">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                <span class="text-xs font-bold text-slate-700">Admin</span>
+                                <span>Firestore: Qoşuldu</span>
                             </div>
-                            <button onclick="app.admin.logout()" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-rose-600 border border-rose-200 hover:bg-rose-50 transition-all flex items-center gap-1.5">
+
+                            <button onclick="app.admin.refreshAllData()" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-all flex items-center gap-1.5 shadow-2xs" title="Məlumatları Yenilə">
+                                <i class="fas fa-rotate" id="admin-refresh-btn"></i>
+                                <span>Yenilə</span>
+                            </button>
+
+                            <button onclick="app.admin.exportStudentsCSV()" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-1.5 shadow-2xs">
+                                <i class="fas fa-file-csv text-emerald-600"></i>
+                                <span>CSV İxrac</span>
+                            </button>
+
+                            <button onclick="app.admin.logout()" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-rose-600 border border-rose-200 hover:bg-rose-50 transition-all flex items-center gap-1.5 shadow-2xs">
                                 <i class="fas fa-right-from-bracket"></i>
-                                <span>Çıxış Et</span>
+                                <span>Çıxış</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- ============================================== -->
-                    <!-- SUBVIEW 1 & 2: DASHBOARD & STUDENTS -->
+                    <!-- SUBVIEW 1: DASHBOARD -->
                     <!-- ============================================== -->
                     <div data-admin-subview="dashboard" class="space-y-6">
                         
@@ -1349,7 +1367,7 @@
                                 </div>
                             </div>
 
-                            <!-- Kart 3: Ən Tələb Olunan Bacarıq -->
+                            <!-- Kart 3: Ən Çox Seçilən Bacarıq -->
                             <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-3">
                                 <div class="flex items-center justify-between">
                                     <span class="text-xs font-bold text-slate-500">Ən Çox Seçilən Bacarıq</span>
@@ -1363,7 +1381,7 @@
                                 </div>
                             </div>
 
-                            <!-- Kart 4: Ən Seçilmiş Hədəf Vəzifə -->
+                            <!-- Kart 4: Ən Çox Hədəflənən Vəzifə -->
                             <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-3">
                                 <div class="flex items-center justify-between">
                                     <span class="text-xs font-bold text-slate-500">Ən Çox Hədəflənən Vəzifə</span>
@@ -1378,18 +1396,27 @@
                             </div>
                         </div>
 
-                        <!-- Tələbələr Cədvəli Kartı -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-2xs overflow-hidden">
-                            <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <!-- Tələbələr Cədvəli Kartı (Dashboard Daxilində) -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-2xs overflow-hidden space-y-3">
+                            <div class="p-5 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                 <div>
-                                    <h3 class="font-bold text-slate-900 text-sm">Tələbələr</h3>
-                                    <p class="text-xs text-slate-400">Qeydiyyatlı bütün tələbələrin siyahısı</p>
+                                    <h3 class="font-bold text-slate-900 text-sm">Qeydiyyatlı Tələbələr</h3>
+                                    <p class="text-xs text-slate-400">Real Firebase istifadəçi qeydiyyatları</p>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="relative w-full sm:w-64">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <div class="relative w-full sm:w-60">
                                         <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                        <input type="text" oninput="app.admin.handleStudentSearch(this.value)" placeholder="Ad və ya email ilə axtar..." class="w-full pl-9 pr-4 py-2 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-indigo-500 transition-all">
+                                        <input type="text" oninput="app.admin.handleStudentSearch(this.value)" placeholder="Ad, email və ya ixtisas..." class="w-full pl-9 pr-4 py-2 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-indigo-500 transition-all">
                                     </div>
+                                    <select onchange="app.admin.setUniversityFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none">
+                                        <option value="all">Bütün Universitetlər</option>
+                                        <option value="UNEC">UNEC</option>
+                                        <option value="BANM">BANM</option>
+                                        <option value="BDU">BDU</option>
+                                        <option value="ADA">ADA</option>
+                                        <option value="AzTU">AzTU</option>
+                                        <option value="BMU">BMU</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -1397,7 +1424,7 @@
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                                            <th class="py-3 px-4">Ad</th>
+                                            <th class="py-3 px-4">Tələbə</th>
                                             <th class="py-3 px-4">Universitet</th>
                                             <th class="py-3 px-4">Hədəf Vəzifə</th>
                                             <th class="py-3 px-4">Career Match %</th>
@@ -1419,7 +1446,7 @@
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                     </select>
-                                    <span id="admin-students-page-info" class="font-semibold text-slate-600 pl-2">1-5 / 248</span>
+                                    <span id="admin-students-page-info" class="font-semibold text-slate-600 pl-2">0-0 / 0</span>
                                 </div>
                                 <div id="admin-pagination-container" class="flex items-center gap-1.5">
                                     <!-- Pagination buttons -->
@@ -1434,13 +1461,19 @@
                     <div data-admin-subview="students" class="space-y-6 hidden" style="display: none;">
                         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-wrap items-center justify-between gap-3">
                             <div>
-                                <h3 class="font-bold text-slate-900 text-sm">Tələbə İdarəetmə Paneli</h3>
-                                <p class="text-xs text-slate-500">Filtirləmə və fərdi tələbə profillərinin təhlili</p>
+                                <h3 class="font-bold text-slate-900 text-sm">Tələbə İdarəetmə Mərkəzi</h3>
+                                <p class="text-xs text-slate-500">Bütün tələbələrin profili, admin hüquqlarının idarəsi və ixrac</p>
                             </div>
-                            <button onclick="app.admin.exportSystemBackup()" class="px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold text-xs flex items-center gap-2 transition-all">
-                                <i class="fas fa-file-export"></i>
-                                <span>CSV / JSON İxrac</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="app.admin.exportStudentsCSV()" class="px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold text-xs flex items-center gap-2 transition-all">
+                                    <i class="fas fa-file-csv"></i>
+                                    <span>CSV İxrac</span>
+                                </button>
+                                <button onclick="app.admin.exportSystemBackup()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-2 transition-all">
+                                    <i class="fas fa-download"></i>
+                                    <span>JSON Yedək</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -1452,7 +1485,7 @@
                             
                             <!-- Qrafik 1: Sektor üzrə Tələbə Sayı -->
                             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-4">
-                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Hər Sektor üzrə Tələbə Sayı</h4>
+                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Hər Sektor üzrə Tələbə / Vakansiya Sayı</h4>
                                 <div class="h-64 w-full">
                                     <canvas id="admin-chart-sectors-count"></canvas>
                                 </div>
@@ -1468,15 +1501,15 @@
 
                             <!-- Qrafik 3: Top 10 Ən Tələb Olunan Bacarıqlar -->
                             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-4">
-                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Top 10 Ən Tələb Olunan Bacarıqlar</h4>
+                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Top Bacarıqlar və Tələbat</h4>
                                 <div class="h-72 w-full">
                                     <canvas id="admin-chart-top-skills"></canvas>
                                 </div>
                             </div>
 
-                            <!-- Qrafik 4: Career Match Distribution -->
+                            <!-- Qrafik 4: Match Dağılımı -->
                             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-4">
-                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Career Match Distribution</h4>
+                                <h4 class="font-bold text-slate-900 text-xs tracking-tight">Career Match Uyğunluq Dağılımı</h4>
                                 <div class="h-72 w-full">
                                     <canvas id="admin-chart-match-distribution"></canvas>
                                 </div>
@@ -1488,93 +1521,33 @@
                     <!-- SUBVIEW 4: METHODOLOGY VIEW -->
                     <!-- ============================================== -->
                     <div data-admin-subview="methodology" class="space-y-6 hidden" style="display: none;">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            
-                            <!-- Sol Kart: Məlumat Mənbələri -->
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs space-y-5">
-                                <div class="space-y-1">
-                                    <h3 class="font-black text-slate-900 text-sm">Data Mənbələri və Dəqiqlik</h3>
-                                    <p class="text-xs text-slate-500">Sistem metodologiyası və statistik əsaslar</p>
-                                </div>
-
-                                <div class="space-y-4 pt-2">
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 text-sm">
-                                            <i class="fas fa-database"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-slate-900 text-xs">Data Mənbələri</h4>
-                                            <p class="text-xs text-slate-600 font-medium">420 Jobsearch.az vakansiyası (01.01.2024 - 31.12.2024)</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm">
-                                            <i class="fas fa-brain"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-slate-900 text-xs">NLP Dəqiqliyi</h4>
-                                            <p class="text-xs text-slate-600 font-medium">92% CV parsing və bacarıq çıxarışı dəqiqliyi</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 text-sm">
-                                            <i class="fas fa-scale-balanced"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-slate-900 text-xs">Kalibrasiya</h4>
-                                            <p class="text-xs text-slate-600 font-medium">WEF, DMA və lokal əmək bazarı standartları ilə kalibrasiya</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 text-sm">
-                                            <i class="fas fa-clock-rotate-left"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-slate-900 text-xs">Son Yenilənmə</h4>
-                                            <p class="text-xs text-slate-600 font-medium">20 Avqust 2026 (Gündəlik yenilənir)</p>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs space-y-6">
+                            <div>
+                                <h3 class="font-black text-slate-900 text-base">Alqoritmik Hesablama və Qərar Dəstək Modelləri</h3>
+                                <p class="text-xs text-slate-500">SkillMap Azerbaijan platformasında istifadə olunan bütün riyazi modellər</p>
                             </div>
 
-                            <!-- Sağ Kart: Hesablama Formulaları -->
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs space-y-5">
-                                <div class="space-y-1">
-                                    <h3 class="font-black text-slate-900 text-sm">Hesablama Formulaları</h3>
-                                    <p class="text-xs text-slate-500">Riyazi və çoxkomponentli uyğunluq modelləri</p>
+                            <div class="space-y-4 pt-2 text-xs">
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
+                                    <span class="font-bold text-slate-900 block text-xs">1. Career Match Formulu</span>
+                                    <div class="p-2.5 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-indigo-700">
+                                        Career Match = (Skills × 70%) + (Experience × 15%) + (Education × 10%) + (Language × 5%)
+                                    </div>
+                                    <p class="text-[10px] text-slate-500">Namizədin tələb olunan bacarıqlar üzrə çəkili ortalaması əsas meyarı təşkil edir.</p>
                                 </div>
 
-                                <div class="space-y-4 pt-2 text-xs">
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                                        <span class="font-bold text-slate-900 block text-xs">Career Match Formulu</span>
-                                        <div class="p-2 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-indigo-700">
-                                            Career Match = (Skills × 70%) + (Experience × 15%) + (Education × 10%) + (Language × 5%)
-                                        </div>
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
+                                    <span class="font-bold text-slate-900 block text-xs">2. Skill Gap Hesablaması</span>
+                                    <div class="p-2.5 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-blue-700">
+                                        Gap = max(0, Required Level - User Level)
                                     </div>
+                                    <p class="text-[10px] text-slate-500">Hər bacarıq üzrə tələb olunan səviyyə ilə namizədin səviyyəsi arasındakı fərq.</p>
+                                </div>
 
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                                        <span class="font-bold text-slate-900 block text-xs">Skill Gap Hesablaması</span>
-                                        <div class="p-2 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-blue-700">
-                                            Gap = max(0, Required Level - User Level)
-                                        </div>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                                        <span class="font-bold text-slate-900 block text-xs">Skill Gap Priority Score</span>
-                                        <div class="p-2 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-purple-700">
-                                            Priority Score = Importance × Demand_Frequency × Gap
-                                        </div>
-                                        <p class="text-[10px] text-slate-500 font-semibold">Importance: required = 1.0, preferred = 0.6</p>
-                                    </div>
-
-                                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                                        <span class="font-bold text-slate-900 block text-xs">Salary Predictor</span>
-                                        <div class="p-2 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-emerald-700">
-                                            Predicted Salary = Base × (1 + Career Match/100) × (1 + Exp Bonus) × (1 + Loc Factor)
-                                        </div>
+                                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
+                                    <span class="font-bold text-slate-900 block text-xs">3. Salary Predictor</span>
+                                    <div class="p-2.5 rounded-lg bg-white border border-slate-200 font-mono text-[11px] text-emerald-700">
+                                        Predicted Salary = Base × (0.6 + Match × 0.7) × (1 + Exp Bonus)
                                     </div>
                                 </div>
                             </div>
@@ -1590,45 +1563,61 @@
                             <!-- Sol Kart: Master Şifrə Dəyiş -->
                             <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs space-y-5">
                                 <div class="space-y-1">
-                                    <h3 class="font-black text-slate-900 text-sm">Master Şifrə Dəyiş</h3>
-                                    <p class="text-xs text-slate-500">Admin panelinə giriş şifrəsini yeniləyin</p>
+                                    <h3 class="font-black text-slate-900 text-sm">Master Şifrəni Yenilə</h3>
+                                    <p class="text-xs text-slate-500">Yeni şifrə həm Firebase Firestore, həm də lokal yaddaşda saxlanacaqdır</p>
                                 </div>
 
                                 <form onsubmit="app.admin.handleChangeMasterPassword(event)" class="space-y-4 pt-2">
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-700 block">Cari Şifrə</label>
-                                        <input type="password" id="admin-curr-pass" placeholder="Cari şifrəni daxil edin" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-bold text-slate-700 block">Cari Master Şifrə</label>
+                                        <div class="relative">
+                                            <input type="password" id="admin-curr-pass" placeholder="Cari şifrəni daxil edin" required class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                                            <button type="button" onclick="app.togglePasswordVisibility('admin-curr-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-700 block">Yeni Şifrə</label>
-                                        <input type="password" id="admin-new-pass" placeholder="Yeni şifrəni daxil edin" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-bold text-slate-700 block">Yeni Şifrə (ən azı 6 simvol)</label>
+                                        <div class="relative">
+                                            <input type="password" id="admin-new-pass" minlength="6" placeholder="Yeni güclü şifrə təyin edin" required class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                                            <button type="button" onclick="app.togglePasswordVisibility('admin-new-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="space-y-1">
-                                        <label class="text-xs font-bold text-slate-700 block">Yeni Şifrəni Təkrar Daxil Edin</label>
-                                        <input type="password" id="admin-confirm-pass" placeholder="Yeni şifrəni təkrar daxil edin" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
+                                    <div class="space-y-1.5">
+                                        <label class="text-xs font-bold text-slate-700 block">Yeni Şifrənin Təkrarı</label>
+                                        <div class="relative">
+                                            <input type="password" id="admin-confirm-pass" minlength="6" placeholder="Yeni şifrəni təkrar daxil edin" required class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                                            <button type="button" onclick="app.togglePasswordVisibility('admin-confirm-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all">
-                                        Yadda Saxla
+                                    <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/25 transition-all flex items-center justify-center gap-2">
+                                        <i class="fas fa-check"></i>
+                                        <span>Şifrəni Saxla</span>
                                     </button>
                                 </form>
                             </div>
 
-                            <!-- Sağ Kartlar: Yedək və Sıfırlama -->
+                            <!-- Sağ Kartlar: Yedək və Sistem Statusu -->
                             <div class="space-y-6">
                                 <!-- Sistem Yedəyi -->
                                 <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs space-y-4">
-                                    <h3 class="font-black text-slate-900 text-sm">Sistem Yedəyi</h3>
-                                    <p class="text-xs text-slate-600 font-medium">Bütün sistem məlumatlarını və tələbə profillərini JSON formatında yükləyin.</p>
+                                    <h3 class="font-black text-slate-900 text-sm">Sistem Məlumatlarının Yedəyi</h3>
+                                    <p class="text-xs text-slate-600 font-medium">Bütün Firestore tələbə qeydiyyatlarını və konfiqurasiyanı JSON formatında endirin.</p>
                                     <button onclick="app.admin.exportSystemBackup()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all flex items-center gap-2">
                                         <i class="fas fa-download"></i>
-                                        <span>Yedəyi Endir</span>
+                                        <span>JSON Yedəyi Endir</span>
                                     </button>
                                 </div>
 
-                                <!-- Bütün User Data Sil (Qırmızı Təhlükə Zonası) -->
+                                <!-- Bütün User Data Sil -->
                                 <div class="bg-white p-6 rounded-2xl border border-rose-200 shadow-2xs space-y-4 bg-rose-50/20">
-                                    <h3 class="font-black text-rose-700 text-sm">Bütün User Data Sil</h3>
-                                    <p class="text-xs text-slate-600 font-medium">Bu əməliyyat qaytarılmazdır! Bütün tələbə məlumatları silinəcək.</p>
+                                    <h3 class="font-black text-rose-700 text-sm">Tələbə Məlumatlarını Sıfırla</h3>
+                                    <p class="text-xs text-slate-600 font-medium">Bu əməliyyat Firestore-dakı qeydiyyatları təmizləyir. Ehtiyatla istifadə edin.</p>
                                     <button onclick="app.admin.clearAllUserData()" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md shadow-rose-600/20 transition-all flex items-center gap-2">
                                         <i class="fas fa-trash-can"></i>
                                         <span>Bütün Data-nı Sil</span>
@@ -1642,8 +1631,7 @@
             </div>
         </section>
 
-        <!-- ======================================================== -->
-        <!-- TAB 3: CANLI VAKANSİYALAR VƏ ŞƏXSİ UYĞUNLUQ (420 REAL VAKANSİYA) -->
+<!-- TAB 3: CANLI VAKANSİYALAR VƏ ŞƏXSİ UYĞUNLUQ (420 REAL VAKANSİYA) -->
         <!-- ======================================================== -->
         <section id="tab-live-vacancies" class="tab-content space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
@@ -2612,14 +2600,18 @@
             </div>
 
             <form onsubmit="app.admin.handleAdminLoginSubmit(event)" class="space-y-4">
-                <div class="space-y-1">
+                <div class="space-y-1.5">
                     <label class="text-xs font-bold text-slate-700 block">Admin Email</label>
-                    <input type="email" id="admin-login-email" value="admin@skillmap.az" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
+                    <input type="email" id="admin-login-email" value="admin@skillmap.az" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1.5">
                     <label class="text-xs font-bold text-slate-700 block">Master Şifrə</label>
-                    <input type="password" id="admin-login-pass" placeholder="Master şifrəni daxil edin" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:border-indigo-500 transition-all">
-                    <p class="text-[10px] text-slate-400 pt-0.5">Standart şifrə: <span class="font-mono text-indigo-600 font-bold">Admin2026!</span></p>
+                    <div class="relative">
+                        <input type="password" id="admin-login-pass" placeholder="Master şifrəni daxil edin" required class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                        <button type="button" onclick="app.togglePasswordVisibility('admin-login-pass')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="admin-login-err" class="p-2.5 rounded-xl bg-rose-50 text-rose-700 text-xs font-bold border border-rose-200 hidden"></div>
