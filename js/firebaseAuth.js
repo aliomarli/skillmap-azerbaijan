@@ -45,3 +45,43 @@ auth.onAuthStateChanged(user => {
     console.log("Firebase user logged out");
   }
 });
+
+async function firebaseSaveSkills(skills, targetRole) {
+  const user = auth.currentUser;
+  if (!user) return { success: false, error: "Login olmayıb" };
+  try {
+    const roleToSave = targetRole || (window.app ? window.app.selectedTargetRole : null) || "data_analyst";
+    await db.collection("users").doc(user.uid).update({
+      skills: skills,
+      savedSkills: skills,
+      targetRole: roleToSave,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    console.log("Skills saved to Firebase");
+    return { success: true };
+  } catch (err) {
+    console.error("Save skills error:", err.message);
+    return { success: false, error: err.message };
+  }
+}
+
+async function firebaseSaveCareerMatch(careerMatch) {
+  const user = auth.currentUser;
+  if (!user) return;
+  try {
+    await db.collection("users").doc(user.uid).update({
+      careerMatch: careerMatch,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    console.log("Career Match saved:", careerMatch);
+  } catch (err) {
+    console.error("Save career match error:", err.message);
+  }
+}
+
+async function firebaseGetProfile() {
+  const user = auth.currentUser;
+  if (!user) return null;
+  const doc = await db.collection("users").doc(user.uid).get();
+  return doc.exists ? doc.data() : null;
+}

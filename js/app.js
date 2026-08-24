@@ -2373,6 +2373,12 @@ class SkillMapApp {
 
         if (this.auth && this.auth.isLoggedIn()) {
             this.auth.updateSkills(this.currentSkills);
+            if (typeof firebaseSaveSkills === "function") {
+                firebaseSaveSkills(this.currentSkills, roleId);
+            }
+            if (typeof firebaseSaveCareerMatch === "function" && result.matchPercentage !== undefined) {
+                firebaseSaveCareerMatch(result.matchPercentage);
+            }
         }
 
         // 1. Başlıq və Təsvir
