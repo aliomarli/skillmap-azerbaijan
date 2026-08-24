@@ -1,3 +1,7 @@
+// Global Firebase instances
+var db = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+var auth = window.auth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+
 async function firebaseRegister(name, email, password, university, faculty, targetRole, englishLevel) {
   try {
     const cred = await auth.createUserWithEmailAndPassword(email, password);
@@ -84,4 +88,34 @@ async function firebaseGetProfile() {
   if (!user) return null;
   const doc = await db.collection("users").doc(user.uid).get();
   return doc.exists ? doc.data() : null;
+}
+
+async function firebaseGetAllUsers() {
+  try {
+    const snapshot = await db.collection("users").get();
+    const users = [];
+    snapshot.forEach(doc => {
+      users.push({ uid: doc.id, id: doc.id, ...doc.data() });
+    });
+    console.log("Loaded", users.length, "users from Firebase");
+    return users;
+  } catch (err) {
+    console.error("Get all users error:", err.message);
+    return [];
+  }
+}
+
+async function firebaseGetUserProfile(userId) {
+  try {
+    const doc = await db.collection("users").doc(userId).get();
+    return doc.exists ? { uid: doc.id, id: doc.id, ...doc.data() } : null;
+  } catch (err) {
+    console.error("Get user profile error:", err.message);
+    return null;
+  }
+}
+
+async function firebaseSetAdmin(userId) {
+  await db.collection("users").doc(userId).update({ role: "admin" });
+  console.log("User set as admin:", userId);
 }
