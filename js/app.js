@@ -686,39 +686,54 @@ class SkillMapApp {
 
         jobsToRender.forEach(job => {
             const div = document.createElement("div");
-            div.className = "p-3.5 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs transition-all";
+            div.className = "p-4 rounded-2xl border border-slate-100 hover:border-slate-300 bg-white space-y-2.5 shadow-2xs transition-all";
             
             const initials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
             const skillsList = job.skills || job.required_skills || ["Excel", "SQL", "Analitika"];
 
             const score = job.matchScore || 80;
             const scoreBadgeColor = score >= 70 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200";
+            const createdAt = job.created_at || job.posted_date || "15 Fevral 2026";
+            const viewCount = job.view_count || 320;
+            const directUrl = job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`;
 
             div.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
-                        ${initials}
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                            ${initials}
+                        </div>
+                        <div class="space-y-0.5">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
+                                <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location || "Bakı"}</span>
+                            </div>
+                            <div class="text-[11px] text-slate-500 font-medium">${job.company}</div>
+                            <div class="flex flex-wrap gap-1 pt-0.5">
+                                ${skillsList.slice(0, 3).map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
+                            </div>
+                        </div>
                     </div>
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
-                            <span class="text-[10px] text-slate-400 font-normal">📍 ${job.location || "Bakı"}</span>
-                        </div>
-                        <div class="text-[11px] text-slate-500">${job.company}</div>
-                        <div class="flex flex-wrap gap-1 pt-0.5">
-                            ${skillsList.slice(0, 3).map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
-                        </div>
+
+                    <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
+                        <span class="px-2.5 py-1 rounded-full ${scoreBadgeColor} border text-xs font-black">
+                            ${score}% uyğunluq
+                        </span>
+                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" title="Bu elan Jobsearch.az-dan toplanmışdır. Əgər bağlanıbsa, Jobsearch.az ümumi səhifəyə yönləndirə bilər." class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all flex items-center gap-1 shadow-2xs">
+                            <span>Elana bax</span>
+                            <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
-                    <span class="px-2.5 py-1 rounded-full ${scoreBadgeColor} border text-xs font-black">
-                        ${score}% uyğunluq
+                <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
+                    <div class="flex items-center gap-3">
+                        <span><i class="far fa-calendar mr-1 text-slate-400"></i>${createdAt}</span>
+                        <span><i class="far fa-eye mr-1 text-slate-400"></i>${viewCount} baxış</span>
+                    </div>
+                    <span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60 font-medium">
+                        <i class="fas fa-circle-info mr-1 text-amber-500"></i>Toplanma: ${job.collected_date || '19 Fevral 2026'} (Bağlanmış ola bilər)
                     </span>
-                    <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all flex items-center gap-1 shadow-2xs">
-                        <span>Vakansiyaya bax</span>
-                        <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
-                    </a>
                 </div>
             `;
             container.appendChild(div);
@@ -1004,37 +1019,51 @@ class SkillMapApp {
 
         matchingJobs.forEach(job => {
             const div = document.createElement("div");
-            div.className = "p-5 rounded-2xl border border-slate-200 hover:border-slate-400 bg-white space-y-3 shadow-2xs transition-all";
+            div.className = "p-5 rounded-2xl border border-slate-200 hover:border-slate-400 bg-white space-y-3.5 shadow-2xs transition-all flex flex-col justify-between";
             
             const initials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
             const skillsList = job.skills || job.required_skills || ["Excel", "SQL", "Analitika"];
             const score = job.matchScore || 80;
             const badgeColor = score >= 70 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200";
+            const createdAt = job.created_at || job.posted_date || "15 Fevral 2026";
+            const viewCount = job.view_count || 320;
+            const directUrl = job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`;
 
             div.innerHTML = `
-                <div class="flex items-start justify-between gap-3">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
-                            ${initials}
+                <div class="space-y-3">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                                ${initials}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
+                                <div class="text-[11px] text-slate-500">${job.company} · 📍 ${job.location || 'Bakı'}</div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-slate-900 text-xs">${job.title}</h4>
-                            <div class="text-[11px] text-slate-500">${job.company} · 📍 ${job.location || 'Bakı'}</div>
-                        </div>
+                        <span class="px-2.5 py-1 rounded-full ${badgeColor} border text-xs font-black flex-shrink-0">
+                            ${score}% uyğun
+                        </span>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full ${badgeColor} border text-xs font-black flex-shrink-0">
-                        ${score}% uyğun
-                    </span>
+
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        ${skillsList.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
+                    </div>
+
+                    <!-- Archival Note -->
+                    <div class="p-2 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[10px] text-amber-800 flex items-start gap-1.5 leading-tight">
+                        <i class="fas fa-circle-info text-amber-500 text-[11px] mt-0.5 flex-shrink-0"></i>
+                        <span>Bu elan Jobsearch.az-dan <strong>${createdAt}</strong> tarixində toplanmışdır. Elan bağlanmış ola bilər.</span>
+                    </div>
                 </div>
 
-                <div class="flex flex-wrap gap-1 pt-1">
-                    ${skillsList.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">${s}</span>`).join("")}
-                </div>
-
-                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span class="font-bold text-slate-700">${job.salary || "1200 - 2000 AZN"}</span>
-                    <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-full btn-saas-primary font-bold text-[11px] shadow-sm flex items-center gap-1">
-                        <span>Vakansiyaya Bax</span>
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <div class="text-[10px] text-slate-400 flex items-center gap-2.5">
+                        <span><i class="far fa-calendar mr-1"></i>${createdAt}</span>
+                        <span><i class="far fa-eye mr-1"></i>${viewCount} baxış</span>
+                    </div>
+                    <a href="${directUrl}" target="_blank" rel="noopener noreferrer" title="Bu elan Jobsearch.az-dan toplanmışdır. Əgər bağlanıbsa, Jobsearch.az ümumi səhifəyə yönləndirə bilər." class="px-3.5 py-1.5 rounded-full btn-saas-primary font-bold text-[11px] shadow-sm flex items-center gap-1.5">
+                        <span>Elana bax</span>
                         <i class="fas fa-arrow-up-right-from-square text-[9px]"></i>
                     </a>
                 </div>
@@ -2680,10 +2709,13 @@ class SkillMapApp {
             // Specific Direct Vacancy URL on Jobsearch.az
             const directUrl = vac.url || vac.source_url || `https://jobsearch.az/vacancies/${vac.id || 'view'}`;
 
+            const createdAt = vac.created_at || vac.posted_date || "15 Fevral 2026";
+            const viewCount = vac.view_count || 340;
+
             return `
                 <div class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group">
-                    <div>
-                        <div class="flex items-start justify-between gap-3 mb-2.5">
+                    <div class="space-y-3">
+                        <div class="flex items-start justify-between gap-3">
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
                                     ${compInitials}
@@ -2701,7 +2733,7 @@ class SkillMapApp {
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 mb-3">
+                        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
                             <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-building text-slate-400 mr-1"></i>${vac.sector || 'Ümumi'}</span>
                             <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-location-dot text-slate-400 mr-1"></i>${vac.location || 'Bakı'}</span>
                             <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-money-bill-wave text-slate-400 mr-1"></i>${vac.salary || 'Razılaşma ilə'}</span>
@@ -2714,12 +2746,21 @@ class SkillMapApp {
                                 ${tagsHtml}
                             </div>
                         </div>
+
+                        <!-- Archival / Redirect Disclaimer Notice -->
+                        <div class="p-2 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[10px] text-amber-800 flex items-start gap-1.5 leading-tight">
+                            <i class="fas fa-circle-info text-amber-500 text-[11px] mt-0.5 flex-shrink-0"></i>
+                            <span>Bu elan Jobsearch.az-dan <strong>${createdAt}</strong> tarixində toplanmışdır. Elan bağlanmış ola bilər (işəgötürən tərəfindən bağlandıqda ümumi səhifəyə yönləndirir).</span>
+                        </div>
                     </div>
 
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-[10px] text-slate-400"><i class="fas fa-calendar-days mr-1"></i>${vac.posted_date || vac.date || "Aktiv elan"}</span>
-                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
-                            <span>Müraciət Et</span>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <div class="text-[10px] text-slate-400 flex items-center gap-3">
+                            <span><i class="far fa-calendar mr-1 text-slate-400"></i>${createdAt}</span>
+                            <span><i class="far fa-eye mr-1 text-slate-400"></i>${viewCount} baxış</span>
+                        </div>
+                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" title="Bu elan Jobsearch.az-dan toplanmışdır. Əgər bağlanıbsa, Jobsearch.az ümumi səhifəyə yönləndirə bilər." class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
+                            <span>Elana bax</span>
                             <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
                     </div>

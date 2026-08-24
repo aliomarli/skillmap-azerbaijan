@@ -162,10 +162,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/sinam-llc-junior-data-analyst-1",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-junior-data-analyst-1"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-junior-data-analyst-1",
+            "created_at": "4 Fevral 2026",
+            "view_count": 165,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_002",
@@ -186,10 +189,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-analyst-bi-reporting-2",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-analyst-bi-reporting-2"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-analyst-bi-reporting-2",
+            "created_at": "9 Fevral 2026",
+            "view_count": 390,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_003",
@@ -210,10 +216,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/sinam-llc-bi-specialist-3",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-bi-specialist-3"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-bi-specialist-3",
+            "created_at": "8 Fevral 2026",
+            "view_count": 282,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_004",
@@ -234,10 +243,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 79,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-4",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-4"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-4",
+            "created_at": "4 Fevral 2026",
+            "view_count": 832,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_005",
@@ -258,10 +270,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-5",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-5"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-5",
+            "created_at": "18 Fevral 2026",
+            "view_count": 229,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_006",
@@ -282,10 +297,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-6",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-6"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-6",
+            "created_at": "19 Fevral 2026",
+            "view_count": 572,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_007",
@@ -306,10 +324,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-7",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-7"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-7",
+            "created_at": "2 Fevral 2026",
+            "view_count": 170,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_008",
@@ -329,10 +350,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-database-administrator-8",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-database-administrator-8"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-database-administrator-8",
+            "created_at": "3 Fevral 2026",
+            "view_count": 363,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_009",
@@ -353,10 +377,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-9",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-9"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-9",
+            "created_at": "8 Fevral 2026",
+            "view_count": 657,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_010",
@@ -377,10 +404,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-10",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-10"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-10",
+            "created_at": "20 Fevral 2026",
+            "view_count": 167,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_011",
@@ -400,10 +430,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/accessbank-junior-financial-analyst-11",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-junior-financial-analyst-11"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-junior-financial-analyst-11",
+            "created_at": "18 Fevral 2026",
+            "view_count": 343,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_012",
@@ -424,10 +457,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-12",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-12"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-12",
+            "created_at": "18 Fevral 2026",
+            "view_count": 569,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_013",
@@ -448,10 +484,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/yelo-bank-risk-analytics-specialist-13",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-risk-analytics-specialist-13"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-risk-analytics-specialist-13",
+            "created_at": "8 Fevral 2026",
+            "view_count": 599,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_014",
@@ -471,10 +510,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-14",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-14"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-14",
+            "created_at": "19 Fevral 2026",
+            "view_count": 424,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_015",
@@ -494,10 +536,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 81,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/pasa-sigorta-accountant-1c-15",
-            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-accountant-1c-15"
+            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-accountant-1c-15",
+            "created_at": "1 Fevral 2026",
+            "view_count": 303,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_016",
@@ -517,10 +562,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 87,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/yelo-bank-senior-financial-modeler-16",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-senior-financial-modeler-16"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-senior-financial-modeler-16",
+            "created_at": "14 Fevral 2026",
+            "view_count": 488,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_017",
@@ -540,10 +588,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-internal-audit-specialist-17",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-internal-audit-specialist-17"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-internal-audit-specialist-17",
+            "created_at": "9 Fevral 2026",
+            "view_count": 299,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_018",
@@ -563,10 +614,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/xalq-bank-budgeting-planning-specialist-18",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-budgeting-planning-specialist-18"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-budgeting-planning-specialist-18",
+            "created_at": "7 Fevral 2026",
+            "view_count": 484,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_019",
@@ -587,10 +641,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-19",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-19"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-19",
+            "created_at": "4 Fevral 2026",
+            "view_count": 234,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_020",
@@ -611,10 +668,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/umico-compactive-performance-marketing-20",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-performance-marketing-20"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-performance-marketing-20",
+            "created_at": "13 Fevral 2026",
+            "view_count": 239,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_021",
@@ -634,10 +694,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 89,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/irshad-electronics-smm-content-manager-21",
-            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-smm-content-manager-21"
+            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-smm-content-manager-21",
+            "created_at": "12 Fevral 2026",
+            "view_count": 492,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_022",
@@ -657,10 +720,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-22",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-22"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-22",
+            "created_at": "20 Fevral 2026",
+            "view_count": 410,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_023",
@@ -680,10 +746,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 80,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/endorphin-pr-brand-manager-23",
-            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-brand-manager-23"
+            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-brand-manager-23",
+            "created_at": "2 Fevral 2026",
+            "view_count": 610,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_024",
@@ -704,10 +773,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-growth-marketing-24",
-            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-growth-marketing-24"
+            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-growth-marketing-24",
+            "created_at": "18 Fevral 2026",
+            "view_count": 267,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_025",
@@ -728,10 +800,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-25",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-25"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-25",
+            "created_at": "13 Fevral 2026",
+            "view_count": 220,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_026",
@@ -751,10 +826,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-26",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-26"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-26",
+            "created_at": "18 Fevral 2026",
+            "view_count": 440,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_027",
@@ -774,10 +852,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/gilan-holding-junior-hr-recruiter-27",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-hr-recruiter-27"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-hr-recruiter-27",
+            "created_at": "20 Fevral 2026",
+            "view_count": 510,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_028",
@@ -797,10 +878,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-28",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-28"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-28",
+            "created_at": "19 Fevral 2026",
+            "view_count": 336,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_029",
@@ -820,10 +904,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-29",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-29"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-29",
+            "created_at": "3 Fevral 2026",
+            "view_count": 186,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_030",
@@ -843,10 +930,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-project-coordinator-30",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-project-coordinator-30"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-project-coordinator-30",
+            "created_at": "8 Fevral 2026",
+            "view_count": 436,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_031",
@@ -867,10 +957,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-31",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-31"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-31",
+            "created_at": "3 Fevral 2026",
+            "view_count": 378,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_032",
@@ -890,10 +983,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-32",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-32"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-32",
+            "created_at": "4 Fevral 2026",
+            "view_count": 529,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_033",
@@ -913,10 +1009,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-33",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-33"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-33",
+            "created_at": "9 Fevral 2026",
+            "view_count": 604,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_034",
@@ -936,10 +1035,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-34",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-34"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-34",
+            "created_at": "12 Fevral 2026",
+            "view_count": 306,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_035",
@@ -960,10 +1062,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-35",
-            "source_url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-35"
+            "source_url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-35",
+            "created_at": "12 Fevral 2026",
+            "view_count": 503,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_036",
@@ -983,10 +1088,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-36",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-36"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-36",
+            "created_at": "7 Fevral 2026",
+            "view_count": 826,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_037",
@@ -1006,10 +1114,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/avrora-qrup-commercial-analyst-37",
-            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-commercial-analyst-37"
+            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-commercial-analyst-37",
+            "created_at": "9 Fevral 2026",
+            "view_count": 839,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_038",
@@ -1029,10 +1140,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 94,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-38",
-            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-38"
+            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-38",
+            "created_at": "3 Fevral 2026",
+            "view_count": 763,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_039",
@@ -1053,10 +1167,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-39",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-39"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-39",
+            "created_at": "6 Fevral 2026",
+            "view_count": 686,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_040",
@@ -1077,10 +1194,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-40",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-40"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-40",
+            "created_at": "8 Fevral 2026",
+            "view_count": 307,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_041",
@@ -1101,10 +1221,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-41",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-41"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-41",
+            "created_at": "15 Fevral 2026",
+            "view_count": 528,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_042",
@@ -1125,10 +1248,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 83,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-42",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-42"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-42",
+            "created_at": "9 Fevral 2026",
+            "view_count": 795,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_043",
@@ -1149,10 +1275,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-43",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-43"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-43",
+            "created_at": "18 Fevral 2026",
+            "view_count": 364,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_044",
@@ -1173,10 +1302,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-44",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-44"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-middle-react-developer-44",
+            "created_at": "11 Fevral 2026",
+            "view_count": 197,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_045",
@@ -1197,10 +1329,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-junior-backend-developer-45",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-backend-developer-45"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-backend-developer-45",
+            "created_at": "8 Fevral 2026",
+            "view_count": 172,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_046",
@@ -1220,10 +1355,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 84,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-46",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-46"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-46",
+            "created_at": "11 Fevral 2026",
+            "view_count": 550,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_047",
@@ -1244,10 +1382,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-47",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-47"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-47",
+            "created_at": "9 Fevral 2026",
+            "view_count": 207,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_048",
@@ -1268,10 +1409,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/bravonet-data-engineer-48",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-data-engineer-48"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-data-engineer-48",
+            "created_at": "7 Fevral 2026",
+            "view_count": 720,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_049",
@@ -1291,10 +1435,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-49",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-49"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-49",
+            "created_at": "11 Fevral 2026",
+            "view_count": 357,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_050",
@@ -1315,10 +1462,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-financial-analyst-50",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-financial-analyst-50"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-financial-analyst-50",
+            "created_at": "16 Fevral 2026",
+            "view_count": 545,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_051",
@@ -1339,10 +1489,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-51",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-51"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-51",
+            "created_at": "15 Fevral 2026",
+            "view_count": 286,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_052",
@@ -1362,10 +1515,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 80,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/bank-respublika-credit-risk-analyst-52",
-            "source_url": "https://jobsearch.az/vacancies/bank-respublika-credit-risk-analyst-52"
+            "source_url": "https://jobsearch.az/vacancies/bank-respublika-credit-risk-analyst-52",
+            "created_at": "9 Fevral 2026",
+            "view_count": 282,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_053",
@@ -1385,10 +1541,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 80,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-accountant-1c-53",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-accountant-1c-53"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-accountant-1c-53",
+            "created_at": "8 Fevral 2026",
+            "view_count": 714,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_054",
@@ -1408,10 +1567,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 82,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-senior-financial-modeler-54",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-senior-financial-modeler-54"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-senior-financial-modeler-54",
+            "created_at": "18 Fevral 2026",
+            "view_count": 409,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_055",
@@ -1431,10 +1593,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/kapital-bank-internal-audit-specialist-55",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-internal-audit-specialist-55"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-internal-audit-specialist-55",
+            "created_at": "19 Fevral 2026",
+            "view_count": 578,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_056",
@@ -1454,10 +1619,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/kapital-bank-budgeting-planning-specialist-56",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-budgeting-planning-specialist-56"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-budgeting-planning-specialist-56",
+            "created_at": "19 Fevral 2026",
+            "view_count": 548,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_057",
@@ -1478,10 +1646,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-digital-marketing-57",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-digital-marketing-57"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-digital-marketing-57",
+            "created_at": "12 Fevral 2026",
+            "view_count": 364,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_058",
@@ -1502,10 +1673,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-performance-marketing-58",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-performance-marketing-58"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-performance-marketing-58",
+            "created_at": "5 Fevral 2026",
+            "view_count": 661,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_059",
@@ -1525,10 +1699,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 92,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/baku-electronics-smm-content-manager-59",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-smm-content-manager-59"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-smm-content-manager-59",
+            "created_at": "16 Fevral 2026",
+            "view_count": 233,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_060",
@@ -1548,10 +1725,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-60",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-60"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-60",
+            "created_at": "2 Fevral 2026",
+            "view_count": 252,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_061",
@@ -1571,10 +1751,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 95,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-61",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-61"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-61",
+            "created_at": "5 Fevral 2026",
+            "view_count": 782,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_062",
@@ -1595,10 +1778,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-62",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-62"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-62",
+            "created_at": "6 Fevral 2026",
+            "view_count": 836,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_063",
@@ -1619,10 +1805,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-63",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-63"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-63",
+            "created_at": "14 Fevral 2026",
+            "view_count": 750,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_064",
@@ -1642,10 +1831,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-64",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-64"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-64",
+            "created_at": "3 Fevral 2026",
+            "view_count": 534,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_065",
@@ -1665,10 +1857,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-65",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-65"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-65",
+            "created_at": "13 Fevral 2026",
+            "view_count": 750,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_066",
@@ -1688,10 +1883,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-66",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-66"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-66",
+            "created_at": "15 Fevral 2026",
+            "view_count": 681,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_067",
@@ -1711,10 +1909,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-67",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-67"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-67",
+            "created_at": "9 Fevral 2026",
+            "view_count": 706,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_068",
@@ -1734,10 +1935,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-68",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-68"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-68",
+            "created_at": "1 Fevral 2026",
+            "view_count": 836,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_069",
@@ -1758,10 +1962,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-69",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-69"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-junior-devops-engineer-69",
+            "created_at": "4 Fevral 2026",
+            "view_count": 838,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_070",
@@ -1781,10 +1988,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 91,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-70",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-70"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-70",
+            "created_at": "18 Fevral 2026",
+            "view_count": 413,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_071",
@@ -1804,10 +2014,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-cybersecurity-soc-analyst-71",
-            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-cybersecurity-soc-analyst-71"
+            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-cybersecurity-soc-analyst-71",
+            "created_at": "11 Fevral 2026",
+            "view_count": 254,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_072",
@@ -1827,10 +2040,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-72",
-            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-72"
+            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-72",
+            "created_at": "10 Fevral 2026",
+            "view_count": 585,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_073",
@@ -1851,10 +2067,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 84,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/veyseloglu-araz-b2b-sales-specialist-73",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-b2b-sales-specialist-73"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-b2b-sales-specialist-73",
+            "created_at": "6 Fevral 2026",
+            "view_count": 604,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_074",
@@ -1874,10 +2093,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/al-market-key-account-manager-74",
-            "source_url": "https://jobsearch.az/vacancies/al-market-key-account-manager-74"
+            "source_url": "https://jobsearch.az/vacancies/al-market-key-account-manager-74",
+            "created_at": "1 Fevral 2026",
+            "view_count": 409,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_075",
@@ -1897,10 +2119,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-75",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-75"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-75",
+            "created_at": "17 Fevral 2026",
+            "view_count": 322,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_076",
@@ -1920,10 +2145,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 95,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/al-market-assistant-category-manager-76",
-            "source_url": "https://jobsearch.az/vacancies/al-market-assistant-category-manager-76"
+            "source_url": "https://jobsearch.az/vacancies/al-market-assistant-category-manager-76",
+            "created_at": "17 Fevral 2026",
+            "view_count": 248,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_077",
@@ -1944,10 +2172,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-77",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-77"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-77",
+            "created_at": "10 Fevral 2026",
+            "view_count": 794,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_078",
@@ -1968,10 +2199,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-78",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-78"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-78",
+            "created_at": "17 Fevral 2026",
+            "view_count": 763,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_079",
@@ -1992,10 +2226,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-79",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-79"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-79",
+            "created_at": "7 Fevral 2026",
+            "view_count": 296,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_080",
@@ -2016,10 +2253,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 79,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-data-analyst-80",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-data-analyst-80"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-data-analyst-80",
+            "created_at": "12 Fevral 2026",
+            "view_count": 305,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_081",
@@ -2040,10 +2280,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 90,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-81",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-81"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-81",
+            "created_at": "18 Fevral 2026",
+            "view_count": 683,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_082",
@@ -2064,10 +2307,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-middle-react-developer-82",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-middle-react-developer-82"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-middle-react-developer-82",
+            "created_at": "1 Fevral 2026",
+            "view_count": 753,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_083",
@@ -2088,10 +2334,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-83",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-83"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-83",
+            "created_at": "11 Fevral 2026",
+            "view_count": 640,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_084",
@@ -2111,10 +2360,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-84",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-84"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-84",
+            "created_at": "1 Fevral 2026",
+            "view_count": 254,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_085",
@@ -2135,10 +2387,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-qa-engineer-85",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-qa-engineer-85"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-qa-engineer-85",
+            "created_at": "12 Fevral 2026",
+            "view_count": 454,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_086",
@@ -2159,10 +2414,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/simbrex-data-engineer-86",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-data-engineer-86"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-data-engineer-86",
+            "created_at": "8 Fevral 2026",
+            "view_count": 199,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_087",
@@ -2182,10 +2440,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/pasa-sigorta-junior-financial-analyst-87",
-            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-junior-financial-analyst-87"
+            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-junior-financial-analyst-87",
+            "created_at": "8 Fevral 2026",
+            "view_count": 720,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_088",
@@ -2206,10 +2467,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/xalq-bank-financial-analyst-88",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-financial-analyst-88"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-financial-analyst-88",
+            "created_at": "3 Fevral 2026",
+            "view_count": 227,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_089",
@@ -2230,10 +2494,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-89",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-89"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-89",
+            "created_at": "16 Fevral 2026",
+            "view_count": 210,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_090",
@@ -2253,10 +2520,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 80,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/kapital-bank-credit-risk-analyst-90",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-credit-risk-analyst-90"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-credit-risk-analyst-90",
+            "created_at": "18 Fevral 2026",
+            "view_count": 268,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_091",
@@ -2276,10 +2546,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 90,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-91",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-91"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-91",
+            "created_at": "5 Fevral 2026",
+            "view_count": 815,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_092",
@@ -2299,10 +2572,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 85,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-92",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-92"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-92",
+            "created_at": "16 Fevral 2026",
+            "view_count": 702,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_093",
@@ -2322,10 +2598,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-93",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-93"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-93",
+            "created_at": "6 Fevral 2026",
+            "view_count": 411,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_094",
@@ -2345,10 +2624,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-94",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-94"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-94",
+            "created_at": "17 Fevral 2026",
+            "view_count": 761,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_095",
@@ -2369,10 +2651,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-95",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-95"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-95",
+            "created_at": "14 Fevral 2026",
+            "view_count": 356,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_096",
@@ -2393,10 +2678,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-holding-performance-marketing-96",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-performance-marketing-96"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-performance-marketing-96",
+            "created_at": "18 Fevral 2026",
+            "view_count": 846,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_097",
@@ -2416,10 +2704,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-97",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-97"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-97",
+            "created_at": "7 Fevral 2026",
+            "view_count": 459,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_098",
@@ -2439,10 +2730,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/endorphin-pr-seo-web-analytics-98",
-            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-seo-web-analytics-98"
+            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-seo-web-analytics-98",
+            "created_at": "13 Fevral 2026",
+            "view_count": 827,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_099",
@@ -2462,10 +2756,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 80,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-99",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-99"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-brand-manager-99",
+            "created_at": "12 Fevral 2026",
+            "view_count": 588,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_100",
@@ -2486,10 +2783,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-growth-marketing-100",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-growth-marketing-100"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-growth-marketing-100",
+            "created_at": "17 Fevral 2026",
+            "view_count": 602,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_101",
@@ -2510,10 +2810,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-101",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-101"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-101",
+            "created_at": "4 Fevral 2026",
+            "view_count": 393,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_102",
@@ -2533,10 +2836,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-102",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-102"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-102",
+            "created_at": "8 Fevral 2026",
+            "view_count": 205,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_103",
@@ -2556,10 +2862,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 89,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-103",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-103"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-103",
+            "created_at": "11 Fevral 2026",
+            "view_count": 161,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_104",
@@ -2579,10 +2888,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-104",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-104"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-talent-acquisition-specialist-104",
+            "created_at": "19 Fevral 2026",
+            "view_count": 707,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_105",
@@ -2602,10 +2914,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-105",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-105"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-105",
+            "created_at": "8 Fevral 2026",
+            "view_count": 742,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_106",
@@ -2625,10 +2940,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/socar-downstream-project-coordinator-106",
-            "source_url": "https://jobsearch.az/vacancies/socar-downstream-project-coordinator-106"
+            "source_url": "https://jobsearch.az/vacancies/socar-downstream-project-coordinator-106",
+            "created_at": "8 Fevral 2026",
+            "view_count": 147,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_107",
@@ -2649,10 +2967,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/socar-aqs-junior-devops-engineer-107",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-junior-devops-engineer-107"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-junior-devops-engineer-107",
+            "created_at": "3 Fevral 2026",
+            "view_count": 786,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_108",
@@ -2672,10 +2993,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 81,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-108",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-108"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-108",
+            "created_at": "2 Fevral 2026",
+            "view_count": 374,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_109",
@@ -2695,10 +3019,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-109",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-109"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-109",
+            "created_at": "3 Fevral 2026",
+            "view_count": 172,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_110",
@@ -2718,10 +3045,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-110",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-110"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-110",
+            "created_at": "11 Fevral 2026",
+            "view_count": 212,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_111",
@@ -2742,10 +3072,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-111",
-            "source_url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-111"
+            "source_url": "https://jobsearch.az/vacancies/al-market-b2b-sales-specialist-111",
+            "created_at": "17 Fevral 2026",
+            "view_count": 383,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_112",
@@ -2765,10 +3098,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-112",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-112"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-key-account-manager-112",
+            "created_at": "9 Fevral 2026",
+            "view_count": 825,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_113",
@@ -2788,10 +3124,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-commercial-analyst-113",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-commercial-analyst-113"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-commercial-analyst-113",
+            "created_at": "16 Fevral 2026",
+            "view_count": 359,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_114",
@@ -2811,10 +3150,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 92,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-114",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-114"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-114",
+            "created_at": "18 Fevral 2026",
+            "view_count": 275,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_115",
@@ -2835,10 +3177,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/bravonet-junior-data-analyst-115",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-junior-data-analyst-115"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-junior-data-analyst-115",
+            "created_at": "19 Fevral 2026",
+            "view_count": 730,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_116",
@@ -2859,10 +3204,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-116",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-116"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-116",
+            "created_at": "16 Fevral 2026",
+            "view_count": 388,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_117",
@@ -2883,10 +3231,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-117",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-117"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-117",
+            "created_at": "16 Fevral 2026",
+            "view_count": 556,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_118",
@@ -2907,10 +3258,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 91,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-118",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-118"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-118",
+            "created_at": "7 Fevral 2026",
+            "view_count": 236,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_119",
@@ -2931,10 +3285,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 89,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-119",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-119"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-119",
+            "created_at": "4 Fevral 2026",
+            "view_count": 814,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_120",
@@ -2955,10 +3312,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-120",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-120"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-120",
+            "created_at": "14 Fevral 2026",
+            "view_count": 502,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_121",
@@ -2979,10 +3339,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-121",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-121"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-121",
+            "created_at": "14 Fevral 2026",
+            "view_count": 560,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_122",
@@ -3002,10 +3365,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 91,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/bakcell-database-administrator-122",
-            "source_url": "https://jobsearch.az/vacancies/bakcell-database-administrator-122"
+            "source_url": "https://jobsearch.az/vacancies/bakcell-database-administrator-122",
+            "created_at": "15 Fevral 2026",
+            "view_count": 195,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_123",
@@ -3026,10 +3392,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/simbrex-qa-engineer-123",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-qa-engineer-123"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-qa-engineer-123",
+            "created_at": "4 Fevral 2026",
+            "view_count": 202,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_124",
@@ -3050,10 +3419,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/kapital-bank-data-engineer-124",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-data-engineer-124"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-data-engineer-124",
+            "created_at": "13 Fevral 2026",
+            "view_count": 487,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_125",
@@ -3073,10 +3445,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/yelo-bank-junior-financial-analyst-125",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-junior-financial-analyst-125"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-junior-financial-analyst-125",
+            "created_at": "4 Fevral 2026",
+            "view_count": 394,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_126",
@@ -3097,10 +3472,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-126",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-126"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-126",
+            "created_at": "7 Fevral 2026",
+            "view_count": 334,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_127",
@@ -3121,10 +3499,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-127",
-            "source_url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-127"
+            "source_url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-127",
+            "created_at": "18 Fevral 2026",
+            "view_count": 599,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_128",
@@ -3144,10 +3525,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/yelo-bank-credit-risk-analyst-128",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-credit-risk-analyst-128"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-credit-risk-analyst-128",
+            "created_at": "5 Fevral 2026",
+            "view_count": 572,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_129",
@@ -3167,10 +3551,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 92,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/bank-respublika-accountant-1c-129",
-            "source_url": "https://jobsearch.az/vacancies/bank-respublika-accountant-1c-129"
+            "source_url": "https://jobsearch.az/vacancies/bank-respublika-accountant-1c-129",
+            "created_at": "6 Fevral 2026",
+            "view_count": 425,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_130",
@@ -3190,10 +3577,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 85,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/accessbank-senior-financial-modeler-130",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-senior-financial-modeler-130"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-senior-financial-modeler-130",
+            "created_at": "15 Fevral 2026",
+            "view_count": 395,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_131",
@@ -3213,10 +3603,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-131",
-            "source_url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-131"
+            "source_url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-131",
+            "created_at": "3 Fevral 2026",
+            "view_count": 593,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_132",
@@ -3236,10 +3629,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-132",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-132"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-budgeting-planning-specialist-132",
+            "created_at": "18 Fevral 2026",
+            "view_count": 240,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_133",
@@ -3260,10 +3656,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-junior-digital-marketing-133",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-junior-digital-marketing-133"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-junior-digital-marketing-133",
+            "created_at": "2 Fevral 2026",
+            "view_count": 807,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_134",
@@ -3284,10 +3683,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-134",
-            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-134"
+            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-134",
+            "created_at": "18 Fevral 2026",
+            "view_count": 155,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_135",
@@ -3307,10 +3709,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/kontakt-home-smm-content-manager-135",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-smm-content-manager-135"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-smm-content-manager-135",
+            "created_at": "3 Fevral 2026",
+            "view_count": 382,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_136",
@@ -3330,10 +3735,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-136",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-136"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-136",
+            "created_at": "6 Fevral 2026",
+            "view_count": 556,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_137",
@@ -3353,10 +3761,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 89,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-137",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-137"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-137",
+            "created_at": "16 Fevral 2026",
+            "view_count": 632,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_138",
@@ -3377,10 +3788,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/kontakt-home-growth-marketing-138",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-growth-marketing-138"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-growth-marketing-138",
+            "created_at": "7 Fevral 2026",
+            "view_count": 550,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_139",
@@ -3401,10 +3815,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-139",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-139"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-business-analyst-139",
+            "created_at": "2 Fevral 2026",
+            "view_count": 308,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_140",
@@ -3424,10 +3841,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-140",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-140"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-business-process-analyst-140",
+            "created_at": "13 Fevral 2026",
+            "view_count": 142,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_141",
@@ -3447,10 +3867,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 95,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/socar-downstream-junior-hr-recruiter-141",
-            "source_url": "https://jobsearch.az/vacancies/socar-downstream-junior-hr-recruiter-141"
+            "source_url": "https://jobsearch.az/vacancies/socar-downstream-junior-hr-recruiter-141",
+            "created_at": "13 Fevral 2026",
+            "view_count": 411,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_142",
@@ -3470,10 +3893,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-142",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-142"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-talent-acquisition-specialist-142",
+            "created_at": "15 Fevral 2026",
+            "view_count": 432,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_143",
@@ -3493,10 +3919,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-hr-data-comp-specialist-143",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-hr-data-comp-specialist-143"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-hr-data-comp-specialist-143",
+            "created_at": "14 Fevral 2026",
+            "view_count": 709,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_144",
@@ -3516,10 +3945,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-144",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-144"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-144",
+            "created_at": "16 Fevral 2026",
+            "view_count": 298,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_145",
@@ -3540,10 +3972,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-145",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-145"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-145",
+            "created_at": "7 Fevral 2026",
+            "view_count": 443,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_146",
@@ -3563,10 +3998,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 90,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-146",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-146"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-146",
+            "created_at": "7 Fevral 2026",
+            "view_count": 199,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_147",
@@ -3586,10 +4024,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-147",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-147"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-cybersecurity-soc-analyst-147",
+            "created_at": "19 Fevral 2026",
+            "view_count": 695,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_148",
@@ -3609,10 +4050,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-148",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-148"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-procurement-specialist-148",
+            "created_at": "2 Fevral 2026",
+            "view_count": 461,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_149",
@@ -3633,10 +4077,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 91,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-149",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-149"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-149",
+            "created_at": "2 Fevral 2026",
+            "view_count": 191,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_150",
@@ -3656,10 +4103,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/blue-planet-distribution-key-account-manager-150",
-            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-key-account-manager-150"
+            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-key-account-manager-150",
+            "created_at": "19 Fevral 2026",
+            "view_count": 628,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_151",
@@ -3679,10 +4129,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/baku-electronics-commercial-analyst-151",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-commercial-analyst-151"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-commercial-analyst-151",
+            "created_at": "17 Fevral 2026",
+            "view_count": 683,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_152",
@@ -3702,10 +4155,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/veyseloglu-araz-assistant-category-manager-152",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-assistant-category-manager-152"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-assistant-category-manager-152",
+            "created_at": "6 Fevral 2026",
+            "view_count": 198,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_153",
@@ -3726,10 +4182,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-153",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-153"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-data-analyst-153",
+            "created_at": "17 Fevral 2026",
+            "view_count": 222,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_154",
@@ -3750,10 +4209,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-154",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-154"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-154",
+            "created_at": "6 Fevral 2026",
+            "view_count": 210,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_155",
@@ -3774,10 +4236,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-155",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-155"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-bi-specialist-155",
+            "created_at": "20 Fevral 2026",
+            "view_count": 209,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_156",
@@ -3798,10 +4263,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 80,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-156",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-156"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-156",
+            "created_at": "8 Fevral 2026",
+            "view_count": 553,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_157",
@@ -3822,10 +4290,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-157",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-157"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-frontend-developer-157",
+            "created_at": "4 Fevral 2026",
+            "view_count": 723,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_158",
@@ -3846,10 +4317,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-middle-react-developer-158",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-middle-react-developer-158"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-middle-react-developer-158",
+            "created_at": "8 Fevral 2026",
+            "view_count": 732,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_159",
@@ -3870,10 +4344,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-junior-backend-developer-159",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-backend-developer-159"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-junior-backend-developer-159",
+            "created_at": "20 Fevral 2026",
+            "view_count": 180,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_160",
@@ -3893,10 +4370,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 81,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-160",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-160"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-database-administrator-160",
+            "created_at": "20 Fevral 2026",
+            "view_count": 223,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_161",
@@ -3917,10 +4397,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-qa-engineer-161",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-qa-engineer-161"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-qa-engineer-161",
+            "created_at": "14 Fevral 2026",
+            "view_count": 813,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_162",
@@ -3941,10 +4424,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-162",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-162"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-162",
+            "created_at": "19 Fevral 2026",
+            "view_count": 718,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_163",
@@ -3964,10 +4450,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-163",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-163"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-financial-analyst-163",
+            "created_at": "17 Fevral 2026",
+            "view_count": 463,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_164",
@@ -3988,10 +4477,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-164",
-            "source_url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-164"
+            "source_url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-164",
+            "created_at": "9 Fevral 2026",
+            "view_count": 349,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_165",
@@ -4012,10 +4504,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-165",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-165"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-165",
+            "created_at": "11 Fevral 2026",
+            "view_count": 384,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_166",
@@ -4035,10 +4530,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 94,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-166",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-166"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-166",
+            "created_at": "9 Fevral 2026",
+            "view_count": 545,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_167",
@@ -4058,10 +4556,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 95,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-167",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-167"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-167",
+            "created_at": "5 Fevral 2026",
+            "view_count": 827,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_168",
@@ -4081,10 +4582,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 93,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/rabitebank-senior-financial-modeler-168",
-            "source_url": "https://jobsearch.az/vacancies/rabitebank-senior-financial-modeler-168"
+            "source_url": "https://jobsearch.az/vacancies/rabitebank-senior-financial-modeler-168",
+            "created_at": "10 Fevral 2026",
+            "view_count": 608,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_169",
@@ -4104,10 +4608,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/rabitebank-internal-audit-specialist-169",
-            "source_url": "https://jobsearch.az/vacancies/rabitebank-internal-audit-specialist-169"
+            "source_url": "https://jobsearch.az/vacancies/rabitebank-internal-audit-specialist-169",
+            "created_at": "11 Fevral 2026",
+            "view_count": 214,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_170",
@@ -4127,10 +4634,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-170",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-170"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-170",
+            "created_at": "1 Fevral 2026",
+            "view_count": 609,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_171",
@@ -4151,10 +4661,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-171",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-171"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-171",
+            "created_at": "20 Fevral 2026",
+            "view_count": 716,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_172",
@@ -4175,10 +4688,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/baku-electronics-performance-marketing-172",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-performance-marketing-172"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-performance-marketing-172",
+            "created_at": "4 Fevral 2026",
+            "view_count": 215,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_173",
@@ -4198,10 +4714,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-173",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-173"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-smm-content-manager-173",
+            "created_at": "18 Fevral 2026",
+            "view_count": 358,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_174",
@@ -4221,10 +4740,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-seo-web-analytics-174",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-seo-web-analytics-174"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-seo-web-analytics-174",
+            "created_at": "17 Fevral 2026",
+            "view_count": 411,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_175",
@@ -4244,10 +4766,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 82,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-175",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-175"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-175",
+            "created_at": "5 Fevral 2026",
+            "view_count": 497,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_176",
@@ -4268,10 +4793,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-176",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-176"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-growth-marketing-176",
+            "created_at": "3 Fevral 2026",
+            "view_count": 390,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_177",
@@ -4292,10 +4820,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-junior-business-analyst-177",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-business-analyst-177"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-business-analyst-177",
+            "created_at": "12 Fevral 2026",
+            "view_count": 431,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_178",
@@ -4315,10 +4846,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/socar-downstream-business-process-analyst-178",
-            "source_url": "https://jobsearch.az/vacancies/socar-downstream-business-process-analyst-178"
+            "source_url": "https://jobsearch.az/vacancies/socar-downstream-business-process-analyst-178",
+            "created_at": "6 Fevral 2026",
+            "view_count": 588,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_179",
@@ -4338,10 +4872,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-179",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-179"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-179",
+            "created_at": "18 Fevral 2026",
+            "view_count": 449,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_180",
@@ -4361,10 +4898,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/socar-downstream-talent-acquisition-specialist-180",
-            "source_url": "https://jobsearch.az/vacancies/socar-downstream-talent-acquisition-specialist-180"
+            "source_url": "https://jobsearch.az/vacancies/socar-downstream-talent-acquisition-specialist-180",
+            "created_at": "20 Fevral 2026",
+            "view_count": 809,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_181",
@@ -4384,10 +4924,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-181",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-181"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-181",
+            "created_at": "17 Fevral 2026",
+            "view_count": 148,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_182",
@@ -4407,10 +4950,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-182",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-182"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-182",
+            "created_at": "18 Fevral 2026",
+            "view_count": 446,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_183",
@@ -4431,10 +4977,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/azercosmos-junior-devops-engineer-183",
-            "source_url": "https://jobsearch.az/vacancies/azercosmos-junior-devops-engineer-183"
+            "source_url": "https://jobsearch.az/vacancies/azercosmos-junior-devops-engineer-183",
+            "created_at": "4 Fevral 2026",
+            "view_count": 277,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_184",
@@ -4454,10 +5003,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 90,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-184",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-184"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-184",
+            "created_at": "9 Fevral 2026",
+            "view_count": 258,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_185",
@@ -4477,10 +5029,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/nobel-energy-cybersecurity-soc-analyst-185",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-cybersecurity-soc-analyst-185"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-cybersecurity-soc-analyst-185",
+            "created_at": "4 Fevral 2026",
+            "view_count": 706,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_186",
@@ -4500,10 +5055,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-procurement-specialist-186",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-procurement-specialist-186"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-procurement-specialist-186",
+            "created_at": "5 Fevral 2026",
+            "view_count": 418,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_187",
@@ -4524,10 +5082,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-187",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-187"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-187",
+            "created_at": "10 Fevral 2026",
+            "view_count": 759,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_188",
@@ -4547,10 +5108,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-188",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-188"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-188",
+            "created_at": "7 Fevral 2026",
+            "view_count": 491,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_189",
@@ -4570,10 +5134,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-189",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-189"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-189",
+            "created_at": "7 Fevral 2026",
+            "view_count": 843,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_190",
@@ -4593,10 +5160,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-assistant-category-manager-190",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-assistant-category-manager-190"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-assistant-category-manager-190",
+            "created_at": "9 Fevral 2026",
+            "view_count": 657,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_191",
@@ -4617,10 +5187,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-191",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-191"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-191",
+            "created_at": "16 Fevral 2026",
+            "view_count": 397,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_192",
@@ -4641,10 +5214,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-data-analyst-bi-reporting-192",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-analyst-bi-reporting-192"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-analyst-bi-reporting-192",
+            "created_at": "2 Fevral 2026",
+            "view_count": 234,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_193",
@@ -4665,10 +5241,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-193",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-193"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-bi-specialist-193",
+            "created_at": "14 Fevral 2026",
+            "view_count": 423,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_194",
@@ -4689,10 +5268,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 95,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-194",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-194"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-194",
+            "created_at": "2 Fevral 2026",
+            "view_count": 143,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_195",
@@ -4713,10 +5295,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 80,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-195",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-195"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-junior-frontend-developer-195",
+            "created_at": "11 Fevral 2026",
+            "view_count": 273,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_196",
@@ -4737,10 +5322,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-196",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-196"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-middle-react-developer-196",
+            "created_at": "9 Fevral 2026",
+            "view_count": 305,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_197",
@@ -4761,10 +5349,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-197",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-197"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-backend-developer-197",
+            "created_at": "15 Fevral 2026",
+            "view_count": 704,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_198",
@@ -4784,10 +5375,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/simbrex-database-administrator-198",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-database-administrator-198"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-database-administrator-198",
+            "created_at": "14 Fevral 2026",
+            "view_count": 714,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_199",
@@ -4808,10 +5402,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-199",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-199"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-199",
+            "created_at": "1 Fevral 2026",
+            "view_count": 254,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_200",
@@ -4832,10 +5429,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-engineer-200",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-engineer-200"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-data-engineer-200",
+            "created_at": "3 Fevral 2026",
+            "view_count": 847,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_201",
@@ -4855,10 +5455,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-201",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-201"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-201",
+            "created_at": "5 Fevral 2026",
+            "view_count": 698,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_202",
@@ -4879,10 +5482,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-202",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-202"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-financial-analyst-202",
+            "created_at": "2 Fevral 2026",
+            "view_count": 518,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_203",
@@ -4903,10 +5509,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-risk-analytics-specialist-203",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-risk-analytics-specialist-203"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-risk-analytics-specialist-203",
+            "created_at": "19 Fevral 2026",
+            "view_count": 705,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_204",
@@ -4926,10 +5535,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 90,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-204",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-204"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-credit-risk-analyst-204",
+            "created_at": "5 Fevral 2026",
+            "view_count": 580,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_205",
@@ -4949,10 +5561,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 80,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-205",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-205"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-205",
+            "created_at": "5 Fevral 2026",
+            "view_count": 182,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_206",
@@ -4972,10 +5587,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 85,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/xalq-bank-senior-financial-modeler-206",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-senior-financial-modeler-206"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-senior-financial-modeler-206",
+            "created_at": "10 Fevral 2026",
+            "view_count": 513,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_207",
@@ -4995,10 +5613,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-207",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-207"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-207",
+            "created_at": "2 Fevral 2026",
+            "view_count": 506,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_208",
@@ -5018,10 +5639,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-208",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-208"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-budgeting-planning-specialist-208",
+            "created_at": "7 Fevral 2026",
+            "view_count": 838,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_209",
@@ -5042,10 +5666,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-junior-digital-marketing-209",
-            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-junior-digital-marketing-209"
+            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-junior-digital-marketing-209",
+            "created_at": "8 Fevral 2026",
+            "view_count": 822,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_210",
@@ -5066,10 +5693,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-210",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-210"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-210",
+            "created_at": "4 Fevral 2026",
+            "view_count": 502,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_211",
@@ -5089,10 +5719,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/umico-compactive-smm-content-manager-211",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-smm-content-manager-211"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-smm-content-manager-211",
+            "created_at": "18 Fevral 2026",
+            "view_count": 556,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_212",
@@ -5112,10 +5745,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-seo-web-analytics-212",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-seo-web-analytics-212"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-seo-web-analytics-212",
+            "created_at": "20 Fevral 2026",
+            "view_count": 298,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_213",
@@ -5135,10 +5771,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 92,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-213",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-213"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-213",
+            "created_at": "8 Fevral 2026",
+            "view_count": 306,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_214",
@@ -5159,10 +5798,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-214",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-214"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-214",
+            "created_at": "6 Fevral 2026",
+            "view_count": 562,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_215",
@@ -5183,10 +5825,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/silk-way-group-junior-business-analyst-215",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-business-analyst-215"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-business-analyst-215",
+            "created_at": "1 Fevral 2026",
+            "view_count": 323,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_216",
@@ -5206,10 +5851,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/norm-sement-business-process-analyst-216",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-business-process-analyst-216"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-business-process-analyst-216",
+            "created_at": "11 Fevral 2026",
+            "view_count": 561,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_217",
@@ -5229,10 +5877,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-217",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-217"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-217",
+            "created_at": "8 Fevral 2026",
+            "view_count": 413,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_218",
@@ -5252,10 +5903,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-218",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-218"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-218",
+            "created_at": "6 Fevral 2026",
+            "view_count": 250,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_219",
@@ -5275,10 +5929,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/gilan-holding-hr-data-comp-specialist-219",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-hr-data-comp-specialist-219"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-hr-data-comp-specialist-219",
+            "created_at": "13 Fevral 2026",
+            "view_count": 179,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_220",
@@ -5298,10 +5955,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-project-coordinator-220",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-project-coordinator-220"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-project-coordinator-220",
+            "created_at": "16 Fevral 2026",
+            "view_count": 367,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_221",
@@ -5322,10 +5982,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-221",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-221"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-221",
+            "created_at": "7 Fevral 2026",
+            "view_count": 611,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_222",
@@ -5345,10 +6008,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-222",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-222"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-222",
+            "created_at": "12 Fevral 2026",
+            "view_count": 452,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_223",
@@ -5368,10 +6034,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-223",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-223"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-223",
+            "created_at": "8 Fevral 2026",
+            "view_count": 368,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_224",
@@ -5391,10 +6060,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/socar-midstream-procurement-specialist-224",
-            "source_url": "https://jobsearch.az/vacancies/socar-midstream-procurement-specialist-224"
+            "source_url": "https://jobsearch.az/vacancies/socar-midstream-procurement-specialist-224",
+            "created_at": "1 Fevral 2026",
+            "view_count": 815,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_225",
@@ -5415,10 +6087,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-225",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-225"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-225",
+            "created_at": "7 Fevral 2026",
+            "view_count": 548,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_226",
@@ -5438,10 +6113,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-226",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-226"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-226",
+            "created_at": "11 Fevral 2026",
+            "view_count": 425,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_227",
@@ -5461,10 +6139,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-227",
-            "source_url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-227"
+            "source_url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-227",
+            "created_at": "3 Fevral 2026",
+            "view_count": 425,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_228",
@@ -5484,10 +6165,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-228",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-228"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-228",
+            "created_at": "12 Fevral 2026",
+            "view_count": 796,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_229",
@@ -5508,10 +6192,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-229",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-229"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-229",
+            "created_at": "17 Fevral 2026",
+            "view_count": 549,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_230",
@@ -5532,10 +6219,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-data-analyst-bi-reporting-230",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-data-analyst-bi-reporting-230"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-data-analyst-bi-reporting-230",
+            "created_at": "18 Fevral 2026",
+            "view_count": 479,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_231",
@@ -5556,10 +6246,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-bi-specialist-231",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-bi-specialist-231"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-bi-specialist-231",
+            "created_at": "1 Fevral 2026",
+            "view_count": 258,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_232",
@@ -5580,10 +6273,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 86,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/bakcell-senior-data-analyst-232",
-            "source_url": "https://jobsearch.az/vacancies/bakcell-senior-data-analyst-232"
+            "source_url": "https://jobsearch.az/vacancies/bakcell-senior-data-analyst-232",
+            "created_at": "9 Fevral 2026",
+            "view_count": 322,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_233",
@@ -5604,10 +6300,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 81,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-frontend-developer-233",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-frontend-developer-233"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-frontend-developer-233",
+            "created_at": "19 Fevral 2026",
+            "view_count": 411,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_234",
@@ -5628,10 +6327,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-234",
-            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-234"
+            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-234",
+            "created_at": "2 Fevral 2026",
+            "view_count": 251,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_235",
@@ -5652,10 +6354,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/bestcomp-group-junior-backend-developer-235",
-            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-junior-backend-developer-235"
+            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-junior-backend-developer-235",
+            "created_at": "20 Fevral 2026",
+            "view_count": 584,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_236",
@@ -5675,10 +6380,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-database-administrator-236",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-database-administrator-236"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-database-administrator-236",
+            "created_at": "12 Fevral 2026",
+            "view_count": 461,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_237",
@@ -5699,10 +6407,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-237",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-237"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-qa-engineer-237",
+            "created_at": "14 Fevral 2026",
+            "view_count": 760,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_238",
@@ -5723,10 +6434,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/simbrex-data-engineer-238",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-data-engineer-238"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-data-engineer-238",
+            "created_at": "17 Fevral 2026",
+            "view_count": 258,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_239",
@@ -5746,10 +6460,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/unibank-junior-financial-analyst-239",
-            "source_url": "https://jobsearch.az/vacancies/unibank-junior-financial-analyst-239"
+            "source_url": "https://jobsearch.az/vacancies/unibank-junior-financial-analyst-239",
+            "created_at": "13 Fevral 2026",
+            "view_count": 730,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_240",
@@ -5770,10 +6487,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/unibank-financial-analyst-240",
-            "source_url": "https://jobsearch.az/vacancies/unibank-financial-analyst-240"
+            "source_url": "https://jobsearch.az/vacancies/unibank-financial-analyst-240",
+            "created_at": "7 Fevral 2026",
+            "view_count": 400,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_241",
@@ -5794,10 +6514,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-241",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-241"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-risk-analytics-specialist-241",
+            "created_at": "2 Fevral 2026",
+            "view_count": 586,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_242",
@@ -5817,10 +6540,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/turanbank-credit-risk-analyst-242",
-            "source_url": "https://jobsearch.az/vacancies/turanbank-credit-risk-analyst-242"
+            "source_url": "https://jobsearch.az/vacancies/turanbank-credit-risk-analyst-242",
+            "created_at": "1 Fevral 2026",
+            "view_count": 672,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_243",
@@ -5840,10 +6566,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 93,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-243",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-243"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-accountant-1c-243",
+            "created_at": "18 Fevral 2026",
+            "view_count": 843,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_244",
@@ -5863,10 +6592,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 96,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-244",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-244"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-senior-financial-modeler-244",
+            "created_at": "7 Fevral 2026",
+            "view_count": 512,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_245",
@@ -5886,10 +6618,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-245",
-            "source_url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-245"
+            "source_url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-245",
+            "created_at": "14 Fevral 2026",
+            "view_count": 211,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_246",
@@ -5909,10 +6644,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/accessbank-budgeting-planning-specialist-246",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-budgeting-planning-specialist-246"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-budgeting-planning-specialist-246",
+            "created_at": "11 Fevral 2026",
+            "view_count": 778,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_247",
@@ -5933,10 +6671,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-247",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-247"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-247",
+            "created_at": "11 Fevral 2026",
+            "view_count": 819,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_248",
@@ -5957,10 +6698,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-248",
-            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-248"
+            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-performance-marketing-248",
+            "created_at": "4 Fevral 2026",
+            "view_count": 447,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_249",
@@ -5980,10 +6724,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-249",
-            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-249"
+            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-249",
+            "created_at": "17 Fevral 2026",
+            "view_count": 456,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_250",
@@ -6003,10 +6750,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-250",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-250"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-250",
+            "created_at": "14 Fevral 2026",
+            "view_count": 474,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_251",
@@ -6026,10 +6776,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 95,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-251",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-251"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-brand-manager-251",
+            "created_at": "13 Fevral 2026",
+            "view_count": 442,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_252",
@@ -6050,10 +6803,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-252",
-            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-252"
+            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-252",
+            "created_at": "18 Fevral 2026",
+            "view_count": 270,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_253",
@@ -6074,10 +6830,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-253",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-253"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-253",
+            "created_at": "7 Fevral 2026",
+            "view_count": 570,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_254",
@@ -6097,10 +6856,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-254",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-254"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-business-process-analyst-254",
+            "created_at": "13 Fevral 2026",
+            "view_count": 833,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_255",
@@ -6120,10 +6882,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-255",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-255"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-junior-hr-recruiter-255",
+            "created_at": "6 Fevral 2026",
+            "view_count": 770,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_256",
@@ -6143,10 +6908,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-256",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-256"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-256",
+            "created_at": "19 Fevral 2026",
+            "view_count": 448,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_257",
@@ -6166,10 +6934,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-257",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-257"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-hr-data-comp-specialist-257",
+            "created_at": "13 Fevral 2026",
+            "view_count": 701,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_258",
@@ -6189,10 +6960,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-258",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-258"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-258",
+            "created_at": "1 Fevral 2026",
+            "view_count": 451,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_259",
@@ -6213,10 +6987,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-259",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-259"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-259",
+            "created_at": "10 Fevral 2026",
+            "view_count": 355,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_260",
@@ -6236,10 +7013,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-system-administrator-260",
-            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-system-administrator-260"
+            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-system-administrator-260",
+            "created_at": "14 Fevral 2026",
+            "view_count": 733,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_261",
@@ -6259,10 +7039,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-261",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-261"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-cybersecurity-soc-analyst-261",
+            "created_at": "20 Fevral 2026",
+            "view_count": 810,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_262",
@@ -6282,10 +7065,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-262",
-            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-262"
+            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-262",
+            "created_at": "11 Fevral 2026",
+            "view_count": 616,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_263",
@@ -6306,10 +7092,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 95,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-263",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-263"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-263",
+            "created_at": "15 Fevral 2026",
+            "view_count": 592,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_264",
@@ -6329,10 +7118,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-264",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-264"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-264",
+            "created_at": "7 Fevral 2026",
+            "view_count": 663,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_265",
@@ -6352,10 +7144,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-265",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-265"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-commercial-analyst-265",
+            "created_at": "16 Fevral 2026",
+            "view_count": 313,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_266",
@@ -6375,10 +7170,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-266",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-266"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-assistant-category-manager-266",
+            "created_at": "3 Fevral 2026",
+            "view_count": 430,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_267",
@@ -6399,10 +7197,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-267",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-267"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-data-analyst-267",
+            "created_at": "17 Fevral 2026",
+            "view_count": 819,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_268",
@@ -6423,10 +7224,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/bestcomp-group-data-analyst-bi-reporting-268",
-            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-data-analyst-bi-reporting-268"
+            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-data-analyst-bi-reporting-268",
+            "created_at": "20 Fevral 2026",
+            "view_count": 483,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_269",
@@ -6447,10 +7251,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-269",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-269"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-269",
+            "created_at": "3 Fevral 2026",
+            "view_count": 380,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_270",
@@ -6471,10 +7278,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 79,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-270",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-270"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-senior-data-analyst-270",
+            "created_at": "10 Fevral 2026",
+            "view_count": 370,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_271",
@@ -6495,10 +7305,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-271",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-271"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-271",
+            "created_at": "7 Fevral 2026",
+            "view_count": 290,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_272",
@@ -6519,10 +7332,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-technology-middle-react-developer-272",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-middle-react-developer-272"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-middle-react-developer-272",
+            "created_at": "1 Fevral 2026",
+            "view_count": 187,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_273",
@@ -6543,10 +7359,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-273",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-273"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-273",
+            "created_at": "8 Fevral 2026",
+            "view_count": 626,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_274",
@@ -6566,10 +7385,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/simbrex-database-administrator-274",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-database-administrator-274"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-database-administrator-274",
+            "created_at": "20 Fevral 2026",
+            "view_count": 214,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_275",
@@ -6590,10 +7412,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-275",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-275"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-275",
+            "created_at": "15 Fevral 2026",
+            "view_count": 564,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_276",
@@ -6614,10 +7439,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-engineer-276",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-engineer-276"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-engineer-276",
+            "created_at": "19 Fevral 2026",
+            "view_count": 339,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_277",
@@ -6637,10 +7465,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-junior-financial-analyst-277",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-junior-financial-analyst-277"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-junior-financial-analyst-277",
+            "created_at": "13 Fevral 2026",
+            "view_count": 646,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_278",
@@ -6661,10 +7492,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-278",
-            "source_url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-278"
+            "source_url": "https://jobsearch.az/vacancies/rabitebank-financial-analyst-278",
+            "created_at": "13 Fevral 2026",
+            "view_count": 389,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_279",
@@ -6685,10 +7519,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/accessbank-risk-analytics-specialist-279",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-risk-analytics-specialist-279"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-risk-analytics-specialist-279",
+            "created_at": "5 Fevral 2026",
+            "view_count": 811,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_280",
@@ -6708,10 +7545,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-280",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-280"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-280",
+            "created_at": "1 Fevral 2026",
+            "view_count": 249,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_281",
@@ -6731,10 +7571,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 95,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/unibank-accountant-1c-281",
-            "source_url": "https://jobsearch.az/vacancies/unibank-accountant-1c-281"
+            "source_url": "https://jobsearch.az/vacancies/unibank-accountant-1c-281",
+            "created_at": "14 Fevral 2026",
+            "view_count": 364,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_282",
@@ -6754,10 +7597,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 88,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-financial-modeler-282",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-financial-modeler-282"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-senior-financial-modeler-282",
+            "created_at": "6 Fevral 2026",
+            "view_count": 670,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_283",
@@ -6777,10 +7623,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-283",
-            "source_url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-283"
+            "source_url": "https://jobsearch.az/vacancies/unibank-internal-audit-specialist-283",
+            "created_at": "15 Fevral 2026",
+            "view_count": 191,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_284",
@@ -6800,10 +7649,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/turanbank-budgeting-planning-specialist-284",
-            "source_url": "https://jobsearch.az/vacancies/turanbank-budgeting-planning-specialist-284"
+            "source_url": "https://jobsearch.az/vacancies/turanbank-budgeting-planning-specialist-284",
+            "created_at": "18 Fevral 2026",
+            "view_count": 395,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_285",
@@ -6824,10 +7676,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-285",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-285"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-285",
+            "created_at": "4 Fevral 2026",
+            "view_count": 607,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_286",
@@ -6848,10 +7703,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-286",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-286"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-performance-marketing-286",
+            "created_at": "5 Fevral 2026",
+            "view_count": 615,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_287",
@@ -6871,10 +7729,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 79,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-287",
-            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-287"
+            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-287",
+            "created_at": "17 Fevral 2026",
+            "view_count": 712,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_288",
@@ -6894,10 +7755,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/pasha-holding-seo-web-analytics-288",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-seo-web-analytics-288"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-seo-web-analytics-288",
+            "created_at": "20 Fevral 2026",
+            "view_count": 464,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_289",
@@ -6917,10 +7781,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 93,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-brand-manager-289",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-brand-manager-289"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-brand-manager-289",
+            "created_at": "15 Fevral 2026",
+            "view_count": 767,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_290",
@@ -6941,10 +7808,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/umico-compactive-growth-marketing-290",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-growth-marketing-290"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-growth-marketing-290",
+            "created_at": "17 Fevral 2026",
+            "view_count": 576,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_291",
@@ -6965,10 +7835,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/azersun-holding-junior-business-analyst-291",
-            "source_url": "https://jobsearch.az/vacancies/azersun-holding-junior-business-analyst-291"
+            "source_url": "https://jobsearch.az/vacancies/azersun-holding-junior-business-analyst-291",
+            "created_at": "18 Fevral 2026",
+            "view_count": 596,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_292",
@@ -6988,10 +7861,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-292",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-292"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-business-process-analyst-292",
+            "created_at": "6 Fevral 2026",
+            "view_count": 626,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_293",
@@ -7011,10 +7887,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-293",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-293"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-junior-hr-recruiter-293",
+            "created_at": "15 Fevral 2026",
+            "view_count": 405,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_294",
@@ -7034,10 +7913,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-294",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-294"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-294",
+            "created_at": "8 Fevral 2026",
+            "view_count": 792,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_295",
@@ -7057,10 +7939,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-295",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-295"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-hr-data-comp-specialist-295",
+            "created_at": "9 Fevral 2026",
+            "view_count": 673,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_296",
@@ -7080,10 +7965,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-296",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-296"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-project-coordinator-296",
+            "created_at": "16 Fevral 2026",
+            "view_count": 781,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_297",
@@ -7104,10 +7992,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-297",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-297"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-junior-devops-engineer-297",
+            "created_at": "8 Fevral 2026",
+            "view_count": 421,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_298",
@@ -7127,10 +8018,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-298",
-            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-298"
+            "source_url": "https://jobsearch.az/vacancies/holcim-azerbaijan-system-administrator-298",
+            "created_at": "15 Fevral 2026",
+            "view_count": 219,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_299",
@@ -7150,10 +8044,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-cybersecurity-soc-analyst-299",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-cybersecurity-soc-analyst-299"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-cybersecurity-soc-analyst-299",
+            "created_at": "10 Fevral 2026",
+            "view_count": 380,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_300",
@@ -7173,10 +8070,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-300",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-300"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-300",
+            "created_at": "9 Fevral 2026",
+            "view_count": 483,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_301",
@@ -7197,10 +8097,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-301",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-301"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-b2b-sales-specialist-301",
+            "created_at": "11 Fevral 2026",
+            "view_count": 693,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_302",
@@ -7220,10 +8123,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/al-market-key-account-manager-302",
-            "source_url": "https://jobsearch.az/vacancies/al-market-key-account-manager-302"
+            "source_url": "https://jobsearch.az/vacancies/al-market-key-account-manager-302",
+            "created_at": "3 Fevral 2026",
+            "view_count": 281,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_303",
@@ -7243,10 +8149,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-303",
-            "source_url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-303"
+            "source_url": "https://jobsearch.az/vacancies/al-market-commercial-analyst-303",
+            "created_at": "5 Fevral 2026",
+            "view_count": 376,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_304",
@@ -7266,10 +8175,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-304",
-            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-304"
+            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-assistant-category-manager-304",
+            "created_at": "13 Fevral 2026",
+            "view_count": 850,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_305",
@@ -7290,10 +8202,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-305",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-305"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-junior-data-analyst-305",
+            "created_at": "5 Fevral 2026",
+            "view_count": 359,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_306",
@@ -7314,10 +8229,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-data-analyst-bi-reporting-306",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-data-analyst-bi-reporting-306"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-data-analyst-bi-reporting-306",
+            "created_at": "3 Fevral 2026",
+            "view_count": 564,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_307",
@@ -7338,10 +8256,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/pasha-technology-bi-specialist-307",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-bi-specialist-307"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-bi-specialist-307",
+            "created_at": "14 Fevral 2026",
+            "view_count": 478,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_308",
@@ -7362,10 +8283,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 90,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/bestcomp-group-senior-data-analyst-308",
-            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-senior-data-analyst-308"
+            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-senior-data-analyst-308",
+            "created_at": "18 Fevral 2026",
+            "view_count": 617,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_309",
@@ -7386,10 +8310,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-309",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-309"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-frontend-developer-309",
+            "created_at": "14 Fevral 2026",
+            "view_count": 203,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_310",
@@ -7410,10 +8337,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-middle-react-developer-310",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-middle-react-developer-310"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-middle-react-developer-310",
+            "created_at": "7 Fevral 2026",
+            "view_count": 570,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_311",
@@ -7434,10 +8364,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-311",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-311"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-backend-developer-311",
+            "created_at": "13 Fevral 2026",
+            "view_count": 738,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_312",
@@ -7457,10 +8390,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 92,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-database-administrator-312",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-database-administrator-312"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-database-administrator-312",
+            "created_at": "1 Fevral 2026",
+            "view_count": 729,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_313",
@@ -7481,10 +8417,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/pasha-technology-qa-engineer-313",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-qa-engineer-313"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-qa-engineer-313",
+            "created_at": "13 Fevral 2026",
+            "view_count": 628,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_314",
@@ -7505,10 +8444,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/sinam-llc-data-engineer-314",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-engineer-314"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-engineer-314",
+            "created_at": "1 Fevral 2026",
+            "view_count": 500,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_315",
@@ -7528,10 +8470,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-315",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-315"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-315",
+            "created_at": "10 Fevral 2026",
+            "view_count": 539,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_316",
@@ -7552,10 +8497,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-financial-analyst-316",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-financial-analyst-316"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-financial-analyst-316",
+            "created_at": "14 Fevral 2026",
+            "view_count": 691,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_317",
@@ -7576,10 +8524,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-317",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-317"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-risk-analytics-specialist-317",
+            "created_at": "18 Fevral 2026",
+            "view_count": 757,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_318",
@@ -7599,10 +8550,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-318",
-            "source_url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-318"
+            "source_url": "https://jobsearch.az/vacancies/accessbank-credit-risk-analyst-318",
+            "created_at": "8 Fevral 2026",
+            "view_count": 639,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_319",
@@ -7622,10 +8576,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 80,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-319",
-            "source_url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-319"
+            "source_url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-319",
+            "created_at": "8 Fevral 2026",
+            "view_count": 419,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_320",
@@ -7645,10 +8602,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 87,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/bank-respublika-senior-financial-modeler-320",
-            "source_url": "https://jobsearch.az/vacancies/bank-respublika-senior-financial-modeler-320"
+            "source_url": "https://jobsearch.az/vacancies/bank-respublika-senior-financial-modeler-320",
+            "created_at": "14 Fevral 2026",
+            "view_count": 637,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_321",
@@ -7668,10 +8628,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-321",
-            "source_url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-321"
+            "source_url": "https://jobsearch.az/vacancies/bank-respublika-internal-audit-specialist-321",
+            "created_at": "1 Fevral 2026",
+            "view_count": 538,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_322",
@@ -7691,10 +8654,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-322",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-322"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-322",
+            "created_at": "11 Fevral 2026",
+            "view_count": 824,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_323",
@@ -7715,10 +8681,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-323",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-323"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-junior-digital-marketing-323",
+            "created_at": "13 Fevral 2026",
+            "view_count": 309,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_324",
@@ -7739,10 +8708,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-performance-marketing-324",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-performance-marketing-324"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-performance-marketing-324",
+            "created_at": "15 Fevral 2026",
+            "view_count": 270,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_325",
@@ -7762,10 +8734,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 91,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-smm-content-manager-325",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-smm-content-manager-325"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-smm-content-manager-325",
+            "created_at": "20 Fevral 2026",
+            "view_count": 686,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_326",
@@ -7785,10 +8760,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-326",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-326"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-seo-web-analytics-326",
+            "created_at": "1 Fevral 2026",
+            "view_count": 543,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_327",
@@ -7808,10 +8786,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-brand-manager-327",
-            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-brand-manager-327"
+            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-brand-manager-327",
+            "created_at": "19 Fevral 2026",
+            "view_count": 717,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_328",
@@ -7832,10 +8813,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-328",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-328"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-growth-marketing-328",
+            "created_at": "1 Fevral 2026",
+            "view_count": 225,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_329",
@@ -7856,10 +8840,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-329",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-329"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-junior-business-analyst-329",
+            "created_at": "14 Fevral 2026",
+            "view_count": 278,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_330",
@@ -7879,10 +8866,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/azersun-holding-business-process-analyst-330",
-            "source_url": "https://jobsearch.az/vacancies/azersun-holding-business-process-analyst-330"
+            "source_url": "https://jobsearch.az/vacancies/azersun-holding-business-process-analyst-330",
+            "created_at": "15 Fevral 2026",
+            "view_count": 326,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_331",
@@ -7902,10 +8892,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 78,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/norm-sement-junior-hr-recruiter-331",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-junior-hr-recruiter-331"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-junior-hr-recruiter-331",
+            "created_at": "2 Fevral 2026",
+            "view_count": 406,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_332",
@@ -7925,10 +8918,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-332",
-            "source_url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-332"
+            "source_url": "https://jobsearch.az/vacancies/norm-sement-talent-acquisition-specialist-332",
+            "created_at": "13 Fevral 2026",
+            "view_count": 475,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_333",
@@ -7948,10 +8944,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/azersun-holding-hr-data-comp-specialist-333",
-            "source_url": "https://jobsearch.az/vacancies/azersun-holding-hr-data-comp-specialist-333"
+            "source_url": "https://jobsearch.az/vacancies/azersun-holding-hr-data-comp-specialist-333",
+            "created_at": "7 Fevral 2026",
+            "view_count": 605,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_334",
@@ -7971,10 +8970,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-334",
-            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-334"
+            "source_url": "https://jobsearch.az/vacancies/silk-way-group-project-coordinator-334",
+            "created_at": "11 Fevral 2026",
+            "view_count": 485,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_335",
@@ -7995,10 +8997,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-junior-devops-engineer-335",
-            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-junior-devops-engineer-335"
+            "source_url": "https://jobsearch.az/vacancies/stp-sumqayit-texnologiyalar-parki-junior-devops-engineer-335",
+            "created_at": "13 Fevral 2026",
+            "view_count": 424,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_336",
@@ -8018,10 +9023,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 81,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-336",
-            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-336"
+            "source_url": "https://jobsearch.az/vacancies/azergold-qsc-system-administrator-336",
+            "created_at": "14 Fevral 2026",
+            "view_count": 398,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_337",
@@ -8041,10 +9049,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-337",
-            "source_url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-337"
+            "source_url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-337",
+            "created_at": "3 Fevral 2026",
+            "view_count": 621,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_338",
@@ -8064,10 +9075,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-338",
-            "source_url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-338"
+            "source_url": "https://jobsearch.az/vacancies/socar-aqs-procurement-specialist-338",
+            "created_at": "1 Fevral 2026",
+            "view_count": 692,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_339",
@@ -8088,10 +9102,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 96,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/avrora-qrup-b2b-sales-specialist-339",
-            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-b2b-sales-specialist-339"
+            "source_url": "https://jobsearch.az/vacancies/avrora-qrup-b2b-sales-specialist-339",
+            "created_at": "2 Fevral 2026",
+            "view_count": 498,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_340",
@@ -8111,10 +9128,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-340",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-340"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-key-account-manager-340",
+            "created_at": "8 Fevral 2026",
+            "view_count": 805,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_341",
@@ -8134,10 +9154,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-341",
-            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-341"
+            "source_url": "https://jobsearch.az/vacancies/oba-marketler-sebekesi-commercial-analyst-341",
+            "created_at": "3 Fevral 2026",
+            "view_count": 807,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_342",
@@ -8157,10 +9180,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 84,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "2 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/blue-planet-distribution-assistant-category-manager-342",
-            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-assistant-category-manager-342"
+            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-assistant-category-manager-342",
+            "created_at": "2 Fevral 2026",
+            "view_count": 171,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_343",
@@ -8181,10 +9207,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/simbrex-junior-data-analyst-343",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-data-analyst-343"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-junior-data-analyst-343",
+            "created_at": "8 Fevral 2026",
+            "view_count": 344,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_344",
@@ -8205,10 +9234,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-344",
-            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-344"
+            "source_url": "https://jobsearch.az/vacancies/sinam-llc-data-analyst-bi-reporting-344",
+            "created_at": "1 Fevral 2026",
+            "view_count": 776,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_345",
@@ -8229,10 +9261,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-345",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-345"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-bi-specialist-345",
+            "created_at": "5 Fevral 2026",
+            "view_count": 384,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_346",
@@ -8253,10 +9288,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 82,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-346",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-346"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-senior-data-analyst-346",
+            "created_at": "5 Fevral 2026",
+            "view_count": 624,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_347",
@@ -8277,10 +9315,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 88,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-junior-frontend-developer-347",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-frontend-developer-347"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-junior-frontend-developer-347",
+            "created_at": "4 Fevral 2026",
+            "view_count": 717,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_348",
@@ -8301,10 +9342,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-348",
-            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-348"
+            "source_url": "https://jobsearch.az/vacancies/bestcomp-group-middle-react-developer-348",
+            "created_at": "7 Fevral 2026",
+            "view_count": 616,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_349",
@@ -8325,10 +9369,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "18 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-18",
             "url": "https://jobsearch.az/vacancies/kapital-bank-junior-backend-developer-349",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-backend-developer-349"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-backend-developer-349",
+            "created_at": "9 Fevral 2026",
+            "view_count": 517,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_350",
@@ -8348,10 +9395,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/bravonet-database-administrator-350",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-database-administrator-350"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-database-administrator-350",
+            "created_at": "6 Fevral 2026",
+            "view_count": 760,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_351",
@@ -8372,10 +9422,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-351",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-351"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-qa-engineer-351",
+            "created_at": "20 Fevral 2026",
+            "view_count": 257,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_352",
@@ -8396,10 +9449,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 88,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-352",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-352"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-data-engineer-352",
+            "created_at": "6 Fevral 2026",
+            "view_count": 458,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_353",
@@ -8419,10 +9475,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-353",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-353"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-junior-financial-analyst-353",
+            "created_at": "4 Fevral 2026",
+            "view_count": 732,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_354",
@@ -8443,10 +9502,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/kapital-bank-financial-analyst-354",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-financial-analyst-354"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-financial-analyst-354",
+            "created_at": "1 Fevral 2026",
+            "view_count": 459,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_355",
@@ -8467,10 +9529,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-355",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-355"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-risk-analytics-specialist-355",
+            "created_at": "19 Fevral 2026",
+            "view_count": 833,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_356",
@@ -8490,10 +9555,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-356",
-            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-356"
+            "source_url": "https://jobsearch.az/vacancies/atesgah-sigorta-credit-risk-analyst-356",
+            "created_at": "13 Fevral 2026",
+            "view_count": 546,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_357",
@@ -8513,10 +9581,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 89,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-357",
-            "source_url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-357"
+            "source_url": "https://jobsearch.az/vacancies/turanbank-accountant-1c-357",
+            "created_at": "7 Fevral 2026",
+            "view_count": 217,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_358",
@@ -8536,10 +9607,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 86,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-senior-financial-modeler-358",
-            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-senior-financial-modeler-358"
+            "source_url": "https://jobsearch.az/vacancies/azerbaycan-merkezi-banki-senior-financial-modeler-358",
+            "created_at": "19 Fevral 2026",
+            "view_count": 847,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_359",
@@ -8559,10 +9633,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-359",
-            "source_url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-359"
+            "source_url": "https://jobsearch.az/vacancies/xalq-bank-internal-audit-specialist-359",
+            "created_at": "8 Fevral 2026",
+            "view_count": 244,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_360",
@@ -8582,10 +9659,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-360",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-360"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-360",
+            "created_at": "10 Fevral 2026",
+            "view_count": 840,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_361",
@@ -8606,10 +9686,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-361",
-            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-361"
+            "source_url": "https://jobsearch.az/vacancies/trendyol-azerbaijan-junior-digital-marketing-361",
+            "created_at": "20 Fevral 2026",
+            "view_count": 263,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_362",
@@ -8630,10 +9713,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/kontakt-home-performance-marketing-362",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-performance-marketing-362"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-performance-marketing-362",
+            "created_at": "19 Fevral 2026",
+            "view_count": 182,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_363",
@@ -8653,10 +9739,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 92,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-363",
-            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-363"
+            "source_url": "https://jobsearch.az/vacancies/endorphin-pr-smm-content-manager-363",
+            "created_at": "12 Fevral 2026",
+            "view_count": 685,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_364",
@@ -8676,10 +9765,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-seo-web-analytics-364",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-seo-web-analytics-364"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-seo-web-analytics-364",
+            "created_at": "14 Fevral 2026",
+            "view_count": 817,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_365",
@@ -8699,10 +9791,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 87,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-brand-manager-365",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-brand-manager-365"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-brand-manager-365",
+            "created_at": "12 Fevral 2026",
+            "view_count": 210,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_366",
@@ -8723,10 +9818,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/baku-electronics-growth-marketing-366",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-growth-marketing-366"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-growth-marketing-366",
+            "created_at": "17 Fevral 2026",
+            "view_count": 803,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_367",
@@ -8747,10 +9845,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-367",
-            "source_url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-367"
+            "source_url": "https://jobsearch.az/vacancies/metak-llc-junior-business-analyst-367",
+            "created_at": "11 Fevral 2026",
+            "view_count": 152,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_368",
@@ -8770,10 +9871,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-368",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-368"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-368",
+            "created_at": "14 Fevral 2026",
+            "view_count": 641,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_369",
@@ -8793,10 +9897,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 82,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-369",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-369"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-hr-recruiter-369",
+            "created_at": "4 Fevral 2026",
+            "view_count": 583,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_370",
@@ -8816,10 +9923,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 93,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-talent-acquisition-specialist-370",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-talent-acquisition-specialist-370"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-talent-acquisition-specialist-370",
+            "created_at": "12 Fevral 2026",
+            "view_count": 790,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_371",
@@ -8839,10 +9949,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-371",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-371"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-hr-data-comp-specialist-371",
+            "created_at": "15 Fevral 2026",
+            "view_count": 296,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_372",
@@ -8862,10 +9975,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 85,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-372",
-            "source_url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-372"
+            "source_url": "https://jobsearch.az/vacancies/gilan-holding-project-coordinator-372",
+            "created_at": "14 Fevral 2026",
+            "view_count": 320,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_373",
@@ -8886,10 +10002,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-373",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-373"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-373",
+            "created_at": "17 Fevral 2026",
+            "view_count": 806,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_374",
@@ -8909,10 +10028,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 86,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-374",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-374"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-374",
+            "created_at": "9 Fevral 2026",
+            "view_count": 770,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_375",
@@ -8932,10 +10054,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-375",
-            "source_url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-375"
+            "source_url": "https://jobsearch.az/vacancies/azercosmos-cybersecurity-soc-analyst-375",
+            "created_at": "18 Fevral 2026",
+            "view_count": 635,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_376",
@@ -8955,10 +10080,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-376",
-            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-376"
+            "source_url": "https://jobsearch.az/vacancies/baku-shipyard-procurement-specialist-376",
+            "created_at": "15 Fevral 2026",
+            "view_count": 586,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_377",
@@ -8979,10 +10107,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-377",
-            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-377"
+            "source_url": "https://jobsearch.az/vacancies/bravo-supermarket-b2b-sales-specialist-377",
+            "created_at": "19 Fevral 2026",
+            "view_count": 414,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_378",
@@ -9002,10 +10133,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 84,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/kontakt-home-key-account-manager-378",
-            "source_url": "https://jobsearch.az/vacancies/kontakt-home-key-account-manager-378"
+            "source_url": "https://jobsearch.az/vacancies/kontakt-home-key-account-manager-378",
+            "created_at": "11 Fevral 2026",
+            "view_count": 391,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_379",
@@ -9025,10 +10159,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/veyseloglu-araz-commercial-analyst-379",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-commercial-analyst-379"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-araz-commercial-analyst-379",
+            "created_at": "3 Fevral 2026",
+            "view_count": 425,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_380",
@@ -9048,10 +10185,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "13 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-13",
             "url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-380",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-380"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-380",
+            "created_at": "15 Fevral 2026",
+            "view_count": 389,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_381",
@@ -9072,10 +10212,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/bakcell-junior-data-analyst-381",
-            "source_url": "https://jobsearch.az/vacancies/bakcell-junior-data-analyst-381"
+            "source_url": "https://jobsearch.az/vacancies/bakcell-junior-data-analyst-381",
+            "created_at": "15 Fevral 2026",
+            "view_count": 723,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_382",
@@ -9096,10 +10239,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-analyst-bi-reporting-382",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-analyst-bi-reporting-382"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-data-analyst-bi-reporting-382",
+            "created_at": "20 Fevral 2026",
+            "view_count": 824,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_383",
@@ -9120,10 +10266,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-383",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-383"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-bi-specialist-383",
+            "created_at": "13 Fevral 2026",
+            "view_count": 484,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_384",
@@ -9144,10 +10293,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 78,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-384",
-            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-384"
+            "source_url": "https://jobsearch.az/vacancies/azercell-telecom-senior-data-analyst-384",
+            "created_at": "1 Fevral 2026",
+            "view_count": 646,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_385",
@@ -9168,10 +10320,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 85,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-385",
-            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-385"
+            "source_url": "https://jobsearch.az/vacancies/kapital-bank-junior-frontend-developer-385",
+            "created_at": "11 Fevral 2026",
+            "view_count": 326,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_386",
@@ -9192,10 +10347,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 83,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/simbrex-middle-react-developer-386",
-            "source_url": "https://jobsearch.az/vacancies/simbrex-middle-react-developer-386"
+            "source_url": "https://jobsearch.az/vacancies/simbrex-middle-react-developer-386",
+            "created_at": "16 Fevral 2026",
+            "view_count": 357,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_387",
@@ -9216,10 +10374,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "12 Avqust 2026",
+            "posted_date": "12 Fevral 2026",
             "date": "2026-08-12",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-387",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-387"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-junior-backend-developer-387",
+            "created_at": "12 Fevral 2026",
+            "view_count": 404,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_388",
@@ -9239,10 +10400,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 80,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/bravonet-database-administrator-388",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-database-administrator-388"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-database-administrator-388",
+            "created_at": "11 Fevral 2026",
+            "view_count": 426,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_389",
@@ -9263,10 +10427,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "20 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-389",
-            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-389"
+            "source_url": "https://jobsearch.az/vacancies/cybernet-llc-qa-engineer-389",
+            "created_at": "20 Fevral 2026",
+            "view_count": 422,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_390",
@@ -9287,10 +10454,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/bravonet-data-engineer-390",
-            "source_url": "https://jobsearch.az/vacancies/bravonet-data-engineer-390"
+            "source_url": "https://jobsearch.az/vacancies/bravonet-data-engineer-390",
+            "created_at": "18 Fevral 2026",
+            "view_count": 150,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_391",
@@ -9310,10 +10480,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 79,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/turanbank-junior-financial-analyst-391",
-            "source_url": "https://jobsearch.az/vacancies/turanbank-junior-financial-analyst-391"
+            "source_url": "https://jobsearch.az/vacancies/turanbank-junior-financial-analyst-391",
+            "created_at": "17 Fevral 2026",
+            "view_count": 335,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_392",
@@ -9334,10 +10507,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "3 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasa-sigorta-financial-analyst-392",
-            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-financial-analyst-392"
+            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-financial-analyst-392",
+            "created_at": "3 Fevral 2026",
+            "view_count": 387,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_393",
@@ -9358,10 +10534,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 78,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-393",
-            "source_url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-393"
+            "source_url": "https://jobsearch.az/vacancies/unibank-risk-analytics-specialist-393",
+            "created_at": "14 Fevral 2026",
+            "view_count": 640,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_394",
@@ -9381,10 +10560,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 90,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "18 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-credit-risk-analyst-394",
-            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-credit-risk-analyst-394"
+            "source_url": "https://jobsearch.az/vacancies/pasha-bank-ojsc-credit-risk-analyst-394",
+            "created_at": "18 Fevral 2026",
+            "view_count": 386,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_395",
@@ -9404,10 +10586,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "A2",
             "data_quality_score": 93,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-395",
-            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-395"
+            "source_url": "https://jobsearch.az/vacancies/yelo-bank-accountant-1c-395",
+            "created_at": "16 Fevral 2026",
+            "view_count": 801,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_396",
@@ -9427,10 +10612,13 @@ window.SkillMapData = {
             "required_education": "Magistr",
             "required_english_level": "C1",
             "data_quality_score": 80,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/pasa-sigorta-senior-financial-modeler-396",
-            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-senior-financial-modeler-396"
+            "source_url": "https://jobsearch.az/vacancies/pasa-sigorta-senior-financial-modeler-396",
+            "created_at": "16 Fevral 2026",
+            "view_count": 598,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_397",
@@ -9450,10 +10638,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 82,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-397",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-397"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-internal-audit-specialist-397",
+            "created_at": "1 Fevral 2026",
+            "view_count": 235,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_398",
@@ -9473,10 +10664,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-398",
-            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-398"
+            "source_url": "https://jobsearch.az/vacancies/abb-azerbaycan-beynelxalq-banki-budgeting-planning-specialist-398",
+            "created_at": "10 Fevral 2026",
+            "view_count": 366,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_399",
@@ -9497,10 +10691,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 90,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "13 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-399",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-399"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-junior-digital-marketing-399",
+            "created_at": "13 Fevral 2026",
+            "view_count": 848,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_400",
@@ -9521,10 +10718,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "14 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-14",
             "url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-performance-marketing-400",
-            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-performance-marketing-400"
+            "source_url": "https://jobsearch.az/vacancies/fcb-artgroup-baku-performance-marketing-400",
+            "created_at": "8 Fevral 2026",
+            "view_count": 453,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_401",
@@ -9544,10 +10744,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 81,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "19 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/leo-burnett-baku-smm-content-manager-401",
-            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-smm-content-manager-401"
+            "source_url": "https://jobsearch.az/vacancies/leo-burnett-baku-smm-content-manager-401",
+            "created_at": "19 Fevral 2026",
+            "view_count": 517,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_402",
@@ -9567,10 +10770,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "16 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-402",
-            "source_url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-402"
+            "source_url": "https://jobsearch.az/vacancies/umico-compactive-seo-web-analytics-402",
+            "created_at": "16 Fevral 2026",
+            "view_count": 706,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_403",
@@ -9590,10 +10796,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "C1",
             "data_quality_score": 85,
-            "posted_date": "17 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-17",
             "url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-403",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-403"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-brand-manager-403",
+            "created_at": "17 Fevral 2026",
+            "view_count": 492,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_404",
@@ -9614,10 +10823,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 92,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "14 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-404",
-            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-404"
+            "source_url": "https://jobsearch.az/vacancies/irshad-electronics-growth-marketing-404",
+            "created_at": "14 Fevral 2026",
+            "view_count": 703,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_405",
@@ -9638,10 +10850,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 81,
-            "posted_date": "21 Avqust 2026",
+            "posted_date": "11 Fevral 2026",
             "date": "2026-08-21",
             "url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-business-analyst-405",
-            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-business-analyst-405"
+            "source_url": "https://jobsearch.az/vacancies/veyseloglu-sirketler-qrupu-junior-business-analyst-405",
+            "created_at": "11 Fevral 2026",
+            "view_count": 500,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_406",
@@ -9661,10 +10876,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "15 Avqust 2026",
+            "posted_date": "15 Fevral 2026",
             "date": "2026-08-15",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-406",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-406"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-business-process-analyst-406",
+            "created_at": "15 Fevral 2026",
+            "view_count": 417,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_407",
@@ -9684,10 +10902,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-407",
-            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-407"
+            "source_url": "https://jobsearch.az/vacancies/baku-steel-company-junior-hr-recruiter-407",
+            "created_at": "10 Fevral 2026",
+            "view_count": 397,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_408",
@@ -9707,10 +10928,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 80,
-            "posted_date": "23 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-23",
             "url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-408",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-408"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-talent-acquisition-specialist-408",
+            "created_at": "8 Fevral 2026",
+            "view_count": 263,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_409",
@@ -9730,10 +10954,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/pasha-holding-hr-data-comp-specialist-409",
-            "source_url": "https://jobsearch.az/vacancies/pasha-holding-hr-data-comp-specialist-409"
+            "source_url": "https://jobsearch.az/vacancies/pasha-holding-hr-data-comp-specialist-409",
+            "created_at": "7 Fevral 2026",
+            "view_count": 463,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_410",
@@ -9753,10 +10980,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 96,
-            "posted_date": "10 Avqust 2026",
+            "posted_date": "4 Fevral 2026",
             "date": "2026-08-10",
             "url": "https://jobsearch.az/vacancies/azersun-holding-project-coordinator-410",
-            "source_url": "https://jobsearch.az/vacancies/azersun-holding-project-coordinator-410"
+            "source_url": "https://jobsearch.az/vacancies/azersun-holding-project-coordinator-410",
+            "created_at": "4 Fevral 2026",
+            "view_count": 688,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_411",
@@ -9777,10 +11007,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 91,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-411",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-411"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-junior-devops-engineer-411",
+            "created_at": "6 Fevral 2026",
+            "view_count": 336,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_412",
@@ -9800,10 +11033,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 91,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-412",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-412"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-system-administrator-412",
+            "created_at": "7 Fevral 2026",
+            "view_count": 635,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_413",
@@ -9823,10 +11059,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 87,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "9 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/socar-midstream-cybersecurity-soc-analyst-413",
-            "source_url": "https://jobsearch.az/vacancies/socar-midstream-cybersecurity-soc-analyst-413"
+            "source_url": "https://jobsearch.az/vacancies/socar-midstream-cybersecurity-soc-analyst-413",
+            "created_at": "9 Fevral 2026",
+            "view_count": 743,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_414",
@@ -9846,10 +11085,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 94,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "17 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-414",
-            "source_url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-414"
+            "source_url": "https://jobsearch.az/vacancies/nobel-energy-procurement-specialist-414",
+            "created_at": "17 Fevral 2026",
+            "view_count": 751,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_415",
@@ -9870,10 +11112,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 93,
-            "posted_date": "20 Avqust 2026",
+            "posted_date": "10 Fevral 2026",
             "date": "2026-08-20",
             "url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-415",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-415"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-b2b-sales-specialist-415",
+            "created_at": "10 Fevral 2026",
+            "view_count": 242,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_416",
@@ -9893,10 +11138,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 89,
-            "posted_date": "11 Avqust 2026",
+            "posted_date": "7 Fevral 2026",
             "date": "2026-08-11",
             "url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-416",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-416"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-key-account-manager-416",
+            "created_at": "7 Fevral 2026",
+            "view_count": 443,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_417",
@@ -9916,10 +11164,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "22 Avqust 2026",
+            "posted_date": "8 Fevral 2026",
             "date": "2026-08-22",
             "url": "https://jobsearch.az/vacancies/blue-planet-distribution-commercial-analyst-417",
-            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-commercial-analyst-417"
+            "source_url": "https://jobsearch.az/vacancies/blue-planet-distribution-commercial-analyst-417",
+            "created_at": "8 Fevral 2026",
+            "view_count": 509,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_418",
@@ -9939,10 +11190,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B1",
             "data_quality_score": 95,
-            "posted_date": "16 Avqust 2026",
+            "posted_date": "6 Fevral 2026",
             "date": "2026-08-16",
             "url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-418",
-            "source_url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-418"
+            "source_url": "https://jobsearch.az/vacancies/baku-electronics-assistant-category-manager-418",
+            "created_at": "6 Fevral 2026",
+            "view_count": 449,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_419",
@@ -9963,10 +11217,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 95,
-            "posted_date": "19 Avqust 2026",
+            "posted_date": "1 Fevral 2026",
             "date": "2026-08-19",
             "url": "https://jobsearch.az/vacancies/ultra-technologies-junior-data-analyst-419",
-            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-junior-data-analyst-419"
+            "source_url": "https://jobsearch.az/vacancies/ultra-technologies-junior-data-analyst-419",
+            "created_at": "1 Fevral 2026",
+            "view_count": 686,
+            "collected_date": "19 Fevral 2026"
         },
         {
             "id": "vac_420",
@@ -9987,10 +11244,13 @@ window.SkillMapData = {
             "required_education": "Bakalavr",
             "required_english_level": "B2",
             "data_quality_score": 86,
-            "posted_date": "24 Avqust 2026",
+            "posted_date": "5 Fevral 2026",
             "date": "2026-08-24",
             "url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-420",
-            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-420"
+            "source_url": "https://jobsearch.az/vacancies/pasha-technology-data-analyst-bi-reporting-420",
+            "created_at": "5 Fevral 2026",
+            "view_count": 420,
+            "collected_date": "19 Fevral 2026"
         }
     ],
 
