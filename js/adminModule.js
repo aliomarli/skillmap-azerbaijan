@@ -719,43 +719,308 @@ class AdminModule {
             return;
         }
 
+        const studentSkills = st.savedSkills || st.skills || {};
+        const roleId = st.targetRole || "data_analyst";
+        const engLevel = st.englishLevel || "B2";
+        const uni = st.university || "UNEC";
+        const faculty = st.faculty || "İqtisadiyyat";
+        const name = st.name || "Tələbə";
+        const email = st.email || "";
+
+        // 1. Avatar (Initials)
+        const avatarEl = document.getElementById("admin-modal-avatar");
+        if (avatarEl) {
+            const initials = name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "TL";
+            avatarEl.textContent = initials;
+        }
+
+        // 2. Personal Info Header
         const nameEl = document.getElementById("admin-modal-name");
-        if (nameEl) nameEl.textContent = st.name || "Tələbə";
+        if (nameEl) nameEl.textContent = name;
 
         const emailEl = document.getElementById("admin-modal-email");
-        if (emailEl) emailEl.textContent = st.email || "";
+        if (emailEl) emailEl.textContent = email;
 
         const uniEl = document.getElementById("admin-modal-uni");
-        if (uniEl) uniEl.textContent = st.university || "UNEC";
+        if (uniEl) uniEl.textContent = uni;
 
         const facultyEl = document.getElementById("admin-modal-faculty");
-        if (facultyEl) facultyEl.textContent = st.faculty || "İqtisadiyyat";
+        if (facultyEl) facultyEl.textContent = faculty;
 
         const engEl = document.getElementById("admin-modal-english");
-        if (engEl) engEl.textContent = st.englishLevel || "B2";
+        if (engEl) engEl.textContent = `İngilis Səviyyəsi: ${engLevel}`;
+
+        // 3. Engine Gap Calculation
+        let gapResult = null;
+        if (window.app && window.app.engine && typeof window.app.engine.calculateGap === "function") {
+            try {
+                gapResult = window.app.engine.calculateGap(roleId, studentSkills, st);
+            } catch (e) {
+                console.warn("Gap calculation warning:", e);
+            }
+        }
+
+        const matchPct = (gapResult && gapResult.matchPercentage !== undefined) 
+            ? gapResult.matchPercentage 
+            : (st.careerMatch !== undefined ? st.careerMatch : 70);
 
         const matchScoreEl = document.getElementById("admin-modal-career-match-pct");
-        if (matchScoreEl) matchScoreEl.textContent = `${st.careerMatch || 0}%`;
+        if (matchScoreEl) matchScoreEl.textContent = `${matchPct}%`;
 
-        // Render acquired skills
-        const skillsContainer = document.getElementById("admin-modal-skills-list");
-        if (skillsContainer) {
-            const skills = st.savedSkills || st.skills || {};
-            const skillEntries = Object.entries(skills);
-            if (skillEntries.length === 0) {
-                skillsContainer.innerHTML = `<span class="text-slate-400 italic text-xs">Bacarıq qeyd edilməyib</span>`;
+        const matchStatusEl = document.getElementById("admin-modal-career-match-status");
+        if (matchStatusEl) {
+            if (matchPct >= 70) {
+                matchStatusEl.innerHTML = `<span class="text-emerald-600 font-bold">● Yaxşı uyğunluq</span>`;
+                if (matchScoreEl) matchScoreEl.className = "text-2xl font-black text-emerald-600";
+            } else if (matchPct >= 50) {
+                matchStatusEl.innerHTML = `<span class="text-amber-600 font-bold">● Orta uyğunluq</span>`;
+                if (matchScoreEl) matchScoreEl.className = "text-2xl font-black text-amber-600";
             } else {
-                skillsContainer.innerHTML = skillEntries.map(([k, v]) => `
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-2xs">
-                        <span>${k.replace(/_/g, " ").toUpperCase()}</span>
-                        <span class="text-[10px] opacity-70">(${v}/5)</span>
-                    </span>
-                `).join("");
+                matchStatusEl.innerHTML = `<span class="text-rose-600 font-bold">● Kritik boşluq var</span>`;
+                if (matchScoreEl) matchScoreEl.className = "text-2xl font-black text-rose-600";
+            }
+        }
+
+        // 4. Role Title & Benchmark Skills Chips
+        const roleTitleEl = document.getElementById("admin-modal-role-title");
+        const roleObj = (window.app && window.app.data && window.app.data.jobRolesBenchmark) 
+            ? window.app.data.jobRolesBenchmark.find(r => r.id === roleId) 
+            : null;
+        const formattedRoleTitle = roleObj ? roleObj.title : roleId.replace(/_/g, " ").toUpperCase();
+        if (roleTitleEl) roleTitleEl.textContent = formattedRoleTitle;
+
+        const chipsEl = document.getElementById("admin-modal-required-chips");
+        if (chipsEl) {
+            const reqSkills = roleObj ? (roleObj.requiredSkills || {}) : { "sql": 70, "excel": 60, "python": 60 };
+            const chipEntries = Object.entries(reqSkills);
+            if (chipEntries.length === 0) {
+                chipsEl.innerHTML = `<span class="text-xs text-slate-400 italic">Bazar tələbləri müəyyən edilir...</span>`;
+            } else {
+                chipsEl.innerHTML = chipEntries.map(([sk, pct]) => {
+                    const skName = sk.replace(/_/g, " ").toUpperCase();
+                    const hasSkill = studentSkills[sk] !== undefined && studentSkills[sk] > 0;
+                    return `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold ${hasSkill ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200'}">
+                            <i class="fas ${hasSkill ? 'fa-check text-emerald-500' : 'fa-circle-dot text-slate-400'} text-[10px]"></i>
+                            <span>${skName} (${pct}%)</span>
+                        </span>
+                    `;
+                }).join("");
+            }
+        }
+
+        // 5. Dual Bars Table (#admin-modal-gap-tbody)
+        const gapTbody = document.getElementById("admin-modal-gap-tbody");
+        if (gapTbody) {
+            const breakdown = (gapResult && gapResult.breakdown && gapResult.breakdown.length > 0) 
+                ? gapResult.breakdown 
+                : Object.entries(roleObj ? (roleObj.requiredSkills || {}) : { "sql": 50, "excel": 40, "python": 60 }).map(([sk, reqP]) => {
+                    const uLvl = studentSkills[sk] || 0;
+                    const reqLvl = Math.round((reqP / 20) * 10) / 10 || 3;
+                    const gapVal = Math.max(0, reqLvl - uLvl);
+                    return {
+                        skillName: sk.replace(/_/g, " ").toUpperCase(),
+                        userLevel: uLvl,
+                        userPercentage: (uLvl / 5) * 100,
+                        requiredProficiency: reqLvl,
+                        requiredPercentage: reqP,
+                        gap: gapVal,
+                        status: gapVal === 0 ? "good" : (gapVal <= 1 ? "warning" : "critical"),
+                        statusText: gapVal === 0 ? "Tam Uyğundur" : (gapVal <= 1 ? "İnkişaf Lazımdır" : "Kritik Çatışmazlıq"),
+                        statusColor: gapVal === 0 ? "emerald" : (gapVal <= 1 ? "amber" : "rose")
+                    };
+                });
+
+            gapTbody.innerHTML = breakdown.map(item => {
+                const uLvl = item.userLevel || 0;
+                const reqLvl = item.requiredProficiency || 3;
+                const userBarWidth = Math.min(100, (uLvl / 5) * 100);
+                const reqBarWidth = Math.min(100, (reqLvl / 5) * 100);
+                const isGood = item.gap === 0 || item.status === "good";
+                const isWarn = item.gap > 0 && item.gap <= 1;
+
+                const badgeClass = isGood 
+                    ? "bg-emerald-50 text-emerald-700 border-emerald-200" 
+                    : (isWarn ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-rose-50 text-rose-700 border-rose-200");
+
+                return `
+                    <tr class="hover:bg-slate-50/60 transition-all border-b border-slate-100">
+                        <td class="py-3 px-3 font-bold text-slate-800">${item.skillName || item.skillId}</td>
+                        <td class="py-3 px-3">
+                            <div class="space-y-1">
+                                <div class="flex items-center justify-between text-[10px] font-bold text-slate-600">
+                                    <span>${uLvl}/5 Səviyyə</span>
+                                    <span>${Math.round(userBarWidth)}%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width: ${userBarWidth}%;"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-3">
+                            <div class="space-y-1">
+                                <div class="flex items-center justify-between text-[10px] font-bold text-slate-600">
+                                    <span>${reqLvl}/5 Tələb</span>
+                                    <span>${Math.round(reqBarWidth)}%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: ${reqBarWidth}%;"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-3 text-center font-bold font-mono text-xs">
+                            ${item.gap > 0 ? `<span class="text-rose-600">-${item.gap}</span>` : `<span class="text-emerald-600">0</span>`}
+                        </td>
+                        <td class="py-3 px-3 text-right">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">
+                                <span>${item.statusText || (item.gap === 0 ? "Uyğundur" : "Boşluq var")}</span>
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        // 6. Skill Gap Radar Chart (#admin-student-radar-chart)
+        this.renderStudentRadarChart(roleObj, studentSkills);
+
+        // 7. Top 5 Matching Live Vacancies (#admin-modal-matching-vacancies)
+        const vacContainer = document.getElementById("admin-modal-matching-vacancies");
+        if (vacContainer) {
+            const allVacancies = (window.app && window.app.data && window.app.data.liveVacancies) 
+                ? window.app.data.liveVacancies 
+                : [];
+            
+            // Score and sort vacancies
+            const scoredVacancies = allVacancies.map(v => {
+                let score = 50;
+                const vTitle = (v.title || "").toLowerCase();
+                const rTitle = formattedRoleTitle.toLowerCase();
+                if (vTitle.includes(rTitle) || rTitle.includes(vTitle)) score += 30;
+                
+                const vSkills = v.skills || [];
+                let matchedSkillsCount = 0;
+                vSkills.forEach(s => {
+                    const skClean = s.toLowerCase().replace(/[^a-z0-9]/g, "");
+                    Object.keys(studentSkills).forEach(us => {
+                        const usClean = us.toLowerCase().replace(/[^a-z0-9]/g, "");
+                        if (skClean.includes(usClean) || usClean.includes(skClean)) matchedSkillsCount++;
+                    });
+                });
+                score += Math.min(20, matchedSkillsCount * 6);
+                return { ...v, calculatedMatch: Math.min(98, score) };
+            });
+
+            scoredVacancies.sort((a, b) => b.calculatedMatch - a.calculatedMatch);
+            const top5 = scoredVacancies.slice(0, 5);
+
+            if (top5.length === 0) {
+                vacContainer.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">Uyğun vakansiya tapılmadı</div>`;
+            } else {
+                vacContainer.innerHTML = top5.map(job => {
+                    const compInitials = (job.company || "PB").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2) || "VK";
+                    const skillsPreview = (job.skills || []).slice(0, 3);
+                    const jobUrl = job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`;
+
+                    return `
+                        <div class="p-3 rounded-xl border border-slate-100 hover:border-indigo-200 bg-white hover:bg-indigo-50/20 transition-all flex items-center justify-between gap-3 shadow-2xs">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-9 h-9 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-xs flex-shrink-0 shadow-xs">
+                                    ${compInitials}
+                                </div>
+                                <div class="min-w-0 space-y-0.5">
+                                    <div class="font-bold text-slate-900 text-xs truncate">${job.title}</div>
+                                    <div class="text-[11px] text-slate-500 truncate">${job.company} • <span class="text-slate-400 font-normal">📍 ${job.location || "Bakı"}</span></div>
+                                    <div class="flex flex-wrap gap-1 pt-0.5">
+                                        ${skillsPreview.map(sk => `<span class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 text-[9px] font-semibold">${sk}</span>`).join("")}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    ${job.calculatedMatch}% Uyğun
+                                </span>
+                                <a href="${jobUrl}" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                                    <span>Vakansiyaya Keç</span>
+                                    <i class="fas fa-arrow-up-right-from-square text-[8px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
             }
         }
 
         modal.classList.remove("hidden");
         modal.style.display = "flex";
+    }
+
+    renderStudentRadarChart(roleObj, studentSkills) {
+        const canvas = document.getElementById("admin-student-radar-chart");
+        if (!canvas) return;
+
+        if (this.studentRadarChartInstance) {
+            try { this.studentRadarChartInstance.destroy(); } catch (e) {}
+            this.studentRadarChartInstance = null;
+        }
+
+        const reqSkills = roleObj ? (roleObj.requiredSkills || {}) : { "SQL": 70, "Excel": 60, "Power BI": 70, "Python": 60, "Analitik Düşüncə": 80, "Kommunikasiya": 70 };
+        const labels = Object.keys(reqSkills).map(k => k.replace(/_/g, " ").toUpperCase());
+        const marketValues = Object.values(reqSkills).map(v => typeof v === "number" ? Math.round((v / 20) * 10) / 10 : 3.5);
+        const studentValues = Object.keys(reqSkills).map(k => {
+            const raw = studentSkills[k] !== undefined ? studentSkills[k] : 0;
+            return typeof raw === "number" ? raw : 2;
+        });
+
+        try {
+            this.studentRadarChartInstance = new Chart(canvas, {
+                type: "radar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Bazar Tələbi",
+                            data: marketValues,
+                            borderColor: "#2563eb",
+                            backgroundColor: "rgba(37, 99, 235, 0.15)",
+                            pointBackgroundColor: "#2563eb",
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: "Tələbənin Səviyyəsi",
+                            data: studentValues,
+                            borderColor: "#f97316",
+                            backgroundColor: "rgba(249, 115, 22, 0.25)",
+                            pointBackgroundColor: "#f97316",
+                            borderWidth: 2,
+                            pointRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 5,
+                            ticks: { stepSize: 1, display: false },
+                            grid: { color: "#f1f5f9" },
+                            pointLabels: {
+                                font: { size: 10, weight: "bold" },
+                                color: "#475569"
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (chartErr) {
+            console.warn("Radar chart render warning:", chartErr);
+        }
     }
 
     closeStudentProfileModal() {
