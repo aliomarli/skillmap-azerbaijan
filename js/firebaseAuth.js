@@ -1,6 +1,7 @@
 /**
  * SkillMap Azerbaijan - Firebase Authentication & Data Sync (js/firebaseAuth.js)
  * Enterprise-grade, resilient dual-layer sync with Cloud Firestore & persistent local student registry.
+ * Strictly isolates student registries from admin accounts.
  */
 
 // Global Firebase instances
@@ -14,13 +15,24 @@ if (typeof window !== "undefined") {
     window.firebaseAuth = auth;
 }
 
+function isUserAdmin(u) {
+    if (!u) return false;
+    const role = (u.role || "").toLowerCase();
+    const email = (u.email || "").toLowerCase();
+    const uid = (u.uid || u.id || "").toLowerCase();
+    const name = (u.name || "").toLowerCase();
+    return role === "admin" || email === "admin@skillmap.az" || uid.includes("admin") || name === "administrator";
+}
+
 // Local registry helper functions
 function getLocalRegisteredStudents() {
     try {
         const raw = localStorage.getItem("skillmap_registered_students");
         if (raw) {
             const parsed = JSON.parse(raw);
-            if (Array.isArray(parsed)) return parsed;
+            if (Array.isArray(parsed)) {
+                return parsed.filter(s => !isUserAdmin(s));
+            }
         }
     } catch (e) {
         console.warn("Error reading local student registry:", e);
@@ -30,6 +42,7 @@ function getLocalRegisteredStudents() {
 
 function saveStudentToLocalRegistry(userDoc) {
     if (!userDoc || (!userDoc.uid && !userDoc.email)) return;
+    if (isUserAdmin(userDoc)) return; // DO NOT SAVE ADMIN INTO STUDENT LIST
     try {
         const list = getLocalRegisteredStudents();
         const uid = userDoc.uid || userDoc.id;
@@ -62,13 +75,14 @@ function removeStudentFromLocalRegistry(userIdOrEmail) {
     }
 }
 
-async function firebaseRegister(name, email, password, university, faculty, targetRole, englishLevel) {
+async function firebaseRegister(name, email, password, university, faculty, targetRole, englishLevel, degree) {
     const cleanEmail = (email || "").trim().toLowerCase();
     const cleanName = (name || "Tələbə").trim();
     const cleanUni = (university || "UNEC").trim();
     const cleanFac = (faculty || "İqtisadiyyat").trim();
     const cleanRole = (targetRole || "data_analyst").trim();
     const cleanEng = (englishLevel || "B2").trim();
+    const cleanDeg = (degree || "Bakalavr").trim();
 
     try {
         let uid = "usr_" + Date.now();
@@ -104,8 +118,8 @@ async function firebaseRegister(name, email, password, university, faculty, targ
             faculty: cleanFac,
             targetRole: cleanRole,
             englishLevel: cleanEng,
-            degree: "Bakalavr",
-            educationLevel: "Bakalavr",
+            degree: cleanDeg,
+            educationLevel: cleanDeg,
             city: "Bakı",
             skills: {},
             savedSkills: {},
@@ -202,7 +216,7 @@ if (auth && typeof auth.onAuthStateChanged === "function") {
 
 async function firebaseSaveSkills(skills, targetRole) {
     const currentUid = (auth && auth.currentUser) ? auth.currentUser.uid : (window.app && window.app.auth && window.app.auth.currentUser ? window.app.auth.currentUser.uid : null);
-    if (!currentUid) return { success: false, error: "Login olmayıb" };
+    if (!currentUid || currentUid === "admin_master_uid") return { success: false, error: "Login olmayıb" };
     
     const roleToSave = targetRole || (window.app ? window.app.selectedTargetRole : null) || "data_analyst";
     
@@ -247,7 +261,7 @@ async function firebaseSaveSkills(skills, targetRole) {
 
 async function firebaseSaveCareerMatch(careerMatch) {
     const currentUid = (auth && auth.currentUser) ? auth.currentUser.uid : (window.app && window.app.auth && window.app.auth.currentUser ? window.app.auth.currentUser.uid : null);
-    if (!currentUid) return;
+    if (!currentUid || currentUid === "admin_master_uid") return;
 
     if (db) {
         try {
@@ -297,20 +311,24 @@ async function firebaseGetProfile() {
 async function firebaseGetAllUsers() {
     const userMap = new Map();
 
-    // 1. Read from local persistent student registry
+    // 1. Read from local persistent student registry (excluding admins)
     const localStudents = getLocalRegisteredStudents();
     localStudents.forEach(st => {
-        const key = (st.uid || st.id || st.email || "").toLowerCase();
-        if (key) userMap.set(key, { ...st });
+        if (!isUserAdmin(st)) {
+            const key = (st.uid || st.id || st.email || "").toLowerCase();
+            if (key) userMap.set(key, { ...st });
+        }
     });
 
-    // 2. If app.auth has a logged in user, include it
+    // 2. If app.auth has a logged in student (NOT admin), include it
     if (window.app && window.app.auth && window.app.auth.currentUser) {
         const cu = window.app.auth.currentUser;
-        const key = (cu.uid || cu.id || cu.email || "").toLowerCase();
-        if (key) {
-            const existing = userMap.get(key) || {};
-            userMap.set(key, { ...existing, ...cu });
+        if (!isUserAdmin(cu)) {
+            const key = (cu.uid || cu.id || cu.email || "").toLowerCase();
+            if (key) {
+                const existing = userMap.get(key) || {};
+                userMap.set(key, { ...existing, ...cu });
+            }
         }
     }
 
@@ -320,13 +338,15 @@ async function firebaseGetAllUsers() {
             const snapshot = await db.collection("users").get();
             snapshot.forEach(doc => {
                 const data = doc.data();
-                const key = (doc.id || data.uid || data.email || "").toLowerCase();
-                if (key) {
-                    const existing = userMap.get(key) || {};
-                    userMap.set(key, { uid: doc.id, id: doc.id, ...existing, ...data });
+                if (!isUserAdmin({ uid: doc.id, ...data })) {
+                    const key = (doc.id || data.uid || data.email || "").toLowerCase();
+                    if (key) {
+                        const existing = userMap.get(key) || {};
+                        userMap.set(key, { uid: doc.id, id: doc.id, ...existing, ...data });
+                    }
                 }
             });
-            console.log(`Loaded ${snapshot.size} users directly from Firestore users collection`);
+            console.log(`Loaded users directly from Firestore users collection`);
         } catch (err) {
             console.warn("Firestore users collection get warning:", err.message);
         }
@@ -336,28 +356,28 @@ async function firebaseGetAllUsers() {
             const snapshot2 = await db.collection("all_users").get();
             snapshot2.forEach(doc => {
                 const data = doc.data();
-                const key = (doc.id || data.uid || data.email || "").toLowerCase();
-                if (key) {
-                    const existing = userMap.get(key) || {};
-                    userMap.set(key, { uid: doc.id, id: doc.id, ...existing, ...data });
+                if (!isUserAdmin({ uid: doc.id, ...data })) {
+                    const key = (doc.id || data.uid || data.email || "").toLowerCase();
+                    if (key) {
+                        const existing = userMap.get(key) || {};
+                        userMap.set(key, { uid: doc.id, id: doc.id, ...existing, ...data });
+                    }
                 }
             });
-            console.log(`Loaded ${snapshot2.size} users from Firestore all_users collection`);
+            console.log(`Loaded users from Firestore all_users collection`);
         } catch (err2) {
             console.warn("Firestore all_users collection get warning:", err2.message);
         }
     }
 
-    const mergedUsers = Array.from(userMap.values());
+    const mergedUsers = Array.from(userMap.values()).filter(s => !isUserAdmin(s));
 
-    // Save back to local storage to keep cache warm
-    if (mergedUsers.length > 0) {
-        try {
-            localStorage.setItem("skillmap_registered_students", JSON.stringify(mergedUsers));
-        } catch (e) {}
-    }
+    // Save cleaned student list back to local storage
+    try {
+        localStorage.setItem("skillmap_registered_students", JSON.stringify(mergedUsers));
+    } catch (e) {}
 
-    console.log(`Total aggregated users loaded: ${mergedUsers.length}`);
+    console.log(`Total aggregated students loaded: ${mergedUsers.length}`);
     return mergedUsers;
 }
 
@@ -387,7 +407,7 @@ async function firebaseSetAdmin(userId) {
             console.warn("Set admin all_users warning:", e.message);
         }
     }
-    saveStudentToLocalRegistry({ uid: userId, id: userId, role: "admin" });
+    removeStudentFromLocalRegistry(userId);
     console.log("User set as admin:", userId);
 }
 

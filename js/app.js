@@ -272,7 +272,7 @@ class SkillMapApp {
         }
 
         try {
-            const result = await firebaseRegister(name, email, password, uni, faculty, targetRole, english);
+            const result = await firebaseRegister(name, email, password, uni, faculty, targetRole, english, degree);
             if (result.success) {
                 if (this.auth) {
                     await this.auth.loadUserProfile(result.uid, email);

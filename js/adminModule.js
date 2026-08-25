@@ -73,17 +73,17 @@ class AdminModule {
     }
 
     isAdminLoggedIn() {
-        const auth = window.app && window.app.auth;
-        if (auth && auth.currentUser) {
-            return auth.currentUser.role === "admin";
-        }
-        // Check localStorage session fallback
+        if (this.currentAdmin) return true;
         try {
             const s = localStorage.getItem("skillmap_admin_session");
-            return Boolean(s);
-        } catch (e) {
-            return false;
+            if (s) return true;
+        } catch (e) {}
+
+        const auth = window.app && window.app.auth;
+        if (auth && auth.currentUser && auth.currentUser.role === "admin") {
+            return true;
         }
+        return false;
     }
 
     async login(email, password) {
@@ -106,12 +106,8 @@ class AdminModule {
                 role: "admin"
             };
 
-            if (window.app && window.app.auth) {
-                window.app.auth.currentUser = adminUser;
-                if (typeof window.app.auth.updateUI === "function") {
-                    window.app.auth.updateUI();
-                }
-            }
+            // Keep admin session strictly in AdminModule, do not corrupt student session
+            this.currentAdmin = adminUser;
 
             // Persist session
             localStorage.setItem("skillmap_admin_session", JSON.stringify({
@@ -302,7 +298,13 @@ class AdminModule {
     async getAllStudents() {
         if (typeof firebaseGetAllUsers === "function") {
             const rawUsers = await firebaseGetAllUsers();
-            this.cachedStudents = (rawUsers || []).map(doc => ({
+            const validStudents = (rawUsers || []).filter(u => {
+                const r = (u.role || "").toLowerCase();
+                const em = (u.email || "").toLowerCase();
+                const uid = (u.uid || u.id || "").toLowerCase();
+                return r !== "admin" && em !== "admin@skillmap.az" && !uid.includes("admin_master");
+            });
+            this.cachedStudents = validStudents.map(doc => ({
                 uid: doc.uid || doc.id,
                 id: doc.uid || doc.id,
                 ...doc,
