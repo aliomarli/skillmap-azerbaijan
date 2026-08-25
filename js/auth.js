@@ -119,10 +119,10 @@ class AuthManager {
             photoUrl: "",
             cvUrl: "",
             uploadedCV: {
-                name: "Ali_Omarli_CV_Financial_Analyst.pdf",
+                name: "CV_Telebe.pdf",
                 uploadDate: "2026-08-20",
                 parsedScore: 88,
-                summary: "UNEC Maliyyə və İqtisadiyyat fakültəsi məzunu, maliyyə təhlili, Excel və analitik düşüncə bacarıqları."
+                summary: "Təhsil, analitik düşüncə və kompüter bacarıqları."
             },
             cvVersions: [],
             role: "student",
