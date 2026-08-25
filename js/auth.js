@@ -36,7 +36,7 @@ class AuthManager {
         const auth = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
         if (!auth) {
             console.warn("Firebase Auth is not available yet. Falling back to local default student.");
-            this.currentUser = this.getDefaultStudent();
+            this.currentUser = null;
             this.isAuthInitialized = true;
             return;
         }
@@ -72,8 +72,8 @@ class AuthManager {
      */
     getDefaultStudent() {
         return {
-            name: "Əli Ömərli",
-            email: "ali.omarli@example.com",
+            name: "Tələbə",
+            email: "",
             university: "UNEC",
             faculty: "Maliyyə və İqtisadiyyat",
             city: "Bakı",
