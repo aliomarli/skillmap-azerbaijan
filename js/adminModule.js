@@ -98,6 +98,14 @@ class AdminModule {
 
         // 1. Check against Master Password (from Firestore / LocalStorage)
         if (inputPass === effectivePass) {
+                        const authForAnon = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+            if (authForAnon) {
+                try {
+                    await authForAnon.signInAnonymously();
+                } catch (e) {
+                    console.error("Anonymous auth failed:", e);
+                }
+            }
             const adminUser = {
                 uid: "admin_master_uid",
                 id: "admin_master_uid",
