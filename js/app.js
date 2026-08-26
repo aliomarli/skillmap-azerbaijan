@@ -1,7 +1,24 @@
-/**
- * SkillMap Azerbaijan - Əsas Tətbiq Mühərriki (app.js)
- * Enterprise Versiya: Radar Qrafiki, Maaş Proqnozlaşdırıcısı, Metodologiya və Mənbələr Modulu.
- */
+// ========================================================
+// 4-STEP REGISTRATION WIZARD (UI STEP SWITCHER)
+// ========================================================
+function switchRegStep(step) {
+    const stepIds = ['reg-step-1', 'reg-step-2', 'reg-step-3', 'reg-step-4', 'reg-step-success'];
+    const targetId = (step === 'success' || step === 5) ? 'reg-step-success' : `reg-step-${step}`;
+    
+    stepIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            if (id === targetId) {
+                el.style.display = 'block';
+                el.classList.remove('hidden');
+            } else {
+                el.style.display = 'none';
+                el.classList.add('hidden');
+            }
+        }
+    });
+}
+window.switchRegStep = switchRegStep;
 
 class SkillMapApp {
     constructor() {
@@ -177,19 +194,43 @@ class SkillMapApp {
         const regBtn = document.getElementById("auth-tab-reg-btn");
         const loginForm = document.getElementById("form-login");
         const regForm = document.getElementById("form-register");
+        const wizard = document.getElementById("wizard-register");
 
         this.hideAuthError();
 
         if (mode === 'register') {
-            regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
-            loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
-            loginForm.classList.add("hidden");
-            regForm.classList.remove("hidden");
+            if (regBtn) regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
+            if (loginBtn) loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            if (loginForm) {
+                loginForm.classList.add("hidden");
+                loginForm.style.display = "none";
+            }
+            if (regForm) {
+                regForm.classList.add("hidden");
+                regForm.style.display = "none";
+            }
+            if (wizard) {
+                wizard.classList.remove("hidden");
+                wizard.style.display = "block";
+                if (typeof window.switchRegStep === "function") {
+                    window.switchRegStep(1);
+                }
+            }
         } else {
-            loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
-            regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
-            loginForm.classList.remove("hidden");
-            regForm.classList.add("hidden");
+            if (loginBtn) loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
+            if (regBtn) regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            if (loginForm) {
+                loginForm.classList.remove("hidden");
+                loginForm.style.display = "block";
+            }
+            if (regForm) {
+                regForm.classList.add("hidden");
+                regForm.style.display = "none";
+            }
+            if (wizard) {
+                wizard.classList.add("hidden");
+                wizard.style.display = "none";
+            }
         }
     }
 
