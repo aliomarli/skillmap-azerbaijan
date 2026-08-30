@@ -2256,7 +2256,7 @@
                 </button>
             </form>
 
-            <!-- 2. YENİ 4 ADDIMLIQ QEYDİYYAT WIZARD-I (YALNIZ VİZUAL UI) -->
+            <!-- 2. 4 ADDIMLIQ QEYDİYYAT WIZARD-I (VALİDASİYA VƏ EMAİL TƏSDİQİ İLƏ) -->
             <div id="wizard-register" class="space-y-4 hidden" style="display: none;">
                 
                 <!-- ADDIM 1/4: ƏSAS MƏLUMATLAR -->
@@ -2289,24 +2289,49 @@
 
                     <!-- Inputlar -->
                     <div class="space-y-2.5 pt-1">
-                        <div>
-                            <input type="text" id="reg-firstname" placeholder="Ad" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <input type="text" id="reg-firstname" placeholder="Ad" oninput="clearInputError(this)" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                            </div>
+                            <div>
+                                <input type="text" id="reg-lastname" placeholder="Soyad" oninput="clearInputError(this)" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                            </div>
                         </div>
                         <div>
-                            <input type="text" id="reg-lastname" placeholder="Soyad" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                            <select id="reg-university" onchange="clearInputError(this)" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                                <option value="">Zəhmət olmasa universitet seçin...</option>
+                                <option value="UNEC">UNEC (İqtisad Universiteti)</option>
+                                <option value="BANM">BANM (Bakı Ali Neft Məktəbi)</option>
+                                <option value="BDU">BDU (Bakı Dövlət Universiteti)</option>
+                                <option value="ADA">ADA Universiteti</option>
+                                <option value="AzTU">AzTU (Texniki Universitet)</option>
+                                <option value="BMU">BMU (Mühəndislik Universiteti)</option>
+                                <option value="Digər">Digər Təhsil Müəssisəsi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="reg-target-role" onchange="clearInputError(this)" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                                <option value="">Zəhmət olmasa hədəf vəzifə seçin...</option>
+                                <option value="data_analyst">Data Analitik</option>
+                                <option value="financial_analyst">Maliyyə Analitiki</option>
+                                <option value="business_analyst">Biznes Analitik</option>
+                                <option value="frontend_developer">Frontend Developer</option>
+                                <option value="digital_marketer">Rəqəmsal Marketinq</option>
+                                <option value="hr_specialist">İnsan Resursları (HR)</option>
+                            </select>
                         </div>
                     </div>
 
                     <!-- Düymə -->
                     <div class="pt-2">
-                        <button type="button" onclick="switchRegStep(2)" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
+                        <button type="button" onclick="app.validateAndNextStep(1)" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
                             <span>Davam et</span>
                             <i class="fas fa-arrow-right text-[11px]"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- ADDIM 2/4: ƏLAQƏ MƏLUMATLARI -->
+                <!-- ADDIM 2/4: E-POÇT ÜNVANINIZI DAXİL EDİN -->
                 <div id="reg-step-2" class="space-y-4 animate-fadeIn" style="display: none;">
                     <div class="text-center space-y-2">
                         <h4 class="text-base font-black text-slate-900">Hesab yaradın</h4>
@@ -2330,22 +2355,14 @@
                     </div>
 
                     <div class="text-center space-y-0.5">
-                        <div class="text-sm font-bold text-slate-900">Əlaqə məlumatları</div>
-                        <p class="text-xs text-slate-400 font-medium">E-poçt və telefon nömrənizi daxil edin</p>
+                        <div class="text-sm font-bold text-slate-900">E-poçt ünvanınızı daxil edin</div>
+                        <p class="text-xs text-slate-400 font-medium">Hesabınızı aktivləşdirmək üçün e-poçt daxil edin</p>
                     </div>
 
-                    <!-- Inputlar -->
+                    <!-- Inputlar (Telefon silinib) -->
                     <div class="space-y-2.5 pt-1">
                         <div>
-                            <input type="email" id="reg-email" placeholder="E-poçt ünvanı" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex items-center gap-1 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 flex-shrink-0">
-                                <span>🇦🇿</span>
-                                <span>+994</span>
-                                <i class="fas fa-chevron-down text-[8px] text-slate-400 ml-0.5"></i>
-                            </div>
-                            <input type="tel" id="reg-phone" placeholder="Telefon nömrəsi" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                            <input type="email" id="reg-email" placeholder="E-poçt ünvanı (məs: ad@domain.com)" oninput="clearInputError(this)" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
                         </div>
                     </div>
 
@@ -2355,7 +2372,7 @@
                             <i class="fas fa-arrow-left text-[10px]"></i>
                             <span>Geri</span>
                         </button>
-                        <button type="button" onclick="switchRegStep(3)" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
+                        <button type="button" onclick="app.validateAndNextStep(2)" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
                             <span>Davam et</span>
                             <i class="fas fa-arrow-right text-[11px]"></i>
                         </button>
@@ -2392,29 +2409,33 @@
 
                     <!-- Inputlar -->
                     <div class="space-y-2.5 pt-1">
-                        <div class="relative">
-                            <input type="password" id="reg-password" placeholder="Şifrə" class="w-full text-xs p-3 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
-                            <button type="button" onclick="app.togglePasswordVisibility('reg-password')" class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 text-xs">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                        <div>
+                            <div class="relative">
+                                <input type="password" id="reg-password" placeholder="Şifrə (min 8 simvol, böyük/kiçik hərf, rəqəm)" oninput="clearInputError(this); app.updatePasswordStrength(this.value);" class="w-full text-xs p-3 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                                <button type="button" onclick="app.togglePasswordVisibility('reg-password')" class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="relative">
-                            <input type="password" id="reg-password-confirm" placeholder="Şifrəni təkrar daxil edin" class="w-full text-xs p-3 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
-                            <button type="button" onclick="app.togglePasswordVisibility('reg-password-confirm')" class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 text-xs">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                        <div>
+                            <div class="relative">
+                                <input type="password" id="reg-password-confirm" placeholder="Şifrəni təkrar daxil edin" oninput="clearInputError(this)" class="w-full text-xs p-3 pr-10 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none font-medium text-slate-800 transition-all">
+                                <button type="button" onclick="app.togglePasswordVisibility('reg-password-confirm')" class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Şifrə Gücü Göstəricisi -->
                         <div class="space-y-1.5 pt-1">
                             <div class="flex items-center justify-between text-[11px]">
                                 <span class="text-slate-500 font-medium">Şifrə gücü:</span>
-                                <span id="password-strength-text" class="font-bold text-emerald-600">Güclü</span>
+                                <span id="password-strength-text" class="font-bold text-slate-400">Daxil edilməyib</span>
                             </div>
                             <div id="password-strength-bar" class="flex gap-1.5 h-1.5 w-full">
-                                <div class="flex-1 bg-emerald-500 rounded-full h-full"></div>
-                                <div class="flex-1 bg-emerald-500 rounded-full h-full"></div>
-                                <div class="flex-1 bg-emerald-500 rounded-full h-full"></div>
+                                <div id="pwd-bar-1" class="flex-1 bg-slate-200 rounded-full h-full transition-all"></div>
+                                <div id="pwd-bar-2" class="flex-1 bg-slate-200 rounded-full h-full transition-all"></div>
+                                <div id="pwd-bar-3" class="flex-1 bg-slate-200 rounded-full h-full transition-all"></div>
                             </div>
                         </div>
                     </div>
@@ -2425,8 +2446,8 @@
                             <i class="fas fa-arrow-left text-[10px]"></i>
                             <span>Geri</span>
                         </button>
-                        <button type="button" onclick="switchRegStep(4)" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
-                            <span>Davam et</span>
+                        <button type="button" id="reg-submit-btn" onclick="app.handleWizardRegisterSubmit()" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
+                            <span>Qeydiyyatdan Keç</span>
                             <i class="fas fa-arrow-right text-[11px]"></i>
                         </button>
                     </div>
@@ -2452,19 +2473,19 @@
 
                     <!-- İkon & Mətn -->
                     <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-2xl mx-auto shadow-2xs border border-emerald-100/80">
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-envelope-open-text"></i>
                     </div>
 
                     <div class="text-center space-y-1 max-w-xs mx-auto">
                         <div class="text-sm font-bold text-slate-900">Təsdiqləmə göndərildi</div>
-                        <p class="text-xs text-slate-500 font-normal leading-relaxed">
-                            E-poçt ünvanınıza təsdiq linki göndərildi. Zəhmət olmasa email-inizi yoxlayın və linkə klikləyin.
+                        <p class="text-xs text-slate-600 font-normal leading-relaxed" id="reg-verification-notice">
+                            E-poçt ünvanınıza təsdiq linki göndərildi (<strong id="reg-sent-email-display" class="text-emerald-700">email</strong>). Zəhmət olmasa emailinizi (Spam qovluğunu da) yoxlayın və linkə klikləyin.
                         </p>
                     </div>
 
                     <!-- Resend / Timer -->
                     <div class="text-[11px] text-slate-400 text-center pt-1">
-                        Linki almadınız? <button type="button" class="font-bold text-emerald-600 hover:underline">Yenidən göndər (00:45)</button>
+                        Linki almadınız? <button type="button" id="reg-resend-email-btn" onclick="app.resendVerificationEmail()" class="font-bold text-emerald-600 hover:underline">Kodu yenidən göndər</button>
                     </div>
 
                     <!-- Düymələr -->
@@ -2473,7 +2494,7 @@
                             <i class="fas fa-arrow-left text-[10px]"></i>
                             <span>Geri</span>
                         </button>
-                        <button type="button" onclick="switchRegStep('success')" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
+                        <button type="button" id="reg-check-verify-btn" onclick="app.checkEmailVerified()" class="w-2/3 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
                             <span>Hesabı Yoxla</span>
                             <i class="fas fa-circle-check text-[11px]"></i>
                         </button>
@@ -2488,7 +2509,7 @@
 
                     <div class="text-center space-y-1">
                         <h4 class="text-xl font-black text-slate-900">Təbriklər!</h4>
-                        <p class="text-xs text-slate-500 font-medium">Hesabınız uğurla yaradıldı.</p>
+                        <p class="text-xs text-slate-500 font-medium">Hesabınız uğurla yaradıldı və təsdiqləndi.</p>
                     </div>
 
                     <div class="pt-3">
@@ -2500,7 +2521,6 @@
                 </div>
 
             </div>
-
             <!-- KÖHNƏ QEYDİYYAT FORMASI (GİZLƏDİLİB, SİLİNMƏYİB) -->
             <!-- 2. QEYDİYYAT FORMASI (REGISTER) -->
             <form id="form-register" style="display: none;" onsubmit="app.handleRegisterSubmit(event)" class="space-y-3.5 hidden">

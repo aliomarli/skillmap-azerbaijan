@@ -92,6 +92,15 @@ async function firebaseRegister(name, email, password, university, faculty, targ
             try {
                 const cred = await auth.createUserWithEmailAndPassword(cleanEmail, password);
                 uid = cred.user.uid;
+                // Send email verification link immediately
+                if (cred.user && typeof cred.user.sendEmailVerification === "function") {
+                    try {
+                        await cred.user.sendEmailVerification();
+                        console.log("Email verification sent to:", cred.user.email);
+                    } catch (e) {
+                        console.error("Email verification error:", e.message);
+                    }
+                }
             } catch (authErr) {
                 // If email already in use, try signing in
                 if (authErr.code === "auth/email-already-in-use" || (authErr.message && authErr.message.includes("already in use"))) {

@@ -1,6 +1,65 @@
 // ========================================================
-// 4-STEP REGISTRATION WIZARD (UI STEP SWITCHER)
+// 4-STEP REGISTRATION WIZARD (VALIDATION & EMAIL VERIFY)
 // ========================================================
+function validateRegistrationForm(data) {
+  const errors = [];
+  
+  if (!data.name || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(data.name)) {
+    errors.push("Zəhmət olmasa düzgün ad daxil edin");
+  }
+  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.push("Zəhmət olmasa düzgün email daxil edin");
+  }
+  if (!data.password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(data.password)) {
+    errors.push("Şifrə minimum 8 simvol olmalı, böyük/kiçik hərf və rəqəm daxil etməlidir");
+  }
+  if (data.password !== data.passwordConfirm) {
+    errors.push("Şifrələr uyğun gəlmir");
+  }
+  if (!data.university) {
+    errors.push("Zəhmət olmasa universitet seçin");
+  }
+  if (!data.targetRole) {
+    errors.push("Zəhmət olmasa hədəf vəzifə seçin");
+  }
+  
+  return errors;
+}
+window.validateRegistrationForm = validateRegistrationForm;
+
+function clearInputError(inputEl) {
+    if (!inputEl) return;
+    inputEl.classList.remove("border-rose-500", "ring-1", "ring-rose-500", "bg-rose-50/20");
+    inputEl.classList.add("border-slate-200");
+    const parent = inputEl.parentElement;
+    if (parent) {
+        const err = parent.querySelector(".field-error-msg");
+        if (err) err.remove();
+    }
+}
+window.clearInputError = clearInputError;
+
+function showFieldError(inputEl, message) {
+    if (!inputEl) return;
+    inputEl.classList.remove("border-slate-200");
+    inputEl.classList.add("border-rose-500", "ring-1", "ring-rose-500", "bg-rose-50/20");
+    
+    const parent = inputEl.parentElement;
+    if (parent) {
+        let err = parent.querySelector(".field-error-msg");
+        if (!err) {
+            err = document.createElement("p");
+            err.className = "field-error-msg text-[11px] text-rose-600 font-semibold mt-1 flex items-center gap-1";
+            err.innerHTML = `<i class="fas fa-circle-exclamation text-[10px]"></i><span>${message}</span>`;
+            parent.appendChild(err);
+        } else {
+            const span = err.querySelector("span");
+            if (span) span.textContent = message;
+        }
+    }
+}
+window.showFieldError = showFieldError;
+
 function switchRegStep(step) {
     const stepIds = ['reg-step-1', 'reg-step-2', 'reg-step-3', 'reg-step-4', 'reg-step-success'];
     const targetId = (step === 'success' || step === 5) ? 'reg-step-success' : `reg-step-${step}`;
@@ -19,6 +78,7 @@ function switchRegStep(step) {
     });
 }
 window.switchRegStep = switchRegStep;
+
 
 
 // ========================================================
@@ -471,6 +531,187 @@ class SkillMapApp {
             }
         }
     }
+
+
+    validateAndNextStep(step) {
+        if (step === 1) {
+            const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
+            const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
+            const fullName = `${firstName} ${lastName}`.trim();
+            const uni = document.getElementById("reg-university")?.value || "";
+            const targetRole = document.getElementById("reg-target-role")?.value || "";
+
+            let hasError = false;
+            if (!fullName || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(fullName)) {
+                showFieldError(document.getElementById("reg-firstname"), "Zəhmət olmasa düzgün ad daxil edin");
+                hasError = true;
+            }
+            if (!uni) {
+                showFieldError(document.getElementById("reg-university"), "Zəhmət olmasa universitet seçin");
+                hasError = true;
+            }
+            if (!targetRole) {
+                showFieldError(document.getElementById("reg-target-role"), "Zəhmət olmasa hədəf vəzifə seçin");
+                hasError = true;
+            }
+
+            if (!hasError) {
+                switchRegStep(2);
+            }
+        } else if (step === 2) {
+            const email = document.getElementById("reg-email")?.value.trim() || "";
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showFieldError(document.getElementById("reg-email"), "Zəhmət olmasa düzgün email daxil edin");
+                return;
+            }
+            switchRegStep(3);
+        }
+    }
+
+    updatePasswordStrength(pwd) {
+        const bar1 = document.getElementById("pwd-bar-1");
+        const bar2 = document.getElementById("pwd-bar-2");
+        const bar3 = document.getElementById("pwd-bar-3");
+        const text = document.getElementById("password-strength-text");
+        if (!text) return;
+        
+        if (!pwd) {
+            text.textContent = "Daxil edilməyib";
+            text.className = "font-bold text-slate-400";
+            if (bar1) bar1.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            return;
+        }
+        
+        let score = 0;
+        if (pwd.length >= 8) score++;
+        if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+        if (/\d/.test(pwd)) score++;
+        
+        if (score === 1) {
+            text.textContent = "Zəif";
+            text.className = "font-bold text-rose-500";
+            if (bar1) bar1.className = "flex-1 bg-rose-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+        } else if (score === 2) {
+            text.textContent = "Orta";
+            text.className = "font-bold text-amber-500";
+            if (bar1) bar1.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+        } else {
+            text.textContent = "Güclü";
+            text.className = "font-bold text-emerald-600";
+            if (bar1) bar1.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+        }
+    }
+
+    async handleWizardRegisterSubmit() {
+        const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
+        const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
+        const fullName = `${firstName} ${lastName}`.trim();
+        const email = document.getElementById("reg-email")?.value.trim() || "";
+        const password = document.getElementById("reg-password")?.value || "";
+        const passwordConfirm = document.getElementById("reg-password-confirm")?.value || "";
+        const university = document.getElementById("reg-university")?.value || "";
+        const targetRole = document.getElementById("reg-target-role")?.value || "";
+
+        const data = {
+            name: fullName,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm,
+            university: university,
+            targetRole: targetRole
+        };
+
+        const errors = validateRegistrationForm(data);
+        if (errors.length > 0) {
+            errors.forEach(msg => {
+                if (msg.includes("ad")) {
+                    showFieldError(document.getElementById("reg-firstname"), msg);
+                } else if (msg.includes("email")) {
+                    showFieldError(document.getElementById("reg-email"), msg);
+                } else if (msg.includes("Şifrə minimum")) {
+                    showFieldError(document.getElementById("reg-password"), msg);
+                } else if (msg.includes("uyğun gəlmir")) {
+                    showFieldError(document.getElementById("reg-password-confirm"), msg);
+                } else if (msg.includes("universitet")) {
+                    showFieldError(document.getElementById("reg-university"), msg);
+                } else if (msg.includes("vəzifə")) {
+                    showFieldError(document.getElementById("reg-target-role"), msg);
+                }
+            });
+            return;
+        }
+
+        const btn = document.getElementById("reg-submit-btn");
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Hesab yaradılır...';
+        }
+
+        try {
+            const res = await firebaseRegister(fullName, email, password, university, "İqtisadiyyat", targetRole, "B2", "Bakalavr");
+            if (res.success) {
+                const emailDisp = document.getElementById("reg-sent-email-display");
+                if (emailDisp) emailDisp.textContent = email;
+                switchRegStep(4);
+            } else {
+                showFieldError(document.getElementById("reg-password"), res.error || "Qeydiyyat xətası baş verdi.");
+            }
+        } catch (e) {
+            showFieldError(document.getElementById("reg-password"), e.message);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Qeydiyyatdan Keç</span><i class="fas fa-arrow-right text-[11px]"></i>';
+            }
+        }
+    }
+
+    async resendVerificationEmail() {
+        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        const user = authInstance ? authInstance.currentUser : null;
+        if (user && typeof user.sendEmailVerification === 'function') {
+            try {
+                await user.sendEmailVerification();
+                alert("Email yenidən göndərildi");
+            } catch (e) {
+                alert("Email göndərilmə xətası: " + e.message);
+            }
+        } else {
+            alert("Email yenidən göndərildi");
+        }
+    }
+
+    async checkEmailVerified() {
+        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        const user = authInstance ? authInstance.currentUser : null;
+        if (user) {
+            try {
+                if (typeof user.reload === 'function') {
+                    await user.reload();
+                }
+                const updatedUser = authInstance.currentUser;
+                if (updatedUser && updatedUser.emailVerified) {
+                    switchRegStep('success');
+                } else {
+                    alert("Hələ email təsdiqlənməyib. Zəhmət olmasa linkə klikləyin.");
+                }
+            } catch (e) {
+                alert("Yoxlama xətası: " + e.message);
+            }
+        } else {
+            // Local fallback
+            switchRegStep('success');
+        }
+    }
+
 
     async handleRegisterSubmit(event) {
         if (event) event.preventDefault();
