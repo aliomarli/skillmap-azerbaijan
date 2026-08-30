@@ -12893,6 +12893,12 @@ window.SkillMapData = {
                 "link": "https://jobsearch.az"
             },
             {
+                "name": "İkinci Mənbə: Glorri.az — 713 real vakansiya (Playwright ilə toplanmış, infinite-scroll based scraping)",
+                "type": "✅ Hazırda İnteqrasiya Olunub",
+                "description": "713 real vakansiya elanı (jobs.glorri.az) Playwright avtomatlaşdırma texnologiyası vasitəsilə toplanmış və NLP bacarıq çıxarışı təhlilinə daxil edilmişdir.",
+                "link": "https://jobs.glorri.az"
+            },
+            {
                 "name": "Dövlət Məşğulluq Agentliyi (DMA) Rəsmi Statistikası",
                 "type": "🔜 Planlaşdırılan Mənbə (II Faza)",
                 "description": "Dövlət tərəfdaşlığı əldə edildikdən sonra milli məşğulluq reyestri ilə inteqrasiya nəzərdə tutulur. Hazırda bu mənbədən data istifadə OLUNMUR.",

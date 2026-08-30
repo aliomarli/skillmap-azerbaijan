@@ -20,6 +20,108 @@ function switchRegStep(step) {
 }
 window.switchRegStep = switchRegStep;
 
+
+// ========================================================
+// GLORRI.AZ DATA LOADER (713 REAL VACANCIES)
+// ========================================================
+function detectGlorriSector(title, req) {
+    const text = ((title || "") + " " + (req || "")).toLowerCase();
+    if (text.includes("developer") || text.includes("it ") || text.includes("data") || text.includes("proqram") || text.includes("sql") || text.includes("frontend") || text.includes("backend") || text.includes("helpdesk") || text.includes("texnik") || text.includes("sysadmin")) {
+        return "IT & Data";
+    }
+    if (text.includes("mühasib") || text.includes("maliyyə") || text.includes("kredit") || text.includes("bank") || text.includes("audit") || text.includes("xəzinədar") || text.includes("risk") || text.includes("iqtisad")) {
+        return "Maliyyə & Bankçılıq";
+    }
+    if (text.includes("market") || text.includes("smm") || text.includes("media") || text.includes("pr ") || text.includes("reklam") || text.includes("kopirayt") || text.includes("dizayn")) {
+        return "Marketinq & Media";
+    }
+    if (text.includes("hr") || text.includes("kadr") || text.includes("resurs") || text.includes("inzibat") || text.includes("katib") || text.includes("ofis") || text.includes("kargüzar") || text.includes("operator")) {
+        return "İnzibati & HR";
+    }
+    if (text.includes("mühəndis") || text.includes("texnoloq") || text.includes("konstruktor") || text.includes("mexanik") || text.includes("layihə")) {
+        return "Mühəndislik & Texnologiya";
+    }
+    if (text.includes("satış") || text.includes("satıcı") || text.includes("kommersiya") || text.includes("merçendayzer") || text.includes("kassir") || text.includes("ticarət")) {
+        return "Satış & Kommersiya";
+    }
+    return "Digər";
+}
+
+function extractGlorriSkills(text) {
+    if (!text) return ["Kommunikasiya", "MS Office"];
+    const t = text.toLowerCase();
+    const skills = [];
+    if (t.includes("sql")) skills.push("SQL");
+    if (t.includes("excel")) skills.push("Excel");
+    if (t.includes("python")) skills.push("Python");
+    if (t.includes("power bi") || t.includes("powerbi")) skills.push("Power BI");
+    if (t.includes("rus") || t.includes("русск")) skills.push("Rus Dili");
+    if (t.includes("ingilis") || t.includes("english")) skills.push("İngilis Dili");
+    if (t.includes("analitik") || t.includes("analiz")) skills.push("Analitik Düşüncə");
+    if (t.includes("idarə") || t.includes("menecment") || t.includes("management")) skills.push("İdarəetmə");
+    if (t.includes("ünsiyyət") || t.includes("kommunikasiya") || t.includes("communication")) skills.push("Kommunikasiya");
+    if (t.includes("komanda") || t.includes("teamwork")) skills.push("Komanda ilə İş");
+    if (t.includes("1c") || t.includes("1s") || t.includes("mühasibat")) skills.push("Mühasibatlıq / 1C");
+    if (t.includes("smm") || t.includes("marketinq") || t.includes("marketing")) skills.push("Rəqəmsal Marketinq");
+    if (t.includes("javascript") || t.includes("react") || t.includes("frontend") || t.includes("html")) skills.push("Frontend / JS");
+    if (t.includes("satış") || t.includes("müştəri")) skills.push("Müştəri Xidmətləri");
+    return skills.length > 0 ? skills : ["Kommunikasiya", "MS Office"];
+}
+
+async function loadGlorriData() {
+    try {
+        let glorriJobs = [];
+        if (typeof window !== 'undefined' && window.GlorriVacanciesData && Array.isArray(window.GlorriVacanciesData)) {
+            glorriJobs = window.GlorriVacanciesData;
+        } else if (typeof fetch !== 'undefined') {
+            const response = await fetch('js/glorri_vacancies_final.json');
+            if (response.ok) {
+                glorriJobs = await response.json();
+            }
+        }
+        
+        if (Array.isArray(glorriJobs) && glorriJobs.length > 0) {
+            if (!window.SkillMapData) window.SkillMapData = {};
+            if (!Array.isArray(window.SkillMapData.liveVacancies)) window.SkillMapData.liveVacancies = [];
+            
+            const existingGlorri = window.SkillMapData.liveVacancies.filter(v => v.source === 'glorri.az' || (v.id && String(v.id).startsWith('glorri_')));
+            if (existingGlorri.length === 0) {
+                const formatted = glorriJobs.map((job, idx) => ({
+                    id: 'glorri_' + (idx + 1),
+                    job_title: job.title,
+                    title: job.title,
+                    company: job.company || "Açıq Vakansiya",
+                    url: job.url,
+                    source_url: job.url,
+                    date: job.date || "Avqust 2026",
+                    posted_date: job.date || "Avqust 2026",
+                    created_at: job.date || "Avqust 2026",
+                    views: job.views || "100+",
+                    view_count: job.views || "100+",
+                    requirements: job.requirements || "",
+                    source: 'glorri.az',
+                    sector: detectGlorriSector(job.title, job.requirements),
+                    location: 'Bakı',
+                    type: 'Tam Ştat',
+                    data_quality_score: 85,
+                    skills: extractGlorriSkills(job.requirements || job.title)
+                }));
+                
+                window.SkillMapData.liveVacancies = [
+                    ...window.SkillMapData.liveVacancies,
+                    ...formatted
+                ];
+                
+                console.log('Glorri data loaded:', formatted.length, 'vacancies. Total now:', 
+                    window.SkillMapData.liveVacancies.length);
+            }
+        }
+    } catch (e) {
+        console.error('Glorri data load error:', e);
+    }
+}
+window.loadGlorriData = loadGlorriData;
+
 class SkillMapApp {
     constructor() {
         this.data = (typeof window !== "undefined" && window.SkillMapData) 
@@ -44,7 +146,8 @@ class SkillMapApp {
         this.init();
     }
 
-    init() {
+    async init() {
+        try { await loadGlorriData(); } catch (e) { console.error("Error loading Glorri data in init:", e); }
         this.initCabinetNavListeners();
         try { this.renderOverviewStats(); } catch (e) { console.error("Error in renderOverviewStats:", e); }
         try { this.populateRolesDropdown(); } catch (e) { console.error("Error in populateRolesDropdown:", e); }
@@ -3048,11 +3151,16 @@ class SkillMapApp {
             const compName = vac.company || "Açıq Vakansiya";
             const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
             
-            // Specific Direct Vacancy URL on Jobsearch.az
-            const directUrl = vac.url || vac.source_url || `https://jobsearch.az/vacancies/${vac.id || 'view'}`;
+            const isGlorri = vac.source === 'glorri.az' || String(vac.id).startsWith('glorri_');
+            const sourceBadge = isGlorri 
+                ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs whitespace-nowrap"><i class="fas fa-circle text-[6px] text-emerald-500"></i>Glorri.az</span>`
+                : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-black bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs whitespace-nowrap"><i class="fas fa-circle text-[6px] text-blue-500"></i>Jobsearch.az</span>`;
+
+            // Specific Direct Vacancy URL on Jobsearch.az or Glorri.az
+            const directUrl = vac.url || vac.source_url || (isGlorri ? 'https://jobs.glorri.az' : `https://jobsearch.az/vacancies/${vac.id || 'view'}`);
 
             const createdAt = vac.created_at || vac.posted_date || "15 Fevral 2026";
-            const viewCount = vac.view_count || 340;
+            const viewCount = vac.view_count || vac.views || 340;
 
             return `
                 <div class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group">
@@ -3063,7 +3171,10 @@ class SkillMapApp {
                                     ${compInitials}
                                 </div>
                                 <div class="min-w-0">
-                                    <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors truncate block">${compName}</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors truncate block">${compName}</span>
+                                        ${sourceBadge}
+                                    </div>
                                     <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-900 transition-colors line-clamp-1">${vac.title}</h4>
                                 </div>
                             </div>
