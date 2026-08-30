@@ -2344,7 +2344,9 @@ class SkillMapApp {
             }
         }
 
-        if (tabId === "vacancy-analytics") {
+        if (tabId === "live-vacancies") {
+            this.switchVacSubTab("jobs");
+        } else if (tabId === "vacancy-analytics") {
             setTimeout(() => {
                 if (this.charts.topSkills) this.charts.topSkills.resize();
                 if (this.charts.sectors) this.charts.sectors.resize();
@@ -2789,6 +2791,48 @@ class SkillMapApp {
     // ========================================================
     // TƏCRÜBƏ PROQRAMLARI (INTERNSHIPS & TRAINEESHIPS)
     // ========================================================
+
+    switchVacSubTab(tab) {
+        const jobsBtn = document.getElementById("vac-subtab-btn-jobs");
+        const internshipsBtn = document.getElementById("vac-subtab-btn-internships");
+        const jobsView = document.getElementById("vac-subview-jobs");
+        const internshipsView = document.getElementById("vac-subview-internships");
+
+        if (tab === 'internships') {
+            if (jobsView) {
+                jobsView.style.display = 'none';
+                jobsView.classList.add('hidden');
+            }
+            if (internshipsView) {
+                internshipsView.style.display = 'block';
+                internshipsView.classList.remove('hidden');
+            }
+            if (internshipsBtn) {
+                internshipsBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all bg-white text-emerald-700 shadow-xs";
+            }
+            if (jobsBtn) {
+                jobsBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-indigo-600";
+            }
+            this.renderInternships();
+        } else {
+            if (jobsView) {
+                jobsView.style.display = 'block';
+                jobsView.classList.remove('hidden');
+            }
+            if (internshipsView) {
+                internshipsView.style.display = 'none';
+                internshipsView.classList.add('hidden');
+            }
+            if (jobsBtn) {
+                jobsBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all bg-white text-indigo-700 shadow-xs";
+            }
+            if (internshipsBtn) {
+                internshipsBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-indigo-600";
+            }
+            this.renderLiveVacancies();
+        }
+    }
+
     renderInternships(filteredList = null) {
         const grid = document.getElementById("internships-grid");
         const countBadge = document.getElementById("internship-count-badge");
