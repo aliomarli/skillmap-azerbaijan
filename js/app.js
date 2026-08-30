@@ -3187,14 +3187,14 @@ class SkillMapApp {
                 else if (matchInfo.matchScore < 45) badgeBg = "bg-rose-100 text-rose-800 border-rose-200";
 
                 matchBadgeHtml = `
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs whitespace-nowrap">
                         <i class="fas fa-bolt mr-1 text-[10px]"></i>${matchInfo.matchScore}% Uyğun
                     </span>
                 `;
             } else {
                 matchBadgeHtml = `
-                    <button onclick="app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 shadow-2xs transition-all" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
-                        <i class="fas fa-lock text-[9px] text-slate-400"></i>Uyğunluq üçün daxil olun
+                    <button onclick="app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 shadow-2xs transition-all whitespace-nowrap" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
+                        <i class="fas fa-lock text-[8px] text-slate-400"></i>Uyğunluq üçün daxil olun
                     </button>
                 `;
             }
@@ -3218,10 +3218,6 @@ class SkillMapApp {
                 tagsHtml = `<span class="text-[11px] text-slate-400 italic">Vakansiya mətnində xüsusi bacarıq tələbi qeyd olunmayıb</span>`;
             }
 
-            const qScore = vac.data_quality_score !== undefined ? vac.data_quality_score : 88;
-            let qBadgeColor = "bg-emerald-50 text-emerald-700 border border-emerald-200";
-            if (qScore < 70) qBadgeColor = "bg-amber-50 text-amber-700 border border-amber-200";
-
             const compName = vac.company || "Açıq Vakansiya";
             const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
             
@@ -3239,24 +3235,21 @@ class SkillMapApp {
             return `
                 <div class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group">
                     <div class="space-y-3">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="flex items-start gap-3">
+                        <div class="flex items-start justify-between gap-2.5">
+                            <div class="flex items-start gap-3 min-w-0 flex-1">
                                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
                                     ${compInitials}
                                 </div>
-                                <div class="min-w-0">
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-[11px] font-bold text-indigo-600 hover:text-indigo-700 transition-colors truncate block">${compName}</span>
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs font-bold text-slate-800 hover:text-indigo-600 transition-colors truncate block" title="${compName}">${compName}</span>
                                         ${sourceBadge}
                                     </div>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-900 transition-colors line-clamp-1">${vac.title}</h4>
+                                    <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-1" title="${vac.title}">${vac.title}</h4>
                                 </div>
                             </div>
-                            <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                            <div class="flex items-center flex-shrink-0">
                                 ${matchBadgeHtml}
-                                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${qBadgeColor}" title="Data Tamlığı və Keyfiyyət İndeksi">
-                                    Keyfiyyət: ${qScore}/100
-                                </span>
                             </div>
                         </div>
 
@@ -3273,12 +3266,6 @@ class SkillMapApp {
                                 ${tagsHtml}
                             </div>
                         </div>
-
-                        <!-- Archival / Redirect Disclaimer Notice -->
-                        <div class="p-2 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[10px] text-amber-800 flex items-start gap-1.5 leading-tight">
-                            <i class="fas fa-circle-info text-amber-500 text-[11px] mt-0.5 flex-shrink-0"></i>
-                            <span>Bu elan Jobsearch.az-dan <strong>${createdAt}</strong> tarixində toplanmışdır. Elan bağlanmış ola bilər (işəgötürən tərəfindən bağlandıqda ümumi səhifəyə yönləndirir).</span>
-                        </div>
                     </div>
 
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
@@ -3286,7 +3273,7 @@ class SkillMapApp {
                             <span><i class="far fa-calendar mr-1 text-slate-400"></i>${createdAt}</span>
                             <span><i class="far fa-eye mr-1 text-slate-400"></i>${viewCount} baxış</span>
                         </div>
-                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" title="Bu elan Jobsearch.az-dan toplanmışdır. Əgər bağlanıbsa, Jobsearch.az ümumi səhifəyə yönləndirə bilər." class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
+                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
                             <span>Elana bax</span>
                             <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>

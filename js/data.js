@@ -13820,8 +13820,8 @@ window.SkillMapData = {
         }
     ],
 "macroMarketStats": {
-        "totalAnalyzed": 420,
-        "sampleConfidenceLabel": "Jobsearch.az Real Baza (n=420)",
+        "totalAnalyzed": 1132,
+        "sampleConfidenceLabel": "Jobsearch.az & Glorri.az Real Baza (n=1,132)",
         "averageDataQualityScore": 52.1,
         "vacanciesWithSkillsCount": 238,
         "vacanciesWithSkillsPercentage": 56.7,
