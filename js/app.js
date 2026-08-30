@@ -22,7 +22,7 @@ window.switchRegStep = switchRegStep;
 
 
 // ========================================================
-// GLORRI.AZ DATA LOADER (713 REAL VACANCIES)
+// GLORRI.AZ DATA LOADER & CHRONOLOGICAL INTERLEAVING
 // ========================================================
 function detectGlorriSector(title, req) {
     const text = ((title || "") + " " + (req || "")).toLowerCase();
@@ -68,52 +68,123 @@ function extractGlorriSkills(text) {
     return skills.length > 0 ? skills : ["Kommunikasiya", "MS Office"];
 }
 
-async function loadGlorriData() {
+function parseVacancyDateToTimestamp(dateStr) {
+    if (!dateStr) return 0;
+    const str = String(dateStr).trim().toLowerCase();
+    
+    // ISO format: YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+        const parts = str.split("-");
+        return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10)).getTime() || 0;
+    }
+    
+    const monthMap = {
+        'yanvar': 0, 'yan': 0, 'jan': 0, 'january': 0,
+        'fevral': 1, 'fev': 1, 'feb': 1, 'february': 1,
+        'mart': 2, 'mar': 2, 'march': 2,
+        'aprel': 3, 'apr': 3, 'april': 3,
+        'may': 4,
+        'iyun': 5, 'jun': 5, 'june': 5,
+        'iyul': 6, 'jul': 6, 'july': 6,
+        'avqust': 7, 'avq': 7, 'aug': 7, 'august': 7,
+        'sentyabr': 8, 'sen': 8, 'sep': 8, 'september': 8,
+        'oktyabr': 9, 'okt': 9, 'oct': 9, 'october': 9,
+        'noyabr': 10, 'noy': 10, 'nov': 10, 'november': 10,
+        'dekabr': 11, 'dek': 11, 'dec': 11, 'december': 11
+    };
+    
+    // Case A: "Avqust 4, 2026" or "August 4, 2026"
+    let m = str.match(/([a-zçəıöşü]+)\s+(\d{1,2}),?\s*(\d{4})?/i);
+    if (m && monthMap[m[1].toLowerCase()] !== undefined) {
+        const month = monthMap[m[1].toLowerCase()];
+        const day = parseInt(m[2], 10);
+        const year = m[3] ? parseInt(m[3], 10) : 2026;
+        return new Date(year, month, day).getTime();
+    }
+    
+    // Case B: "15 Fevral 2026" or "27 avq 2026"
+    m = str.match(/(\d{1,2})\s+([a-zçəıöşü]+),?\s*(\d{4})?/i);
+    if (m && monthMap[m[2].toLowerCase()] !== undefined) {
+        const day = parseInt(m[1], 10);
+        const month = monthMap[m[2].toLowerCase()];
+        const year = m[3] ? parseInt(m[3], 10) : 2026;
+        return new Date(year, month, day).getTime();
+    }
+    
+    const d = new Date(str);
+    return isNaN(d.getTime()) ? 0 : d.getTime();
+}
+
+function mergeGlorriDataSync() {
     try {
-        let glorriJobs = [];
         if (typeof window !== 'undefined' && window.GlorriVacanciesData && Array.isArray(window.GlorriVacanciesData)) {
-            glorriJobs = window.GlorriVacanciesData;
-        } else if (typeof fetch !== 'undefined') {
-            const response = await fetch('js/glorri_vacancies_final.json');
-            if (response.ok) {
-                glorriJobs = await response.json();
-            }
-        }
-        
-        if (Array.isArray(glorriJobs) && glorriJobs.length > 0) {
+            const glorriJobs = window.GlorriVacanciesData;
             if (!window.SkillMapData) window.SkillMapData = {};
             if (!Array.isArray(window.SkillMapData.liveVacancies)) window.SkillMapData.liveVacancies = [];
             
-            const existingGlorri = window.SkillMapData.liveVacancies.filter(v => v.source === 'glorri.az' || (v.id && String(v.id).startsWith('glorri_')));
-            if (existingGlorri.length === 0) {
-                const formatted = glorriJobs.map((job, idx) => ({
-                    id: 'glorri_' + (idx + 1),
-                    job_title: job.title,
-                    title: job.title,
-                    company: job.company || "Açıq Vakansiya",
-                    url: job.url,
-                    source_url: job.url,
-                    date: job.date || "Avqust 2026",
-                    posted_date: job.date || "Avqust 2026",
-                    created_at: job.date || "Avqust 2026",
-                    views: job.views || "100+",
-                    view_count: job.views || "100+",
-                    requirements: job.requirements || "",
-                    source: 'glorri.az',
-                    sector: detectGlorriSector(job.title, job.requirements),
-                    location: 'Bakı',
-                    type: 'Tam Ştat',
-                    data_quality_score: 85,
-                    skills: extractGlorriSkills(job.requirements || job.title)
-                }));
-                
-                window.SkillMapData.liveVacancies = [
-                    ...window.SkillMapData.liveVacancies,
-                    ...formatted
-                ];
-                
-                console.log('Glorri data loaded:', formatted.length, 'vacancies. Total now:', 
-                    window.SkillMapData.liveVacancies.length);
+            // Filter out any unwanted Çayçı vacancy or old duplicates
+            window.SkillMapData.liveVacancies = window.SkillMapData.liveVacancies.filter(v => {
+                const title = (v.title || v.job_title || "").toLowerCase();
+                const id = String(v.id || "");
+                if (title === "çayçı" || id === "149043") return false;
+                if (v.source === 'glorri.az' || id.startsWith('glorri_')) return false;
+                return true;
+            });
+            
+            const formatted = glorriJobs.map((job, idx) => ({
+                id: 'glorri_' + (idx + 1),
+                job_title: job.title,
+                title: job.title,
+                company: job.company || "Açıq Vakansiya",
+                url: job.url,
+                source_url: job.url,
+                date: job.date || "Avqust 2026",
+                posted_date: job.date || "Avqust 2026",
+                created_at: job.date || "Avqust 2026",
+                views: job.views || "100+",
+                view_count: job.views || "100+",
+                requirements: job.requirements || "",
+                source: 'glorri.az',
+                sector: detectGlorriSector(job.title, job.requirements),
+                location: 'Bakı',
+                type: 'Tam Ştat',
+                data_quality_score: 85,
+                skills: extractGlorriSkills(job.requirements || job.title)
+            }));
+            
+            const combined = [
+                ...window.SkillMapData.liveVacancies,
+                ...formatted
+            ];
+            
+            combined.sort((a, b) => {
+                const timeA = parseVacancyDateToTimestamp(a.created_at || a.posted_date || a.date);
+                const timeB = parseVacancyDateToTimestamp(b.created_at || b.posted_date || b.date);
+                return timeB - timeA;
+            });
+            
+            window.SkillMapData.liveVacancies = combined;
+            return true;
+        }
+    } catch (e) {
+        console.error("Glorri sync merge error:", e);
+    }
+    return false;
+}
+window.mergeGlorriDataSync = mergeGlorriDataSync;
+
+// Immediately execute synchronous merge
+mergeGlorriDataSync();
+
+async function loadGlorriData() {
+    if (mergeGlorriDataSync()) return;
+    try {
+        if (typeof fetch !== 'undefined') {
+            const response = await fetch('js/glorri_vacancies_final.json');
+            if (response.ok) {
+                const glorriJobs = await response.json();
+                window.GlorriVacanciesData = glorriJobs;
+                mergeGlorriDataSync();
             }
         }
     } catch (e) {
@@ -124,6 +195,7 @@ window.loadGlorriData = loadGlorriData;
 
 class SkillMapApp {
     constructor() {
+        mergeGlorriDataSync();
         this.data = (typeof window !== "undefined" && window.SkillMapData) 
             ? window.SkillMapData 
             : (typeof SkillMapData !== "undefined" ? SkillMapData : {});
@@ -170,13 +242,15 @@ class SkillMapApp {
 
     renderOverviewStats() {
         const stats = (this.data && this.data.macroMarketStats) ? this.data.macroMarketStats : {};
-        const totalVacs = stats.totalAnalyzed || (this.data.liveVacancies ? this.data.liveVacancies.length : 420);
+        const totalVacs = (this.data && this.data.liveVacancies && this.data.liveVacancies.length > 0) 
+            ? this.data.liveVacancies.length 
+            : (stats.totalAnalyzed || 1132);
 
         // 1. Total Vacancies
         const totalElem = document.getElementById("stat-total-vacancies");
-        if (totalElem) totalElem.textContent = `${totalVacs}`;
+        if (totalElem) totalElem.textContent = totalVacs.toLocaleString();
         const trustTotalElem = document.getElementById("trust-total-vacancies");
-        if (trustTotalElem) trustTotalElem.textContent = `${totalVacs} Real Vakansiya (Jobsearch.az)`;
+        if (trustTotalElem) trustTotalElem.textContent = `${totalVacs.toLocaleString()} Real Vakansiya (Jobsearch.az & Glorri.az)`;
 
         // 2. Top Demanded Skill (Overall Top Skill)
         const topSkills = stats.topSkillsAnalytics || stats.topDemandedSkillsOverall || [];

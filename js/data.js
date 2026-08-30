@@ -144,36 +144,6 @@ window.SkillMapData = {
 
     "liveVacancies": [
         {
-            "id": 149043,
-            "job_title": "Çayçı",
-            "title": "Çayçı",
-            "company": "Casamia",
-            "url": "https://jobsearch.az/vacancies/casamia-cayci-149043",
-            "source_url": "https://jobsearch.az/vacancies/casamia-cayci-149043",
-            "salary": "Razılaşma ilə",
-            "view_count": 0,
-            "created_at": "2026-08-20",
-            "posted_date": "2026-08-20",
-            "category": "Diger",
-            "sector": "Diger",
-            "requirements": "Səliqəli xarici görünüş, kollektivlə işləmə bacarığı, mehriban və gülərüz olması | Məsuliyyətli, intizamlı və işində dəqiq olması | İş vaxtlarına məsuliyyətli yanaşması vacibdir. | Təmizkar və işində məsuliyyətli olmaq | Komanda ilə işləmə bacarığı",
-            "skills": [
-                "Kommunikasiya",
-                "Komanda ilə İş"
-            ],
-            "nlp_extracted_skills": [
-                "Kommunikasiya",
-                "Komanda ilə İş"
-            ],
-            "skill_ids": [
-                "communication",
-                "teamwork"
-            ],
-            "data_quality_score": 80,
-            "location": "Bakı",
-            "type": "Tam Ştat"
-        },
-        {
             "id": 149044,
             "job_title": "İngilis dili müəllimi",
             "title": "İngilis dili müəllimi",
