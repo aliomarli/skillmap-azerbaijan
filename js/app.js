@@ -108,21 +108,20 @@ class SkillMapApp {
 
         if (this.auth.isLoggedIn()) {
             const user = this.auth.currentUser;
-            const initials = user.name.split(" ").map(n => n.charAt(0)).join("").toUpperCase().slice(0, 2) || "TL";
+            const initials = user.name ? user.name.split(" ").map(n => n.charAt(0)).join("").toUpperCase().slice(0, 2) : "TL";
 
             if (authContainer) {
                 authContainer.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/80 cursor-pointer shadow-2xs hover:bg-indigo-100/60 transition-all" onclick="app.switchTab('student-gap')">
-                            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-200/80 cursor-pointer shadow-2xs hover:bg-indigo-100/60 transition-all" onclick="app.switchTab('student-gap')">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-[10px] shadow-sm">
                                 ${initials}
                             </div>
                             <div class="text-left hidden sm:block">
-                                <div class="text-xs font-bold text-slate-900 leading-tight">${user.name}</div>
-                                <div class="text-[10px] text-indigo-700 font-semibold">${user.university} (${user.degree})</div>
+                                <div class="text-xs font-bold text-slate-900 leading-tight truncate max-w-[100px]">${user.name}</div>
                             </div>
                         </div>
-                        <button onclick="app.handleLogout()" class="p-2 text-slate-400 hover:text-rose-600 rounded-lg text-xs transition-colors" title="Çıxış Et">
+                        <button onclick="app.handleLogout()" class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg text-xs transition-colors" title="Çıxış Et">
                             <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </div>
@@ -153,9 +152,9 @@ class SkillMapApp {
         } else {
             if (authContainer) {
                 authContainer.innerHTML = `
-                    <button onclick="app.openAuthModal('login')" class="btn-saas-outline px-3.5 py-2 rounded-full text-slate-800 hover:text-indigo-600 font-bold text-xs shadow-2xs flex items-center gap-1.5 transition-all">
-                        <i class="fas fa-user-lock text-indigo-600"></i>
-                        <span>Kabinetə Daxil Ol</span>
+                    <button onclick="app.openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm shadow-indigo-500/20 flex items-center gap-1.5 transition-all whitespace-nowrap">
+                        <i class="fas fa-user-lock text-[10px]"></i>
+                        <span>Kabinetə Giriş</span>
                     </button>
                 `;
             }

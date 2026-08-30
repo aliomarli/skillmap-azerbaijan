@@ -50,81 +50,75 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <!-- 1. ÜST NAVİQASİYA (Header & Navigation) -->
-    <header class="sticky top-0 z-50 light-glass-nav border-b border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="flex items-center gap-3 cursor-pointer" onclick="app.switchTab('overview')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white font-black text-xl shadow-md shadow-indigo-500/20">
+    <!-- 1. ÜST NAVİQASİYA (Header & Navigation - Kompakt & Sürüşməsiz) -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+            <div class="flex items-center justify-between h-16 gap-2">
+                
+                <!-- 1. Logo -->
+                <div class="flex items-center gap-2 cursor-pointer flex-shrink-0" onclick="app.switchTab('overview')">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white font-black text-base shadow-md shadow-indigo-500/20">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="font-black text-xl text-slate-900 tracking-tight">SkillMap</span>
-                            <span class="text-xs font-black px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">AZ</span>
+                        <div class="flex items-center gap-1">
+                            <span class="font-black text-base text-slate-900 tracking-tight">SkillMap</span>
+                            <span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">AZ</span>
                         </div>
-                        <p class="text-[10px] text-slate-500 font-semibold tracking-tight">Əmək Bazarı & Bacarıq İntellekti</p>
+                        <p class="text-[8px] text-slate-500 font-semibold tracking-tight hidden sm:block">Əmək Bazarı & Bacarıq İntellekti</p>
                     </div>
                 </div>
 
-                <!-- Naviqasiya Linkləri (Həmişə Görünən Əsas Menyu) -->
-                <nav class="flex items-center gap-1 overflow-x-auto">
-                    <button onclick="app.switchTab('overview')" data-tab-btn="overview" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-indigo-700 bg-indigo-50 font-bold whitespace-nowrap">
-                        <i class="fas fa-home mr-1 text-indigo-600"></i>Ana Səhifə
+                <!-- 2. Əsas Naviqasiya Linkləri (Metodologiya və NLP çıxarıldı, sürüşməsiz) -->
+                <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-shrink min-w-0">
+                    <button onclick="app.switchTab('overview')" data-tab-btn="overview" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all text-indigo-700 bg-indigo-50 whitespace-nowrap">
+                        <i class="fas fa-home mr-1 text-indigo-600 text-[10px]"></i>Ana Səhifə
                     </button>
-                    <button onclick="app.switchTab('student-gap')" data-tab-btn="student-gap" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-id-card mr-1 text-slate-400"></i>Şəxsi Kabinet
+                    <button onclick="app.switchTab('student-gap')" data-tab-btn="student-gap" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-id-card mr-1 text-slate-400 text-[10px]"></i>Şəxsi Kabinet
                     </button>
-                    <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-briefcase mr-1 text-slate-400"></i>Canlı Vakansiyalar
+                    <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-briefcase mr-1 text-slate-400 text-[10px]"></i>Vakansiyalar
                     </button>
-                    <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-building mr-1 text-slate-400"></i>Top 10 İşəgötürən
+                    <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-building mr-1 text-slate-400 text-[10px]"></i>Top 10 Şirkət
                     </button>
-                    <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-chart-line mr-1 text-slate-400"></i>Analitika
+                    <button onclick="app.switchTab('vacancy-analytics')" data-tab-btn="vacancy-analytics" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-chart-line mr-1 text-slate-400 text-[10px]"></i>Analitika
                     </button>
-                    <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-university mr-1 text-slate-400"></i>Universitetlər
+                    <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-university mr-1 text-slate-400 text-[10px]"></i>Universitetlər
                     </button>
-                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-landmark mr-1 text-slate-400"></i>Dövlət / Siyasət
-                    </button>
-                    <button onclick="app.switchTab('nlp-sandbox')" data-tab-btn="nlp-sandbox" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-microchip mr-1 text-slate-400"></i>NLP Simulyatoru
-                    </button>
-                    <button onclick="app.switchTab('methodology')" data-tab-btn="methodology" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-book-bookmark mr-1 text-slate-400"></i>Metodologiya
+                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-landmark mr-1 text-slate-400 text-[10px]"></i>Dövlət / Siyasət
                     </button>
                 </nav>
 
-                <!-- Sağ düymələr: Giriş/Profil, Dil və Data Yüklə -->
-                <div class="flex items-center gap-2.5 flex-shrink-0">
+                <!-- 3. Sağ Tərəf: Səliqəli Giriş və Əməliyyatlar -->
+                <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                     <!-- Dinamik Giriş / Profil Konteyneri -->
-                    <div id="header-auth-container">
-                        <!-- JavaScript ilə doldurulacaq -->
+                    <div id="header-auth-container" class="flex items-center">
+                        <button onclick="app.openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm shadow-indigo-500/20 flex items-center gap-1.5 transition-all whitespace-nowrap">
+                            <i class="fas fa-user-lock text-[10px]"></i>
+                            <span>Kabinetə Giriş</span>
+                        </button>
                     </div>
 
                     <!-- Dil Seçimi -->
-                    <button id="lang-toggle-btn" onclick="app.toggleLanguage()" class="px-3 py-1.5 rounded-full text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all flex items-center gap-1.5" title="Dili Dəyiş / Switch Language">
-                        <span class="text-sm">🇦🇿</span> <span class="font-bold">AZ</span>
-                    </button>
-                    
-                    <button onclick="app.openAuthModal('register')" class="btn-saas-primary px-4 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1.5">
-                        <i class="fas fa-bolt text-amber-300"></i>
-                        <span>İndi Başla</span>
+                    <button id="lang-toggle-btn" onclick="app.toggleLanguage()" class="px-2 py-1.5 rounded-full text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all flex items-center gap-1" title="Dili Dəyiş / Switch Language">
+                        <span class="text-xs">🇦🇿</span> <span class="font-bold text-[10px]">AZ</span>
                     </button>
 
-                    <button onclick="app.openDataModal()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs transition-all">
-                        <i class="fas fa-database text-indigo-600"></i>
-                        <span>Data Yüklə</span>
+                    <!-- Data Yüklə Modalı -->
+                    <button onclick="app.openDataModal()" class="hidden 2xl:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 shadow-2xs transition-all whitespace-nowrap" title="Baza yüklə">
+                        <i class="fas fa-database text-indigo-600 text-[10px]"></i>
+                        <span>Baza</span>
                     </button>
                 </div>
+
             </div>
         </div>
     </header>
-
     <!-- ƏSAS MƏZMUN -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
