@@ -14304,7 +14304,220 @@ window.SkillMapData = {
             "nav_nlp": "NLP Sandbox",
             "nav_methodology": "Methodology"
         }
+    },
+    internshipPrograms: [
+    {
+        "title": "Mühasibatlıq üzrə Təcrübəçi",
+        "company": "Finansxan",
+        "url": "https://jobsearch.az/internship-program/finansxan-muhasibatliq-uzre-tecrubeci-136056",
+        "date": "27 avq",
+        "views": "1.3K"
+    },
+    {
+        "title": "Rəqəmsal Marketinq üzrə təcrübəçi",
+        "company": "Emsan",
+        "url": "https://jobsearch.az/internship-program/emsan-reqemsal-marketinq-uzre-tecrubeci-149748",
+        "date": "27 avq",
+        "views": "317"
+    },
+    {
+        "title": "3 Aylıq Təcrübə Proqramı — Təcrübəçi Mühasib",
+        "company": "Element Construction MMC",
+        "url": "https://jobsearch.az/internship-program/element-construction-mmc-3-ayliq-tecrube-proqrami-tecrubeci-muhasib-149482",
+        "date": "25 avq",
+        "views": "1.2K"
+    },
+    {
+        "title": "Product Owner Intern (Russsian required)",
+        "company": "TREVA",
+        "url": "https://jobsearch.az/internship-program/treva-product-owner-intern-russsian-required-149570",
+        "date": "25 avq",
+        "views": "421"
+    },
+    {
+        "title": "Təcrübəçi-texnik",
+        "company": "FastNet Technology MMC",
+        "url": "https://jobsearch.az/internship-program/fastnet-technology-mmc-tecrubeci-texnik-149345",
+        "date": "24 avq",
+        "views": "686"
+    },
+    {
+        "title": "SMM Təcrübəçisi",
+        "company": "NextGen Consulting",
+        "url": "https://jobsearch.az/internship-program/nextgen-consulting-smm-tecrubecisi-149204",
+        "date": "23 avq",
+        "views": "682"
+    },
+    {
+        "title": "Mühasibatlıq və HR üzrə Praktiki Təcrübə Proqramı (İş İmkanı ilə)",
+        "company": "BAA Consulting",
+        "url": "https://jobsearch.az/internship-program/baa-consulting-muhasibatliq-ve-hr-uzre-praktiki-tecrube-proqrami-is-imkani-ile-149166",
+        "date": "21 avq",
+        "views": "1.3K"
+    },
+    {
+        "title": "Marketinq Təcrübəçi",
+        "company": "Aqrar İnnovasiya və Təchizat Şirkəti",
+        "url": "https://jobsearch.az/internship-program/aqrar-innovasiya-ve-techizat-sirketi-marketinq-tecrubeci-149144",
+        "date": "20 avq",
+        "views": "844"
+    },
+    {
+        "title": "Təcrübəçi",
+        "company": "Accelerated Career Academy",
+        "url": "https://jobsearch.az/internship-program/accelerated-career-academy-tecrubeci-149134",
+        "date": "20 avq",
+        "views": "1.2K"
+    },
+    {
+        "title": "Helpdesk Təcrübəçisi (Helpdesk Intern)",
+        "company": "Rabalon",
+        "url": "https://jobsearch.az/internship-program/rabalon-helpdesk-tecrubecisi-helpdesk-intern-148951",
+        "date": "19 avq",
+        "views": "1.1K"
+    },
+    {
+        "title": "Satış üzrə təcrübəçi",
+        "company": "Facemark.az",
+        "url": "https://jobsearch.az/internship-program/facemarkaz-satis-uzre-tecrubeci-148714",
+        "date": "17 avq",
+        "views": "796"
+    },
+    {
+        "title": "Xaricdə Təhsil üzrə Təcrübəçi",
+        "company": "Knight Academy",
+        "url": "https://jobsearch.az/internship-program/knight-academy-xaricde-tehsil-uzre-tecrubeci-148800",
+        "date": "17 avq",
+        "views": "721"
+    },
+    {
+        "title": "Qəza komissarlığı üzrə təcrübəçi",
+        "company": "PASHA Insurance",
+        "url": "https://jobsearch.az/internship-program/pasha-insurance-qeza-komissarligi-uzre-tecrubeci-148721",
+        "date": "17 avq",
+        "views": "936"
+    },
+    {
+        "title": "SAP ABAP üzrə Təcrübəçi",
+        "company": "IM Solutions MMC",
+        "url": "https://jobsearch.az/internship-program/im-solutions-mmc-sap-abap-uzre-tecrubeci-148407",
+        "date": "12 avq",
+        "views": "1.1K"
+    },
+    {
+        "title": "Təcrübəçi Mühasib",
+        "company": "Crystal Accfin MMC",
+        "url": "https://jobsearch.az/internship-program/crystal-accfin-mmc-tecrubeci-muhasib-142539",
+        "date": "12 avq",
+        "views": "3.8K"
+    },
+    {
+        "title": "Стажёр по математике",
+        "company": "TED Academy",
+        "url": "https://jobsearch.az/internship-program/ted-tehsil-merkezi-stazer-po-matematike-148281",
+        "date": "11 avq",
+        "views": "199"
+    },
+    {
+        "title": "Qrafik və Motion Dizayn üzrə Mentor (Təcrübəçi)",
+        "company": "Basic Academy",
+        "url": "https://jobsearch.az/internship-program/basic-academy-qrafik-ve-motion-dizayn-uzre-mentor-tecrubeci-148303",
+        "date": "11 avq",
+        "views": "550"
+    },
+    {
+        "title": "Təcrübə Proqramı",
+        "company": "Avex Audit and Consulting",
+        "url": "https://jobsearch.az/internship-program/avex-audit-and-consulting-tecrube-proqrami-148231",
+        "date": "11 avq",
+        "views": "1.5K"
+    },
+    {
+        "title": "Anbardar (təcrübəçi)",
+        "company": "BabyChick",
+        "url": "https://jobsearch.az/internship-program/babychick-anbardar-tecrubeci-148269",
+        "date": "11 avq",
+        "views": "1.1K"
+    },
+    {
+        "title": "Kredit mütəxəssisi təcrübə proqramı",
+        "company": "GL ASC",
+        "url": "https://jobsearch.az/internship-program/g-asc-kredit-mutexessisi-tecrube-proqrami-146327",
+        "date": "10 avq",
+        "views": "3.1K"
+    },
+    {
+        "title": "Mühasibatlıq üzrə Praktikant",
+        "company": "Sat Finance Consulting",
+        "url": "https://jobsearch.az/internship-program/sat-finance-consulting-muhasibatliq-uzre-praktikant-148158",
+        "date": "10 avq",
+        "views": "1.2K"
+    },
+    {
+        "title": "Daxili Logistika üzrə kiçik mütəxəssis / təcrübəçi",
+        "company": "Sahil Transport MMC",
+        "url": "https://jobsearch.az/internship-program/sahil-transport-mmc-daxili-logistika-uzre-kicik-mutexessis-tecrubeci-148061",
+        "date": "09 avq",
+        "views": "1.3K"
+    },
+    {
+        "title": "Planlama üzrə təcrübəçi",
+        "company": "METAK",
+        "url": "https://jobsearch.az/internship-program/metak-planlama-uzre-tecrubeci-148092",
+        "date": "09 avq",
+        "views": "966"
+    },
+    {
+        "title": "SMM Təcrübəçi",
+        "company": "Business Management School MMC",
+        "url": "https://jobsearch.az/internship-program/business-management-school-mmc-smm-tecrubeci-148041",
+        "date": "09 avq",
+        "views": "1K"
+    },
+    {
+        "title": "Problemli kreditlər üzrə təcrübə proqramı",
+        "company": "FinCol Group MMC",
+        "url": "https://jobsearch.az/internship-program/fincol-group-mmc-problemli-kreditler-uzre-tecrube-proqrami-148203",
+        "date": "07 avq",
+        "views": "660"
+    },
+    {
+        "title": "Təcrübəçi – Ofis Koordinasiyası və Satış Əməliyyatları",
+        "company": "SalArchi Group",
+        "url": "https://jobsearch.az/internship-program/salarchi-group-tecrubeci-ofis-koordinasiyasi-ve-satis-emeliyyatlari-147870",
+        "date": "06 avq",
+        "views": "1.1K"
+    },
+    {
+        "title": "Frontend Developer Intern",
+        "company": "PMIS MMC",
+        "url": "https://jobsearch.az/internship-program/pmis-mmc-frontend-developer-intern-147693",
+        "date": "04 avq",
+        "views": "853"
+    },
+    {
+        "title": "Стажёр по математике",
+        "company": "TED Academy",
+        "url": "https://jobsearch.az/internship-program/ted-tehsil-merkezi-stazer-po-matematike-147669",
+        "date": "04 avq",
+        "views": "240"
+    },
+    {
+        "title": "HR Təcrübə Proqramı",
+        "company": "Port Education Center",
+        "url": "https://jobsearch.az/internship-program/port-education-center-hr-tecrube-proqrami-147601",
+        "date": "04 avq",
+        "views": "1.9K"
+    },
+    {
+        "title": "Bank İşinin Təşkili və İdarə Edilməsi – 3 aylıq proqram",
+        "company": "Port Education Center",
+        "url": "https://jobsearch.az/internship-program/port-education-center-bank-isinin-teskili-ve-idare-edilmesi-3-ayliq-proqram-147600",
+        "date": "04 avq",
+        "views": "1.6K"
     }
+],
+
 };
 
 var SkillMapData = window.SkillMapData;

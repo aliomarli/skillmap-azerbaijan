@@ -80,6 +80,9 @@
                     <button onclick="app.switchTab('live-vacancies')" data-tab-btn="live-vacancies" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-briefcase mr-1 text-slate-400 text-[10px]"></i>Vakansiyalar
                     </button>
+                    <button onclick="app.switchTab('internships')" data-tab-btn="internships" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
+                        <i class="fas fa-graduation-cap mr-1 text-slate-400 text-[10px]"></i>Təcrübə
+                    </button>
                     <button onclick="app.switchTab('interactive-map')" data-tab-btn="interactive-map" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-building mr-1 text-slate-400 text-[10px]"></i>Şirkətlər
                     </button>
@@ -1675,7 +1678,64 @@
                 <!-- ======================================================== -->
         <!-- TAB 4: TOP 10 İŞƏGÖTÜRƏNLƏR (ƏN ÇOX VAKANSİYA AÇAN ŞİRKƏTLƏR) -->
         <!-- ======================================================== -->
-        <section id="tab-interactive-map" class="tab-content space-y-6">
+        
+        <!-- ======================================================== -->
+        <!-- TAB 3.5: TƏCRÜBƏ PROQRAMLARI (INTERNSHIPS & TRAINEESHIPS) -->
+        <!-- ======================================================== -->
+        <section id="tab-internships" class="tab-content space-y-6">
+            
+            <!-- 1. Header Banner -->
+            <div class="bg-gradient-to-r from-emerald-900 via-slate-900 to-slate-950 text-white rounded-3xl p-6 sm:p-8 border border-emerald-800/40 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 z-10 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Jobsearch.az Real Elanları</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+                        <span>🎓 Təcrübə Proqramları</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                        Tələbələr və gənc mütəxəssislər üçün Azərbaycanın aparıcı şirkətlərində praktiki təcrübə, öyrənmə və karyeraya birbaşa başlama imkanları.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row md:flex-col items-start md:items-end gap-2.5 z-10">
+                    <div class="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-white flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-500/30 text-emerald-300 flex items-center justify-center font-bold">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-slate-300 font-medium">Aktiv Proqramlar</div>
+                            <div class="text-lg font-black text-white" id="internships-total-count">30 Real Elan</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Axtarış və Filtr Paneli -->
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="relative flex-1 w-full">
+                    <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="internship-search-input" oninput="app.filterInternships(this.value)" placeholder="Vəzifə və ya şirkət adı ilə axtarın (məs: Mühasib, Marketinq, PMIS, PASHA...)" class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                    <span id="internship-count-badge" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200/80 whitespace-nowrap">
+                        30 Elan tapıldı
+                    </span>
+                    <button onclick="document.getElementById('internship-search-input').value=''; app.filterInternships('');" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs transition-all whitespace-nowrap" title="Axtarışı sıfırla">
+                        <i class="fas fa-rotate-left mr-1"></i>Sıfırla
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Təcrübə Proqramları Grid (3 Sütun) -->
+            <div id="internships-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
+                <!-- JavaScript ilə doldurulacaq -->
+            </div>
+
+        </section>
+
+<section id="tab-interactive-map" class="tab-content space-y-6">
             <!-- Başlıq və Məlumat -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
                 <div>

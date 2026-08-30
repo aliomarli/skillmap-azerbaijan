@@ -57,6 +57,7 @@ class SkillMapApp {
         } catch (e) { console.error("Error in renderTopEmployers:", e); }
 
         try { this.renderLiveVacancies(); } catch (e) { console.error("Error in renderLiveVacancies:", e); }
+        try { this.renderInternships(); } catch (e) { console.error("Error in renderInternships:", e); }
         try { this.renderMethodologyView(); } catch (e) { console.error("Error in renderMethodologyView:", e); }
 
         try { this.loadSampleNLP(0); } catch (e) { console.error("Error in loadSampleNLP:", e); }
@@ -2352,6 +2353,8 @@ class SkillMapApp {
             setTimeout(() => {
                 if (this.charts.studentRadar) this.charts.studentRadar.resize();
             }, 100);
+        } else if (tabId === "internships") {
+            this.renderInternships();
         }
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2781,6 +2784,105 @@ class SkillMapApp {
         if (tabEl) {
             tabEl.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+    }
+
+    // ========================================================
+    // TƏCRÜBƏ PROQRAMLARI (INTERNSHIPS & TRAINEESHIPS)
+    // ========================================================
+    renderInternships(filteredList = null) {
+        const grid = document.getElementById("internships-grid");
+        const countBadge = document.getElementById("internship-count-badge");
+        const totalCount = document.getElementById("internships-total-count");
+        if (!grid) return;
+
+        const list = filteredList !== null ? filteredList : (this.data && this.data.internshipPrograms ? this.data.internshipPrograms : []);
+        
+        if (totalCount && this.data && this.data.internshipPrograms) {
+            totalCount.textContent = `${this.data.internshipPrograms.length} Real Elan`;
+        }
+
+        if (countBadge) {
+            countBadge.textContent = `${list.length} Elan tapıldı`;
+        }
+
+        if (list.length === 0) {
+            grid.innerHTML = `
+                <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-slate-200 p-8 space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center text-xl mx-auto">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="text-sm font-bold text-slate-800">Axtarışa uyğun təcrübə proqramı tapılmadı</div>
+                    <p class="text-xs text-slate-400">Axtarış parametrini dəyişdirərək yenidən yoxlayın.</p>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = list.map((item) => {
+            const initials = item.company ? item.company.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) : "TP";
+            return `
+                <div class="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between group">
+                    <div class="space-y-3.5">
+                        <!-- Top Row: Company Info & Date -->
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-slate-100 to-slate-200 border border-slate-200/80 text-slate-700 font-black text-xs flex items-center justify-center flex-shrink-0 group-hover:from-emerald-50 group-hover:to-teal-50 group-hover:text-emerald-700 transition-colors">
+                                    ${initials}
+                                </div>
+                                <div class="min-w-0">
+                                    <span class="text-xs font-bold text-slate-900 truncate block leading-tight" title="${item.company}">
+                                        ${item.company}
+                                    </span>
+                                    <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                                        <i class="fas fa-graduation-cap text-[9px]"></i> Təcrübə Proqramı
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-bold text-[10px] flex-shrink-0 whitespace-nowrap">
+                                ${item.date}
+                            </span>
+                        </div>
+
+                        <!-- Title -->
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 leading-snug group-hover:text-emerald-600 transition-colors line-clamp-2" title="${item.title}">
+                                ${item.title}
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Bottom: Views & Action Button -->
+                    <div class="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+                            <i class="fas fa-eye text-slate-400 text-[11px]"></i>
+                            <span>${item.views} baxış</span>
+                        </div>
+                        
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-xs shadow-emerald-500/20 transition-all flex items-center gap-1.5 whitespace-nowrap">
+                            <span>Bax</span>
+                            <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    filterInternships(query) {
+        if (!this.data || !this.data.internshipPrograms) return;
+        const q = (query || "").toLowerCase().trim();
+        if (!q) {
+            this.renderInternships(this.data.internshipPrograms);
+            return;
+        }
+
+        const filtered = this.data.internshipPrograms.filter(item => {
+            const titleMatch = (item.title || "").toLowerCase().includes(q);
+            const companyMatch = (item.company || "").toLowerCase().includes(q);
+            return titleMatch || companyMatch;
+        });
+
+        this.renderInternships(filtered);
     }
 
     renderLiveVacancies() {
