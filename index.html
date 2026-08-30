@@ -1668,7 +1668,7 @@
                     <div class="w-full sm:w-80">
                         <div class="relative">
                             <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="text" id="vacancy-search-input" oninput="app.vacancyCurrentPage = 1; app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya bacarıq (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2.5 text-xs bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs font-medium text-slate-800">
+                            <input type="search" id="vacancy-search-input" name="search_vacancy_keywords_no_autofill" autocomplete="off" autocomplete="new-password" autocapitalize="none" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.vacancyCurrentPage = 1; app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya bacarıq (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2.5 text-xs bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs font-medium text-slate-800">
                         </div>
                     </div>
                 </div>
@@ -1700,7 +1700,7 @@
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
                     <div class="relative flex-1 w-full">
                         <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                        <input type="text" id="internship-search-input" oninput="app.filterInternships(this.value)" placeholder="Təcrübə vəzifəsi və ya şirkət adı ilə axtarın (məs: Mühasib, PMIS, Marketinq...)" class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                        <input type="search" id="internship-search-input" name="search_internship_keywords_no_autofill" autocomplete="off" autocomplete="new-password" autocapitalize="none" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.filterInternships(this.value)" placeholder="Təcrübə vəzifəsi və ya şirkət adı ilə axtarın (məs: Mühasib, PMIS, Marketinq...)" class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
                         <span id="internship-count-badge" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200/80 whitespace-nowrap">

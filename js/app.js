@@ -330,7 +330,7 @@ class SkillMapApp {
         } else {
             if (authContainer) {
                 authContainer.innerHTML = `
-                    <button onclick="app.openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm shadow-indigo-500/20 flex items-center gap-1.5 transition-all whitespace-nowrap">
+                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm shadow-indigo-500/20 flex items-center gap-1.5 transition-all whitespace-nowrap">
                         <i class="fas fa-user-lock text-[10px]"></i>
                         <span>Kabinetə Giriş</span>
                     </button>
@@ -576,7 +576,7 @@ class SkillMapApp {
             const welcomeBtns = document.querySelector("#cab-view-overview .pt-2.flex.flex-wrap");
             if (welcomeBtns) {
                 welcomeBtns.innerHTML = `
-                    <button onclick="app.openAuthModal('login')" class="px-5 py-2.5 rounded-full btn-saas-primary font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
+                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="px-5 py-2.5 rounded-full btn-saas-primary font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
                         <i class="fas fa-right-to-bracket"></i>
                         <span>Kabinetə Daxil Ol</span>
                     </button>
@@ -622,7 +622,7 @@ class SkillMapApp {
                                     Bilik və bacarıqlarınızı bazar tələbləri ilə müqayisə etmək və fərdi boşluqlarınızı aşkar etmək üçün daxil olun və ya qeydiyyatdan keçin.
                                 </p>
                                 <div class="flex items-center justify-center gap-2 pt-1">
-                                    <button onclick="app.openAuthModal('login')" class="px-4 py-2 rounded-full btn-saas-primary text-xs font-bold shadow-sm">
+                                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="px-4 py-2 rounded-full btn-saas-primary text-xs font-bold shadow-sm">
                                         Kabinetə Daxil Ol
                                     </button>
                                     <button onclick="app.openAuthModal('register')" class="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold">
@@ -812,7 +812,7 @@ class SkillMapApp {
                 </div>
 
                 <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 flex-shrink-0">
-                    <button onclick="app.openAuthModal('login')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-[11px] font-bold transition-all">
+                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 text-[11px] font-bold transition-all">
                         <i class="fas fa-lock text-[9px] text-slate-400 mr-1"></i>Uyğunluq üçün daxil olun
                     </button>
                     <a href="${job.url || job.source_url || `https://jobsearch.az/vacancies/${job.id || 'view'}`}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] transition-all flex items-center gap-1">
@@ -2403,32 +2403,6 @@ class SkillMapApp {
 
 
         initRouter() {
-        // Handle Browser Back / Forward buttons (popstate & hashchange)
-        window.addEventListener("popstate", (event) => {
-            const tabFromState = event.state && event.state.tab;
-            const tabFromHash = window.location.hash.replace(/^#/, "");
-            const targetTab = tabFromState || tabFromHash || "overview";
-            this.switchTab(targetTab, false);
-        });
-
-        window.addEventListener("hashchange", () => {
-            const targetTab = window.location.hash.replace(/^#/, "") || "overview";
-            if (targetTab !== this.currentActiveTab) {
-                this.switchTab(targetTab, false);
-            }
-        });
-
-        // Close open modals when pressing Escape key
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                this.closeAuthModal();
-                this.closeDataModal();
-                this.closeSurveyImportModal();
-            }
-        });
-
-        // Initial Route Resolution on page load
-        const initialHash = window.location.hash.replace(/^#/, "");
         const validTabs = [
             "overview",
             "student-gap",
@@ -2442,10 +2416,45 @@ class SkillMapApp {
             "admin"
         ];
 
-        if (initialHash && validTabs.includes(initialHash)) {
-            this.switchTab(initialHash, false);
+        // Handle Browser Back / Forward buttons (popstate & hashchange)
+        window.addEventListener("popstate", (event) => {
+            const tabFromState = event.state && event.state.tab;
+            const tabFromHash = window.location.hash.replace(/^#/, "");
+            let tabFromSession = null;
+            try { tabFromSession = sessionStorage.getItem("skillmap_active_tab"); } catch (e) {}
+            const targetTab = tabFromState || tabFromHash || tabFromSession || "overview";
+            if (validTabs.includes(targetTab)) {
+                this.switchTab(targetTab, false);
+            }
+        });
+
+        window.addEventListener("hashchange", () => {
+            const targetTab = window.location.hash.replace(/^#/, "");
+            if (targetTab && validTabs.includes(targetTab) && targetTab !== this.currentActiveTab) {
+                this.switchTab(targetTab, false);
+            }
+        });
+
+        // Close open modals when pressing Escape key
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                this.closeAuthModal();
+                this.closeDataModal();
+                this.closeSurveyImportModal();
+            }
+        });
+
+        // Initial Route Resolution on page load (preserves exact tab on refresh or back-return)
+        const initialHash = window.location.hash.replace(/^#/, "");
+        let initialTab = initialHash;
+        if (!initialTab) {
+            try { initialTab = sessionStorage.getItem("skillmap_active_tab"); } catch (e) {}
+        }
+
+        if (initialTab && validTabs.includes(initialTab)) {
+            this.switchTab(initialTab, false);
             try {
-                history.replaceState({ tab: initialHash }, "", `#${initialHash}`);
+                history.replaceState({ tab: initialTab }, "", `#${initialTab}`);
             } catch (e) {}
         } else {
             this.switchTab("overview", false);
@@ -2497,6 +2506,10 @@ class SkillMapApp {
             tabId = "overview";
         }
 
+        try {
+            sessionStorage.setItem("skillmap_active_tab", tabId);
+        } catch (e) {}
+
         const activeBtns = document.querySelectorAll(`[data-tab-btn="${tabId}"]`);
         
         if (tabId === "admin") {
@@ -2522,7 +2535,16 @@ class SkillMapApp {
         }
 
         if (tabId === "live-vacancies") {
-            this.switchVacSubTab("jobs");
+            let savedSubTab = "jobs";
+            try { savedSubTab = sessionStorage.getItem("skillmap_vac_subtab") || "jobs"; } catch (e) {}
+            this.switchVacSubTab(savedSubTab);
+
+            // Clean any accidental password-manager autofilled credential like admin@skillmap.az
+            const searchInput = document.getElementById("vacancy-search-input");
+            if (searchInput && !searchInput.dataset.userTyped && searchInput.value && searchInput.value.includes("@")) {
+                searchInput.value = "";
+                this.renderLiveVacancies();
+            }
         } else if (tabId === "vacancy-analytics") {
             setTimeout(() => {
                 if (this.charts.topSkills) this.charts.topSkills.resize();
@@ -2970,6 +2992,8 @@ class SkillMapApp {
     // ========================================================
 
     switchVacSubTab(tab) {
+        this.currentVacSubTab = tab;
+        try { sessionStorage.setItem("skillmap_vac_subtab", tab); } catch (e) {}
         const jobsBtn = document.getElementById("vac-subtab-btn-jobs");
         const internshipsBtn = document.getElementById("vac-subtab-btn-internships");
         const jobsView = document.getElementById("vac-subview-jobs");
@@ -3111,6 +3135,12 @@ class SkillMapApp {
         if (!container) return;
 
         const searchInput = document.getElementById("vacancy-search-input");
+        if (searchInput) {
+            // Prevent browser password manager from autofilling admin credentials (e.g. admin@skillmap.az)
+            if (!searchInput.dataset.userTyped && searchInput.value && searchInput.value.includes("@")) {
+                searchInput.value = "";
+            }
+        }
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
         const allVacancies = (this.data && Array.isArray(this.data.liveVacancies)) ? this.data.liveVacancies : [];
@@ -3193,7 +3223,7 @@ class SkillMapApp {
                 `;
             } else {
                 matchBadgeHtml = `
-                    <button onclick="app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 shadow-2xs transition-all whitespace-nowrap" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
+                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 shadow-2xs transition-all whitespace-nowrap" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
                         <i class="fas fa-lock text-[8px] text-slate-400"></i>Uyğunluq üçün daxil olun
                     </button>
                 `;
@@ -3233,7 +3263,7 @@ class SkillMapApp {
             const viewCount = vac.view_count || vac.views || 340;
 
             return `
-                <div class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group">
+                <div onclick="window.open('${directUrl}', '_blank', 'noopener,noreferrer')" class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group cursor-pointer">
                     <div class="space-y-3">
                         <div class="flex items-start justify-between gap-2.5">
                             <div class="flex items-start gap-3 min-w-0 flex-1">
@@ -3273,7 +3303,7 @@ class SkillMapApp {
                             <span><i class="far fa-calendar mr-1 text-slate-400"></i>${createdAt}</span>
                             <span><i class="far fa-eye mr-1 text-slate-400"></i>${viewCount} baxış</span>
                         </div>
-                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
+                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
                             <span>Elana bax</span>
                             <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
