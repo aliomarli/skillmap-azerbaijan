@@ -313,6 +313,19 @@ async function loadGlorriData() {
 window.loadGlorriData = loadGlorriData;
 
 class SkillMapApp {
+    setLanguage(lang) {
+        this.currentLang = lang;
+        if (typeof window.applyI18nLanguage === "function") {
+            window.applyI18nLanguage(this.currentLang);
+        }
+        this.renderLiveVacancies();
+    }
+
+    toggleLanguage() {
+        const nextLang = (this.currentLang === "en") ? "az" : "en";
+        this.setLanguage(nextLang);
+    }
+
     constructor() {
         mergeGlorriDataSync();
         this.data = (typeof window !== "undefined" && window.SkillMapData) 
@@ -334,6 +347,10 @@ class SkillMapApp {
         this.selectedVacancySector = 'all';
         this.charts = {};
 
+        let savedLang = 'az';
+        try { savedLang = localStorage.getItem('skillmap_lang') || 'az'; } catch(e) {}
+        this.currentLang = savedLang;
+        if (typeof window.applyI18nLanguage === 'function') window.applyI18nLanguage(this.currentLang);
         this.init();
     }
 
@@ -369,7 +386,7 @@ class SkillMapApp {
         const totalElem = document.getElementById("stat-total-vacancies");
         if (totalElem) totalElem.textContent = totalVacs.toLocaleString();
         const trustTotalElem = document.getElementById("trust-total-vacancies");
-        if (trustTotalElem) trustTotalElem.textContent = `${totalVacs.toLocaleString()} Real Vakansiya (Jobsearch.az & Glorri.az)`;
+        if (trustTotalElem) trustTotalElem.textContent = `${totalVacs.toLocaleString()} Real Vakansiya (Aktiv Baza)`;
 
         // 2. Top Demanded Skill (Overall Top Skill)
         const topSkills = stats.topSkillsAnalytics || stats.topDemandedSkillsOverall || [];
@@ -398,358 +415,21 @@ class SkillMapApp {
 
     updateAuthUI() {
         const authContainer = document.getElementById("header-auth-container");
-        const studentNameBanner = document.getElementById("student-profile-name-display");
-        const studentMetaBanner = document.getElementById("student-profile-meta-display");
-        const studentAvatarBadge = document.getElementById("student-avatar-badge");
-        const studentIdDisplay = document.getElementById("student-id-display");
+        if (!authContainer) return;
 
-        if (this.auth.isLoggedIn()) {
-            const user = this.auth.currentUser;
-            const initials = user.name ? user.name.split(" ").map(n => n.charAt(0)).join("").toUpperCase().slice(0, 2) : "TL";
-
-            if (authContainer) {
-                authContainer.innerHTML = `
-                    <div class="flex items-center gap-1.5">
-                        <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-50 border border-indigo-200/80 cursor-pointer shadow-2xs hover:bg-indigo-100/60 transition-all" onclick="app.switchTab('student-gap')">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-bold text-[10px] shadow-sm">
-                                ${initials}
-                            </div>
-                            <div class="text-left hidden sm:block">
-                                <div class="text-xs font-bold text-slate-900 leading-tight truncate max-w-[100px]">${user.name}</div>
-                            </div>
-                        </div>
-                        <button onclick="app.handleLogout()" class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg text-xs transition-colors" title="Çıxış Et">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </div>
-                `;
-            }
-
-            if (studentAvatarBadge) studentAvatarBadge.textContent = initials;
-            if (studentIdDisplay) studentIdDisplay.textContent = `ID: ${user.studentId || 'AZ-STD-2026'}`;
-            if (studentNameBanner) studentNameBanner.textContent = `${user.name} 👋`;
-            if (studentMetaBanner) {
-                studentMetaBanner.innerHTML = `
-                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-university text-indigo-600 mr-1.5"></i>${user.university} – ${user.faculty}</span>
-                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-star text-amber-500 mr-1.5"></i>ÜOMG: ${user.gpa || '88.4'}</span>
-                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-700 shadow-2xs"><i class="fas fa-language text-indigo-600 mr-1.5"></i>İngilis dili: ${user.englishLevel}</span>
-                `;
-            }
-
-            if (user.targetRole) {
-                const targetRoleSelect = document.getElementById("student-target-role");
-                if (targetRoleSelect && targetRoleSelect.value !== user.targetRole) {
-                    targetRoleSelect.value = user.targetRole;
-                }
-            }
-
-            if (user.savedSkills) {
-                this.currentSkills = { ...user.savedSkills };
-            }
-        } else {
-            if (authContainer) {
-                authContainer.innerHTML = `
-                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm shadow-indigo-500/20 flex items-center gap-1.5 transition-all whitespace-nowrap">
-                        <i class="fas fa-user-lock text-[10px]"></i>
-                        <span>Kabinetə Giriş</span>
-                    </button>
-                `;
-            }
-            if (studentNameBanner) studentNameBanner.textContent = `Tələbə və Məzun Karyera Kabineti 👋`;
-            if (studentAvatarBadge) studentAvatarBadge.textContent = "👤";
-            if (studentIdDisplay) studentIdDisplay.textContent = "Giriş Tələb Olunur";
-            if (studentMetaBanner) {
-                studentMetaBanner.innerHTML = `
-                    <span class="bg-white/80 border border-slate-200/80 px-2.5 py-1 rounded-lg text-slate-500 shadow-2xs"><i class="fas fa-lock text-slate-400 mr-1.5"></i>Şəxsi profilinizi görmək üçün daxil olun</span>
-                `;
-            }
-        }
-    }
-
-    openAuthModal(mode = 'login') {
-        const modal = document.getElementById("auth-modal");
-        if (modal) {
-            modal.classList.remove("hidden");
-            modal.style.display = "flex";
-            this.switchAuthMode(mode);
-            this.hideAuthError();
-        }
-    }
-
-    closeAuthModal() {
-        const modal = document.getElementById("auth-modal");
-        if (modal) {
-            modal.classList.add("hidden");
-            modal.style.display = "none";
-            this.hideAuthError();
-        }
-    }
-
-    switchAuthMode(mode) {
-        const loginBtn = document.getElementById("auth-tab-login-btn");
-        const regBtn = document.getElementById("auth-tab-reg-btn");
-        const loginForm = document.getElementById("form-login");
-        const regForm = document.getElementById("form-register");
-        const wizard = document.getElementById("wizard-register");
-
-        this.hideAuthError();
-
-        if (mode === 'register') {
-            if (regBtn) regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
-            if (loginBtn) loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
-            if (loginForm) {
-                loginForm.classList.add("hidden");
-                loginForm.style.display = "none";
-            }
-            if (regForm) {
-                regForm.classList.add("hidden");
-                regForm.style.display = "none";
-            }
-            if (wizard) {
-                wizard.classList.remove("hidden");
-                wizard.style.display = "block";
-                if (typeof window.switchRegStep === "function") {
-                    window.switchRegStep(1);
-                }
-            }
-        } else {
-            if (loginBtn) loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
-            if (regBtn) regBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
-            if (loginForm) {
-                loginForm.classList.remove("hidden");
-                loginForm.style.display = "block";
-            }
-            if (regForm) {
-                regForm.classList.add("hidden");
-                regForm.style.display = "none";
-            }
-            if (wizard) {
-                wizard.classList.add("hidden");
-                wizard.style.display = "none";
-            }
-        }
-    }
-
-    showAuthError(msg) {
-        const banner = document.getElementById("auth-error-banner");
-        const text = document.getElementById("auth-error-text");
-        if (banner && text) {
-            text.textContent = msg;
-            banner.classList.remove("hidden");
-        }
-    }
-
-    hideAuthError() {
-        const banner = document.getElementById("auth-error-banner");
-        if (banner) {
-            banner.classList.add("hidden");
-        }
-    }
-
-    togglePasswordVisibility(inputId) {
-        const input = document.getElementById(inputId);
-        if (input) {
-            input.type = input.type === "password" ? "text" : "password";
-        }
-    }
-
-    
-
-    async handleLoginSubmit(event) {
-        if (event) event.preventDefault();
-        const email = document.getElementById("login-email")?.value?.trim();
-        const password = document.getElementById("login-password")?.value;
-        const btn = document.querySelector("#form-login button[type='submit']");
-
-        if (btn) {
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Giriş edilir...';
-        }
-
-        try {
-            const result = await firebaseLogin(email, password);
-            if (result.success) {
-                if (this.auth) {
-                    await this.auth.loadUserProfile(result.uid, email);
-                }
-                this.updateAuthUI();
-                this.handleRoleChange();
-                this.runSkillGapCalculation();
-                this.closeAuthModal();
-                this.switchTab("student-gap");
-                this.showToast("Uğurla daxil oldunuz!");
-            } else {
-                this.showAuthError(result.error || "Giriş məlumatları yanlışdır.");
-            }
-        } catch (err) {
-            this.showAuthError(err.message);
-        } finally {
-            if (btn) {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-right-to-bracket mr-1.5"></i>Kabinetə Daxil Ol';
-            }
-        }
-    }
-
-
-    validateAndNextStep(step) {
-        if (step === 1) {
-            const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
-            const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
-            const fullName = `${firstName} ${lastName}`.trim();
-
-            if (!fullName || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(fullName)) {
-                showFieldError(document.getElementById("reg-firstname"), "Zəhmət olmasa düzgün ad və soyad daxil edin");
-                return;
-            }
-
-            switchRegStep(2);
-        } else if (step === 2) {
-            const email = document.getElementById("reg-email")?.value.trim() || "";
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showFieldError(document.getElementById("reg-email"), "Zəhmət olmasa düzgün email daxil edin");
-                return;
-            }
-            switchRegStep(3);
-        }
-    }
-
-    updatePasswordStrength(pwd) {
-        const bar1 = document.getElementById("pwd-bar-1");
-        const bar2 = document.getElementById("pwd-bar-2");
-        const bar3 = document.getElementById("pwd-bar-3");
-        const text = document.getElementById("password-strength-text");
-        if (!text) return;
-        
-        if (!pwd) {
-            text.textContent = "Daxil edilməyib";
-            text.className = "font-bold text-slate-400";
-            if (bar1) bar1.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-            return;
-        }
-        
-        let score = 0;
-        if (pwd.length >= 8) score++;
-        if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
-        if (/\d/.test(pwd)) score++;
-        
-        if (score === 1) {
-            text.textContent = "Zəif";
-            text.className = "font-bold text-rose-500";
-            if (bar1) bar1.className = "flex-1 bg-rose-500 rounded-full h-full transition-all";
-            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-        } else if (score === 2) {
-            text.textContent = "Orta";
-            text.className = "font-bold text-amber-500";
-            if (bar1) bar1.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
-            if (bar2) bar2.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
-            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
-        } else {
-            text.textContent = "Güclü";
-            text.className = "font-bold text-emerald-600";
-            if (bar1) bar1.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
-            if (bar2) bar2.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
-            if (bar3) bar3.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
-        }
-    }
-
-    async handleWizardRegisterSubmit() {
-        const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
-        const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
-        const fullName = `${firstName} ${lastName}`.trim();
-        const email = document.getElementById("reg-email")?.value.trim() || "";
-        const password = document.getElementById("reg-password")?.value || "";
-        const passwordConfirm = document.getElementById("reg-password-confirm")?.value || "";
-        const university = "UNEC";
-        const targetRole = "data_analyst";
-
-        const data = {
-            name: fullName,
-            email: email,
-            password: password,
-            passwordConfirm: passwordConfirm
-        };
-
-        const errors = validateRegistrationForm(data);
-        if (errors.length > 0) {
-            errors.forEach(msg => {
-                if (msg.includes("ad")) {
-                    showFieldError(document.getElementById("reg-firstname"), msg);
-                } else if (msg.includes("email")) {
-                    showFieldError(document.getElementById("reg-email"), msg);
-                } else if (msg.includes("Şifrə minimum")) {
-                    showFieldError(document.getElementById("reg-password"), msg);
-                } else if (msg.includes("uyğun gəlmir")) {
-                    showFieldError(document.getElementById("reg-password-confirm"), msg);
-
-                }
-            });
-            return;
-        }
-
-        const btn = document.getElementById("reg-submit-btn");
-        if (btn) {
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Hesab yaradılır...';
-        }
-
-        try {
-            const res = await firebaseRegister(fullName, email, password, university, "İqtisadiyyat", targetRole, "B2", "Bakalavr");
-            if (res.success) {
-                const emailDisp = document.getElementById("reg-sent-email-display");
-                if (emailDisp) emailDisp.textContent = email;
-                switchRegStep(4);
-            } else {
-                showFieldError(document.getElementById("reg-password"), res.error || "Qeydiyyat xətası baş verdi.");
-            }
-        } catch (e) {
-            showFieldError(document.getElementById("reg-password"), e.message);
-        } finally {
-            if (btn) {
-                btn.disabled = false;
-                btn.innerHTML = '<span>Qeydiyyatdan Keç</span><i class="fas fa-arrow-right text-[11px]"></i>';
-            }
-        }
-    }
-
-    async resendVerificationEmail() {
-        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
-        const user = authInstance ? authInstance.currentUser : null;
-        if (user && typeof user.sendEmailVerification === 'function') {
-            try {
-                await user.sendEmailVerification();
-                alert("Email yenidən göndərildi");
-            } catch (e) {
-                alert("Email göndərilmə xətası: " + e.message);
-            }
-        } else {
-            alert("Email yenidən göndərildi");
-        }
-    }
-
-    async checkEmailVerified() {
-        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
-        const user = authInstance ? authInstance.currentUser : null;
+        const user = this.auth ? this.auth.currentUser : null;
         if (user) {
-            try {
-                if (typeof user.reload === 'function') {
-                    await user.reload();
-                }
-                const updatedUser = authInstance.currentUser;
-                if (updatedUser && updatedUser.emailVerified) {
-                    switchRegStep('success');
-                } else {
-                    alert("Hələ email təsdiqlənməyib. Zəhmət olmasa linkə klikləyin.");
-                }
-            } catch (e) {
-                alert("Yoxlama xətası: " + e.message);
-            }
+            authContainer.innerHTML = `
+                <button onclick="app.switchCabinetView('profile')" class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shadow-2xs hover:bg-indigo-700 transition-all cursor-pointer" title="Kabinet: ${user.name || 'İstifadəçi'}">
+                    👤
+                </button>
+            `;
         } else {
-            // Local fallback
-            switchRegStep('success');
+            authContainer.innerHTML = `
+                <button onclick="app.openAuthModal('login')" class="w-9 h-9 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 flex items-center justify-center transition-all shadow-2xs group cursor-pointer" title="Daxil ol / Kabinet">
+                    <i class="fas fa-user text-xs group-hover:scale-110 transition-transform"></i>
+                </button>
+            `;
         }
     }
 
@@ -1785,7 +1465,7 @@ class SkillMapApp {
                     </div>
                     <div>
                         <span class="text-slate-400 font-bold uppercase block text-[10px]">Verifikasiya Tarixi</span>
-                        <div class="font-bold text-slate-800">Avqust 2026 (Jobsearch.az n=420)</div>
+                        <div class="font-bold text-slate-800">Avqust 2026 (Jobsearch.az n=1,132)</div>
                     </div>
                 </div>
 
@@ -3758,7 +3438,11 @@ class SkillMapApp {
             window.mapModuleInstance = this.mapModule;
             this.nlpSim = new NLPSimulator(this.data);
 
-            this.init();
+            let savedLang = 'az';
+        try { savedLang = localStorage.getItem('skillmap_lang') || 'az'; } catch(e) {}
+        this.currentLang = savedLang;
+        if (typeof window.applyI18nLanguage === 'function') window.applyI18nLanguage(this.currentLang);
+        this.init();
             this.closeDataModal();
             alert("Yeni vakansiya və əmək bazarı məlumatları uğurla tətbiq edildi!");
                } catch (e) {

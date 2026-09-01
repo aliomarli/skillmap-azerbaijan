@@ -89,7 +89,7 @@ class SkillPassportGenerator {
                         <div class="footer-meta">
                             <span>Verifikasiya ID: ${u.studentId || "AZ-UNEC-2026-8492"}</span>
                             <span>Tarix: ${dateStr}</span>
-                            <span>Məlumat Mənbəyi: Jobsearch.az Real Əmək Bazası</span>
+                            <span>Məlumat Mənbəyi: Əmək Bazarı Real Əmək Bazası</span>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 /**
  * SkillMap Azerbaijan - Top 10 İşəgötürənlər Mühərriki (topEmployersModule.js)
- * 420 Jobsearch.az real vakansiyası əsasında ən fəal şirkətlərin analitikası,
+ * 1,132 Əmək Bazarı vakansiyası əsasında ən fəal şirkətlərin analitikası,
  * sektor bölgüsü donut qrafiki, şirkət profili və fərdi bacarıq uyğunluğu.
  */
 
