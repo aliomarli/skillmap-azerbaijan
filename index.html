@@ -89,10 +89,7 @@
                     <button onclick="app.switchTab('university-dash')" data-tab-btn="university-dash" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
                         <i class="fas fa-university mr-1 text-slate-400 text-[10px]"></i>Universitetlər
                     </button>
-                    <button onclick="app.switchTab('policy-gov')" data-tab-btn="policy-gov" class="nav-btn px-2 xl:px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50 whitespace-nowrap">
-                        <i class="fas fa-landmark mr-1 text-slate-400 text-[10px]"></i>Dövlət / Siyasət
-                    </button>
-                </nav>
+                    </nav>
 
                 <!-- 3. Sağ Tərəf: Səliqəli Giriş və Əməliyyatlar -->
                 <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
@@ -240,7 +237,7 @@
             <!-- 3 İstifadəçi Portalı Kartı -->
             <div>
                 <h2 class="text-xl font-bold text-slate-900 mb-4">Kimlər Üçün Nəzərdə Tutulub?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs hover:shadow-md transition-all hover:border-indigo-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
@@ -268,21 +265,6 @@
                         </div>
                         <button onclick="app.switchTab('university-dash')" class="w-full py-2.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all">
                             Universitet Panelini Aç
-                        </button>
-                    </div>
-
-                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs hover:shadow-md transition-all hover:border-slate-400 group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-landmark"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2">📊 Dövlət və Tədqiqat Qurumları</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                                “Əmək bazarında hansı struktur disbalans var?” Regionlar və sektorlar üzrə strateji məşğulluq və subsidiyalaşdırma qərarları üçün məlumat bazası.
-                            </p>
-                        </div>
-                        <button onclick="app.switchTab('policy-gov')" class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-800 hover:text-white transition-all">
-                            Siyasət Panelini Aç
                         </button>
                     </div>
                 </div>
@@ -1993,71 +1975,6 @@
             </div>
 
             <div id="university-details-container" class="space-y-6">
-            </div>
-        </section>
-
-
-        <!-- ======================================================== -->
-        <!-- TAB 7: DÖVLƏT VƏ MƏŞĞULLUQ SİYASƏTİ PANENİ -->
-        <!-- ======================================================== -->
-        <section id="tab-policy-gov" class="tab-content space-y-6">
-            <div class="pb-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900">📊 Dövlət və Strateji Məşğulluq Siyasəti Paneli</h2>
-                    <p class="text-xs text-slate-500">Əmək bazarı disbalansı, gənclərin hazırlıq səviyyəsi və dövlət peşə hazırlığı subsidiyaları üçün qərar dəstək modulu.</p>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs flex-shrink-0 self-start sm:self-auto">
-                    <i class="fas fa-chart-line text-amber-600 text-[10px]"></i>
-                    <span>DEMO / STRATEJİ SİMULYASİYA MODELİ</span>
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
-                    <span class="text-xs font-bold text-slate-500 uppercase">Milli Gənc Məşğulluq İndeksi</span>
-                    <div class="text-3xl font-black text-indigo-600 mt-2">64.2 / 100</div>
-                    <p class="text-xs text-slate-500 mt-2">Ali təhsil məzunlarının ilk 6 ayda ixtisası üzrə iş tapma potensialı.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
-                    <span class="text-xs font-bold text-slate-500 uppercase">Ən Yüksək Struktur Çatışmazlıq</span>
-                    <div class="text-3xl font-black text-rose-600 mt-2">Data & SQL (-52%)</div>
-                    <p class="text-xs text-slate-500 mt-2">İqtisadiyyat və idarəetmə məzunları arasında data savadlılığı çatışmazlığı.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-2xs">
-                    <span class="text-xs font-bold text-slate-500 uppercase">Tövsiyə Olunan Təlim Büdcəsi</span>
-                    <div class="text-3xl font-black text-emerald-600 mt-2">2.4 Milyon AZN</div>
-                    <p class="text-xs text-slate-500 mt-2">DMA və Gənclər Fondu vasitəsilə IT və Data analitika qrantları üçün optimal həcm.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-2xs space-y-4">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fas fa-clipboard-check text-indigo-600"></i>Strateji Dövlət Müdaxilə Təklifləri
-                </h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                        <div class="font-bold text-slate-900 flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">1</span>
-                            Universitetlərdə "Data Literacy" Məcburi Fənn Modulu
-                        </div>
-                        <p class="text-slate-600 leading-relaxed">
-                            Bütün qeyri-texniki (maliyyə, iqtisadiyyat, marketinq) fakültələrin tədris proqramına baza SQL və Power BI laboratoriyalarının inteqrasiyası.
-                        </p>
-                    </div>
-
-                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                        <div class="font-bold text-slate-900 flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">2</span>
-                            Regional Əmək Mərkəzləri Subsidiyası
-                        </div>
-                        <p class="text-slate-600 leading-relaxed">
-                            Gəncə və Sumqayıt sənaye mərkəzlərində gənclər üçün praktiki proqramlaşdırma və 1C ERP təlimlərinin dövlət tərəfindən maliyyələşdirilməsi.
-                        </p>
-                    </div>
-                </div>
             </div>
         </section>
 

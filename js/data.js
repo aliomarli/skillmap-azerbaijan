@@ -14265,8 +14265,7 @@ window.SkillMapData = {
             "nav_vacancies": "Canlı Vakansiyalar",
             "nav_analytics": "Analitika",
             "nav_university": "Universitetlər",
-            "nav_policy": "Dövlət / Siyasət",
-            "nav_nlp": "NLP Simulyatoru",
+                        "nav_nlp": "NLP Simulyatoru",
             "nav_methodology": "Metodologiya"
         },
         "en": {
@@ -14276,8 +14275,7 @@ window.SkillMapData = {
             "nav_vacancies": "Live Vacancies",
             "nav_analytics": "Analytics",
             "nav_university": "Universities",
-            "nav_policy": "Policy & Gov",
-            "nav_nlp": "NLP Sandbox",
+                        "nav_nlp": "NLP Sandbox",
             "nav_methodology": "Methodology"
         }
     },

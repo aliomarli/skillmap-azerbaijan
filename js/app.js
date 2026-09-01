@@ -2651,8 +2651,7 @@ class SkillMapApp {
             "interactive-map",
             "vacancy-analytics",
             "university-dash",
-            "policy-gov",
-            "nlp-sandbox",
+                        "nlp-sandbox",
             "methodology",
             "admin"
         ];
