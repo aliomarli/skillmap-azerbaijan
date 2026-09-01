@@ -2774,6 +2774,16 @@ class SkillMapApp {
             }
         }
 
+        if (tabId === "overview") {
+            if (window.HeroWallpaper && typeof window.HeroWallpaper.start === 'function') {
+                window.HeroWallpaper.start();
+            }
+        } else {
+            if (window.HeroWallpaper && typeof window.HeroWallpaper.stop === 'function') {
+                window.HeroWallpaper.stop();
+            }
+        }
+
         if (tabId === "live-vacancies") {
             let savedSubTab = "jobs";
             try { savedSubTab = sessionStorage.getItem("skillmap_vac_subtab") || "jobs"; } catch (e) {}
