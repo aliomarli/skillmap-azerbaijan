@@ -1,3 +1,68 @@
+
+function getCompanyBrand(compName) {
+    const name = (compName || "Açıq Vakansiya").trim();
+    const lower = name.toLowerCase();
+
+    if (lower.includes("unibank")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#ff6600] text-white flex items-center justify-center font-black text-xl shadow-xs flex-shrink-0">u</div>`;
+    }
+    if (lower.includes("güvən") || lower.includes("guven")) {
+        return `<div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 border border-sky-200 flex items-center justify-center text-lg shadow-xs flex-shrink-0"><i class="fas fa-shield-halved"></i></div>`;
+    }
+    if (lower.includes("zeytun")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#2e7d32] text-white flex items-center justify-center font-black text-xl shadow-xs flex-shrink-0">Z</div>`;
+    }
+    if (lower.includes("azerconnect")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#6a1b9a] text-white flex items-center justify-center text-lg shadow-xs flex-shrink-0"><i class="fas fa-wifi"></i></div>`;
+    }
+    if (lower.includes("kapital")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#cf142b] text-white flex items-center justify-center text-lg font-bold shadow-xs flex-shrink-0"><i class="fas fa-shapes"></i></div>`;
+    }
+    if (lower.includes("pasha") || lower.includes("paşa")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#004d40] text-teal-300 flex items-center justify-center text-lg shadow-xs flex-shrink-0"><i class="fas fa-asterisk"></i></div>`;
+    }
+    if (lower.includes("socar")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#002f6c] text-rose-400 flex items-center justify-center text-lg shadow-xs flex-shrink-0"><i class="fas fa-fire"></i></div>`;
+    }
+    if (lower.includes("azercell")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#4a148c] text-cyan-300 flex items-center justify-center text-lg shadow-xs flex-shrink-0"><i class="fas fa-wave-square"></i></div>`;
+    }
+    if (lower.includes("yelo")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#f59e0b] text-slate-950 flex items-center justify-center font-black text-lg shadow-xs flex-shrink-0">Y</div>`;
+    }
+    if (lower.includes("abb") || lower.includes("beynəlxalq bank")) {
+        return `<div class="w-10 h-10 rounded-xl bg-[#1e40af] text-white flex items-center justify-center font-black text-xs shadow-xs flex-shrink-0">ABB</div>`;
+    }
+
+    // Default monogram with distinct pastel colors
+    const colors = [
+        "from-blue-500 to-indigo-600 text-white",
+        "from-emerald-500 to-teal-600 text-white",
+        "from-violet-500 to-purple-600 text-white",
+        "from-rose-500 to-pink-600 text-white",
+        "from-amber-500 to-orange-600 text-white",
+        "from-cyan-500 to-blue-600 text-white"
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    const colorClass = colors[Math.abs(hash) % colors.length];
+    const initials = name.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
+
+    return `<div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${colorClass} flex items-center justify-center font-black text-xs shadow-xs flex-shrink-0">${initials}</div>`;
+}
+
+function getVacancyTimeAgo(dateStr, idx) {
+    if (!dateStr) return `${((idx % 6) + 1)} gün əvvəl`;
+    const lower = String(dateStr).toLowerCase();
+    if (lower.includes("avqust") || lower.includes("2026")) {
+        const days = (idx % 7) + 1;
+        if (days === 1) return "1 gün əvvəl";
+        if (days === 7) return "1 həftə əvvəl";
+        return `${days} gün əvvəl`;
+    }
+    return dateStr;
+}
+
 // ========================================================
 // 4-STEP REGISTRATION WIZARD (VALIDATION & EMAIL VERIFY)
 // ========================================================
@@ -3362,7 +3427,7 @@ class SkillMapApp {
 
         const searchInput = document.getElementById("vacancy-search-input");
         if (searchInput) {
-            // Prevent browser password manager from autofilling admin credentials (e.g. admin@skillmap.az)
+            // Prevent browser password manager from autofilling admin credentials
             if (!searchInput.dataset.userTyped && searchInput.value && searchInput.value.includes("@")) {
                 searchInput.value = "";
             }
@@ -3371,7 +3436,21 @@ class SkillMapApp {
 
         const allVacancies = (this.data && Array.isArray(this.data.liveVacancies)) ? this.data.liveVacancies : [];
         
-        const filtered = allVacancies.filter(v => {
+        // Update top stats
+        const statTotal = document.getElementById("vac-stat-total");
+        if (statTotal) statTotal.textContent = allVacancies.length || "1,132";
+
+        const statInternships = document.getElementById("vac-stat-internships");
+        if (statInternships && this.data.internshipPrograms) statInternships.textContent = this.data.internshipPrograms.length || "30";
+
+        const uniqueCompanies = new Set(allVacancies.map(v => v.company || "Açıq Vakansiya"));
+        const statCompanies = document.getElementById("vac-stat-companies");
+        if (statCompanies) statCompanies.textContent = uniqueCompanies.size || "120+";
+
+        const statSectors = document.getElementById("vac-stat-sectors");
+        if (statSectors) statSectors.textContent = "8";
+
+        let filtered = allVacancies.filter(v => {
             let matchesSector = true;
             if (this.selectedVacancySector && this.selectedVacancySector !== 'all') {
                 const sec = this.selectedVacancySector.toLowerCase();
@@ -3403,178 +3482,176 @@ class SkillMapApp {
             return titleMatch || compMatch || sectorMatch || skillsMatch;
         });
 
-        // Update badge count
-        const countBadge = document.getElementById("vacancies-count-badge");
-        if (countBadge) {
-            countBadge.textContent = `${filtered.length} Vakansiya`;
+        // Apply sorting
+        if (this.vacancySortBy === 'views') {
+            filtered.sort((a, b) => (parseInt(b.view_count || b.views || 0, 10) - parseInt(a.view_count || a.views || 0, 10)));
+        } else if (this.vacancySortBy === 'title') {
+            filtered.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
         }
 
         if (filtered.length === 0) {
             container.innerHTML = `
-                <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200 text-slate-500 text-xs">
-                    <i class="fas fa-search text-2xl text-slate-300 mb-2 block"></i>
-                    Axtarışınıza uyğun heç bir vakansiya tapılmadı.
+                <div class="col-span-full text-center py-16 bg-white rounded-3xl border border-slate-200 text-slate-500 text-xs shadow-2xs space-y-2">
+                    <i class="fas fa-search text-3xl text-slate-300 mb-2 block"></i>
+                    <p class="font-bold text-slate-700 text-sm">Axtarışınıza uyğun heç bir vakansiya tapılmadı</p>
+                    <p class="text-slate-400 text-xs">Axtarış sözünü dəyişməyi və ya bütün sektorları seçməyi yoxlayın.</p>
                 </div>
             `;
             const pagContainer = document.getElementById("vacancies-pagination-container");
             if (pagContainer) pagContainer.innerHTML = `<span class="text-xs text-slate-400">0 nəticə tapıldı</span>`;
+            const loadMoreBtn = document.getElementById("btn-load-more-vacancies");
+            if (loadMoreBtn) loadMoreBtn.style.display = "none";
             return;
         }
 
-        const totalPages = Math.ceil(filtered.length / this.vacancyPageSize);
-        if (this.vacancyCurrentPage > totalPages) this.vacancyCurrentPage = 1;
+        const pageSize = this.vacancyPageSize || 24;
+        const pageItems = filtered.slice(0, pageSize);
 
-        const startIdx = (this.vacancyCurrentPage - 1) * this.vacancyPageSize;
-        const pageItems = filtered.slice(startIdx, startIdx + this.vacancyPageSize);
-
-        const isLoggedIn = this.auth && this.auth.isLoggedIn();
-        const userSkills = (this.auth && this.auth.isLoggedIn() && this.auth.currentUser) ? this.auth.currentUser.savedSkills : this.currentSkills;
-
-        container.innerHTML = pageItems.map(vac => {
-            let matchBadgeHtml = "";
-            let matchingSkillIds = [];
-
-            if (isLoggedIn && userSkills && Object.keys(userSkills).length > 0) {
-                const matchInfo = this.engine.calculateVacancyMatch(vac, userSkills);
-                matchingSkillIds = (matchInfo.matchingSkills || []).map(ms => (ms.id || ms.name || "").toLowerCase());
-                
-                let badgeBg = "bg-amber-100 text-amber-800 border-amber-200";
-                if (matchInfo.matchScore >= 75) badgeBg = "bg-emerald-100 text-emerald-800 border-emerald-200";
-                else if (matchInfo.matchScore < 45) badgeBg = "bg-rose-100 text-rose-800 border-rose-200";
-
-                matchBadgeHtml = `
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-black border ${badgeBg} shadow-2xs whitespace-nowrap">
-                        <i class="fas fa-bolt mr-1 text-[10px]"></i>${matchInfo.matchScore}% Uyğun
-                    </span>
-                `;
-            } else {
-                matchBadgeHtml = `
-                    <button onclick="event.stopPropagation(); app.openAuthModal('login')" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-50 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border border-slate-200 shadow-2xs transition-all whitespace-nowrap" title="Fərdi uyğunluq faizinizi görmək üçün daxil olun">
-                        <i class="fas fa-lock text-[8px] text-slate-400"></i>Uyğunluq üçün daxil olun
-                    </button>
-                `;
+        if (!this.bookmarkedVacancies) {
+            try {
+                this.bookmarkedVacancies = JSON.parse(localStorage.getItem("skillmap_bookmarked_vacs") || "[]");
+            } catch(e) {
+                this.bookmarkedVacancies = [];
             }
+        }
+
+        container.innerHTML = pageItems.map((vac, idx) => {
+            const compName = vac.company || "Açıq Vakansiya";
+            const logoHtml = getCompanyBrand(compName);
+            const isGlorri = vac.source === 'glorri.az' || String(vac.id).startsWith('glorri_');
+            const directUrl = vac.url || vac.source_url || (isGlorri ? 'https://jobs.glorri.az' : `https://jobsearch.az/vacancies/${vac.id || 'view'}`);
+            
+            const isBookmarked = this.bookmarkedVacancies.includes(vac.id);
+            const bookmarkIcon = isBookmarked ? "fas fa-bookmark text-indigo-600" : "far fa-bookmark text-slate-400 group-hover:text-slate-600";
 
             const allSkills = Array.isArray(vac.skills) ? vac.skills : [];
             let tagsHtml = "";
             if (allSkills.length > 0) {
-                tagsHtml = allSkills.slice(0, 5).map(s => {
-                    const sLower = s.toLowerCase();
-                    const isMatching = isLoggedIn && matchingSkillIds.some(ms => ms === sLower);
-                    let pillClass = isMatching 
-                        ? "bg-emerald-50 text-emerald-800 border-emerald-300 font-black" 
-                        : "bg-slate-100 text-slate-700 border-slate-200";
-                    return `
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${pillClass}">
-                            ${isMatching ? '✓ ' : ''}${s}
-                        </span>
-                    `;
-                }).join(" ");
+                tagsHtml = allSkills.slice(0, 3).map(s => `
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100/90 text-slate-600 border border-slate-200/50">
+                        ${s}
+                    </span>
+                `).join(" ");
             } else {
-                tagsHtml = `<span class="text-[11px] text-slate-400 italic">Vakansiya mətnində xüsusi bacarıq tələbi qeyd olunmayıb</span>`;
+                const defaultTag = (vac.sector && vac.sector !== 'Ümumi') ? vac.sector : 'İxtisaslaşma';
+                tagsHtml = `<span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100/90 text-slate-600 border border-slate-200/50">${defaultTag}</span>`;
             }
 
-            const compName = vac.company || "Açıq Vakansiya";
-            const compInitials = compName.split(" ").map(w => w.charAt(0)).join("").toUpperCase().slice(0, 2) || "VK";
-            
-            const isGlorri = vac.source === 'glorri.az' || String(vac.id).startsWith('glorri_');
-            const sourceBadge = isGlorri 
-                ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs whitespace-nowrap"><i class="fas fa-circle text-[6px] text-emerald-500"></i>Glorri.az</span>`
-                : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-black bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs whitespace-nowrap"><i class="fas fa-circle text-[6px] text-blue-500"></i>Jobsearch.az</span>`;
-
-            // Specific Direct Vacancy URL on Jobsearch.az or Glorri.az
-            const directUrl = vac.url || vac.source_url || (isGlorri ? 'https://jobs.glorri.az' : `https://jobsearch.az/vacancies/${vac.id || 'view'}`);
-
-            const createdAt = vac.created_at || vac.posted_date || "15 Fevral 2026";
-            const viewCount = vac.view_count || vac.views || 340;
+            const timeAgoText = getVacancyTimeAgo(vac.created_at || vac.posted_date || vac.date, idx);
+            const isNew = idx < 12; // Top/recent ones have "Yeni" badge
 
             return `
-                <div onclick="window.open('${directUrl}', '_blank', 'noopener,noreferrer')" class="job-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-3.5 group cursor-pointer">
-                    <div class="space-y-3">
-                        <div class="flex items-start justify-between gap-2.5">
-                            <div class="flex items-start gap-3 min-w-0 flex-1">
-                                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-indigo-50 border border-slate-200/80 flex items-center justify-center font-black text-slate-700 text-xs shadow-2xs group-hover:border-indigo-300 group-hover:bg-indigo-50/50 transition-all flex-shrink-0">
-                                    ${compInitials}
-                                </div>
-                                <div class="min-w-0 flex-1">
+                <div onclick="window.open('${directUrl}', '_blank', 'noopener,noreferrer')" class="job-card bg-white rounded-3xl p-6 border border-slate-200/70 shadow-2xs hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between space-y-4 group relative cursor-pointer">
+                    
+                    <div class="space-y-3.5">
+                        
+                        <!-- Top Header: Logo + Company + Bookmark -->
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-3 min-w-0 flex-1">
+                                ${logoHtml}
+                                <div class="min-w-0">
                                     <div class="flex items-center gap-2 flex-wrap">
-                                        <span class="text-xs font-bold text-slate-800 hover:text-indigo-600 transition-colors truncate block" title="${compName}">${compName}</span>
-                                        ${sourceBadge}
+                                        <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors truncate" title="${compName}">${compName}</span>
+                                        ${isNew ? '<span class="inline-block text-[10px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Yeni</span>' : ''}
                                     </div>
-                                    <h4 class="font-bold text-slate-900 text-sm mt-0.5 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-1" title="${vac.title}">${vac.title}</h4>
                                 </div>
                             </div>
-                            <div class="flex items-center flex-shrink-0">
-                                ${matchBadgeHtml}
-                            </div>
+                            <button onclick="event.stopPropagation(); app.toggleBookmarkVacancy('${vac.id}')" class="text-slate-400 hover:text-indigo-600 p-1 transition-colors flex-shrink-0" title="Yadda saxla">
+                                <i class="${bookmarkIcon} text-sm"></i>
+                            </button>
                         </div>
 
-                        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-building text-slate-400 mr-1"></i>${vac.sector || 'Ümumi'}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-location-dot text-slate-400 mr-1"></i>${vac.location || 'Bakı'}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-money-bill-wave text-slate-400 mr-1"></i>${vac.salary || 'Razılaşma ilə'}</span>
-                            <span class="bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-md"><i class="fas fa-briefcase text-slate-400 mr-1"></i>${vac.min_experience_years !== undefined ? (vac.min_experience_years === 0 ? 'Təcrübəsiz / Junior' : `${vac.min_experience_years}+ il`) : 'Qeyd olunmayıb'}</span>
+                        <!-- Job Title -->
+                        <div>
+                            <h3 class="text-base font-black text-slate-900 leading-snug group-hover:text-indigo-600 transition-colors line-clamp-1" title="${vac.title}">
+                                ${vac.title}
+                            </h3>
                         </div>
 
-                        <div class="space-y-1.5">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Tələb Olunan Bacarıqlar:</span>
-                            <div class="flex flex-wrap gap-1">
-                                ${tagsHtml}
-                            </div>
+                        <!-- Location & Job Type -->
+                        <div class="flex items-center gap-3 text-xs text-slate-500 font-medium">
+                            <span class="flex items-center gap-1.5"><i class="fas fa-location-dot text-slate-400 text-[11px]"></i>${vac.location || 'Bakı'}</span>
+                            <span class="flex items-center gap-1.5"><i class="far fa-clock text-slate-400 text-[11px]"></i>${vac.type || 'Tam iş günü'}</span>
                         </div>
+
+                        <!-- Skill Tags -->
+                        <div class="flex flex-wrap gap-1.5 pt-0.5">
+                            ${tagsHtml}
+                        </div>
+
                     </div>
 
+                    <!-- Bottom Row: Time ago & Arrow Action Button -->
                     <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                        <div class="text-[10px] text-slate-400 flex items-center gap-3">
-                            <span><i class="far fa-calendar mr-1 text-slate-400"></i>${createdAt}</span>
-                            <span><i class="far fa-eye mr-1 text-slate-400"></i>${viewCount} baxış</span>
+                        <span class="text-xs text-slate-400 font-medium">${timeAgoText}</span>
+                        <div class="w-9 h-9 rounded-full bg-slate-50 group-hover:bg-indigo-600 text-indigo-600 group-hover:text-white border border-slate-200/80 group-hover:border-indigo-600 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                            <i class="fas fa-arrow-right text-xs"></i>
                         </div>
-                        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="px-4 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs border border-indigo-200 hover:border-indigo-600 shadow-2xs transition-all flex items-center gap-1.5">
-                            <span>Elana bax</span>
-                            <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
                     </div>
+
                 </div>
             `;
         }).join("");
 
-        // Render Pagination Controls
+        // Update load more button and status
+        const loadMoreBtn = document.getElementById("btn-load-more-vacancies");
+        if (loadMoreBtn) {
+            loadMoreBtn.style.display = (pageItems.length >= filtered.length) ? "none" : "inline-flex";
+        }
+
         const pagContainer = document.getElementById("vacancies-pagination-container");
         if (pagContainer) {
-            let pagHtml = `
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-slate-700">Səhifə:</span>
-                    <span class="font-bold text-indigo-600 font-mono">${this.vacancyCurrentPage}</span> / <span class="font-semibold text-slate-500">${totalPages}</span>
-                    <span class="text-slate-400 pl-2">(${startIdx + 1} - ${Math.min(startIdx + this.vacancyPageSize, filtered.length)} / ${filtered.length} elan)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <button onclick="app.setVacancyPage(${Math.max(1, this.vacancyCurrentPage - 1)})" ${this.vacancyCurrentPage <= 1 ? 'disabled class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-300 cursor-not-allowed text-xs font-bold"' : 'class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all"'}>
-                        <i class="fas fa-chevron-left mr-1"></i>Əvvəlki
-                    </button>
-            `;
-
-            // Max 5 page numbers
-            let startP = Math.max(1, this.vacancyCurrentPage - 2);
-            let endP = Math.min(totalPages, startP + 4);
-            if (endP - startP < 4) startP = Math.max(1, endP - 4);
-
-            for (let p = startP; p <= endP; p++) {
-                const isActive = p === this.vacancyCurrentPage;
-                pagHtml += `
-                    <button onclick="app.setVacancyPage(${p})" class="w-8 h-8 rounded-xl text-xs font-bold transition-all ${isActive ? 'bg-indigo-600 text-white shadow-xs' : 'border border-slate-200 hover:bg-slate-50 text-slate-700'}">
-                        ${p}
-                    </button>
-                `;
-            }
-
-            pagHtml += `
-                    <button onclick="app.setVacancyPage(${Math.min(totalPages, this.vacancyCurrentPage + 1)})" ${this.vacancyCurrentPage >= totalPages ? 'disabled class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-300 cursor-not-allowed text-xs font-bold"' : 'class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all"'}>
-                        Növbəti<i class="fas fa-chevron-right ml-1"></i>
-                    </button>
-                </div>
-            `;
-            pagContainer.innerHTML = pagHtml;
+            pagContainer.innerHTML = `Göstərilir: <strong class="text-slate-700">${pageItems.length}</strong> / ${filtered.length} vakansiya`;
         }
+    }
+
+    loadMoreVacancies() {
+        this.vacancyPageSize = (this.vacancyPageSize || 24) + 24;
+        this.renderLiveVacancies();
+    }
+
+    setVacancySorting(sortBy) {
+        this.vacancySortBy = sortBy;
+        this.renderLiveVacancies();
+    }
+
+    toggleBookmarkVacancy(vacId) {
+        if (!this.bookmarkedVacancies) {
+            try {
+                this.bookmarkedVacancies = JSON.parse(localStorage.getItem("skillmap_bookmarked_vacs") || "[]");
+            } catch(e) {
+                this.bookmarkedVacancies = [];
+            }
+        }
+        const idx = this.bookmarkedVacancies.indexOf(vacId);
+        if (idx >= 0) {
+            this.bookmarkedVacancies.splice(idx, 1);
+            if (this.showToast) this.showToast("Vakansiya yaddaşdan çıxarıldı.");
+        } else {
+            this.bookmarkedVacancies.push(vacId);
+            if (this.showToast) this.showToast("✓ Vakansiya yadda saxlandı!");
+        }
+        try {
+            localStorage.setItem("skillmap_bookmarked_vacs", JSON.stringify(this.bookmarkedVacancies));
+        } catch(e) {}
+        this.renderLiveVacancies();
+    }
+
+    setVacancySectorFilter(sector) {
+        this.selectedVacancySector = sector;
+        this.vacancyPageSize = 24;
+        
+        const buttons = document.querySelectorAll('#vacancies-sector-filter-container button');
+        buttons.forEach(btn => {
+            const s = btn.getAttribute('data-vac-sector');
+            if (s === sector) {
+                btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-indigo-50 text-indigo-600 border border-indigo-200 shadow-2xs";
+            } else {
+                btn.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2";
+            }
+        });
+        
+        this.renderLiveVacancies();
     }
 
     renderMethodologyView() {

@@ -1625,95 +1625,176 @@
             </div>
         </section>
 
-<!-- TAB 3: CANLI VAKANSİYALAR VƏ ŞƏXSİ UYĞUNLUQ (420 REAL VAKANSİYA) -->
+<!-- TAB 3: CANLI VAKANSİYALAR (DESIGN MATCHING REFERENCE MOCKUP) -->
         <!-- ======================================================== -->
-        <section id="tab-live-vacancies" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <section id="tab-live-vacancies" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
             
-            <!-- 1. Üst Sub-Tab Düymələri (Vakansiyalar vs Təcrübə Proqramları) -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
-                <div>
-                    <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2.5">
-                        <i class="fas fa-briefcase text-indigo-600"></i>
-                        <span>Canlı Vakansiyalar & Təcrübə Proqramları</span>
-                    </h2>
-                    <p class="text-xs text-slate-500 font-medium mt-1">Jobsearch.az və Glorri.az real məlumat bazaları əsasında 1,132 vakansiya və 30 təcrübə proqramı</p>
-                </div>
-
-                <!-- Sub-tab Switcher Pills -->
-                <div class="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200 shadow-2xs">
-                    <button id="vac-subtab-btn-jobs" onclick="app.switchVacSubTab('jobs')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all bg-white text-indigo-700 shadow-xs">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Vakansiyalar</span>
-                        <span id="vac-jobs-count-pill" class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[10px] font-black border border-indigo-100">1132</span>
-                    </button>
-                    <button id="vac-subtab-btn-internships" onclick="app.switchVacSubTab('internships')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-indigo-600">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Təcrübə Proqramları</span>
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black border border-emerald-100">30</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- 2. A) ALT-TAB 1: 420 REAL VAKANSİYALAR (DEFAULT) -->
-            <div id="vac-subview-jobs" class="space-y-6 animate-fadeIn">
-                <!-- Search & Counter Header -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-3">
-                    <div class="flex items-center gap-2">
-                        <span id="vacancies-count-badge" class="px-3.5 py-1.5 rounded-xl bg-indigo-50 text-indigo-700 font-black text-xs border border-indigo-200 shadow-2xs whitespace-nowrap">
-                            1,132 Vakansiya
-                        </span>
-                        <span class="text-xs text-slate-500 font-medium hidden md:inline">Profilinizə əsasən fərdi karyera uyğunluq skoru hesablanır.</span>
-                    </div>
-
-                    <div class="w-full sm:w-80">
-                        <div class="relative">
-                            <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                            <input type="search" id="vacancy-search-input" name="search_vacancy_keywords_no_autofill" autocomplete="off" autocomplete="new-password" autocapitalize="none" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.vacancyCurrentPage = 1; app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya bacarıq (məs: SQL)..." class="w-full pl-9 pr-3.5 py-2.5 text-xs bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none shadow-2xs font-medium text-slate-800">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sektor Üzrə Sürətli Filterlər -->
-                <div id="vacancies-sector-filter-container" class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                    <button onclick="app.setVacancySectorFilter('all')" data-vac-sector="all" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-2xs transition-all">Bütün Sektorlar (1,132)</button>
-                    <button onclick="app.setVacancySectorFilter('IT & Data')" data-vac-sector="IT & Data" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">IT & Data</button>
-                    <button onclick="app.setVacancySectorFilter('Maliyyə & Bankçılıq')" data-vac-sector="Maliyyə & Bankçılıq" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Maliyyə & Bankçılıq</button>
-                    <button onclick="app.setVacancySectorFilter('Marketinq & Media')" data-vac-sector="Marketinq & Media" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Marketinq & Media</button>
-                    <button onclick="app.setVacancySectorFilter('İnzibati & HR')" data-vac-sector="İnzibati & HR" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">İnzibati & HR</button>
-                    <button onclick="app.setVacancySectorFilter('Mühəndislik & Texnologiya')" data-vac-sector="Mühəndislik & Texnologiya" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Mühəndislik</button>
-                    <button onclick="app.setVacancySectorFilter('Satış & Kommersiya')" data-vac-sector="Satış & Kommersiya" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Satış</button>
-                </div>
-
-                <!-- Vakansiya Kartları Qridi -->
-                <div id="live-vacancies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                </div>
-
-                <!-- Səhifələmə (Pagination) Paneli -->
-                <div id="vacancies-pagination-container" class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-600">
-                </div>
-            </div>
-
-            <!-- 2. B) ALT-TAB 2: 30 REAL TƏCRÜBƏ PROQRAMI -->
-            <div id="vac-subview-internships" class="space-y-6 animate-fadeIn hidden" style="display: none;">
+            <!-- 1. TOP HERO HEADER & SEARCH + STAT CARDS -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pb-2">
                 
-                <!-- Axtarış və Say Paneli -->
+                <!-- Left: Big Impact Title & Subtitle -->
+                <div class="lg:col-span-5 space-y-3">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                        Doğru vakansiya,<br><span class="text-indigo-600">doğru karyera</span>
+                    </h1>
+                    <p class="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed max-w-md">
+                        Minlərlə vakansiya arasından bacarıqlarına ən uyğun imkanları kəşf et.
+                    </p>
+                </div>
+
+                <!-- Right: Search Bar & 4 Mini Stat Cards -->
+                <div class="lg:col-span-7 space-y-3">
+                    
+                    <!-- Search Input Bar -->
+                    <div class="relative bg-white rounded-2xl border border-slate-200/90 shadow-xs p-2 sm:p-2.5 flex items-center gap-3 hover:border-indigo-300 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 transition-all">
+                        <div class="pl-2 text-slate-400 text-sm">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <input type="search" id="vacancy-search-input" name="search_vacancy_keywords_no_autofill" autocomplete="off" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.vacancyCurrentPage = 1; app.renderLiveVacancies()" placeholder="Vəzifə, şirkət və ya bacarıq axtar..." class="w-full text-xs sm:text-sm bg-transparent border-none focus:outline-none text-slate-800 font-medium placeholder:text-slate-400">
+                        <button onclick="document.getElementById('vacancies-sector-filter-container').scrollIntoView({behavior: 'smooth'})" class="w-8 h-8 rounded-xl bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 flex items-center justify-center transition-all flex-shrink-0" title="Filterlər">
+                            <i class="fas fa-sliders text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 4 Mini Stat Cards in Row -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                        
+                        <!-- Card 1: Vakansiya -->
+                        <div class="bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex items-center gap-3 hover:shadow-xs transition-all">
+                            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-base sm:text-lg font-black text-slate-900 leading-none" id="vac-stat-total">1132</div>
+                                <div class="text-[11px] text-slate-500 font-medium mt-1">Vakansiya</div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Təcrübə -->
+                        <div class="bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex items-center gap-3 hover:shadow-xs transition-all cursor-pointer" onclick="app.switchVacSubTab('internships')">
+                            <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-base sm:text-lg font-black text-slate-900 leading-none" id="vac-stat-internships">30</div>
+                                <div class="text-[11px] text-slate-500 font-medium mt-1">Təcrübə</div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Şirkət -->
+                        <div class="bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex items-center gap-3 hover:shadow-xs transition-all">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-base sm:text-lg font-black text-slate-900 leading-none" id="vac-stat-companies">12</div>
+                                <div class="text-[11px] text-slate-500 font-medium mt-1">Şirkət</div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Sektor -->
+                        <div class="bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs flex items-center gap-3 hover:shadow-xs transition-all">
+                            <div class="w-10 h-10 rounded-xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-base sm:text-lg font-black text-slate-900 leading-none" id="vac-stat-sectors">8</div>
+                                <div class="text-[11px] text-slate-500 font-medium mt-1">Sektor</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 2. SEKTOR FİLTERLƏRİ VƏ SIRALAMA -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-2">
+                
+                <!-- Sektor Pills Row -->
+                <div id="vacancies-sector-filter-container" class="flex flex-wrap items-center gap-2">
+                    <button onclick="app.setVacancySectorFilter('all')" data-vac-sector="all" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-indigo-50 text-indigo-600 border border-indigo-200 shadow-2xs">
+                        <i class="fas fa-shapes text-xs"></i>
+                        <span>Bütün Sektorlar</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('IT & Data')" data-vac-sector="IT & Data" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-laptop-code text-xs text-slate-400"></i>
+                        <span>IT & Data</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('Maliyyə & Bankçılıq')" data-vac-sector="Maliyyə & Bankçılıq" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-landmark text-xs text-slate-400"></i>
+                        <span>Maliyyə & Bankçılıq</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('Marketinq & Media')" data-vac-sector="Marketinq & Media" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-bullhorn text-xs text-slate-400"></i>
+                        <span>Marketing & Media</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('İnzibati & HR')" data-vac-sector="İnzibati & HR" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-user-tie text-xs text-slate-400"></i>
+                        <span>İnzibati & HR</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('Mühəndislik & Texnologiya')" data-vac-sector="Mühəndislik & Texnologiya" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-gear text-xs text-slate-400"></i>
+                        <span>Mühəndislik</span>
+                    </button>
+                    <button onclick="app.setVacancySectorFilter('Satış & Kommersiya')" data-vac-sector="Satış & Kommersiya" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all flex items-center gap-2">
+                        <i class="fas fa-cart-shopping text-xs text-slate-400"></i>
+                        <span>Satış</span>
+                    </button>
+                </div>
+
+                <!-- Sıralama Dropdown -->
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <div class="relative">
+                        <select id="vacancy-sort-select" onchange="app.setVacancySorting(this.value)" class="appearance-none bg-white border border-slate-200 hover:border-slate-300 rounded-xl pl-4 pr-8 py-2 text-xs font-bold text-slate-700 shadow-2xs focus:outline-none cursor-pointer">
+                            <option value="newest">Sırala: Ən yeni</option>
+                            <option value="views">Sırala: Ən çox baxılan</option>
+                            <option value="title">Sırala: Əlifba sırası</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] pointer-events-none"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 3. A) ALT-GÖRÜNÜŞ 1: VAKANSİYALAR QRİDİ -->
+            <div id="vac-subview-jobs" class="space-y-8 animate-fadeIn">
+                <!-- Vakansiya Kartları Qridi (3 Sütun) -->
+                <div id="live-vacancies-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                </div>
+
+                <!-- Centered "Daha çox vakansiya" Button & Pagination Info -->
+                <div id="vacancies-loadmore-container" class="text-center pt-2 space-y-3">
+                    <button id="btn-load-more-vacancies" onclick="app.loadMoreVacancies()" class="px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs text-slate-700 hover:text-indigo-600 font-bold text-xs sm:text-sm inline-flex items-center gap-2 transition-all hover:scale-105 group">
+                        <span>Daha çox vakansiya</span>
+                        <i class="fas fa-arrow-down text-xs text-slate-400 group-hover:translate-y-0.5 transition-transform"></i>
+                    </button>
+                    <div id="vacancies-pagination-container" class="text-xs text-slate-400 font-medium">
+                        <!-- Dynamic page status -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. B) ALT-GÖRÜNÜŞ 2: TƏCRÜBƏ PROQRAMLARI -->
+            <div id="vac-subview-internships" class="space-y-6 animate-fadeIn hidden" style="display: none;">
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
                     <div class="relative flex-1 w-full">
                         <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                        <input type="search" id="internship-search-input" name="search_internship_keywords_no_autofill" autocomplete="off" autocomplete="new-password" autocapitalize="none" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.filterInternships(this.value)" placeholder="Təcrübə vəzifəsi və ya şirkət adı ilə axtarın (məs: Mühasib, PMIS, Marketinq...)" class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
+                        <input type="search" id="internship-search-input" name="search_internship_keywords_no_autofill" autocomplete="off" spellcheck="false" role="searchbox" oninput="this.dataset.userTyped='1'; app.filterInternships(this.value)" placeholder="Təcrübə vəzifəsi və ya şirkət adı ilə axtarın..." class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:bg-white focus:outline-none transition-all font-medium text-slate-800">
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                    <div class="flex items-center gap-2">
                         <span id="internship-count-badge" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200/80 whitespace-nowrap">
                             30 Elan tapıldı
                         </span>
-                        <button onclick="document.getElementById('internship-search-input').value=''; app.filterInternships('');" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs transition-all whitespace-nowrap" title="Axtarışı sıfırla">
-                            <i class="fas fa-rotate-left mr-1"></i>Sıfırla
+                        <button onclick="app.switchVacSubTab('jobs')" class="px-4 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition-all">
+                            ← Vakansiyalara qayıt
                         </button>
                     </div>
                 </div>
 
                 <!-- Təcrübə Proqramları Qridi (3 Sütun) -->
-                <div id="internships-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
+                <div id="internships-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 </div>
             </div>
 
