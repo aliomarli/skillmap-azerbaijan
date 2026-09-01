@@ -5,7 +5,7 @@ function validateRegistrationForm(data) {
   const errors = [];
   
   if (!data.name || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(data.name)) {
-    errors.push("Zəhmət olmasa düzgün ad daxil edin");
+    errors.push("Zəhmət olmasa düzgün ad və soyad daxil edin");
   }
   if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     errors.push("Zəhmət olmasa düzgün email daxil edin");
@@ -15,12 +15,6 @@ function validateRegistrationForm(data) {
   }
   if (data.password !== data.passwordConfirm) {
     errors.push("Şifrələr uyğun gəlmir");
-  }
-  if (!data.university) {
-    errors.push("Zəhmət olmasa universitet seçin");
-  }
-  if (!data.targetRole) {
-    errors.push("Zəhmət olmasa hədəf vəzifə seçin");
   }
   
   return errors;
@@ -538,26 +532,13 @@ class SkillMapApp {
             const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
             const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
             const fullName = `${firstName} ${lastName}`.trim();
-            const uni = document.getElementById("reg-university")?.value || "";
-            const targetRole = document.getElementById("reg-target-role")?.value || "";
 
-            let hasError = false;
             if (!fullName || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(fullName)) {
-                showFieldError(document.getElementById("reg-firstname"), "Zəhmət olmasa düzgün ad daxil edin");
-                hasError = true;
-            }
-            if (!uni) {
-                showFieldError(document.getElementById("reg-university"), "Zəhmət olmasa universitet seçin");
-                hasError = true;
-            }
-            if (!targetRole) {
-                showFieldError(document.getElementById("reg-target-role"), "Zəhmət olmasa hədəf vəzifə seçin");
-                hasError = true;
+                showFieldError(document.getElementById("reg-firstname"), "Zəhmət olmasa düzgün ad və soyad daxil edin");
+                return;
             }
 
-            if (!hasError) {
-                switchRegStep(2);
-            }
+            switchRegStep(2);
         } else if (step === 2) {
             const email = document.getElementById("reg-email")?.value.trim() || "";
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -617,16 +598,14 @@ class SkillMapApp {
         const email = document.getElementById("reg-email")?.value.trim() || "";
         const password = document.getElementById("reg-password")?.value || "";
         const passwordConfirm = document.getElementById("reg-password-confirm")?.value || "";
-        const university = document.getElementById("reg-university")?.value || "";
-        const targetRole = document.getElementById("reg-target-role")?.value || "";
+        const university = "UNEC";
+        const targetRole = "data_analyst";
 
         const data = {
             name: fullName,
             email: email,
             password: password,
-            passwordConfirm: passwordConfirm,
-            university: university,
-            targetRole: targetRole
+            passwordConfirm: passwordConfirm
         };
 
         const errors = validateRegistrationForm(data);
@@ -640,10 +619,7 @@ class SkillMapApp {
                     showFieldError(document.getElementById("reg-password"), msg);
                 } else if (msg.includes("uyğun gəlmir")) {
                     showFieldError(document.getElementById("reg-password-confirm"), msg);
-                } else if (msg.includes("universitet")) {
-                    showFieldError(document.getElementById("reg-university"), msg);
-                } else if (msg.includes("vəzifə")) {
-                    showFieldError(document.getElementById("reg-target-role"), msg);
+
                 }
             });
             return;
