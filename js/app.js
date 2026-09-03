@@ -369,7 +369,20 @@ class SkillMapApp {
 
         try { this.renderLiveVacancies(); } catch (e) { console.error("Error in renderLiveVacancies:", e); }
         try { this.renderInternships(); } catch (e) { console.error("Error in renderInternships:", e); }
+        try { this.renderVacancyAnalytics(); } catch (e) { console.error("Error in renderVacancyAnalytics:", e); }
         try { this.renderMethodologyView(); } catch (e) { console.error("Error in renderMethodologyView:", e); }
+
+        // Bind data-tab-btn click listeners to guarantee flawless navigation
+        try {
+            document.querySelectorAll("[data-tab-btn]").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const targetTab = btn.getAttribute("data-tab-btn");
+                    if (targetTab) {
+                        this.switchTab(targetTab);
+                    }
+                });
+            });
+        } catch (e) { console.error("Tab button binding error:", e); }
 
         try { this.loadSampleNLP(0); } catch (e) { console.error("Error in loadSampleNLP:", e); }
         try { this.runSkillGapCalculation(); } catch (e) { console.error("Error in runSkillGapCalculation:", e); }
@@ -783,6 +796,165 @@ class SkillMapApp {
         this.updateAuthUI();
         this.renderStudentCabinet();
         this.renderLiveVacancies();
+    }
+
+
+    renderVacancyAnalytics() {
+        const stats = (this.data && this.data.macroMarketStats) 
+            ? this.data.macroMarketStats 
+            : ((typeof window !== "undefined" && window.SkillMapData && window.SkillMapData.macroMarketStats) ? window.SkillMapData.macroMarketStats : {});
+        if (!stats) return;
+
+        // 1. Kart 1: Azərbaycan Əmək Bazarında Top 8 Bacarıq (% Tələb) - Bar Qrafik
+        const topSkills = stats.topSkillsAnalytics || [];
+        const top8 = topSkills.slice(0, 8);
+        const topCanvas = document.getElementById("chart-top-skills");
+        if (topCanvas && top8.length > 0 && typeof Chart !== "undefined") {
+            if (this.charts && this.charts.topSkills) {
+                try { this.charts.topSkills.destroy(); } catch (e) {}
+            }
+            const ctx = topCanvas.getContext("2d");
+            this.charts = this.charts || {};
+            this.charts.topSkills = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: top8.map(s => s.skill),
+                    datasets: [{
+                        label: "% Tələbat",
+                        data: top8.map(s => s.demand_percentage),
+                        backgroundColor: "rgba(99, 102, 241, 0.85)",
+                        borderColor: "#4f46e5",
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        hoverBackgroundColor: "#4338ca"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: "y",
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const s = top8[context.dataIndex];
+                                    return ` ${context.parsed.x}% tələbat (${s?.demand_count || 0} vakansiya)`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 25,
+                            ticks: {
+                                callback: function(val) { return val + "%"; },
+                                font: { size: 10, weight: "bold" },
+                                color: "#64748b"
+                            },
+                            grid: { color: "rgba(226, 232, 240, 0.6)" }
+                        },
+                        y: {
+                            ticks: {
+                                font: { size: 11, weight: "600" },
+                                color: "#1e293b"
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. Kart 2: Sektorlar üzrə Vakansiya Bölgüsü - Dairəvi (Doughnut) Qrafik
+        const sectors = stats.sectorDistribution || [];
+        const sectorCanvas = document.getElementById("chart-sectors");
+        if (sectorCanvas && sectors.length > 0 && typeof Chart !== "undefined") {
+            if (this.charts && this.charts.sectors) {
+                try { this.charts.sectors.destroy(); } catch (e) {}
+            }
+            const topSectors = sectors.slice(0, 6);
+            const otherSectors = sectors.slice(6);
+            const otherShare = Math.round(otherSectors.reduce((acc, curr) => acc + (curr.share || 0), 0) * 10) / 10;
+
+            const sectorLabels = [...topSectors.map(s => s.sector), "Digər Sahələr"];
+            const sectorData = [...topSectors.map(s => s.share || s.count), otherShare];
+            const sectorColors = [
+                "#4f46e5", "#3b82f6", "#0ea5e9", "#10b981", "#f59e0b", "#ec4899", "#94a3b8"
+            ];
+
+            const ctx2 = sectorCanvas.getContext("2d");
+            this.charts = this.charts || {};
+            this.charts.sectors = new Chart(ctx2, {
+                type: "doughnut",
+                data: {
+                    labels: sectorLabels,
+                    datasets: [{
+                        data: sectorData,
+                        backgroundColor: sectorColors,
+                        borderWidth: 2,
+                        borderColor: "#ffffff",
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: {
+                                boxWidth: 10,
+                                padding: 8,
+                                font: { size: 10, weight: "bold" },
+                                color: "#475569"
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.parsed}% pay`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: "65%"
+                }
+            });
+        }
+
+        // 3. Kart 3: 2026-da Ən Sürətlə Yüksələn Bacarıqlar - Yaşıl Siyahı
+        const risingList = document.getElementById("rising-skills-list");
+        if (risingList && stats.risingSkills2026) {
+            risingList.innerHTML = stats.risingSkills2026.map(item => `
+                <div class="p-3 bg-emerald-50/70 border border-emerald-100 rounded-2xl flex items-center justify-between hover:bg-emerald-100/60 transition-all">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <span class="text-xs font-bold text-slate-800">${item.name}</span>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200">${item.growth}</span>
+                </div>
+            `).join("");
+        }
+
+        // 4. Kart 4: Tələbatı Azalan Ənənəvi Bacarıqlar - Qırmızı Siyahı
+        const decliningList = document.getElementById("declining-skills-list");
+        if (decliningList && stats.decliningSkills2026) {
+            decliningList.innerHTML = stats.decliningSkills2026.map(item => `
+                <div class="p-3 bg-rose-50/70 border border-rose-100 rounded-2xl flex items-center justify-between hover:bg-rose-100/60 transition-all">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-xl bg-rose-500 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <span class="text-xs font-bold text-slate-800">${item.name}</span>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 border border-rose-200">${item.growth}</span>
+                </div>
+            `).join("");
+        }
     }
 
     toggleCabinetDarkMode(isDark) {
@@ -2806,6 +2978,7 @@ class SkillMapApp {
                 this.renderLiveVacancies();
             }
         } else if (tabId === "vacancy-analytics") {
+            try { this.renderVacancyAnalytics(); } catch (e) { console.error("Error in renderVacancyAnalytics:", e); }
             setTimeout(() => {
                 if (this.charts.topSkills) this.charts.topSkills.resize();
                 if (this.charts.sectors) this.charts.sectors.resize();
@@ -3740,13 +3913,22 @@ class SkillMapApp {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    try {
-        window.app = new SkillMapApp();
-    } catch (err) {
-        console.error("Critical error instantiating SkillMapApp:", err);
+function initSkillMapApp() {
+    if (!window.app || !(window.app instanceof SkillMapApp)) {
+        try {
+            window.app = new SkillMapApp();
+            window.appInstance = window.app;
+        } catch (err) {
+            console.error("Critical error instantiating SkillMapApp:", err);
+        }
     }
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSkillMapApp);
+} else {
+    initSkillMapApp();
+}
 
 window.switchTab = function(tabId) {
     if (window.app && typeof window.app.switchTab === "function") {

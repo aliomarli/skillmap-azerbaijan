@@ -2,12 +2,45 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebase.com wss://*.firebaseio.com https://jobsearch.az https://jobs.glorri.az;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://cdnjs.cloudflare.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebase.com wss://*.firebaseio.com https://jobsearch.az https://jobs.glorri.az;">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillMap Azerbaijan – Əmək Bazarı və Bacarıq Qərar Dəstəyi Platforması</title>
     
+    <!-- Chart.js UMD CDN (Loaded first before other scripts) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <!-- Global app placeholder to prevent 'app is not defined' during early clicks -->
+    <script>
+        window.app = window.app || {
+            switchTab: function(tab) {
+                if (window.appInstance && window.appInstance.switchTab) {
+                    return window.appInstance.switchTab(tab);
+                }
+                document.addEventListener("DOMContentLoaded", () => {
+                    if (window.app && window.app.switchTab) window.app.switchTab(tab);
+                });
+            },
+            openAuthModal: function(mode) {
+                if (window.appInstance && window.appInstance.openAuthModal) {
+                    return window.appInstance.openAuthModal(mode);
+                }
+                document.addEventListener("DOMContentLoaded", () => {
+                    if (window.app && window.app.openAuthModal) window.app.openAuthModal(mode);
+                });
+            },
+            toggleLanguage: function() {
+                if (window.appInstance && window.appInstance.toggleLanguage) {
+                    return window.appInstance.toggleLanguage();
+                }
+                document.addEventListener("DOMContentLoaded", () => {
+                    if (window.app && window.app.toggleLanguage) window.app.toggleLanguage();
+                });
+            }
+        };
+    </script>
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,9 +77,6 @@
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script src="js/i18n.js"></script>
     <!-- Custom CSS -->

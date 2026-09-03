@@ -389,6 +389,11 @@ class TopEmployersModule {
             this.chartInstance.destroy();
         }
 
+        if (typeof Chart === "undefined") {
+            console.warn("Chart.js is not loaded yet for TopEmployersModule.");
+            return;
+        }
+
         const ctx = canvas.getContext("2d");
         this.chartInstance = new Chart(ctx, {
             type: "doughnut",
