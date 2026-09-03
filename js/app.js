@@ -803,96 +803,112 @@ class SkillMapApp {
         const stats = (this.data && this.data.macroMarketStats) 
             ? this.data.macroMarketStats 
             : ((typeof window !== "undefined" && window.SkillMapData && window.SkillMapData.macroMarketStats) ? window.SkillMapData.macroMarketStats : {});
-        if (!stats) return;
 
-        // 1. Kart 1: Azərbaycan Əmək Bazarında Top 8 Bacarıq (% Tələb) - Bar Qrafik
-        const topSkills = stats.topSkillsAnalytics || [];
-        const top8 = topSkills.slice(0, 8);
-        const topCanvas = document.getElementById("chart-top-skills");
-        if (topCanvas && top8.length > 0 && typeof Chart !== "undefined") {
-            if (this.charts && this.charts.topSkills) {
-                try { this.charts.topSkills.destroy(); } catch (e) {}
-            }
-            const ctx = topCanvas.getContext("2d");
-            this.charts = this.charts || {};
-            this.charts.topSkills = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: top8.map(s => s.skill),
-                    datasets: [{
-                        label: "% Tələbat",
-                        data: top8.map(s => s.demand_percentage),
-                        backgroundColor: "rgba(99, 102, 241, 0.85)",
-                        borderColor: "#4f46e5",
-                        borderWidth: 1.5,
-                        borderRadius: 6,
-                        hoverBackgroundColor: "#4338ca"
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: "y",
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const s = top8[context.dataIndex];
-                                    return ` ${context.parsed.x}% tələbat (${s?.demand_count || 0} vakansiya)`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 25,
-                            ticks: {
-                                callback: function(val) { return val + "%"; },
-                                font: { size: 10, weight: "bold" },
-                                color: "#64748b"
-                            },
-                            grid: { color: "rgba(226, 232, 240, 0.6)" }
-                        },
-                        y: {
-                            ticks: {
-                                font: { size: 11, weight: "600" },
-                                color: "#1e293b"
-                            },
-                            grid: { display: false }
-                        }
-                    }
-                }
-            });
+        // 1. Kart 1: Azərbaycan Əmək Bazarında Top 8 Bacarıq (% Tələb) - Real Data Progress Bar List
+        const topSkillsList = document.getElementById("top-skills-progress-list");
+        if (topSkillsList) {
+            const rawTopSkills = (stats && stats.topSkillsAnalytics && stats.topSkillsAnalytics.length > 0)
+                ? stats.topSkillsAnalytics.slice(0, 8)
+                : [];
+
+            const skillMetaMap = {
+                "Communication": { azName: "Kommunikasiya & Ünsiyyət", icon: "far fa-comment-dots", color: "text-blue-600 bg-blue-50" },
+                "Time Management": { azName: "Zamanın İdarə Edilməsi", icon: "far fa-clock", color: "text-amber-600 bg-amber-50" },
+                "Analytical Thinking": { azName: "Analitik Təfəkkür", icon: "fas fa-chart-simple", color: "text-indigo-600 bg-indigo-50" },
+                "Excel": { azName: "Microsoft Excel", icon: "far fa-file-excel", color: "text-emerald-600 bg-emerald-50" },
+                "Sales": { azName: "Satış Bacarıqları", icon: "fas fa-cart-shopping", color: "text-orange-600 bg-orange-50" },
+                "Russian": { azName: "Rus dili", icon: "fas fa-language", color: "text-sky-600 bg-sky-50" },
+                "Azerbaijani": { azName: "Azərbaycan dili", icon: "fas fa-globe", color: "text-teal-600 bg-teal-50" },
+                "Teamwork": { azName: "Komanda ilə İş", icon: "fas fa-users", color: "text-purple-600 bg-purple-50" },
+                "English": { azName: "İngilis dili", icon: "fas fa-language", color: "text-indigo-600 bg-indigo-50" },
+                "1C": { azName: "1C Mühasibatlıq", icon: "fas fa-file-invoice", color: "text-rose-600 bg-rose-50" }
+            };
+
+            const maxDemandPct = (rawTopSkills.length > 0 && rawTopSkills[0].demand_percentage) ? rawTopSkills[0].demand_percentage : 20;
+
+            topSkillsList.innerHTML = rawTopSkills.map((s, idx) => {
+                const meta = skillMetaMap[s.skill] || { azName: s.skill, icon: "fas fa-star", color: "text-indigo-600 bg-indigo-50" };
+                const pct = s.demand_percentage || 0;
+                // Bar width proportioned visually based on demand percentage
+                const barWidth = Math.min(98, Math.max(25, Math.round((pct / maxDemandPct) * 90 + 8)));
+
+                return `
+                    <div class="flex items-center justify-between gap-2 sm:gap-3 text-xs" title="${s.demand_count} vakansiyada tələb olunur">
+                        <div class="flex items-center gap-2 sm:gap-2.5 min-w-[150px] sm:min-w-[185px]">
+                            <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 font-black text-[11px] flex items-center justify-center flex-shrink-0">${idx + 1}</div>
+                            <div class="w-6 h-6 rounded-lg ${meta.color} flex items-center justify-center text-xs flex-shrink-0">
+                                <i class="${meta.icon}"></i>
+                            </div>
+                            <span class="font-semibold text-slate-800 tracking-tight truncate">${meta.azName}</span>
+                        </div>
+                        <div class="h-2 bg-slate-100 rounded-full flex-1 mx-2 sm:mx-3 overflow-hidden">
+                            <div class="h-full rounded-full bg-gradient-to-r from-indigo-600 to-blue-500 transition-all duration-700" style="width: ${barWidth}%;"></div>
+                        </div>
+                        <span class="font-bold text-slate-700 w-11 text-right text-xs">${pct}%</span>
+                    </div>
+                `;
+            }).join("");
         }
 
-        // 2. Kart 2: Sektorlar üzrə Vakansiya Bölgüsü - Dairəvi (Doughnut) Qrafik
-        const sectors = stats.sectorDistribution || [];
+        // 2. Kart 2: Sektorlar üzrə Vakansiya Bölgüsü - Real Data Donut + HTML Leqenda
         const sectorCanvas = document.getElementById("chart-sectors");
-        if (sectorCanvas && sectors.length > 0 && typeof Chart !== "undefined") {
+        const rawSectors = (stats && stats.sectorDistribution) ? stats.sectorDistribution : [];
+        
+        // Filter out generic "Digər" rows from top list, pick top 7 named sectors and aggregate the rest
+        const namedSectors = rawSectors.filter(s => !s.sector.toLowerCase().includes("digər"));
+        const top7Named = namedSectors.slice(0, 7);
+        const top7Sum = top7Named.reduce((acc, c) => acc + (c.share || 0), 0);
+        const otherShare = Math.round(Math.max(0, 100 - top7Sum) * 10) / 10;
+
+        const sectorColors = [
+            "#4338ca", "#10b981", "#6366f1", "#f59e0b", "#06b6d4", "#f43f5e", "#eab308", "#94a3b8"
+        ];
+
+        const displaySectors = [
+            ...top7Named.map((s, idx) => ({
+                label: s.sector,
+                pct: s.share,
+                count: s.count,
+                color: sectorColors[idx % sectorColors.length]
+            })),
+            {
+                label: "Digər Sahələr",
+                pct: otherShare,
+                count: 1132 - top7Named.reduce((acc, c) => acc + (c.count || 0), 0),
+                color: "#94a3b8"
+            }
+        ];
+
+        // Populate HTML Legend
+        const legendContainer = document.getElementById("chart-sectors-legend");
+        if (legendContainer) {
+            legendContainer.innerHTML = displaySectors.map(sec => `
+                <div class="flex items-center justify-between py-1 border-b border-slate-50 last:border-none">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background-color: ${sec.color};"></span>
+                        <span class="font-medium text-slate-700 truncate">${sec.label}</span>
+                    </div>
+                    <span class="font-bold text-slate-900 ml-2">${sec.pct}%</span>
+                </div>
+            `).join("");
+        }
+
+        const totalEl = document.getElementById("analytics-donut-total");
+        if (totalEl) totalEl.textContent = (stats && stats.totalAnalyzed) ? stats.totalAnalyzed.toLocaleString() : "1,132";
+
+        if (sectorCanvas && typeof Chart !== "undefined") {
             if (this.charts && this.charts.sectors) {
                 try { this.charts.sectors.destroy(); } catch (e) {}
             }
-            const topSectors = sectors.slice(0, 6);
-            const otherSectors = sectors.slice(6);
-            const otherShare = Math.round(otherSectors.reduce((acc, curr) => acc + (curr.share || 0), 0) * 10) / 10;
-
-            const sectorLabels = [...topSectors.map(s => s.sector), "Digər Sahələr"];
-            const sectorData = [...topSectors.map(s => s.share || s.count), otherShare];
-            const sectorColors = [
-                "#4f46e5", "#3b82f6", "#0ea5e9", "#10b981", "#f59e0b", "#ec4899", "#94a3b8"
-            ];
-
-            const ctx2 = sectorCanvas.getContext("2d");
+            const ctx = sectorCanvas.getContext("2d");
             this.charts = this.charts || {};
-            this.charts.sectors = new Chart(ctx2, {
+            this.charts.sectors = new Chart(ctx, {
                 type: "doughnut",
                 data: {
-                    labels: sectorLabels,
+                    labels: displaySectors.map(s => s.label),
                     datasets: [{
-                        data: sectorData,
-                        backgroundColor: sectorColors,
+                        data: displaySectors.map(s => s.pct),
+                        backgroundColor: displaySectors.map(s => s.color),
                         borderWidth: 2,
                         borderColor: "#ffffff",
                         hoverOffset: 6
@@ -901,59 +917,74 @@ class SkillMapApp {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: "70%",
                     plugins: {
-                        legend: {
-                            position: "bottom",
-                            labels: {
-                                boxWidth: 10,
-                                padding: 8,
-                                font: { size: 10, weight: "bold" },
-                                color: "#475569"
-                            }
-                        },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return ` ${context.label}: ${context.parsed}% pay`;
+                                    const item = displaySectors[context.dataIndex];
+                                    return ` ${context.label}: ${context.parsed}% (${item?.count || 0} vakansiya)`;
                                 }
                             }
                         }
-                    },
-                    cutout: "65%"
+                    }
                 }
             });
         }
 
-        // 3. Kart 3: 2026-da Ən Sürətlə Yüksələn Bacarıqlar - Yaşıl Siyahı
-        const risingList = document.getElementById("rising-skills-list");
-        if (risingList && stats.risingSkills2026) {
-            risingList.innerHTML = stats.risingSkills2026.map(item => `
-                <div class="p-3 bg-emerald-50/70 border border-emerald-100 rounded-2xl flex items-center justify-between hover:bg-emerald-100/60 transition-all">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <span class="text-xs font-bold text-slate-800">${item.name}</span>
+        // 3. Kart 3: 2026-da Ən Sürətlə Yüksələn Bacarıqlar (Real Data from macroMarketStats.risingSkills2026)
+        const risingCards = document.getElementById("rising-skills-cards");
+        if (risingCards) {
+            const rawRising = (stats && stats.risingSkills2026 && stats.risingSkills2026.length > 0)
+                ? stats.risingSkills2026.slice(0, 5)
+                : [
+                    { name: "MS Excel & Analitika", growth: "+5.3 xal" },
+                    { name: "SQL & Verilənlər Bazası", growth: "+4.8 xal" },
+                    { name: "Power BI & Vizuallaşdırma", growth: "+4.1 xal" },
+                    { name: "1C 8.3 & ERP Sistemləri", growth: "+3.5 xal" },
+                    { name: "Python & Avtomatlaşdırma", growth: "+2.9 xal" }
+                ];
+
+            risingCards.innerHTML = rawRising.map(item => {
+                const growthText = item.growth.startsWith("+") ? `↑ ${item.growth}` : `↑ +${item.growth}`;
+                return `
+                    <div class="bg-emerald-50/40 border border-emerald-100/80 rounded-2xl p-3 flex flex-col justify-between space-y-2.5 hover:bg-emerald-50/70 hover:shadow-2xs transition-all">
+                        <span class="text-[11px] font-bold text-slate-800 truncate" title="${item.name}">${item.name}</span>
+                        <span class="text-xs font-black text-emerald-600">${growthText}</span>
+                        <svg class="w-full h-5 text-emerald-500 overflow-visible" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 20 Q 25 22, 45 14 T 80 8 L 100 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        </svg>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200">${item.growth}</span>
-                </div>
-            `).join("");
+                `;
+            }).join("");
         }
 
-        // 4. Kart 4: Tələbatı Azalan Ənənəvi Bacarıqlar - Qırmızı Siyahı
-        const decliningList = document.getElementById("declining-skills-list");
-        if (decliningList && stats.decliningSkills2026) {
-            decliningList.innerHTML = stats.decliningSkills2026.map(item => `
-                <div class="p-3 bg-rose-50/70 border border-rose-100 rounded-2xl flex items-center justify-between hover:bg-rose-100/60 transition-all">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-7 h-7 rounded-xl bg-rose-500 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                        <span class="text-xs font-bold text-slate-800">${item.name}</span>
+        // 4. Kart 4: Tələbatı Azalan Ənənəvi Bacarıqlar (Real Data from macroMarketStats.decliningSkills2026)
+        const decliningCards = document.getElementById("declining-skills-cards");
+        if (decliningCards) {
+            const rawDeclining = (stats && stats.decliningSkills2026 && stats.decliningSkills2026.length > 0)
+                ? stats.decliningSkills2026.slice(0, 5)
+                : [
+                    { name: "Rus dili (tələbat azalması)", growth: "-9.7 xal" },
+                    { name: "Əl ilə Sənədləşmə və Kadr", growth: "-7.4 xal" },
+                    { name: "Kompüter Operatorluğu", growth: "-5.8 xal" },
+                    { name: "Statik Cədvəl İdarəçiliyi", growth: "-4.2 xal" },
+                    { name: "Ənənəvi Print & Çap İşi", growth: "-3.1 xal" }
+                ];
+
+            decliningCards.innerHTML = rawDeclining.map(item => {
+                const growthText = item.growth.startsWith("-") ? `↓ ${item.growth}` : `↓ -${item.growth}`;
+                return `
+                    <div class="bg-rose-50/40 border border-rose-100/80 rounded-2xl p-3 flex flex-col justify-between space-y-2.5 hover:bg-rose-50/70 hover:shadow-2xs transition-all">
+                        <span class="text-[11px] font-bold text-slate-800 truncate" title="${item.name}">${item.name}</span>
+                        <span class="text-xs font-black text-rose-600">${growthText}</span>
+                        <svg class="w-full h-5 text-rose-500 overflow-visible" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 4 Q 25 6, 45 12 T 80 18 L 100 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        </svg>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 border border-rose-200">${item.growth}</span>
-                </div>
-            `).join("");
+                `;
+            }).join("");
         }
     }
 

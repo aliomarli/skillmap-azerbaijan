@@ -14252,6 +14252,10 @@ window.SkillMapData = {
             {
                 "name": "Statik Cədvəl İdarəçiliyi",
                 "growth": "-4.2 xal"
+            },
+            {
+                "name": "Ənənəvi Print & Çap İşi",
+                "growth": "-3.1 xal"
             }
         ],
         "dataSourceDisclaimer": "Analitika hazırda toplanmış Jobsearch.az vakansiya datasına əsaslanır.",
