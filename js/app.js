@@ -433,6 +433,292 @@ class SkillMapApp {
         }
     }
 
+    openAuthModal(mode = "login") {
+        const modal = document.getElementById("auth-modal") || document.getElementById("modal-auth");
+        if (!modal) return;
+        modal.classList.remove("hidden");
+        modal.style.display = "flex";
+        this.switchAuthMode(mode);
+    }
+
+    closeAuthModal() {
+        const modal = document.getElementById("auth-modal") || document.getElementById("modal-auth");
+        if (modal) {
+            modal.classList.add("hidden");
+            modal.style.display = "none";
+        }
+        const errBanner = document.getElementById("auth-error-banner");
+        if (errBanner) errBanner.classList.add("hidden");
+    }
+
+    switchAuthMode(mode) {
+        const formLogin = document.getElementById("form-login");
+        const wizardRegister = document.getElementById("wizard-register");
+        const tabLoginBtn = document.getElementById("auth-tab-login-btn");
+        const tabRegBtn = document.getElementById("auth-tab-reg-btn");
+        const errBanner = document.getElementById("auth-error-banner");
+        if (errBanner) errBanner.classList.add("hidden");
+
+        if (mode === "register") {
+            if (formLogin) { formLogin.classList.add("hidden"); formLogin.style.display = "none"; }
+            if (wizardRegister) { wizardRegister.classList.remove("hidden"); wizardRegister.style.display = "block"; }
+            if (tabLoginBtn) {
+                tabLoginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            }
+            if (tabRegBtn) {
+                tabRegBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
+            }
+            if (typeof switchRegStep === "function") switchRegStep(1);
+        } else {
+            if (formLogin) { formLogin.classList.remove("hidden"); formLogin.style.display = "block"; }
+            if (wizardRegister) { wizardRegister.classList.add("hidden"); wizardRegister.style.display = "none"; }
+            if (tabLoginBtn) {
+                tabLoginBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-900 bg-white shadow-sm transition-all";
+            }
+            if (tabRegBtn) {
+                tabRegBtn.className = "flex-1 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-900 transition-all";
+            }
+        }
+    }
+
+    showAuthError(message) {
+        const banner = document.getElementById("auth-error-banner");
+        const text = document.getElementById("auth-error-text");
+        if (banner && text) {
+            text.textContent = message || "Xəta baş verdi";
+            banner.classList.remove("hidden");
+        }
+    }
+
+    togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = input.parentElement ? input.parentElement.querySelector("i") : null;
+        if (input.type === "password") {
+            input.type = "text";
+            if (icon) {
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            }
+        } else {
+            input.type = "password";
+            if (icon) {
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    }
+
+    async handleLoginSubmit(event) {
+        if (event) event.preventDefault();
+        const email = document.getElementById("login-email")?.value.trim();
+        const password = document.getElementById("login-password")?.value;
+        const btn = document.querySelector("#form-login button[type='submit']");
+
+        if (!email || !password) {
+            this.showAuthError("Zəhmət olmasa email və şifrənizi daxil edin.");
+            return;
+        }
+
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Giriş edilir...';
+        }
+
+        try {
+            const res = await firebaseLogin(email, password);
+            if (res && res.success) {
+                if (this.auth) {
+                    await this.auth.loadUserProfile(res.uid, email);
+                }
+                this.updateAuthUI();
+                this.renderStudentCabinet();
+                this.closeAuthModal();
+                this.switchTab("student-gap");
+                this.showToast("✓ Kabinetə uğurla daxil oldunuz!");
+            } else {
+                this.showAuthError(res?.error || "Email və ya şifrə yanlışdır.");
+            }
+        } catch (err) {
+            this.showAuthError(err.message || "Giriş zamanı xəta baş verdi.");
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-right-to-bracket mr-1.5"></i>Kabinetə Daxil Ol';
+            }
+        }
+    }
+
+    validateAndNextStep(step) {
+        if (step === 1) {
+            const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
+            const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
+            const fullName = `${firstName} ${lastName}`.trim();
+
+            let hasError = false;
+            if (!fullName || !/^[A-Za-zƏəÖöÜüĞğŞşÇçIıİi\s]{2,50}$/.test(fullName)) {
+                if (typeof showFieldError === "function") {
+                    showFieldError(document.getElementById("reg-firstname"), "Zəhmət olmasa düzgün ad daxil edin");
+                }
+                hasError = true;
+            }
+
+            if (!hasError) {
+                if (typeof switchRegStep === "function") switchRegStep(2);
+            }
+        } else if (step === 2) {
+            const email = document.getElementById("reg-email")?.value.trim() || "";
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                if (typeof showFieldError === "function") {
+                    showFieldError(document.getElementById("reg-email"), "Zəhmət olmasa düzgün email daxil edin");
+                }
+                return;
+            }
+            if (typeof switchRegStep === "function") switchRegStep(3);
+        }
+    }
+
+    updatePasswordStrength(pwd) {
+        const bar1 = document.getElementById("pwd-bar-1");
+        const bar2 = document.getElementById("pwd-bar-2");
+        const bar3 = document.getElementById("pwd-bar-3");
+        const text = document.getElementById("password-strength-text");
+        if (!text) return;
+        
+        if (!pwd) {
+            text.textContent = "Daxil edilməyib";
+            text.className = "font-bold text-slate-400";
+            if (bar1) bar1.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            return;
+        }
+        
+        let score = 0;
+        if (pwd.length >= 8) score++;
+        if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+        if (/\d/.test(pwd)) score++;
+        
+        if (score === 1) {
+            text.textContent = "Zəif";
+            text.className = "font-bold text-rose-500";
+            if (bar1) bar1.className = "flex-1 bg-rose-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+        } else if (score === 2) {
+            text.textContent = "Orta";
+            text.className = "font-bold text-amber-500";
+            if (bar1) bar1.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-amber-500 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-slate-200 rounded-full h-full transition-all";
+        } else {
+            text.textContent = "Güclü";
+            text.className = "font-bold text-emerald-600";
+            if (bar1) bar1.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+            if (bar2) bar2.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+            if (bar3) bar3.className = "flex-1 bg-emerald-500 rounded-full h-full transition-all";
+        }
+    }
+
+    async handleWizardRegisterSubmit() {
+        const firstName = document.getElementById("reg-firstname")?.value.trim() || "";
+        const lastName = document.getElementById("reg-lastname")?.value.trim() || "";
+        const fullName = `${firstName} ${lastName}`.trim();
+        const email = document.getElementById("reg-email")?.value.trim() || "";
+        const password = document.getElementById("reg-password")?.value || "";
+        const passwordConfirm = document.getElementById("reg-password-confirm")?.value || "";
+
+        const data = {
+            name: fullName,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm
+        };
+
+        if (typeof validateRegistrationForm === "function") {
+            const errors = validateRegistrationForm(data);
+            if (errors.length > 0) {
+                errors.forEach(msg => {
+                    if (msg.includes("ad") && typeof showFieldError === "function") {
+                        showFieldError(document.getElementById("reg-firstname"), msg);
+                    } else if (msg.includes("email") && typeof showFieldError === "function") {
+                        showFieldError(document.getElementById("reg-email"), msg);
+                    } else if ((msg.includes("Şifrə minimum") || msg.includes("şifrə")) && typeof showFieldError === "function") {
+                        showFieldError(document.getElementById("reg-password"), msg);
+                    } else if (msg.includes("uyğun gəlmir") && typeof showFieldError === "function") {
+                        showFieldError(document.getElementById("reg-password-confirm"), msg);
+                    }
+                });
+                return;
+            }
+        }
+
+        const btn = document.getElementById("reg-submit-btn");
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1.5"></i>Hesab yaradılır...';
+        }
+
+        try {
+            const res = await firebaseRegister(fullName, email, password, "UNEC", "İqtisadiyyat", "financial_analyst", "B2", "Bakalavr");
+            if (res && res.success) {
+                const emailDisp = document.getElementById("reg-sent-email-display");
+                if (emailDisp) emailDisp.textContent = email;
+                if (typeof switchRegStep === "function") switchRegStep(4);
+            } else {
+                if (typeof showFieldError === "function") {
+                    showFieldError(document.getElementById("reg-password"), res?.error || "Qeydiyyat xətası baş verdi.");
+                }
+            }
+        } catch (e) {
+            if (typeof showFieldError === "function") {
+                showFieldError(document.getElementById("reg-password"), e.message);
+            }
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Qeydiyyatdan Keç</span><i class="fas fa-arrow-right text-[11px]"></i>';
+            }
+        }
+    }
+
+    async resendVerificationEmail() {
+        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        const user = authInstance ? authInstance.currentUser : null;
+        if (user && typeof user.sendEmailVerification === 'function') {
+            try {
+                await user.sendEmailVerification();
+                alert("Email təsdiq linki yenidən göndərildi");
+            } catch (e) {
+                alert("Email göndərilmə xətası: " + e.message);
+            }
+        } else {
+            alert("Email təsdiq linki yenidən göndərildi");
+        }
+    }
+
+    async checkEmailVerified() {
+        const authInstance = window.firebaseAuth || (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        const user = authInstance ? authInstance.currentUser : null;
+        if (user) {
+            try {
+                if (typeof user.reload === 'function') {
+                    await user.reload();
+                }
+                const updatedUser = authInstance.currentUser;
+                if (updatedUser && updatedUser.emailVerified) {
+                    if (typeof switchRegStep === "function") switchRegStep('success');
+                } else {
+                    alert("Hələ email təsdiqlənməyib. Zəhmət olmasa linkə klikləyin.");
+                }
+            } catch (e) {
+                alert("Yoxlama xətası: " + e.message);
+            }
+        } else {
+            if (typeof switchRegStep === "function") switchRegStep('success');
+        }
+    }
+
 
     async handleRegisterSubmit(event) {
         if (event) event.preventDefault();
@@ -1506,6 +1792,9 @@ class SkillMapApp {
     }
 
     switchCabinetView(view) {
+        if (this.currentActiveTab !== "student-gap") {
+            this.switchTab("student-gap");
+        }
         const viewName = (view || "overview").replace(/^cab-view-/, "").replace(/^cab-nav-/, "");
         
         // 1. Hide all cabinet subviews
