@@ -12,20 +12,13 @@ class SkillPassportGenerator {
      * @param {Object} matchResult 
      */
     exportPassportPDF(user, matchResult) {
-        const u = user || { name: "Demo Tələbə", university: "UNEC", faculty: "Maliyyə ixtisası", studentId: "AZ-UNEC-2026-8492" };
-        const res = matchResult || { matchScore: 74, matchPercentage: 74, roleTitle: "Financial Analyst", breakdown: [] };
+        const u = user || { name: "İstifadəçi", university: "Qeyd edilməyib", faculty: "", studentId: "" };
+        const res = matchResult || { matchScore: 0, matchPercentage: 0, roleTitle: "Seçilməyib", breakdown: [] };
 
-        const score = res.matchPercentage !== undefined ? res.matchPercentage : (res.matchScore || 74);
-        const role = res.roleTitle || (res.role ? res.role.title : "Financial Analyst");
+        const score = res.matchPercentage !== undefined ? res.matchPercentage : (res.matchScore || 0);
+        const role = res.roleTitle || (res.role ? res.role.title : (u.targetRole || "Seçilməyib"));
 
-        const skills = res.breakdown && res.breakdown.length > 0 ? res.breakdown : [
-            { skillName: "Excel", userLevel: 4, requiredLevel: 4, gap: 0 },
-            { skillName: "Financial Analysis", userLevel: 4, requiredLevel: 4, gap: 0 },
-            { skillName: "SQL", userLevel: 2, requiredLevel: 4, gap: 2 },
-            { skillName: "Power BI", userLevel: 1, requiredLevel: 3, gap: 2 },
-            { skillName: "Financial Modeling", userLevel: 2, requiredLevel: 3, gap: 1 },
-            { skillName: "Presentation Skills", userLevel: 4, requiredLevel: 3, gap: 0 }
-        ];
+        const skills = (res.breakdown && res.breakdown.length > 0) ? res.breakdown : [];
 
         const dateStr = new Date().toLocaleDateString("az-AZ", { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -80,14 +73,14 @@ class SkillPassportGenerator {
                                 ${skills.slice(0, 6).map(s => `
                                     <div class="skill-box">
                                         <span class="skill-name">${s.skillName}</span>
-                                        <span class="skill-level">${s.userLevel || 4}/5</span>
+                                        <span class="skill-level">${s.userLevel !== undefined ? s.userLevel : 0}/5</span>
                                     </div>
                                 `).join("")}
                             </div>
                         </div>
 
                         <div class="footer-meta">
-                            <span>Verifikasiya ID: ${u.studentId || "AZ-UNEC-2026-8492"}</span>
+                            <span>Verifikasiya ID: ${u.studentId || "AZ-STD-2026"}</span>
                             <span>Tarix: ${dateStr}</span>
                             <span>Məlumat Mənbəyi: Əmək Bazarı Real Əmək Bazası</span>
                         </div>

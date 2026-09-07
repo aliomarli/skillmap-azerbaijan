@@ -319,11 +319,11 @@ class AdminModule {
                 savedSkills: doc.savedSkills || doc.skills || {},
                 skills: doc.skills || doc.savedSkills || {},
                 careerMatch: doc.careerMatch !== undefined ? doc.careerMatch : 0,
-                targetRole: doc.targetRole || "data_analyst",
-                university: doc.university || "UNEC",
-                faculty: doc.faculty || "İqtisadiyyat / İT",
+                targetRole: doc.targetRole || "Seçilməyib",
+                university: doc.university || "Qeyd edilməyib",
+                faculty: doc.faculty || "",
                 degree: doc.degree || "Bakalavr",
-                englishLevel: doc.englishLevel || "B2",
+                englishLevel: doc.englishLevel || "",
                 name: doc.name || "Namizəd",
                 email: doc.email || "",
                 role: doc.role || "student",
@@ -602,7 +602,7 @@ class AdminModule {
                             </div>
                         </div>
                     </td>
-                    <td class="py-3.5 px-4 font-semibold text-slate-700">${st.university || "UNEC"}</td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-700">${st.university || "Qeyd edilməyib"}</td>
                     <td class="py-3.5 px-4 font-medium text-slate-600">${roleTitle}</td>
                     <td class="py-3.5 px-4">
                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border ${badgeColor}">
@@ -730,10 +730,10 @@ class AdminModule {
         }
 
         const studentSkills = st.savedSkills || st.skills || {};
-        const roleId = st.targetRole || "data_analyst";
-        const engLevel = st.englishLevel || "B2";
-        const uni = st.university || "UNEC";
-        const faculty = st.faculty || "İqtisadiyyat";
+        const roleId = st.targetRole || "";
+        const engLevel = st.englishLevel || "Qeyd edilməyib";
+        const uni = st.university || "Qeyd edilməyib";
+        const faculty = st.faculty || "Qeyd edilməyib";
         const name = st.name || "Tələbə";
         const email = st.email || "";
 

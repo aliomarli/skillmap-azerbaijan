@@ -120,6 +120,58 @@ class SkillGapEngine {
         }
 
         const studentSkills = userSkills || {};
+
+        if (Object.keys(studentSkills).length === 0) {
+            const roleRequiredSkills = role.requiredSkills || {};
+            const benchmarkSkillKeys = Object.keys(roleRequiredSkills).length > 0
+                ? Object.keys(roleRequiredSkills)
+                : ["sql", "excel", "powerbi", "python", "analytical_thinking", "communication"];
+
+            const emptyBreakdown = benchmarkSkillKeys.map(sId => {
+                const skillDict = this.getSkillDictionaryEntry(sId);
+                const skName = skillDict.name || this.findSkillInfo(sId)?.name || sId;
+                const reqVal = roleRequiredSkills[sId] !== undefined ? roleRequiredSkills[sId] : 50;
+                const reqProficiency = skillDict.required_proficiency || parseFloat((reqVal / 20.0).toFixed(1)) || 3.0;
+                return {
+                    skillId: sId,
+                    skillName: skName,
+                    category: this.findSkillInfo(sId)?.category || "Texniki",
+                    userLevel: 0,
+                    requiredLevel: Math.round(reqProficiency),
+                    requiredProficiency: reqProficiency,
+                    requiredPct: reqVal,
+                    userPct: 0,
+                    gap: reqProficiency,
+                    importance: "required",
+                    demandPercentage: 50,
+                    demandFrequency: 0.5,
+                    priority: "None",
+                    priorityAz: "Daxil edilməyib",
+                    priorityScore: 0,
+                    status: "unassessed",
+                    statusText: "Daxil edilməyib",
+                    statusColor: "slate"
+                };
+            });
+
+            return {
+                roleId: role.id,
+                roleTitle: role.title,
+                role: role,
+                status: "Bacarıqlar daxil edilməyib",
+                matchPercentage: 0,
+                skillsScore: 0,
+                experienceScore: 0,
+                educationScore: 0,
+                languageScore: 0,
+                breakdown: emptyBreakdown,
+                topGaps: [],
+                topPriorities: [],
+                alternativeCareers: [],
+                salaryEstimate: { currentSalaryAZN: 0, potentialSalaryAZN: 0, growthPercentage: 0 }
+            };
+        }
+
         const userExp = parseFloat(userProfile.experience_years || userProfile.experience || 0) || 0;
         const degree = userProfile.degree || "Bakalavr";
         const faculty = userProfile.faculty || userProfile.field || "";

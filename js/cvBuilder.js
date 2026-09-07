@@ -15,8 +15,8 @@ class ATSCVBuilder {
      */
     generateATSHTML(userData, lang = "az", targetRoleTitle = "Financial Analyst") {
         const u = userData || {};
-        const p = u.personalInfo || { name: u.name || "Namizəd", email: u.email || "namized@example.com", phone: "+994 50 123 45 67", location: "Bakı, Azərbaycan" };
-        const edu = u.education || { university: u.university || "UNEC", degree: u.degree || "Bakalavr", field: u.faculty || "Maliyyə və Bank İşi", graduationYear: "2026" };
+        const p = u.personalInfo || { name: u.name || "Namizəd", email: u.email || "", phone: u.phone || "", location: u.city || "Bakı, Azərbaycan" };
+        const edu = u.education || { university: u.university || "Qeyd edilməyib", degree: u.degree || "Bakalavr", field: u.faculty || "Qeyd edilməyib", graduationYear: "" };
         const skillsObj = u.savedSkills || u.skills || {};
 
         const isAz = lang === "az";

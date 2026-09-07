@@ -78,10 +78,10 @@ function removeStudentFromLocalRegistry(userIdOrEmail) {
 async function firebaseRegister(name, email, password, university, faculty, targetRole, englishLevel, degree) {
     const cleanEmail = (email || "").trim().toLowerCase();
     const cleanName = (name || "Tələbə").trim();
-    const cleanUni = (university || "UNEC").trim();
-    const cleanFac = (faculty || "İqtisadiyyat").trim();
-    const cleanRole = (targetRole || "data_analyst").trim();
-    const cleanEng = (englishLevel || "B2").trim();
+    const cleanUni = (university || "").trim();
+    const cleanFac = (faculty || "").trim();
+    const cleanRole = (targetRole || "").trim();
+    const cleanEng = (englishLevel || "").trim();
     const cleanDeg = (degree || "Bakalavr").trim();
 
     try {
@@ -126,13 +126,20 @@ async function firebaseRegister(name, email, password, university, faculty, targ
             university: cleanUni,
             faculty: cleanFac,
             targetRole: cleanRole,
+            targetSector: "",
             englishLevel: cleanEng,
             degree: cleanDeg,
             educationLevel: cleanDeg,
             city: "Bakı",
+            experience: 0,
+            experience_years: 0,
             skills: {},
             savedSkills: {},
+            skillSources: {},
             careerMatch: 0,
+            profileCompletion: 15,
+            uploadedCV: null,
+            cvVersions: [],
             role: "student",
             studentId: "AZ-STD-" + uid.substring(0, 5).toUpperCase(),
             createdAt: new Date().toISOString(),

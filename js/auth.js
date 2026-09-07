@@ -74,61 +74,32 @@ class AuthManager {
         return {
             name: "Tələbə",
             email: "",
-            university: "UNEC",
-            faculty: "Maliyyə və İqtisadiyyat",
+            university: "",
+            faculty: "",
             city: "Bakı",
             educationLevel: "Bakalavr",
             degree: "Bakalavr",
-            targetRole: "financial_analyst",
-            targetSector: "Maliyyə & Bankçılıq",
-            englishLevel: "B2",
-            otherLanguages: "Rus dili (B1), Türk dili",
+            targetRole: "",
+            targetSector: "",
+            englishLevel: "",
+            otherLanguages: "",
             experience: 0,
             experience_years: 0,
             employmentStatus: "Tələbə / Məzun",
-            skills: {
-                "excel": 4,
-                "financial_analysis": 3,
-                "analytical_thinking": 4,
-                "english": 4,
-                "sql": 2,
-                "power_bi": 2,
-                "accounting_1c": 2
-            },
-            savedSkills: {
-                "excel": 4,
-                "financial_analysis": 3,
-                "analytical_thinking": 4,
-                "english": 4,
-                "sql": 2,
-                "power_bi": 2,
-                "accounting_1c": 2
-            },
-            skillSources: {
-                "excel": "user-added",
-                "financial_analysis": "user-added",
-                "analytical_thinking": "user-added",
-                "english": "user-added",
-                "sql": "user-added",
-                "power_bi": "user-added",
-                "accounting_1c": "user-added"
-            },
-            careerMatch: 68,
-            profileCompletion: 95,
+            skills: {},
+            savedSkills: {},
+            skillSources: {},
+            careerMatch: 0,
+            profileCompletion: 15,
             profilePhotoUrl: "",
             photoUrl: "",
             cvUrl: "",
-            uploadedCV: {
-                name: "CV_Telebe.pdf",
-                uploadDate: "2026-08-20",
-                parsedScore: 88,
-                summary: "Təhsil, analitik düşüncə və kompüter bacarıqları."
-            },
+            uploadedCV: null,
             cvVersions: [],
             role: "student",
-            studentId: "AZ-UNEC-2026",
-            isVerified: true,
-            joinedDate: "15 Fevral 2026"
+            studentId: "AZ-STD-" + Math.floor(1000 + Math.random() * 9000),
+            isVerified: false,
+            joinedDate: new Date().toLocaleDateString('az-AZ', { day: 'numeric', month: 'long', year: 'numeric' })
         };
     }
 
@@ -216,23 +187,23 @@ class AuthManager {
             email = emailOrObj.email;
             pass = emailOrObj.password || "password123";
             uName = emailOrObj.name || "Tələbə";
-            uUni = emailOrObj.university || "UNEC";
-            uFac = emailOrObj.faculty || "Maliyyə və İqtisadiyyat";
-            uRole = emailOrObj.targetRole || "financial_analyst";
+            uUni = emailOrObj.university || "";
+            uFac = emailOrObj.faculty || "";
+            uRole = emailOrObj.targetRole || "";
             uDeg = emailOrObj.degree || "Bakalavr";
-            uEng = emailOrObj.englishLevel || "B2";
-            uSkills = emailOrObj.savedSkills || emailOrObj.skills;
+            uEng = emailOrObj.englishLevel || "";
+            uSkills = emailOrObj.savedSkills || emailOrObj.skills || {};
             uExp = emailOrObj.experience_years !== undefined ? emailOrObj.experience_years : (emailOrObj.experience || 0);
         } else {
             email = emailOrObj;
             pass = password;
             uName = name;
-            uUni = university;
-            uFac = faculty;
-            uRole = targetRole;
-            uDeg = degree;
-            uEng = englishLevel;
-            uSkills = null;
+            uUni = university || "";
+            uFac = faculty || "";
+            uRole = targetRole || "";
+            uDeg = degree || "Bakalavr";
+            uEng = englishLevel || "";
+            uSkills = {};
             uExp = 0;
         }
 
@@ -252,13 +223,8 @@ class AuthManager {
             const userCred = await auth.createUserWithEmailAndPassword(cleanEmail, pass);
             const uid = userCred.user.uid;
 
-            // 2. Set up initial skills
-            const initialSkills = uSkills || {
-                "excel": 4,
-                "financial_analysis": 3,
-                "analytical_thinking": 4,
-                "english": 4
-            };
+            // 2. Set up initial skills (empty for a fresh student)
+            const initialSkills = uSkills || {};
             const initialSources = {};
             Object.keys(initialSkills).forEach(k => { initialSources[k] = 'user-added'; });
 
@@ -268,23 +234,23 @@ class AuthManager {
                 id: uid,
                 name: (uName || '').trim() || 'Tələbə',
                 email: cleanEmail,
-                university: uUni || 'UNEC',
-                faculty: (uFac || '').trim() || 'Maliyyə və İqtisadiyyat',
+                university: uUni || '',
+                faculty: (uFac || '').trim() || '',
                 city: 'Bakı',
                 educationLevel: uDeg || 'Bakalavr',
                 degree: uDeg || 'Bakalavr',
-                targetRole: uRole || 'financial_analyst',
-                targetSector: 'Maliyyə & Bankçılıq',
-                englishLevel: uEng || 'B2',
-                otherLanguages: 'Rus dili (B1), Türk dili',
-                experience: uExp,
-                experience_years: uExp,
+                targetRole: uRole || '',
+                targetSector: '',
+                englishLevel: uEng || '',
+                otherLanguages: '',
+                experience: uExp || 0,
+                experience_years: uExp || 0,
                 employmentStatus: 'Tələbə / Məzun',
                 skills: initialSkills,
                 savedSkills: initialSkills,
                 skillSources: initialSources,
-                careerMatch: 65,
-                profileCompletion: 80,
+                careerMatch: 0,
+                profileCompletion: 15,
                 profilePhotoUrl: '',
                 photoUrl: '',
                 cvUrl: '',
