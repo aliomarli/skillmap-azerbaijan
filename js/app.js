@@ -336,6 +336,7 @@ class SkillMapApp {
         this.topEmployersModule = typeof TopEmployersModule !== "undefined" ? new TopEmployersModule(this.data) : null;
         if (this.topEmployersModule) window.topEmployersModuleInstance = this.topEmployersModule;
         this.nlpSim = typeof NLPSimulator !== "undefined" ? new NLPSimulator(this.data) : null;
+        this.mlEngine = typeof MLCareerOrientationEngine !== "undefined" ? new MLCareerOrientationEngine(this.data) : null;
         this.admin = (typeof AdminModule !== "undefined")
             ? new AdminModule()
             : ((typeof window !== "undefined" && window.AdminModule) ? new window.AdminModule() : null);
@@ -1122,9 +1123,7 @@ class SkillMapApp {
         // LOGGED-IN REAL USER STATE (FULL PERSONALIZED ENGINE)
         // ====================================================
         const targetRoleId = user.targetRole || "";
-        const currentSkills = (this.currentSkills && Object.keys(this.currentSkills).length > 0)
-            ? this.currentSkills
-            : (user.savedSkills || user.skills || {});
+        const currentSkills = user.savedSkills || user.skills || {};
         user.savedSkills = currentSkills;
         user.skills = currentSkills;
         this.currentSkills = currentSkills;
@@ -2848,75 +2847,320 @@ class SkillMapApp {
     }
 
     renderSkillsSubView(skills) {
+        // 1. Render Machine Learning Career Orientation Card
+        this.renderMLCareerDirectionCard(skills);
+
+        // 2. Render Skills List
         const container = document.getElementById("cab-full-skills-list");
         if (!container) return;
         container.innerHTML = "";
 
-        if (!skills || Object.keys(skills).length === 0) {
+        const countBadge = document.getElementById("cab-skills-badge-count");
+        const skillEntries = skills ? Object.entries(skills) : [];
+        if (countBadge) countBadge.textContent = skillEntries.length;
+
+        if (!skills || skillEntries.length === 0) {
             container.innerHTML = `
-                <div class="col-span-full p-12 text-center bg-slate-50/70 rounded-3xl border border-slate-200 space-y-4 max-w-xl mx-auto my-4">
-                    <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto text-xl shadow-sm">
+                <div class="col-span-full p-8 text-center bg-slate-50/70 rounded-3xl border border-slate-200 space-y-3 max-w-xl mx-auto my-2">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto text-lg shadow-sm">
                         <i class="fas fa-sliders"></i>
                     </div>
                     <div class="space-y-1">
-                        <h3 class="text-base font-bold text-slate-900">Bacarıqlar Siyahısı Boşdur</h3>
+                        <h4 class="text-sm font-bold text-slate-900">Hələ Heç Bir Bacarıq Əlavə Edilməyib</h4>
                         <p class="text-xs text-slate-500 leading-relaxed max-w-md mx-auto">
-                            Hələ heç bir bacarıq əlavə etməmisiniz. Mövcud bacarıqlarınızı əl ilə daxil edə və ya CV sənədinizi yükləyərək avtomatik çıxara bilərsiniz.
+                            Yuxarıdakı manual xanaya bildiyiniz bacarıqları yazın, populyar düymələrdən seçin və ya sərbəst mətninizi daxil edin.
                         </p>
-                    </div>
-                    <div class="flex items-center justify-center gap-2.5 pt-2">
-                        <button onclick="app.openAddSkillModal()" class="px-5 py-2.5 rounded-full btn-saas-primary text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-2 transition-all">
-                            <i class="fas fa-plus"></i>
-                            <span>Yeni Bacarıq Əlavə Et</span>
-                        </button>
-                        <button onclick="app.openCVUploadModal()" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-all">
-                            <i class="fas fa-file-arrow-up mr-1 text-blue-600"></i>CV Yüklə
-                        </button>
                     </div>
                 </div>
             `;
             return;
         }
 
-        const skillNames = {
-            "excel": "Excel",
-            "financial_analysis": "Financial Analysis",
-            "sql": "SQL",
-            "powerbi": "Power BI",
-            "financial_modeling": "Financial Modeling",
-            "presentation_skills": "Presentation Skills",
-            "python": "Python",
-            "accounting_1c": "1C Mühasibat 8.3",
-            "accounting": "Mühasibat və IFRS",
-            "analytical_thinking": "Analytical Thinking",
-            "english": "English"
-        };
+        skillEntries.forEach(([sId, val]) => {
+            const level = typeof val === "object" ? (val.level || 3) : (val > 5 ? Math.round(val / 20) : val);
+            
+            // Normalize skill name and category using ML engine if available
+            let displayName = sId;
+            let categoryName = "Texniki";
+            if (this.mlEngine) {
+                const norm = this.mlEngine.normalizeSkillInput(sId);
+                if (norm) {
+                    displayName = norm.name;
+                    categoryName = norm.category || "Texniki";
+                }
+            } else {
+                const skillNames = {
+                    "excel": "Excel",
+                    "financial_analysis": "Financial Analysis",
+                    "sql": "SQL",
+                    "powerbi": "Power BI",
+                    "financial_modeling": "Financial Modeling",
+                    "presentation_skills": "Presentation Skills",
+                    "python": "Python",
+                    "accounting_1c": "1C Mühasibat 8.3",
+                    "accounting": "Mühasibat və IFRS",
+                    "analytical_thinking": "Analytical Thinking",
+                    "english": "English"
+                };
+                displayName = skillNames[sId] || sId;
+            }
 
-        Object.entries(skills).forEach(([sId, val]) => {
-            const level = typeof val === "object" ? val.level : (val > 5 ? Math.round(val / 20) : val);
-            const name = skillNames[sId] || sId;
             const source = (this.auth.currentUser && this.auth.currentUser.skillSources && this.auth.currentUser.skillSources[sId]) || "user-added";
+            const levelNames = ["Başlanğıc (1/5)", "Baza (2/5)", "Orta (3/5)", "Yüksək (4/5)", "Ekspert (5/5)"];
+            const levelLabel = levelNames[Math.max(0, Math.min(4, level - 1))];
 
             const card = document.createElement("div");
-            card.className = "p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3";
+            card.className = "p-4 rounded-2xl bg-slate-50 hover:bg-slate-100/80 transition-all border border-slate-200/80 shadow-2xs space-y-3";
             card.innerHTML = `
-                <div class="flex items-center justify-between">
+                <div class="flex items-start justify-between gap-2">
                     <div>
-                        <div class="font-bold text-slate-900 text-xs">${name}</div>
-                        <span class="text-[10px] text-slate-400">Mənbə: ${source === 'cv-derived' ? '📄 CV-dən çıxarılmış' : '👤 İstifadəçi əlavə edib'}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="font-black text-slate-900 text-xs">${displayName}</span>
+                            <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[10px] font-bold text-slate-500">${categoryName}</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 block mt-0.5">
+                            ${source === 'cv-derived' ? '📄 CV-dən çıxarılmış' : (source === 'ml-extracted' ? '🤖 ML mətndən oxunmuş' : '👤 Manual əlavə edilib')}
+                        </span>
                     </div>
-                    <span class="font-bold text-blue-600 text-xs" id="cab-skill-val-${sId}">${level}/5</span>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-extrabold text-xs" id="cab-skill-val-${sId}">${levelLabel}</span>
+                        <button onclick="app.deleteUserSkill('${sId}')" class="text-rose-400 hover:text-rose-600 hover:bg-rose-50 p-1.5 rounded-lg transition-all" title="Bu bacarığı sil">
+                            <i class="fas fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
                 </div>
-                <input type="range" min="1" max="5" value="${level}" oninput="app.updateUserSkillSlider('${sId}', this.value)" class="w-full">
+                <div class="space-y-1">
+                    <input type="range" min="1" max="5" value="${level}" oninput="app.updateUserSkillSlider('${sId}', this.value)" class="w-full accent-blue-600 cursor-pointer">
+                    <div class="flex justify-between text-[9px] text-slate-400 font-semibold px-0.5">
+                        <span>1 - Başlanğıc</span>
+                        <span>3 - Orta</span>
+                        <span>5 - Ekspert</span>
+                    </div>
+                </div>
             `;
             container.appendChild(card);
         });
     }
 
+    renderMLCareerDirectionCard(skills) {
+        const container = document.getElementById("cab-ml-direction-card");
+        if (!container) return;
+
+        if (!this.mlEngine && typeof MLCareerOrientationEngine !== "undefined") {
+            this.mlEngine = new MLCareerOrientationEngine(this.data);
+        }
+
+        const mlResult = this.mlEngine ? this.mlEngine.predictCareerOrientation(skills, this.auth.currentUser || {}) : null;
+
+        if (!mlResult || !mlResult.ready) {
+            container.innerHTML = `
+                <div class="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/20 shadow-xl flex flex-col md:flex-row items-center gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-600/30 border border-indigo-400/30 flex items-center justify-center text-indigo-300 text-2xl shrink-0">
+                        <i class="fas fa-brain animate-pulse"></i>
+                    </div>
+                    <div class="space-y-1 flex-1 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-[11px] font-bold text-indigo-200">
+                            <i class="fas fa-wand-magic-sparkles text-amber-300"></i>
+                            <span>Machine Learning Karyera İstiqaməti</span>
+                        </div>
+                        <h4 class="text-base font-black text-white">Bacarıqlarınızı daxil edin — Süni İntellekt İstiqamət Təyin Etsin</h4>
+                        <p class="text-xs text-indigo-200/70 leading-relaxed max-w-2xl">
+                            Yuxarıdakı manual xanadan bildiyiniz bacarıqları yazın və ya sərbəst təsvir əlavə edin. ML modelimiz daxil edilmiş məlumatları oxuyaraq sizə ən uyğun karyera yolunu avtomatik təyin edəcək.
+                        </p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        const top = mlResult.topRole;
+        container.innerHTML = `
+            <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white border border-indigo-500/30 shadow-2xl space-y-6 relative overflow-hidden">
+                <div class="absolute -right-16 -top-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-800/40 pb-5">
+                    <div class="space-y-1.5">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-3 py-0.5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-[11px] font-black uppercase tracking-wider text-white shadow-sm flex items-center gap-1.5">
+                                <i class="fas fa-robot"></i> ML Karyera İstiqaməti Qərarı
+                            </span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
+                                ${mlResult.confidence}
+                            </span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2 pt-1">
+                            <span>${top.title}</span>
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-3 text-xs text-indigo-200/80">
+                            <span><i class="fas fa-briefcase mr-1 text-indigo-400"></i>${top.sector}</span>
+                            <span>•</span>
+                            <span><i class="fas fa-money-bill-wave mr-1 text-emerald-400"></i>Orta gəlir: <strong class="text-white">${top.avgSalary}</strong></span>
+                            <span>•</span>
+                            <span><i class="fas fa-fire mr-1 text-amber-400"></i>${top.marketDemand}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 shrink-0">
+                        <div class="text-right">
+                            <div class="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">
+                                ${top.matchScore}%
+                            </div>
+                            <span class="text-[10px] font-bold text-indigo-300 uppercase tracking-wider">Bazar Uyğunluğu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Rationale explanation -->
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                    <div class="flex items-center gap-2 text-xs font-bold text-indigo-300">
+                        <i class="fas fa-lightbulb text-amber-300"></i>
+                        <span>ML Alqoritm Təhlili və Tövsiyə Əsası:</span>
+                    </div>
+                    <p class="text-xs text-slate-200 leading-relaxed font-medium">
+                        ${mlResult.dynamicRationale}
+                    </p>
+                </div>
+
+                <!-- Action Buttons & Sub-grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-1 items-center">
+                    <div class="lg:col-span-6 space-y-2">
+                        <button onclick="app.confirmMLRecommendedRole('${top.id}')" class="w-full sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 via-indigo-600 to-indigo-700 hover:from-blue-600 hover:to-indigo-800 text-white text-xs font-black shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all transform active:scale-95">
+                            <i class="fas fa-bullseye text-amber-300"></i>
+                            <span>🎯 Bu İstiqaməti Hədəfim Kimi Təsdiqlə</span>
+                        </button>
+                        <span class="block text-[11px] text-indigo-300/70">Təsdiqlədikdə bütün Skill Gap analizləriniz və vakansiya uyğunluqlarınız avtomatik olaraq bu vəzifəyə köklənəcək.</span>
+                    </div>
+
+                    <!-- Alternativlər -->
+                    <div class="lg:col-span-6 space-y-2">
+                        <div class="text-xs font-bold text-indigo-200">
+                            <span>Alternativ Uyğun İstiqamətlər:</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            ${mlResult.alternatives.map(alt => `
+                                <button onclick="app.confirmMLRecommendedRole('${alt.id}')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-semibold text-white flex items-center gap-2 transition-all" title="Bu istiqaməti hədəf seç">
+                                    <span>${alt.title.split('(')[0].trim()}</span>
+                                    <span class="px-1.5 py-0.5 rounded-md bg-indigo-500/40 text-[10px] font-black text-indigo-200">${alt.matchScore}%</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended next skills if any -->
+                ${mlResult.recommendedNextSkills && mlResult.recommendedNextSkills.length > 0 ? `
+                    <div class="pt-4 border-t border-indigo-800/40 flex flex-wrap items-center gap-2 text-xs">
+                        <span class="text-indigo-300 font-bold flex items-center gap-1.5">
+                            <i class="fas fa-arrow-trend-up text-emerald-400"></i>
+                            ${top.matchScore}%-dən 90%+-ə yüksəltmək üçün növbəti bacarıqlar:
+                        </span>
+                        ${mlResult.recommendedNextSkills.map(s => `
+                            <button onclick="app.quickAddSkill('${s.id}')" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold flex items-center gap-1 transition-all" title="Bu bacarığı dərhal əlavə et">
+                                <i class="fas fa-plus text-[10px]"></i>
+                                <span>${s.name.split('(')[0].trim()}</span>
+                                <span class="text-[9px] opacity-75">(${s.expectedImpact})</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    }
+
+    handleManualSkillAdd() {
+        const input = document.getElementById("manual-skill-input");
+        const levelSelect = document.getElementById("manual-skill-level");
+        if (!input || !input.value.trim()) {
+            alert("Zəhmət olmasa əlavə etmək istədiyiniz bacarığın adını daxil edin.");
+            if (input) input.focus();
+            return;
+        }
+
+        const rawSkill = input.value.trim();
+        const level = parseInt(levelSelect ? levelSelect.value : "3", 10) || 3;
+
+        if (!this.mlEngine && typeof MLCareerOrientationEngine !== "undefined") {
+            this.mlEngine = new MLCareerOrientationEngine(this.data);
+        }
+
+        const norm = this.mlEngine ? this.mlEngine.normalizeSkillInput(rawSkill) : null;
+        const skillId = norm ? norm.id : rawSkill.toLowerCase().replace(/[^a-z0-9_]/g, "_");
+
+        this.auth.setSkill(skillId, level, "user-added");
+        input.value = "";
+
+        this.renderStudentCabinet();
+    }
+
+    quickAddSkill(skillName) {
+        if (!skillName) return;
+
+        if (!this.mlEngine && typeof MLCareerOrientationEngine !== "undefined") {
+            this.mlEngine = new MLCareerOrientationEngine(this.data);
+        }
+
+        const norm = this.mlEngine ? this.mlEngine.normalizeSkillInput(skillName) : null;
+        const skillId = norm ? norm.id : skillName.toLowerCase().replace(/[^a-z0-9_]/g, "_");
+
+        const currentLvl = (this.auth.currentUser && this.auth.currentUser.savedSkills && this.auth.currentUser.savedSkills[skillId]) || 3;
+
+        this.auth.setSkill(skillId, currentLvl, "user-added");
+        this.renderStudentCabinet();
+    }
+
+    deleteUserSkill(skillId) {
+        if (!skillId) return;
+
+        this.auth.removeSkill(skillId);
+        if (this.currentSkills) delete this.currentSkills[skillId];
+
+        this.renderStudentCabinet();
+    }
+
+    handleMLBioExtract() {
+        const textarea = document.getElementById("manual-skills-bio-input");
+        if (!textarea || !textarea.value.trim()) {
+            alert("Zəhmət olmasa təcrübəniz, təhsiliniz və ya bildiyiniz alətlər haqqında qısa mətn daxil edin.");
+            if (textarea) textarea.focus();
+            return;
+        }
+
+        const text = textarea.value.trim();
+
+        if (!this.mlEngine && typeof MLCareerOrientationEngine !== "undefined") {
+            this.mlEngine = new MLCareerOrientationEngine(this.data);
+        }
+
+        const res = this.mlEngine ? this.mlEngine.extractSkillsFromText(text) : null;
+
+        if (!res || res.extractedCount === 0) {
+            alert("Daxil etdiyiniz mətndə tanınan texnoloji və ya maliyyə bacarığı aşkar edilmədi. Zəhmət olmasa bildiyiniz proqramları (məs: Python, SQL, Excel, 1C, Power BI) aydın qeyd edin.");
+            return;
+        }
+
+        Object.entries(res.detectedSkills).forEach(([sId, lvl]) => {
+            this.auth.setSkill(sId, lvl, "ml-extracted");
+        });
+
+        textarea.value = "";
+        alert(`Süni intellekt mətndən ${res.extractedCount} bacarıq aşkar etdi və profilinizə əlavə etdi!`);
+
+        this.renderStudentCabinet();
+    }
+
+    confirmMLRecommendedRole(roleId) {
+        if (!roleId) return;
+
+        this.auth.updateProfile({ targetRole: roleId });
+        this.renderStudentCabinet();
+        this.switchCabinetView("overview");
+    }
+
     updateUserSkillSlider(skillId, val) {
         const v = parseInt(val, 10);
         const badge = document.getElementById(`cab-skill-val-${skillId}`);
-        if (badge) badge.textContent = `${v}/5`;
+        const levelNames = ["Başlanğıc (1/5)", "Baza (2/5)", "Orta (3/5)", "Yüksək (4/5)", "Ekspert (5/5)"];
+        if (badge) badge.textContent = levelNames[Math.max(0, Math.min(4, v - 1))];
 
         this.auth.setSkill(skillId, v);
         this.renderStudentCabinet();
@@ -2928,16 +3172,30 @@ class SkillMapApp {
     }
 
     saveNewSkill() {
+        const customInput = document.getElementById("new-skill-custom-input");
         const select = document.getElementById("new-skill-select");
         const range = document.getElementById("new-skill-level-range");
-        if (!select || !range) return;
 
-        const sId = select.value;
-        const level = parseInt(range.value, 10);
+        let skillName = (customInput && customInput.value.trim()) ? customInput.value.trim() : (select ? select.value : "");
+        if (!skillName) {
+            alert("Zəhmət olmasa bacarıq adını qeyd edin.");
+            return;
+        }
+
+        const level = range ? parseInt(range.value, 10) : 3;
+
+        if (!this.mlEngine && typeof MLCareerOrientationEngine !== "undefined") {
+            this.mlEngine = new MLCareerOrientationEngine(this.data);
+        }
+
+        const norm = this.mlEngine ? this.mlEngine.normalizeSkillInput(skillName) : null;
+        const sId = norm ? norm.id : skillName.toLowerCase().replace(/[^a-z0-9_]/g, "_");
 
         this.auth.setSkill(sId, level, "user-added");
-        document.getElementById("modal-add-skill").style.display = "none";
-        
+        const modal = document.getElementById("modal-add-skill");
+        if (modal) modal.style.display = "none";
+        if (customInput) customInput.value = "";
+
         alert("Yeni bacarıq uğurla əlavə olundu!");
         this.renderStudentCabinet();
     }
