@@ -340,6 +340,9 @@ class SkillMapApp {
         this.admin = (typeof AdminModule !== "undefined")
             ? new AdminModule()
             : ((typeof window !== "undefined" && window.AdminModule) ? new window.AdminModule() : null);
+        this.universityModule = (typeof UniversityCurriculumModule !== "undefined")
+            ? new UniversityCurriculumModule(this.data)
+            : ((typeof window !== "undefined" && window.UniversityCurriculumModule) ? new window.UniversityCurriculumModule(this.data) : null);
 
         this.currentLang = "az";
         this.currentSkills = {};
@@ -372,6 +375,7 @@ class SkillMapApp {
         try { this.renderInternships(); } catch (e) { console.error("Error in renderInternships:", e); }
         try { this.renderVacancyAnalytics(); } catch (e) { console.error("Error in renderVacancyAnalytics:", e); }
         try { this.renderMethodologyView(); } catch (e) { console.error("Error in renderMethodologyView:", e); }
+        try { this.renderUniversityView(); } catch (e) { console.error("Error in renderUniversityView:", e); }
 
         // Bind data-tab-btn click listeners to guarantee flawless navigation
         try {
@@ -3506,11 +3510,73 @@ class SkillMapApp {
             setTimeout(() => {
                 if (this.charts.studentRadar) this.charts.studentRadar.resize();
             }, 100);
+        } else if (tabId === "university-dash") {
+            try { this.renderUniversityView(); } catch (e) { console.error("Error in renderUniversityView:", e); }
         } else if (tabId === "internships") {
             this.renderInternships();
         }
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderUniversityView() {
+        if (!this.universityModule && typeof UniversityCurriculumModule !== "undefined") {
+            this.universityModule = new UniversityCurriculumModule(this.data);
+        }
+        if (this.universityModule) {
+            this.universityModule.render();
+        }
+    }
+
+    switchUniSubTab(subTab) {
+        if (this.universityModule) {
+            this.universityModule.switchSubTab(subTab);
+        }
+    }
+
+    openAddCourseModal() {
+        if (this.universityModule) this.universityModule.openAddCourseModal();
+    }
+
+    closeAddCourseModal() {
+        if (this.universityModule) this.universityModule.closeAddCourseModal();
+    }
+
+    saveNewCourse() {
+        if (this.universityModule) this.universityModule.saveNewCourse();
+    }
+
+    openHRSurveyModal() {
+        if (this.universityModule) this.universityModule.openHRSurveyModal();
+    }
+
+    closeHRSurveyModal() {
+        if (this.universityModule) this.universityModule.closeHRSurveyModal();
+    }
+
+    saveHRSurvey() {
+        if (this.universityModule) this.universityModule.saveHRSurvey();
+    }
+
+    exportCurriculumCSV() {
+        if (this.universityModule) this.universityModule.exportCurriculumCSV();
+    }
+
+    exportHRRealityCSV() {
+        if (this.universityModule) this.universityModule.exportHRRealityCSV();
+    }
+
+    importCurriculumCSV(file) {
+        if (this.universityModule) this.universityModule.importCurriculumCSV(file);
+    }
+
+    openSurveyImportModal() {
+        const input = document.getElementById("uni-csv-upload-input");
+        if (input) input.click();
+    }
+
+    exportSurveyAnalyticsCSV() {
+        this.exportCurriculumCSV();
     }
 
     populateRolesDropdown() {
