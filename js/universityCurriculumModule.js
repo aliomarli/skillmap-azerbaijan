@@ -27,6 +27,10 @@ class UniversityCurriculumModule {
     /**
      * Initializes default university courses and HR empirical survey responses
      */
+    isAdmin() {
+        return !!(window.app && window.app.admin && window.app.admin.isAdminLoggedIn());
+    }
+
     initDatabases() {
         let savedCourses = null;
         try {
@@ -839,6 +843,25 @@ class UniversityCurriculumModule {
      * Main Render Method for University Dashboard
      */
     render() {
+        const authCont = document.getElementById("uni-public-auth-status-container");
+        if (authCont) {
+            if (this.isAdmin()) {
+                authCont.innerHTML = `
+                    <button onclick="app.switchTab('admin'); if(app.admin) app.admin.switchAdminSubView('universities');" class="px-3 py-2 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-2xs flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fas fa-gear"></i>
+                        <span>Admin Paneldə İdarə Et</span>
+                    </button>
+                `;
+            } else {
+                authCont.innerHTML = `
+                    <span class="px-3 py-2 text-xs font-bold rounded-xl bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                        <i class="fas fa-shield-alt text-indigo-600"></i>
+                        <span>Rəsmi Açıq Reyestr</span>
+                    </span>
+                `;
+            }
+        }
+
         const selector = document.getElementById("university-selector");
         if (selector) this.selectedUniversity = selector.value || "all";
 
@@ -923,12 +946,13 @@ class UniversityCurriculumModule {
         if (countBadge) countBadge.textContent = relevant.length;
 
         if (relevant.length === 0) {
+            const emptyBtn = this.isAdmin() 
+                ? `<button onclick="app.universityModule.openAddCourseModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm cursor-pointer">+ Yeni Fənn Əlavə Et</button>`
+                : '';
             container.innerHTML = `
                 <div class="col-span-full p-8 text-center bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
                     <p class="text-xs font-bold text-slate-700">Seçilmiş parametr üzrə heç bir fənn tapılmadı.</p>
-                    <button onclick="app.universityModule.openAddCourseModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm">
-                        + Yeni Fənn Əlavə Et
-                    </button>
+                    ${emptyBtn}
                 </div>
             `;
             return;
@@ -960,9 +984,7 @@ class UniversityCurriculumModule {
                         </div>
                         <h4 class="text-sm font-black text-slate-900 mt-1">${course.name}</h4>
                     </div>
-                    <button onclick="app.universityModule.deleteCourse('${course.id}')" class="text-slate-400 hover:text-rose-600 p-1 rounded-lg transition-colors" title="Fənni sil">
-                        <i class="fas fa-trash-can text-xs"></i>
-                    </button>
+                    ${this.isAdmin() ? `<button onclick="app.universityModule.deleteCourse('${course.id}')" class="text-slate-400 hover:text-rose-600 p-1 rounded-lg transition-colors cursor-pointer" title="Fənni sil"><i class="fas fa-trash-can text-xs"></i></button>` : ''}
                 </div>
 
                 <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">
@@ -1062,6 +1084,14 @@ class UniversityCurriculumModule {
      * Modal Handlers: Add Course & Syllabus
      */
     openAddCourseModal() {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Giriş qadağandır: Yalnız sistem administratoru fənn daxil edə bilər!", "warning");
+            } else {
+                alert("Giriş qadağandır: Yalnız sistem administratoru fənn daxil edə bilər!");
+            }
+            return;
+        }
         const modal = document.getElementById("modal-add-syllabus");
         if (modal) {
             modal.style.display = "flex";
@@ -1100,6 +1130,14 @@ class UniversityCurriculumModule {
     }
 
     saveNewCourse() {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Təhlükəsizlik xətası: Fənn əlavə etmək yalnız administrator üçün aktivdir!", "error");
+            } else {
+                alert("Təhlükəsizlik xətası: Fənn əlavə etmək yalnız administrator üçün aktivdir!");
+            }
+            return;
+        }
         const nameInput = document.getElementById("modal-course-name");
         const codeInput = document.getElementById("modal-course-code");
         const creditInput = document.getElementById("modal-course-credits");
@@ -1149,9 +1187,18 @@ class UniversityCurriculumModule {
         }
 
         this.render();
+        this.renderAdminManagementView();
     }
 
     deleteCourse(courseId) {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Təhlükəsizlik xətası: Fənn silmək hüququ yalnız administratora məxsusdur!", "error");
+            } else {
+                alert("Təhlükəsizlik xətası: Fənn silmək hüququ yalnız administratora məxsusdur!");
+            }
+            return;
+        }
         if (!courseId) return;
         if (!confirm("Bu fənni və sillabusunu bazadan silmək istədiyinizə əminsiniz?")) return;
 
@@ -1163,12 +1210,44 @@ class UniversityCurriculumModule {
         }
 
         this.render();
+        this.renderAdminManagementView();
+    }
+
+    deleteHRSurvey(surveyId) {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Təhlükəsizlik xətası: HR sorğusu silmək yalnız administrator üçün aktivdir!", "error");
+            } else {
+                alert("Təhlükəsizlik xətası: HR sorğusu silmək yalnız administrator üçün aktivdir!");
+            }
+            return;
+        }
+        if (!surveyId) return;
+        if (!confirm("Bu HR empirik sorğu qeydini bazadan silmək istədiyinizə əminsiniz?")) return;
+
+        this.hrSurveys = this.hrSurveys.filter(s => s.id !== surveyId);
+        this.saveHRSurveys();
+
+        if (window.app && window.app.showToast) {
+            window.app.showToast("HR empirik sorğusu uğurla silindi.", "info");
+        }
+
+        this.render();
+        this.renderAdminManagementView();
     }
 
     /**
      * Modal Handlers: Add HR Reality Survey
      */
     openHRSurveyModal() {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Giriş qadağandır: HR sorğusu daxil etmək yalnız administrator üçün aktivdir!", "warning");
+            } else {
+                alert("Giriş qadağandır: HR sorğusu daxil etmək yalnız administrator üçün aktivdir!");
+            }
+            return;
+        }
         const modal = document.getElementById("modal-hr-reality-survey");
         if (modal) {
             modal.style.display = "flex";
@@ -1185,6 +1264,14 @@ class UniversityCurriculumModule {
     }
 
     saveHRSurvey() {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Təhlükəsizlik xətası: HR sorğusu qeydiyyatı yalnız administrator üçün aktivdir!", "error");
+            } else {
+                alert("Təhlükəsizlik xətası: HR sorğusu qeydiyyatı yalnız administrator üçün aktivdir!");
+            }
+            return;
+        }
         const compInput = document.getElementById("hr-survey-company");
         const roleInput = document.getElementById("hr-survey-role");
         const respInput = document.getElementById("hr-survey-respondent");
@@ -1225,6 +1312,7 @@ class UniversityCurriculumModule {
         }
 
         this.render();
+        this.renderAdminManagementView();
     }
 
     /**
@@ -1278,6 +1366,14 @@ class UniversityCurriculumModule {
      * Import Curriculum CSV (Multi-University)
      */
     importCurriculumCSV(file) {
+        if (!this.isAdmin()) {
+            if (window.app && window.app.showToast) {
+                window.app.showToast("Təhlükəsizlik xətası: CSV yükləmək yalnız administrator üçün aktivdir!", "error");
+            } else {
+                alert("Təhlükəsizlik xətası: CSV yükləmək yalnız administrator üçün aktivdir!");
+            }
+            return;
+        }
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -1320,12 +1416,174 @@ class UniversityCurriculumModule {
                 this.saveCourses();
                 alert(`Uğurla ${importedCount} fənn bazaya əlavə edildi!`);
                 this.render();
+                this.renderAdminManagementView();
             } catch (err) {
                 console.error("CSV import error:", err);
                 alert("CSV faylını oxuyarkən xəta baş verdi: " + err.message);
             }
         };
         reader.readAsText(file, "UTF-8");
+    }
+    /**
+     * Render Admin Dedicated Universities & Curriculum Management View
+     */
+    renderAdminManagementView() {
+        // 1. Update stats
+        const statCourses = document.getElementById("admin-uni-stat-courses");
+        const statSkills = document.getElementById("admin-uni-stat-skills");
+        const statUnis = document.getElementById("admin-uni-stat-unis");
+        const statSurveys = document.getElementById("admin-uni-stat-surveys");
+
+        const allSkills = new Set();
+        const allUnis = new Set();
+        (this.courses || []).forEach(c => {
+            if (c.university) allUnis.add(c.university);
+            if (c.extractedSkills) {
+                Object.keys(c.extractedSkills).forEach(s => allSkills.add(s));
+            }
+        });
+
+        if (statCourses) statCourses.textContent = (this.courses || []).length;
+        if (statSkills) statSkills.textContent = allSkills.size;
+        if (statUnis) statUnis.textContent = allUnis.size || 5;
+        if (statSurveys) statSurveys.textContent = (this.hrSurveys || []).length;
+
+        // 2. Render Courses Management Table
+        const searchInput = document.getElementById("admin-uni-search");
+        const filterUni = document.getElementById("admin-uni-filter-uni");
+        const filterMajor = document.getElementById("admin-uni-filter-major");
+        const coursesTbody = document.getElementById("admin-uni-courses-tbody");
+
+        if (coursesTbody) {
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+            const selUni = filterUni ? filterUni.value : "all";
+            const selMajor = filterMajor ? filterMajor.value : "all";
+
+            const filteredCourses = (this.courses || []).filter(c => {
+                const matchUni = (selUni === "all" || c.university === selUni);
+                const matchMajor = (selMajor === "all" || c.major === selMajor);
+                const matchQuery = !query || 
+                    (c.name && c.name.toLowerCase().includes(query)) ||
+                    (c.code && c.code.toLowerCase().includes(query)) ||
+                    (c.extractedSkills && Object.keys(c.extractedSkills).some(s => s.toLowerCase().includes(query)));
+                return matchUni && matchMajor && matchQuery;
+            });
+
+            if (filteredCourses.length === 0) {
+                coursesTbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="p-6 text-center text-slate-400 font-medium italic">
+                            Seçilmiş meyarlara uyğun heç bir fənn tapılmadı.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                const uniLabels = {
+                    unec: "UNEC",
+                    bdu: "BDU",
+                    banm: "BANM",
+                    azii: "ADNSU",
+                    ada: "ADA"
+                };
+                const majorLabels = {
+                    it: "İnformasiya Texnologiyaları",
+                    finance: "Maliyyə & Mühasibatlıq",
+                    economics: "İqtisadiyyat & Analitika"
+                };
+
+                coursesTbody.innerHTML = filteredCourses.map(course => {
+                    const skillsPills = Object.entries(course.extractedSkills || {}).map(([sId, lvl]) => {
+                        return `<span class="px-2 py-0.5 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-700 text-[10px] font-bold inline-block">${sId.toUpperCase()}: ${lvl}/5</span>`;
+                    }).join(" ") || '<span class="text-slate-400 text-[10px] italic">BBS yoxdur</span>';
+
+                    return `
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="p-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-black text-[10px]">${course.code}</span>
+                                    <span class="font-bold text-slate-900">${course.name}</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 mt-1 line-clamp-1">${course.syllabusText || ''}</div>
+                            </td>
+                            <td class="p-3">
+                                <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold text-[10px] inline-block mr-1">
+                                    ${uniLabels[course.university] || (course.university || '').toUpperCase()}
+                                </span>
+                                <span class="text-slate-500 text-[11px] font-medium">
+                                    ${majorLabels[course.major] || course.major || ''}
+                                </span>
+                            </td>
+                            <td class="p-3">
+                                <span class="font-black text-slate-700">${course.credits || 6}</span> <span class="text-[10px] text-slate-400">ECTS</span>
+                            </td>
+                            <td class="p-3">
+                                <div class="flex flex-wrap gap-1 max-w-sm">
+                                    ${skillsPills}
+                                </div>
+                            </td>
+                            <td class="p-3 text-right">
+                                <button onclick="app.universityModule.deleteCourse('${course.id}')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs inline-flex items-center gap-1.5 transition-all cursor-pointer" title="Fənni bazadan sil">
+                                    <i class="fas fa-trash-can text-xs"></i>
+                                    <span>Sil</span>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join("");
+            }
+        }
+
+        // 3. Render HR Surveys Table
+        const hrTbody = document.getElementById("admin-uni-hr-tbody");
+        if (hrTbody) {
+            if (!this.hrSurveys || this.hrSurveys.length === 0) {
+                hrTbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="p-6 text-center text-slate-400 font-medium italic">
+                            Bazada qeydə alınmış heç bir HR empirik sorğusu yoxdur.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                hrTbody.innerHTML = this.hrSurveys.map(survey => {
+                    const ratingBadges = Object.entries(survey.ratings || {}).map(([sId, val]) => {
+                        return `<span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-bold">${sId}: ${val}/5</span>`;
+                    }).join(" ") || '<span class="text-slate-400 text-[10px] italic">Reytinq yoxdur</span>';
+
+                    return `
+                        <tr class="hover:bg-slate-50/80 transition-colors">
+                            <td class="p-3">
+                                <div class="font-black text-slate-900">${survey.company}</div>
+                                <div class="text-[10px] text-slate-400">${survey.id}</div>
+                            </td>
+                            <td class="p-3">
+                                <div class="font-bold text-slate-800">${survey.respondent || "İR Mütəxəssisi"}</div>
+                                <div class="text-[10px] text-indigo-600 font-semibold">${survey.role || "Mütəxəssis"}</div>
+                            </td>
+                            <td class="p-3 text-slate-500 font-medium text-[11px]">
+                                ${survey.date || "-"}
+                            </td>
+                            <td class="p-3">
+                                <div class="flex flex-wrap gap-1 max-w-xs">
+                                    ${ratingBadges}
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                <p class="text-slate-500 text-[11px] line-clamp-2 max-w-xs" title="${survey.notes || ''}">
+                                    ${survey.notes || "-"}
+                                </p>
+                            </td>
+                            <td class="p-3 text-right">
+                                <button onclick="app.universityModule.deleteHRSurvey('${survey.id}')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs inline-flex items-center gap-1.5 transition-all cursor-pointer" title="Sorğunu sil">
+                                    <i class="fas fa-trash-can text-xs"></i>
+                                    <span>Sil</span>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join("");
+            }
+        }
     }
 }
 

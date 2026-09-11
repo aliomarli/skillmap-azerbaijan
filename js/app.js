@@ -3571,6 +3571,14 @@ class SEMAPApp {
         if (this.universityModule) this.universityModule.importCurriculumCSV(file);
     }
 
+    deleteCourse(courseId) {
+        if (this.universityModule) this.universityModule.deleteCourse(courseId);
+    }
+
+    deleteHRSurvey(surveyId) {
+        if (this.universityModule) this.universityModule.deleteHRSurvey(surveyId);
+    }
+
     openSurveyImportModal() {
         const input = document.getElementById("uni-csv-upload-input");
         if (input) input.click();

@@ -126,6 +126,9 @@ class AdminModule {
             }));
 
             this.closeAdminLoginModal();
+            if (window.app && window.app.universityModule) {
+                window.app.universityModule.render();
+            }
             await this.renderAdminView();
             return { success: true };
         }
@@ -168,6 +171,9 @@ class AdminModule {
             await window.app.auth.logout();
         }
         window.app.showToast("Admin sessiyası uğurla bağlandı.", "info");
+        if (window.app && window.app.universityModule) {
+            window.app.universityModule.render();
+        }
         this.renderAdminView();
     }
 
@@ -255,6 +261,7 @@ class AdminModule {
             dashboard: { title: "Admin İdarəetmə Paneli", desc: "Sistemə ümumi baxış, tələbə qeydiyyatları və canlı göstəricilər" },
             students: { title: "Tələbə İdarəetmə Mərkəzi", desc: "Qeydiyyatlı tələbələrin axtarışı, filtrlənməsi, profilləri və idarə edilməsi" },
             analytics: { title: "İntellektual Bazar & Tələbə Analitikası", desc: "Real əmək bazarı tələbləri ilə tələbə biliklərinin müqayisəli qrafikləri" },
+            universities: { title: "Universitetlər & Kurrikulum İdarəetməsi", desc: "Fənlər, sillabuslar, NLP ilə bacarıq çıxarışı və HR empirik rəylərinin mərkəzləşdirilmiş idarəetməsi" },
             methodology: { title: "Alqoritm & Hesablama Modelləri", desc: "Skill Gap, Career Match və Əməkhaqqı proqnozlaşdırma düsturları" },
             settings: { title: "Sistem Tənzimləmələri & Təhlükəsizlik", desc: "Master şifrənin dəyişdirilməsi, Firestore bazası və sistem ehtiyat nüsxəsi" }
         };
@@ -269,6 +276,14 @@ class AdminModule {
             this.renderDashboardStats();
         } else if (viewName === "analytics") {
             this.renderAnalyticsCharts();
+        } else if (viewName === "universities") {
+            this.renderUniversitiesManagementView();
+        }
+    }
+
+    renderUniversitiesManagementView() {
+        if (window.app && window.app.universityModule) {
+            window.app.universityModule.renderAdminManagementView();
         }
     }
 
