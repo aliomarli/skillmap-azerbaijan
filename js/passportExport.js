@@ -53,7 +53,10 @@ class SkillPassportGenerator {
         <body>
             <div class="passport-card">
                 <div class="header">
-                    <div class="logo">SEMAP <span>Azerbaijan</span></div>
+                    <div class="logo" style="display: flex; align-items: center; gap: 8px;">
+                        <img src="images/semap_icon.svg" style="width: 24px; height: 24px; object-fit: contain;" alt="SEMAP">
+                        <div>SEMAP <span>Azerbaijan</span></div>
+                    </div>
                     <div class="badge">RƏSMİ RƏQƏMSAL BACARIQ PASPORTU</div>
                 </div>
 

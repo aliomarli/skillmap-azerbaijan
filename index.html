@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEMAP Azerbaijan – Əmək Bazarı və Bacarıq Qərar Dəstəyi Platforması</title>
     
+    <!-- Favicon (SEMAP Intelligence Prism) -->
+    <link rel="icon" type="image/svg+xml" href="images/semap_icon.svg">
+    <link rel="alternate icon" type="image/png" href="images/semap_favicon.png">
+    
     <!-- Chart.js UMD CDN (Loaded first before other scripts) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 
@@ -89,17 +93,17 @@
         <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
             <div class="flex items-center justify-between h-16 gap-2">
                 
-                <!-- 1. Logo -->
-                <div class="flex items-center gap-2 cursor-pointer flex-shrink-0" onclick="app.switchTab('overview')">
-                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white font-black text-base shadow-md shadow-indigo-500/20">
-                        <i class="fas fa-bolt"></i>
+                <!-- 1. Logo (SEMAP Intelligence Prism) -->
+                <div class="flex items-center gap-2.5 cursor-pointer flex-shrink-0 group" onclick="app.switchTab('overview')">
+                    <div class="w-8 h-8 flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105">
+                        <img src="images/semap_icon.svg" alt="SEMAP Intelligence Prism" class="w-full h-full object-contain filter drop-shadow-xs">
                     </div>
                     <div>
-                        <div class="flex items-center gap-1">
-                            <span class="font-black text-base text-slate-900 tracking-tight">SEMAP</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-black text-base text-slate-900 tracking-tight leading-none">SEMAP</span>
                             <span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">AZ</span>
                         </div>
-                        <p class="text-[8px] text-slate-500 font-semibold tracking-tight hidden sm:block">Əmək Bazarı & Bacarıq İntellekti</p>
+                        <p class="text-[8px] text-slate-500 font-semibold tracking-tight hidden sm:block mt-0.5">Intelligence Prism · Əmək Bazarı İntellekti</p>
                     </div>
                 </div>
 
@@ -165,8 +169,8 @@
                 <!-- Top Announcement Badge -->
                 <div class="relative z-20 mb-6">
                     <div onclick="app.switchTab('nlp-sandbox')" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/90 hover:bg-white backdrop-blur-md border border-white/95 shadow-lg text-xs font-bold text-sky-950 cursor-pointer transition-all hover:scale-105 transform group">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span class="tracking-wide"><span data-i18n="hero_badge">SEMAP AZERBAIJAN · Professional Karyera & İnsan Kapitalı Platforması</span></span>
+                        <img src="images/semap_icon.svg" alt="SEMAP" class="w-4 h-4 object-contain">
+                        <span class="tracking-wide"><span data-i18n="hero_badge">SEMAP AZERBAIJAN · Intelligence Prism</span></span>
                         <span class="text-sky-600 group-hover:translate-x-1 transition-transform font-black">→</span>
                     </div>
                 </div>
@@ -327,14 +331,14 @@
                 
                 <!-- LEFT SIDEBAR (Dark Navy #0F172A) -->
                 <aside class="cabinet-sidebar w-full lg:w-64 flex-shrink-0 p-5 flex flex-col justify-between space-y-6 shadow-xl">
-                    <!-- Brand Logo -->
+                    <!-- Brand Logo (SEMAP Intelligence Prism) -->
                     <div class="flex items-center gap-3 px-2 py-1">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-lg shadow-md shadow-blue-500/30">
-                            <i class="fas fa-network-wired"></i>
+                        <div class="w-9 h-9 flex items-center justify-center flex-shrink-0">
+                            <img src="images/semap_icon.svg" alt="SEMAP" class="w-full h-full object-contain filter drop-shadow-md">
                         </div>
                         <div>
                             <div class="text-white font-black text-base tracking-tight leading-tight">SEMAP</div>
-                            <div class="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Azerbaijan</div>
+                            <div class="text-indigo-300 text-[10px] uppercase font-bold tracking-wider">Intelligence Prism</div>
                         </div>
                     </div>
 
@@ -1381,14 +1385,14 @@
                 <!-- Sol Qaranlıq Sidebar (240px) -->
                 <aside class="w-full md:w-64 bg-slate-900 text-white p-5 flex flex-col justify-between flex-shrink-0 border-r border-slate-800">
                     <div class="space-y-6">
-                        <!-- Brand Header -->
+                        <!-- Brand Header (SEMAP Intelligence Prism) -->
                         <div class="flex items-center gap-3 px-2 py-1">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white text-base shadow-md shadow-indigo-600/30">
-                                <i class="fas fa-shield-halved"></i>
+                            <div class="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <img src="images/semap_icon.svg" alt="SEMAP Admin" class="w-full h-full object-contain filter drop-shadow-md">
                             </div>
                             <div>
-                                <h2 class="font-black text-sm text-white tracking-tight">Admin Console</h2>
-                                <p class="text-[10px] text-slate-400 font-semibold">SEMAP Control v2.0</p>
+                                <h2 class="font-black text-sm text-white tracking-tight">SEMAP Console</h2>
+                                <p class="text-[10px] text-indigo-300 font-semibold">Intelligence Prism v2.0</p>
                             </div>
                         </div>
 
@@ -3291,9 +3295,9 @@
     <!-- 5. FOOTER -->
     <footer class="bg-white border-t border-slate-200/80 mt-12 py-8 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <div class="flex items-center justify-center gap-2 font-bold text-slate-800">
-                <i class="fas fa-bolt text-indigo-600"></i>
-                <span>SEMAP Azerbaijan</span>
+            <div class="flex items-center justify-center gap-2.5 font-extrabold text-slate-900 text-sm">
+                <img src="images/semap_icon.svg" alt="SEMAP" class="w-6 h-6 object-contain">
+                <span>SEMAP Azerbaijan · Intelligence Prism</span>
             </div>
             <p>Gənclər, Universitetlər və Dövlət üçün Data Əsaslı Karyera və Əmək Bazarı Qərar Dəstəyi Platforması</p>
             <div class="flex items-center justify-center gap-4 text-xs pt-1">
