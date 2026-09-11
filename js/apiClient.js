@@ -1,9 +1,9 @@
 /**
- * SkillMap Azerbaijan - REST API Client (apiClient.js)
+ * SEMAP Azerbaijan - REST API Client (apiClient.js)
  * Connects frontend to backend REST API (http://127.0.0.1:8000/api) with automatic offline fallback.
  */
 
-class SkillMapApiClient {
+class SEMAPApiClient {
     constructor(baseUrl = "http://127.0.0.1:8000/api") {
         this.baseUrl = baseUrl;
         this.isOnline = false;
@@ -19,13 +19,13 @@ class SkillMapApiClient {
             if (res.ok) {
                 const data = await res.json();
                 this.isOnline = true;
-                console.log("[SkillMap API Client] Connected to Backend REST API:", data);
+                console.log("[SEMAP API Client] Connected to Backend REST API:", data);
                 this.updateApiBadge(true);
                 return true;
             }
         } catch (e) {
             this.isOnline = false;
-            console.log("[SkillMap API Client] Backend server offline. Using embedded SkillMapData fallback.");
+            console.log("[SEMAP API Client] Backend server offline. Using embedded SEMAPData fallback.");
             this.updateApiBadge(false);
         }
         return false;
@@ -51,10 +51,10 @@ class SkillMapApiClient {
                 const res = await fetch(`${this.baseUrl}/jobs?${query}`);
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error, falling back to local data:", e);
+                console.warn("[SEMAP API Client] API Error, falling back to local data:", e);
             }
         }
-        const localVacancies = window.SkillMapData ? window.SkillMapData.liveVacancies : [];
+        const localVacancies = (window.SEMAPData || window.SkillMapData) ? (window.SEMAPData || window.SkillMapData).liveVacancies : [];
         return { total: localVacancies.length, jobs: localVacancies };
     }
 
@@ -64,10 +64,10 @@ class SkillMapApiClient {
                 const res = await fetch(`${this.baseUrl}/jobs/${id}`);
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
-        const localVacancies = window.SkillMapData ? window.SkillMapData.liveVacancies : [];
+        const localVacancies = (window.SEMAPData || window.SkillMapData) ? (window.SEMAPData || window.SkillMapData).liveVacancies : [];
         return localVacancies.find(v => v.id === id) || null;
     }
 
@@ -77,10 +77,10 @@ class SkillMapApiClient {
                 const res = await fetch(`${this.baseUrl}/analytics/skills`);
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
-        return window.SkillMapData ? window.SkillMapData.macroMarketStats : null;
+        return (window.SEMAPData || window.SkillMapData) ? (window.SEMAPData || window.SkillMapData).macroMarketStats : null;
     }
 
     async getSkillGapsAnalytics() {
@@ -89,7 +89,7 @@ class SkillMapApiClient {
                 const res = await fetch(`${this.baseUrl}/analytics/skills/gaps`);
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
         return {
@@ -105,10 +105,10 @@ class SkillMapApiClient {
                 const res = await fetch(`${this.baseUrl}/analytics/sectors`);
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
-        return window.SkillMapData ? window.SkillMapData.macroMarketStats.sectorDistribution : [];
+        return (window.SEMAPData || window.SkillMapData) ? (window.SEMAPData || window.SkillMapData).macroMarketStats.sectorDistribution : [];
     }
 
     async calculateSkillGap(roleId, skills) {
@@ -121,7 +121,7 @@ class SkillMapApiClient {
                 });
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
         if (window.app && window.app.engine) {
@@ -140,7 +140,7 @@ class SkillMapApiClient {
                 });
                 if (res.ok) return await res.json();
             } catch (e) {
-                console.warn("[SkillMap API Client] API Error:", e);
+                console.warn("[SEMAP API Client] API Error:", e);
             }
         }
         if (window.app && window.app.nlpSim) {
@@ -151,5 +151,6 @@ class SkillMapApiClient {
 }
 
 if (typeof window !== "undefined") {
-    window.SkillMapApiClient = SkillMapApiClient;
+    window.SEMAPApiClient = SEMAPApiClient;
+window.SkillMapApiClient = SEMAPApiClient;
 }

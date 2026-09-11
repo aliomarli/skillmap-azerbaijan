@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Süni İntellekt Karyera Məsləhətçisi və Müsahibə Simulyatoru (SkillBot AI Pro)
+ * SEMAP Azerbaijan - Süni İntellekt Karyera Məsləhətçisi və Müsahibə Simulyatoru (SkillBot AI Pro)
  * Fərdi tələbə profilini tanıyan, müsahibə sualları verən və karyera qərar dəstəyi göstərən qabaqcıl mühərrik.
  */
 

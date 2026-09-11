@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Skill Passport Vector & Printable Generator (passportExport.js)
+ * SEMAP Azerbaijan - Skill Passport Vector & Printable Generator (passportExport.js)
  * Creates verifiable digital Skill Passport with printable vector styling.
  */
 
@@ -27,7 +27,7 @@ class SkillPassportGenerator {
         <html lang="az">
         <head>
             <meta charset="UTF-8">
-            <title>SkillMap Pasport - ${u.name}</title>
+            <title>SEMAP Pasport - ${u.name}</title>
             <style>
                 @page { size: A4 landscape; margin: 12mm; }
                 body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 90vh; }
@@ -53,7 +53,7 @@ class SkillPassportGenerator {
         <body>
             <div class="passport-card">
                 <div class="header">
-                    <div class="logo">SkillMap <span>Azerbaijan</span></div>
+                    <div class="logo">SEMAP <span>Azerbaijan</span></div>
                     <div class="badge">RƏSMİ RƏQƏMSAL BACARIQ PASPORTU</div>
                 </div>
 

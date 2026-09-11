@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - NLP & Bacarıq Çıxarışı Simulyatoru (nlpSimulator.js)
+ * SEMAP Azerbaijan - NLP & Bacarıq Çıxarışı Simulyatoru (nlpSimulator.js)
  * Vakansiya mətnlərindən avtomatik açar bacarıqların, dillərin və tələblərin çıxarılmasını nümayiş etdirir.
  */
 

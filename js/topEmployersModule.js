@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Top 10 İşəgötürənlər Mühərriki (topEmployersModule.js)
+ * SEMAP Azerbaijan - Top 10 İşəgötürənlər Mühərriki (topEmployersModule.js)
  * 1,132 Əmək Bazarı vakansiyası əsasında ən fəal şirkətlərin analitikası,
  * sektor bölgüsü donut qrafiki, şirkət profili və fərdi bacarıq uyğunluğu.
  */

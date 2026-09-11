@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Professional Enterprise Admin Panel Module (js/adminModule.js)
+ * SEMAP Azerbaijan - Professional Enterprise Admin Panel Module (js/adminModule.js)
  * Implements complete Admin Authentication, Dynamic Firestore Password Sync,
  * Student Lifecycle Management (View, Search, Filter, Promote to Admin, Delete),
  * Real-time Analytics, System Health, and Exporting.
@@ -25,7 +25,7 @@ class AdminModule {
 
     initAdminSession() {
         try {
-            const session = localStorage.getItem("skillmap_admin_session");
+            const session = (localStorage.getItem("semap_admin_session") || localStorage.getItem("skillmap_admin_session"));
             if (session) {
                 const parsed = JSON.parse(session);
                 // Valid for 7 days
@@ -35,7 +35,7 @@ class AdminModule {
                             uid: parsed.uid || "admin_master_uid",
                             id: parsed.uid || "admin_master_uid",
                             name: parsed.name || "Administrator",
-                            email: parsed.email || "admin@skillmap.az",
+                            email: parsed.email || "admin@semap.az",
                             role: "admin"
                         };
                     }
@@ -54,7 +54,7 @@ class AdminModule {
                 const doc = await db.collection("settings").doc("adminConfig").get();
                 if (doc.exists && doc.data() && doc.data().masterPassword) {
                     const pass = doc.data().masterPassword;
-                    localStorage.setItem("skillmap_admin_master_password", pass);
+                    try { localStorage.setItem("skillmap_admin_master_password", pass); } catch(e){} localStorage.setItem("semap_admin_master_password", pass);
                     return pass;
                 }
             } catch (err) {
@@ -63,7 +63,7 @@ class AdminModule {
         }
 
         // 2. Check LocalStorage persistent cache
-        const localPass = localStorage.getItem("skillmap_admin_master_password");
+        const localPass = (localStorage.getItem("semap_admin_master_password") || localStorage.getItem("skillmap_admin_master_password"));
         if (localPass) {
             return localPass;
         }
@@ -75,7 +75,7 @@ class AdminModule {
     isAdminLoggedIn() {
         if (this.currentAdmin) return true;
         try {
-            const s = localStorage.getItem("skillmap_admin_session");
+            const s = (localStorage.getItem("semap_admin_session") || localStorage.getItem("skillmap_admin_session"));
             if (s) return true;
         } catch (e) {}
 
@@ -87,7 +87,7 @@ class AdminModule {
     }
 
     async login(email, password) {
-        const cleanEmail = (email || "admin@skillmap.az").trim().toLowerCase();
+        const cleanEmail = (email || "admin@semap.az").trim().toLowerCase();
         const inputPass = (password || "").trim();
 
         if (!inputPass) {
@@ -110,7 +110,7 @@ class AdminModule {
                 uid: "admin_master_uid",
                 id: "admin_master_uid",
                 name: "Administrator",
-                email: cleanEmail || "admin@skillmap.az",
+                email: cleanEmail || "admin@semap.az",
                 role: "admin"
             };
 
@@ -118,7 +118,7 @@ class AdminModule {
             this.currentAdmin = adminUser;
 
             // Persist session
-            localStorage.setItem("skillmap_admin_session", JSON.stringify({
+            try { localStorage.setItem("skillmap_admin_session", JSON.stringify(sessionData)); } catch(e){} localStorage.setItem("semap_admin_session", JSON.stringify({
                 uid: adminUser.uid,
                 email: adminUser.email,
                 name: adminUser.name,
@@ -144,7 +144,7 @@ class AdminModule {
                     if (window.app && window.app.auth) {
                         window.app.auth.currentUser = userData;
                     }
-                    localStorage.setItem("skillmap_admin_session", JSON.stringify({
+                    try { localStorage.setItem("skillmap_admin_session", JSON.stringify(sessionData)); } catch(e){} localStorage.setItem("semap_admin_session", JSON.stringify({
                         uid: userData.uid,
                         email: userData.email,
                         name: userData.name || "Administrator",
@@ -163,7 +163,7 @@ class AdminModule {
     }
 
     async logout() {
-        localStorage.removeItem("skillmap_admin_session");
+        localStorage.removeItem("semap_admin_session"); localStorage.removeItem("skillmap_admin_session");
         if (window.app && window.app.auth) {
             await window.app.auth.logout();
         }
@@ -193,7 +193,7 @@ class AdminModule {
 
     async handleAdminLoginSubmit(e) {
         if (e) e.preventDefault();
-        const email = document.getElementById("admin-login-email")?.value || "admin@skillmap.az";
+        const email = document.getElementById("admin-login-email")?.value || "admin@semap.az";
         const pass = document.getElementById("admin-login-pass")?.value || "";
         const errEl = document.getElementById("admin-login-err");
 
@@ -211,7 +211,7 @@ class AdminModule {
 
     async handlePageAdminLoginSubmit(e) {
         if (e) e.preventDefault();
-        const email = document.getElementById("admin-page-email")?.value || "admin@skillmap.az";
+        const email = document.getElementById("admin-page-email")?.value || "admin@semap.az";
         const pass = document.getElementById("admin-page-pass")?.value || "";
         const errEl = document.getElementById("admin-page-login-err");
 
@@ -310,7 +310,7 @@ class AdminModule {
                 const r = (u.role || "").toLowerCase();
                 const em = (u.email || "").toLowerCase();
                 const uid = (u.uid || u.id || "").toLowerCase();
-                return r !== "admin" && em !== "admin@skillmap.az" && !uid.includes("admin_master");
+                return r !== "admin" && em !== "admin@semap.az" && em !== "admin@skillmap.az" && !uid.includes("admin_master");
             });
             this.cachedStudents = validStudents.map(doc => ({
                 uid: doc.uid || doc.id,
@@ -1230,7 +1230,7 @@ class AdminModule {
         }
 
         // 1. Save to LocalStorage persistent storage
-        localStorage.setItem("skillmap_admin_master_password", newPass);
+        try { localStorage.setItem("skillmap_admin_master_password", pass); } catch(e){} localStorage.setItem("semap_admin_master_password", newPass);
 
         // 2. Save to Firestore settings collection
         const db = window.firestoreDb || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
@@ -1262,7 +1262,7 @@ class AdminModule {
     exportSystemBackup() {
         const data = {
             exportedAt: new Date().toISOString(),
-            systemVersion: "SkillMap Azerbaijan Admin v2.0 Enterprise",
+            systemVersion: "SEMAP Azerbaijan Admin v2.0 Enterprise",
             studentsCount: (this.cachedStudents || []).length,
             students: this.cachedStudents || []
         };
@@ -1270,7 +1270,7 @@ class AdminModule {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `SkillMap_Real_Students_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+        a.download = `SEMAP_Real_Students_Backup_${new Date().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
         window.app.showToast("Bütün tələbə məlumatları JSON faylı kimi endirildi.", "success");
@@ -1300,7 +1300,7 @@ class AdminModule {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `SkillMap_Students_${new Date().toISOString().slice(0, 10)}.csv`;
+        a.download = `SEMAP_Students_${new Date().toISOString().slice(0, 10)}.csv`;
         a.click();
         URL.revokeObjectURL(url);
         window.app.showToast("Tələbələr cədvəli CSV formatında ixrac olundu.", "success");

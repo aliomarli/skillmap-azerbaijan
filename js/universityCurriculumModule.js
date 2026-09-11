@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - University Curriculum & HR Empirical Verification Module (universityCurriculumModule.js)
+ * SEMAP Azerbaijan - University Curriculum & HR Empirical Verification Module (universityCurriculumModule.js)
  * Features:
  *  1. Course & Syllabus NLP Analysis (BBS extraction, Structural Gap & Content Gap classification)
  *  2. HR / Vacancy Empirical Reality Check (Formal vacancy frequency vs Real workplace necessity 1-5, Inflation index)
@@ -16,8 +16,10 @@ class UniversityCurriculumModule {
         this.chartInstance = null;
 
         // Persistent storage keys
-        this.STORAGE_KEY_COURSES = "skillmap_curriculum_courses_v2";
-        this.STORAGE_KEY_HR_SURVEYS = "skillmap_hr_empirical_surveys_v2";
+        this.STORAGE_KEY_COURSES = "semap_curriculum_courses_v2";
+        this.LEGACY_STORAGE_KEY_COURSES = "skillmap_curriculum_courses_v2";
+        this.STORAGE_KEY_HR_SURVEYS = "semap_hr_empirical_surveys_v2";
+        this.LEGACY_STORAGE_KEY_HR_SURVEYS = "skillmap_hr_empirical_surveys_v2";
 
         this.initDatabases();
     }
@@ -28,7 +30,8 @@ class UniversityCurriculumModule {
     initDatabases() {
         let savedCourses = null;
         try {
-            const raw = localStorage.getItem(this.STORAGE_KEY_COURSES);
+            let raw = localStorage.getItem(this.STORAGE_KEY_COURSES);
+        if (!raw) raw = localStorage.getItem(this.LEGACY_STORAGE_KEY_COURSES);
             if (raw) savedCourses = JSON.parse(raw);
         } catch (e) {
             console.warn("Could not parse saved courses, resetting to seed data:", e);
@@ -43,7 +46,8 @@ class UniversityCurriculumModule {
 
         let savedHRSurveys = null;
         try {
-            const rawHR = localStorage.getItem(this.STORAGE_KEY_HR_SURVEYS);
+            let rawHR = localStorage.getItem(this.STORAGE_KEY_HR_SURVEYS);
+        if (!rawHR) rawHR = localStorage.getItem(this.LEGACY_STORAGE_KEY_HR_SURVEYS);
             if (rawHR) savedHRSurveys = JSON.parse(rawHR);
         } catch (e) {
             console.warn("Could not parse saved HR surveys, resetting to seed data:", e);
@@ -1242,7 +1246,7 @@ class UniversityCurriculumModule {
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `SkillMap_Curriculum_Database_${this.selectedUniversity}_${new Date().toISOString().slice(0, 10)}.csv`;
+        a.download = `SEMAP_Curriculum_Database_${this.selectedUniversity}_${new Date().toISOString().slice(0, 10)}.csv`;
         a.click();
     }
 
@@ -1266,7 +1270,7 @@ class UniversityCurriculumModule {
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `SkillMap_HR_Empirical_Reality_Check_${new Date().toISOString().slice(0, 10)}.csv`;
+        a.download = `SEMAP_HR_Empirical_Reality_Check_${new Date().toISOString().slice(0, 10)}.csv`;
         a.click();
     }
 

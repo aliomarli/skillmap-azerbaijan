@@ -1,4 +1,4 @@
-# 🌐 SkillMap Azerbaijan – Əmək Bazarı və Bacarıq Qərar Dəstəyi Platforması
+# 🌐 SEMAP Azerbaijan – Əmək Bazarı və Bacarıq Qərar Dəstəyi Platforması
 
 > **Layihənin Məqsədi:** Real vakansiya elanlarının və əmək bazarı tələblərinin NLP (Təbii Dil Emalı) ilə təhlili əsasında gənclərin "Skill Gap" boşluqlarını ölçən, fərdiləşdirilmiş karyera tövsiyələri verən, habelə universitet və dövlət qurumları üçün qərar dəstəyi təmin edən rəqəmsal platforma.
 
@@ -7,7 +7,7 @@
 ## 📂 Fayl Strukturu
 
 ```
-skillmap-azerbaijan/
+semap-azerbaijan/ (və ya skillmap-azerbaijan/)
 │
 ├── index.html               # Əsas interfeys (Bütün 7 bölmə, responsive SPA)
 ├── css/
@@ -26,7 +26,7 @@ skillmap-azerbaijan/
 ## 🚀 Saytı Necə İşə Salmaq Olar?
 
 Heç bir mürəkkəb quraşdırmaya və ya kitabxana yükləməyə ehtiyac yoxdur:
-1. `skillmap-azerbaijan` qovluğuna daxil olun.
+1. Layihə qovluğuna daxil olun.
 2. `index.html` faylını iki dəfə klikləyərək istənilən brauzerdə (Chrome, Edge, Firefox, Safari) açın.
 
 ---

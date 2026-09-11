@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Firebase Authentication & Cloud Firestore (js/auth.js)
+ * SEMAP Azerbaijan - Firebase Authentication & Cloud Firestore (js/auth.js)
  * Production-ready persistent authentication, profile storage, and role-based permissions.
  */
 

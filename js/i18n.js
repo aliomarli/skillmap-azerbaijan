@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Complete Dual Language (AZ / EN) Translation Engine
+ * SEMAP Azerbaijan - Complete Dual Language (AZ / EN) Translation Engine
  */
 const I18N_DICTIONARY = {
     az: {
@@ -13,7 +13,7 @@ const I18N_DICTIONARY = {
         "nav_logo_subtitle": "Əmək Bazarı & Bacarıq İntellekti",
 
         // Hero
-        "hero_badge": "SKILLMAP AZERBAIJAN · Professional Karyera & İnsan Kapitalı Platforması",
+        "hero_badge": "SEMAP AZERBAIJAN · Professional Karyera & İnsan Kapitalı Platforması",
         "hero_title_1": "Azərbaycanın Əmək Bazarını və",
         "hero_title_2": "Bacarıqlarını Kəşf Edin",
         "hero_subtitle": "Süni İntellekt əsaslı platformamızla bacarıqlarınızı 1,132 vakansiya tələbləri ilə uyğunlaşdırın və ölkənin aparıcı şirkətlərində karyera imkanlarını kəşf edin.",
@@ -91,7 +91,7 @@ const I18N_DICTIONARY = {
         "nav_logo_subtitle": "Labor Market & Skills Intelligence",
 
         // Hero
-        "hero_badge": "SKILLMAP AZERBAIJAN · Professional Career & Human Capital Platform",
+        "hero_badge": "SEMAP AZERBAIJAN · Professional Career & Human Capital Platform",
         "hero_title_1": "Discover Azerbaijan's Labor Market &",
         "hero_title_2": "In-Demand Skills",
         "hero_subtitle": "Match your skills with 1,132 vacancy requirements using AI and discover career opportunities across leading companies.",
@@ -196,7 +196,7 @@ function applyI18nLanguage(lang) {
     }
 
     try {
-        localStorage.setItem("skillmap_lang", lang);
+        localStorage.setItem("semap_lang", lang); try { localStorage.setItem("skillmap_lang", lang); } catch(e){}
     } catch(e) {}
 }
 

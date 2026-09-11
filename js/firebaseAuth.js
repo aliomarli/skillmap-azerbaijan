@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Firebase Authentication & Data Sync (js/firebaseAuth.js)
+ * SEMAP Azerbaijan - Firebase Authentication & Data Sync (js/firebaseAuth.js)
  * Enterprise-grade, resilient dual-layer sync with Cloud Firestore & persistent local student registry.
  * Strictly isolates student registries from admin accounts.
  */
@@ -21,13 +21,13 @@ function isUserAdmin(u) {
     const email = (u.email || "").toLowerCase();
     const uid = (u.uid || u.id || "").toLowerCase();
     const name = (u.name || "").toLowerCase();
-    return role === "admin" || email === "admin@skillmap.az" || uid.includes("admin") || name === "administrator";
+    return role === "admin" || (email === "admin@semap.az" || email === "admin@skillmap.az") || uid.includes("admin") || name === "administrator";
 }
 
 // Local registry helper functions
 function getLocalRegisteredStudents() {
     try {
-        const raw = localStorage.getItem("skillmap_registered_students");
+        const raw = localStorage.getItem("semap_registered_students") || localStorage.getItem("skillmap_registered_students");
         if (raw) {
             const parsed = JSON.parse(raw);
             if (Array.isArray(parsed)) {
@@ -54,7 +54,7 @@ function saveStudentToLocalRegistry(userDoc) {
         } else {
             list.unshift(userDoc);
         }
-        localStorage.setItem("skillmap_registered_students", JSON.stringify(list));
+        try { localStorage.setItem("skillmap_registered_students", JSON.stringify(list)); } catch(e){} localStorage.setItem("semap_registered_students", JSON.stringify(list));
     } catch (e) {
         console.warn("Error saving student to local registry:", e);
     }
@@ -69,7 +69,7 @@ function removeStudentFromLocalRegistry(userIdOrEmail) {
             const email = (s.email || "").toLowerCase();
             return uid !== target && email !== target;
         });
-        localStorage.setItem("skillmap_registered_students", JSON.stringify(filtered));
+        try { localStorage.setItem("skillmap_registered_students", JSON.stringify(filtered)); } catch(e){} localStorage.setItem("semap_registered_students", JSON.stringify(filtered));
     } catch (e) {
         console.warn("Error removing student from local registry:", e);
     }
@@ -390,7 +390,7 @@ async function firebaseGetAllUsers() {
 
     // Save cleaned student list back to local storage
     try {
-        localStorage.setItem("skillmap_registered_students", JSON.stringify(mergedUsers));
+        try { localStorage.setItem("skillmap_registered_students", JSON.stringify(mergedUsers)); } catch(e){} localStorage.setItem("semap_registered_students", JSON.stringify(mergedUsers));
     } catch (e) {}
 
     console.log(`Total aggregated students loaded: ${mergedUsers.length}`);

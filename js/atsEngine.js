@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - ATS CV Analysis & Target Role Evaluator (atsEngine.js)
+ * SEMAP Azerbaijan - ATS CV Analysis & Target Role Evaluator (atsEngine.js)
  * Evaluates CV ATS readiness (0-100) and compares keywords against real Jobsearch.az vacancies.
  */
 

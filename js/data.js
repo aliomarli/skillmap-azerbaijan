@@ -1,4 +1,4 @@
-window.SkillMapData = {
+window.SEMAPData = window.SkillMapData = {
     "skillDictionary": {
         "sql": {
             "id": "sql",
@@ -12852,7 +12852,7 @@ window.SkillMapData = {
 
     "methodologySources": {
         "lastUpdated": "Avqust 2026",
-        "version": "SkillMap NLP Pipeline v2.0 (Jobsearch.az n=420)",
+        "version": "SEMAP NLP Pipeline v2.0 (Jobsearch.az n=420)",
         "sampleSize": 420,
         "confidenceIndex": "Pilot / Sınaq Mərhələsi (n=420)",
         "primarySources": [
@@ -14498,7 +14498,7 @@ window.SkillMapData = {
 
 };
 
-var SkillMapData = window.SkillMapData;
+var SkillMapData = window.SEMAPData = window.SkillMapData;
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = window.SkillMapData;

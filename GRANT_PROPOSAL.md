@@ -1,10 +1,10 @@
 # 📄 QRANT LAYİHƏSİ TƏKLİFİ (GRANT PROPOSAL)
 
 **Layihənin Adı:**  
-«SkillMap Azerbaijan: Əmək Bazarının Real Məlumatları Əsasında Gənclərin Bacarıq Uyğunluğunun Qiymətləndirilməsi və Rəqəmsal Karyera Qərar Dəstəyi Platforması»
+«SEMAP Azerbaijan: Əmək Bazarının Real Məlumatları Əsasında Gənclərin Bacarıq Uyğunluğunun Qiymətləndirilməsi və Rəqəmsal Karyera Qərar Dəstəyi Platforması»
 
 **İngiliscə Adı:**  
-*«SkillMap Azerbaijan: Data-Driven Labour Market Intelligence & Skill Gap Decision Support Platform for Youth and Higher Education»*
+*«SEMAP Azerbaijan: Data-Driven Labour Market Intelligence & Skill Gap Decision Support Platform for Youth and Higher Education»*
 
 ---
 
@@ -12,7 +12,7 @@
 
 Müasir əmək bazarında ali təhsil müəssisələrinin tədris proqramları ilə işəgötürənlərin real tələbləri arasında nəzərəçarpacaq dərəcədə bacarıq uyğunsuzluğu (**Skill Gap**) mövcuddur. Gənclər hansı bacarıqların bazarda daha çox tələb olunduğunu dəqiq bilmir, universitetlər kurrikulumları bazar tələbatına çevik uyğunlaşdıra bilmir, dövlət qurumları isə məşğulluq siyasətini planlaşdırarkən real vaxt rejimli bacarıq analitikasına ehtiyac duyur.
 
-**SkillMap Azerbaijan** layihəsi açıq əmək bazarı məlumatlarını və işəgötürənlərin vakansiya tələblərini **Təbii Dil Emalı (NLP)** vasitəsilə emal edən, dinamik **Bacarıq Taksonomiyası** quran və tələbələrə fərdiləşdirilmiş karyera inkişaf tövsiyələri verən innovativ rəqəmsal intellekt platformasıdır.
+**SEMAP Azerbaijan** layihəsi açıq əmək bazarı məlumatlarını və işəgötürənlərin vakansiya tələblərini **Təbii Dil Emalı (NLP)** vasitəsilə emal edən, dinamik **Bacarıq Taksonomiyası** quran və tələbələrə fərdiləşdirilmiş karyera inkişaf tövsiyələri verən innovativ rəqəmsal intellekt platformasıdır.
 
 ---
 
@@ -74,7 +74,7 @@ Layihə 4 əsas texnoloji təbəqə üzərində qurulur:
 ## 6. 📅 İcra Planı və Mərhələlər (12 Aylıq Yol Xəritəsi)
 
 - **Mərhələ 1 (1–3-cü aylar):** Data strategiyasının icrası, ilkin 5 000 vakansiyanın toplanması və NLP Taksonomiyasının təkmilləşdirilməsi.
-- **Mərhələ 2 (4–6-cı aylar):** SkillMap veb platformasının tam backend və frontend inteqrasiyası, universitetlərlə pilot sınaqların başlanması.
+- **Mərhələ 2 (4–6-cı aylar):** SEMAP veb platformasının tam backend və frontend inteqrasiyası, universitetlərlə pilot sınaqların başlanması.
 - **Mərhələ 3 (7–9-cu aylar):** 3 000 tələbə arasında kütləvi "Skill Gap" qiymətləndirmə kampaniyasının və karyera seminarlarının keçirilməsi.
 - **Mərhələ 4 (10–12-ci aylar):** İllik «Azərbaycan Əmək Bazarı və Bacarıq Barometri – 2026» hesabatının dərci və layihənin yekun təqdimatı.
 

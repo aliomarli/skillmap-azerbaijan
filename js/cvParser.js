@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Professional Robust CV Parser Engine
+ * SEMAP Azerbaijan - Professional Robust CV Parser Engine
  * Line-preserving PDF.js text extraction with accurate entity detection:
  * - Line-by-line Candidate Email extraction (strictly ignoring any emails in References)
  * - Date-range based Experience calculation ("08/2024 – present" -> 2026 - 2024 = 2 years)

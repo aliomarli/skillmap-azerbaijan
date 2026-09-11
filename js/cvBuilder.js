@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - ATS-Friendly Clean CV Builder (cvBuilder.js)
+ * SEMAP Azerbaijan - ATS-Friendly Clean CV Builder (cvBuilder.js)
  * Generates single-column ATS-standard CVs in Azerbaijani and English from confirmed user data.
  */
 

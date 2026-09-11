@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Fullscreen Live Animated Wallpaper Engine (js/heroWallpaper.js)
+ * SEMAP Azerbaijan - Fullscreen Live Animated Wallpaper Engine (js/heroWallpaper.js)
  * High-performance 60fps Canvas engine: Volumetric Sunbeams, Moving Clouds Shimmer & Interactive Crystal Sparks.
  */
 

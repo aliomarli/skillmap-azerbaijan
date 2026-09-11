@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Bakı və Regionlar İnteraktiv Əmək Xəritəsi Modulu (mapModule.js)
+ * SEMAP Azerbaijan - Bakı və Regionlar İnteraktiv Əmək Xəritəsi Modulu (mapModule.js)
  */
 
 class MapModule {

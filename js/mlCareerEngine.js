@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - ML Career Orientation & Skill Recommendation Engine (mlCareerEngine.js)
+ * SEMAP Azerbaijan - ML Career Orientation & Skill Recommendation Engine (mlCareerEngine.js)
  * Real-time NLP skill extraction and multi-dimensional machine learning career orientation model
  * Trained against 1,100+ Azerbaijan labor market vacancies (Jobsearch.az & Glorri.az)
  */
@@ -496,7 +496,7 @@ class MLCareerOrientationEngine {
     }
 }
 
-// Global instantiation for use across SkillMap application
+// Global instantiation for use across SEMAP application
 if (typeof window !== "undefined") {
     window.MLCareerOrientationEngine = MLCareerOrientationEngine;
     window.mlCareerEngine = new MLCareerOrientationEngine();

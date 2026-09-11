@@ -1,5 +1,5 @@
 /**
- * SkillMap Azerbaijan - Career Match & Skill Gap Methodology (skillGapEngine.js)
+ * SEMAP Azerbaijan - Career Match & Skill Gap Methodology (skillGapEngine.js)
  * Phase 2 — Refined Multi-Dimensional Career Match & Skill Gap Engine
  *
  * Concept Dimensions for each Skill:
@@ -648,5 +648,5 @@ class SkillGapEngine {
 }
 
 if (typeof window !== "undefined") {
-    window.SkillMapEngine = SkillGapEngine;
+    window.SEMAPEngine = window.SkillMapEngine = SkillGapEngine;
 }

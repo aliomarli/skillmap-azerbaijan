@@ -238,11 +238,12 @@ function mergeGlorriDataSync() {
     try {
         if (typeof window !== 'undefined' && window.GlorriVacanciesData && Array.isArray(window.GlorriVacanciesData)) {
             const glorriJobs = window.GlorriVacanciesData;
-            if (!window.SkillMapData) window.SkillMapData = {};
-            if (!Array.isArray(window.SkillMapData.liveVacancies)) window.SkillMapData.liveVacancies = [];
+            if (!window.SEMAPData) window.SEMAPData = window.SkillMapData || {};
+            window.SkillMapData = window.SEMAPData;
+            if (!Array.isArray(window.SEMAPData.liveVacancies)) window.SEMAPData.liveVacancies = [];
             
             // Filter out any unwanted Çayçı vacancy or old duplicates
-            window.SkillMapData.liveVacancies = window.SkillMapData.liveVacancies.filter(v => {
+            window.SEMAPData.liveVacancies = window.SEMAPData.liveVacancies.filter(v => {
                 const title = (v.title || v.job_title || "").toLowerCase();
                 const id = String(v.id || "");
                 if (title === "çayçı" || id === "149043") return false;
@@ -272,7 +273,7 @@ function mergeGlorriDataSync() {
             }));
             
             const combined = [
-                ...window.SkillMapData.liveVacancies,
+                ...window.SEMAPData.liveVacancies,
                 ...formatted
             ];
             
@@ -282,7 +283,7 @@ function mergeGlorriDataSync() {
                 return timeB - timeA;
             });
             
-            window.SkillMapData.liveVacancies = combined;
+            window.SEMAPData.liveVacancies = combined;
             return true;
         }
     } catch (e) {
@@ -312,7 +313,7 @@ async function loadGlorriData() {
 }
 window.loadGlorriData = loadGlorriData;
 
-class SkillMapApp {
+class SEMAPApp {
     setLanguage(lang) {
         this.currentLang = lang;
         if (typeof window.applyI18nLanguage === "function") {
@@ -328,9 +329,9 @@ class SkillMapApp {
 
     constructor() {
         mergeGlorriDataSync();
-        this.data = (typeof window !== "undefined" && window.SkillMapData) 
-            ? window.SkillMapData 
-            : (typeof SkillMapData !== "undefined" ? SkillMapData : {});
+        this.data = (typeof window !== "undefined" && window.SEMAPData) 
+            ? window.SEMAPData 
+            : ((typeof window !== "undefined" && window.SkillMapData) ? window.SkillMapData : {});
         this.auth = new AuthManager();
         this.engine = new SkillGapEngine(this.data);
         this.topEmployersModule = typeof TopEmployersModule !== "undefined" ? new TopEmployersModule(this.data) : null;
@@ -352,7 +353,7 @@ class SkillMapApp {
         this.charts = {};
 
         let savedLang = 'az';
-        try { savedLang = localStorage.getItem('skillmap_lang') || 'az'; } catch(e) {}
+        try { savedLang = (localStorage.getItem('semap_lang') || localStorage.getItem('skillmap_lang')) || 'az'; } catch(e) {}
         this.currentLang = savedLang;
         if (typeof window.applyI18nLanguage === 'function') window.applyI18nLanguage(this.currentLang);
         this.init();
@@ -811,7 +812,7 @@ class SkillMapApp {
     renderVacancyAnalytics() {
         const stats = (this.data && this.data.macroMarketStats) 
             ? this.data.macroMarketStats 
-            : ((typeof window !== "undefined" && window.SkillMapData && window.SkillMapData.macroMarketStats) ? window.SkillMapData.macroMarketStats : {});
+            : ((typeof window !== "undefined" && window.SEMAPData && window.SEMAPData.macroMarketStats) ? window.SEMAPData.macroMarketStats : {});
 
         // 1. Kart 1: Azərbaycan Əmək Bazarında Top 8 Bacarıq (% Tələb) - Real Data Progress Bar List
         const topSkillsList = document.getElementById("top-skills-progress-list");
@@ -2057,7 +2058,7 @@ class SkillMapApp {
                 title: "Skill Passport və ATS-Uyğun CV ilə İş Müraciətləri",
                 duration: "Davamlı",
                 type: "Karyera İnteqrasiyası",
-                resources: ["SkillMap Digital Passport PDF", "ATS-Friendly CV Builder", "Jobsearch.az Açıq Vakansiyaları"],
+                resources: ["SEMAP Digital Passport PDF", "ATS-Friendly CV Builder", "Jobsearch.az Açıq Vakansiyaları"],
                 desc: "Tamamladığınız bacarıqları təsdiqləyin, rəsmi pasportunuzu endirin və ən yüksək uyğunluqlu vakansiyalara müraciət edin."
             }
         ];
@@ -2108,7 +2109,7 @@ class SkillMapApp {
                             <i class="fas fa-bolt"></i>
                         </div>
                         <div>
-                            <div class="font-black text-slate-900 text-base">SkillMap Azerbaijan</div>
+                            <div class="font-black text-slate-900 text-base">SEMAP Azerbaijan</div>
                             <div class="text-[11px] text-slate-500 uppercase tracking-wider font-bold">Rəsmi Rəqəmsal Bacarıq Pasportu</div>
                         </div>
                     </div>
@@ -2729,10 +2730,10 @@ class SkillMapApp {
     }
 
     showToast(msg) {
-        let toast = document.getElementById("skillmap-live-toast");
+        let toast = document.getElementById("semap-live-toast") || document.getElementById("skillmap-live-toast");
         if (!toast) {
             toast = document.createElement("div");
-            toast.id = "skillmap-live-toast";
+            toast.id = "semap-live-toast";
             toast.className = "fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white text-xs font-bold shadow-2xl flex items-center gap-2 border border-slate-700 transition-all transform duration-300 opacity-0 translate-y-4";
             document.body.appendChild(toast);
         }
@@ -3366,7 +3367,7 @@ class SkillMapApp {
             const tabFromState = event.state && event.state.tab;
             const tabFromHash = window.location.hash.replace(/^#/, "");
             let tabFromSession = null;
-            try { tabFromSession = sessionStorage.getItem("skillmap_active_tab"); } catch (e) {}
+            try { tabFromSession = (sessionStorage.getItem("semap_active_tab") || sessionStorage.getItem("skillmap_active_tab")); } catch (e) {}
             const targetTab = tabFromState || tabFromHash || tabFromSession || "overview";
             if (validTabs.includes(targetTab)) {
                 this.switchTab(targetTab, false);
@@ -3393,7 +3394,7 @@ class SkillMapApp {
         const initialHash = window.location.hash.replace(/^#/, "");
         let initialTab = initialHash;
         if (!initialTab) {
-            try { initialTab = sessionStorage.getItem("skillmap_active_tab"); } catch (e) {}
+            try { initialTab = (sessionStorage.getItem("semap_active_tab") || sessionStorage.getItem("skillmap_active_tab")); } catch (e) {}
         }
 
         if (initialTab && validTabs.includes(initialTab)) {
@@ -3452,7 +3453,7 @@ class SkillMapApp {
         }
 
         try {
-            sessionStorage.setItem("skillmap_active_tab", tabId);
+            sessionStorage.setItem("semap_active_tab", tabId); try { sessionStorage.setItem("skillmap_active_tab", tabId); } catch(e){}
         } catch (e) {}
 
         const activeBtns = document.querySelectorAll(`[data-tab-btn="${tabId}"]`);
@@ -3491,10 +3492,10 @@ class SkillMapApp {
 
         if (tabId === "live-vacancies") {
             let savedSubTab = "jobs";
-            try { savedSubTab = sessionStorage.getItem("skillmap_vac_subtab") || "jobs"; } catch (e) {}
+            try { savedSubTab = (sessionStorage.getItem("semap_vac_subtab") || sessionStorage.getItem("skillmap_vac_subtab")) || "jobs"; } catch (e) {}
             this.switchVacSubTab(savedSubTab);
 
-            // Clean any accidental password-manager autofilled credential like admin@skillmap.az
+            // Clean any accidental password-manager autofilled credential like admin@semap.az
             const searchInput = document.getElementById("vacancy-search-input");
             if (searchInput && !searchInput.dataset.userTyped && searchInput.value && searchInput.value.includes("@")) {
                 searchInput.value = "";
@@ -3838,7 +3839,7 @@ class SkillMapApp {
                             </div>
                             <p class="text-slate-600 leading-relaxed">${rec.actionPlan || 'Bazar tələbini ödəmək üçün bu bacarığı artırın.'}</p>
                             <div class="pt-1 text-[11px] text-indigo-700 font-semibold flex items-center gap-1">
-                                <i class="fas fa-graduation-cap"></i>Resurs: <span>${rec.resource || 'SkillMap Pulsuz Təlimlər'}</span>
+                                <i class="fas fa-graduation-cap"></i>Resurs: <span>${rec.resource || 'SEMAP Pulsuz Təlimlər'}</span>
                             </div>
                         </div>
                     `;
@@ -4011,7 +4012,7 @@ class SkillMapApp {
 
     switchVacSubTab(tab) {
         this.currentVacSubTab = tab;
-        try { sessionStorage.setItem("skillmap_vac_subtab", tab); } catch (e) {}
+        try { sessionStorage.setItem("semap_vac_subtab", tab); try { sessionStorage.setItem("skillmap_vac_subtab", tab); } catch(e){} } catch (e) {}
         const jobsBtn = document.getElementById("vac-subtab-btn-jobs");
         const internshipsBtn = document.getElementById("vac-subtab-btn-internships");
         const jobsView = document.getElementById("vac-subview-jobs");
@@ -4236,7 +4237,7 @@ class SkillMapApp {
 
         if (!this.bookmarkedVacancies) {
             try {
-                this.bookmarkedVacancies = JSON.parse(localStorage.getItem("skillmap_bookmarked_vacs") || "[]");
+                this.bookmarkedVacancies = JSON.parse((localStorage.getItem("semap_bookmarked_vacs") || localStorage.getItem("skillmap_bookmarked_vacs")) || "[]");
             } catch(e) {
                 this.bookmarkedVacancies = [];
             }
@@ -4345,7 +4346,7 @@ class SkillMapApp {
     toggleBookmarkVacancy(vacId) {
         if (!this.bookmarkedVacancies) {
             try {
-                this.bookmarkedVacancies = JSON.parse(localStorage.getItem("skillmap_bookmarked_vacs") || "[]");
+                this.bookmarkedVacancies = JSON.parse((localStorage.getItem("semap_bookmarked_vacs") || localStorage.getItem("skillmap_bookmarked_vacs")) || "[]");
             } catch(e) {
                 this.bookmarkedVacancies = [];
             }
@@ -4359,7 +4360,7 @@ class SkillMapApp {
             if (this.showToast) this.showToast("✓ Vakansiya yadda saxlandı!");
         }
         try {
-            localStorage.setItem("skillmap_bookmarked_vacs", JSON.stringify(this.bookmarkedVacancies));
+            try { localStorage.setItem("skillmap_bookmarked_vacs", JSON.stringify(this.bookmarkedVacancies)); } catch(e){} localStorage.setItem("semap_bookmarked_vacs", JSON.stringify(this.bookmarkedVacancies));
         } catch(e) {}
         this.renderLiveVacancies();
     }
@@ -4471,7 +4472,7 @@ class SkillMapApp {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.data, null, 2));
         const dlAnchor = document.createElement('a');
         dlAnchor.setAttribute("href", dataStr);
-        dlAnchor.setAttribute("download", "skillmap_azerbaijan_data.json");
+        dlAnchor.setAttribute("download", "semap_azerbaijan_data.json");
         dlAnchor.click();
     }
 
@@ -4486,7 +4487,7 @@ class SkillMapApp {
             this.nlpSim = new NLPSimulator(this.data);
 
             let savedLang = 'az';
-        try { savedLang = localStorage.getItem('skillmap_lang') || 'az'; } catch(e) {}
+        try { savedLang = (localStorage.getItem('semap_lang') || localStorage.getItem('skillmap_lang')) || 'az'; } catch(e) {}
         this.currentLang = savedLang;
         if (typeof window.applyI18nLanguage === 'function') window.applyI18nLanguage(this.currentLang);
         this.init();
@@ -4498,21 +4499,24 @@ class SkillMapApp {
     }
 }
 
-function initSkillMapApp() {
-    if (!window.app || !(window.app instanceof SkillMapApp)) {
+function initSEMAPApp() {
+    if (!window.app || !(window.app instanceof SEMAPApp)) {
         try {
-            window.app = new SkillMapApp();
+            window.app = new SEMAPApp();
+        window.SkillMapApp = SEMAPApp;
             window.appInstance = window.app;
         } catch (err) {
-            console.error("Critical error instantiating SkillMapApp:", err);
+            console.error("Critical error instantiating SEMAPApp:", err);
         }
     }
 }
 
 if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSkillMapApp);
+    document.addEventListener("DOMContentLoaded", initSEMAPApp);
+window.initSkillMapApp = initSEMAPApp;
+window.initSEMAPApp = initSEMAPApp;
 } else {
-    initSkillMapApp();
+    initSEMAPApp();
 }
 
 window.switchTab = function(tabId) {
